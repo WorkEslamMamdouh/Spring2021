@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 <style>
+
+    .modal-dialog {
+        width: 58% !important;
+    }
+
+
     .class_btn_drop {
         background-color: #c8c8c8;
         padding: 6px 10px 2px 10px;
@@ -60,65 +66,65 @@
 
                         <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer textcentr_pading">@SystemResource.App_indebtedness</label>
                         <div class="col-lg-2 col-xs-8">
-                            <select id="txt_indebtedness" name="" class="form-control  text_Display"> 
+                            <select id="txt_indebtedness" name="" class="form-control  text_Display">
                                 <option value="All">@SystemResource.App_All</option>
                                 @*<option value=">"> @SystemResource.App_an_indebtedness </option>*@
-                                <option value=">">@SystemResource.App_He_Owes_Him </option> 
+                                <option value=">">@SystemResource.App_He_Owes_Him </option>
                                 @*<option value="=">@SystemResource.App_Zero </option>*@
                             </select>
                         </div>
-                      
- 
+
+
 
                         <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer textcentr_pading">@SystemResource.App_Type</label>
                         <div class="col-lg-2 col-xs-8">
                             <select id="txt_ID_APP_Type" name="" class="form-control  text_Display">
-                                <option value="Null">  @SystemResource.App_Type </option>                                
+                                <option value="Null">  @SystemResource.App_Type </option>
                                 <option value="1">@SystemResource.App_Cash</option>
-                                <option value="0">@SystemResource.App_Doubted</option> 
+                                <option value="0">@SystemResource.App_Doubted</option>
                             </select>
                         </div>
                         <div class="col-lg-2 col-xs-8">
 
                         </div>
 
-                            <div class="col-lg-3 col-xs-8">
-                                <button type="button" class="btn btn-info" id="btnShow">
-                                    @SystemResource.App_Show   <span class="glyphicon glyphicon-save "></span>
+                        <div class="col-lg-3 col-xs-8">
+                            <button type="button" class="btn btn-info" id="btnShow">
+                                @SystemResource.App_Show   <span class="glyphicon glyphicon-save "></span>
+                            </button>
+                            <button type="button" class="btn btn-success" id="btnAdd">
+                                @SystemResource.App_Add  <span class="glyphicon glyphicon-plus-sign"></span>
+                            </button>
+
+                            <div class="btn-group">
+                                <label type="button" class="btn btn-warning">@SystemResource.App_Print</label>
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-hand-down"></span>
                                 </button>
-                                <button type="button" class="btn btn-success" id="btnAdd">
-                                    @SystemResource.App_Add  <span class="glyphicon glyphicon-plus-sign"></span>
-                                </button>
-
-                                <div class="btn-group">
-                                    <label type="button" class="btn btn-warning">@SystemResource.App_Print</label>
-                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                        <span class="glyphicon glyphicon-hand-down"></span>
-                                    </button>
-                                    <div class="dropdown-menu" role="menu" style="border-radius:15px">
-                                        <div class="col-lg-12">
-                                            <button style="width:100%" id="btnPrint" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>           @SystemResource.App_Print    </button>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <button style="width:100%" id="btnPrintTrview" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>  @SystemResource.Print_Report      </button>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <button style="width:100%" id="btnPrintTrPDF" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span>   @SystemResource.Download_PDF     </button>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <button style="width:100%" id="btnPrintTrEXEL" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span> @SystemResource.Download_EXCEL   </button>
-                                        </div>
-
+                                <div class="dropdown-menu" role="menu" style="border-radius:15px">
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrint" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>           @SystemResource.App_Print    </button>
                                     </div>
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrintTrview" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>  @SystemResource.Print_Report      </button>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrintTrPDF" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span>   @SystemResource.Download_PDF     </button>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrintTrEXEL" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span> @SystemResource.Download_EXCEL   </button>
+                                    </div>
+
                                 </div>
-
-
                             </div>
 
+
                         </div>
-                    <div class="col-lg-12"> 
-                       
+
+                    </div>
+                    <div class="col-lg-12">
+
                     </div>
                     <div id="id_ReportGrid" class="col-lg-12  margingred  borderred " style="display: none;">
                         <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
@@ -209,7 +215,7 @@
 
                     </div>
 
-                  
+
 
                     <div class="col-lg-12 ">
 
@@ -225,9 +231,9 @@
                         <div class="col-lg-3 col-xs-8">
                             <input id="txtADDRES1" disabled name="CUSTOMER_ADDRES" type="text" class="form-control  text_Display" placeholder="العنوان 1 ">
                         </div>
-                        
-                     
- 
+
+
+
                     </div>
                     <div class="col-lg-12 ">
 
@@ -236,20 +242,20 @@
                             <input id="txt_Email" name="EMAIL" disabled type="email" class="form-control  text_Display" placeholder="@SystemResource.Email ">
                         </div>
 
-                        
+
                     </div>
                     <div class="col-lg-12">
                         <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">    @SystemResource.App_Notes </label>
                         <div class="col-lg-6 col-xs-8">
                             <textarea id="txt_note" disabled name="REMARKS" type="text" class="form-control   " placeholder="@SystemResource.App_Notes"></textarea>
                         </div>
-                         
+
 
                     </div>
 
 
 
-                    
+
                     <div id="div_Balance" class="col-lg-12 ">
                         <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer ">   @SystemResource.App_openBalance </label>
                         <div class="col-lg-2 col-xs-8">
@@ -271,7 +277,7 @@
 
                         <label class=" display_none col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer ">@SystemResource.App_CreditLimit</label>
                         <div class="col-lg-2 col-xs-8">
-                            <input id="txt_CreditLimit"  disabled name="" type="number" class="display_none form-control  text_Display" placeholder=" @SystemResource.App_CreditLimit ">
+                            <input id="txt_CreditLimit" disabled name="" type="number" class="display_none form-control  text_Display" placeholder=" @SystemResource.App_CreditLimit ">
                         </div>
 
 
@@ -279,12 +285,54 @@
                     </div>
 
                 </div>
-           
+
 
             </div>
         </div>
     </div>
-</div>
+
+    <div id="DivShow" class="col-lg-12 " style="border: solid 4px;border-radius: 44px;background: linear-gradient(to right, rgb(253 211 213) 0%, #8babed 100%);  ">
+        <div id=" " class="col-lg-12 font_header" style="bottom: 5px;font-weight:bold!important">
+            <br />
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-1 p-0 ">
+                <span class="">@SystemResource.serial</span>
+            </div> 
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <span class="">الصـنـــف</span>
+            </div> 
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" style="margin-right: 2%;">
+                <span class="">  الوحده  </span>
+            </div> 
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
+                <span class="">السعر</span>
+            </div>
+
+            <div class="">
+
+                <div class="col-lg-12">
+                    <div class="  " id="div_Data">
+                    </div>
+                    <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign  " style="font-size: 36px;"></span>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-2 marginstenig pading_lep  pading_2  "> @SystemResource.App_ItemsCount</label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-4">
+                <input type="text" class="form-control input-sm" disabled name="Line_Count" id="txtItemCount">
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-2 marginstenig pading_lep  pading_2 display_none  ">@SystemResource.App_PackageCount	</label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-4">
+                <input type="text" class="form-control input-sm display_none" disabled name="Tot_Qty" id="txtPackageCount">
+            </div>
+        </div>
+
+    </div>
 
 <script>
     $('#lepnotifications').on('click', function () {

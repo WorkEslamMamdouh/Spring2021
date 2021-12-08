@@ -213,7 +213,7 @@ namespace CustomerOrder {
     
     //------------------------------------------------------ Buttons Region------------------------
     function btnSave_onclick() {
-        if (!SysSession.CurrentPrivileges.AddNew) return;
+
         if (!ValidationHeader()) return;
 
         var CanAdd: boolean = true;
@@ -300,8 +300,7 @@ namespace CustomerOrder {
         $("#cotrolDiv").addClass("disabledDiv");
 
         Show = false;
-        NewAdd = true;
-        //chkActive.disabled = !SysSession.CurrentPrivileges.CUSTOM1;
+        NewAdd = true; 
         $('#txtCreatedBy').prop("value", SysSession.CurrentEnvironment.UserCode);
         $('#txtCreatedAt').prop("value", DateTimeFormat(Date().toString()));
 
@@ -412,7 +411,7 @@ namespace CustomerOrder {
             let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
             NumCnt = cnt;
             var Storeid =1
-            sys.ShowItems(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, () => {
+            sys.ShowItemsCust(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, () => {
                 let id = sysInternal_Comm.Itemid;
                 debugger
                 if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val()))) return
@@ -784,8 +783,7 @@ namespace CustomerOrder {
         }
         return true;
     }
-    function DeleteRow(RecNo: number) {
-        if (!SysSession.CurrentPrivileges.Remove) return;
+    function DeleteRow(RecNo: number) { 
         WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", () => {
             $("#txt_StatusFlag" + RecNo).val() == 'i' ? $("#txt_StatusFlag" + RecNo).val('m') : $("#txt_StatusFlag" + RecNo).val('d');
             CountItems = CountItems - 1;
@@ -810,8 +808,7 @@ namespace CustomerOrder {
         //    return false
         //}
 
-        
-        if (!SysSession.CurrentPrivileges.AddNew) return;
+         
         var CanAdd: boolean = true;
         if (CountGrid > 0) {
             for (var i = 0; i < CountGrid; i++) {
@@ -1156,7 +1153,7 @@ namespace CustomerOrder {
          
         Ajax.Callsync({
             type: "POST",
-            url: sys.apiUrl("SlsTrSales", "InsertInvoiceMasterDetail"),
+            url: sys.apiUrl("SlsTrSales", "InsertCustomerOrderDetail"),
             data: JSON.stringify(MasterDetailsModel),
             success: (d) => {
                 let result = d as BaseResponse;

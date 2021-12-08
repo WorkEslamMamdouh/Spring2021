@@ -15,6 +15,8 @@ using System.Data.Entity;
 using Inv.DAL.Repository;
 using Newtonsoft.Json;
 using Inv.API.Models;
+using API.Models.CustomModel;
+using Inv.BLL.Services.I_Item_Cust;
 
 namespace API.Controllers
 {
@@ -23,10 +25,12 @@ namespace API.Controllers
     {
 
         private readonly ICustomerServices CustomerServices;
+        private readonly II_Item_CustService I_Item_CustService;
 
-        public CustomerController(ICustomerServices _ICustomerServices)
+        public CustomerController(ICustomerServices _ICustomerServices, II_Item_CustService _II_Item_CustService)
         {
             CustomerServices = _ICustomerServices;
+            I_Item_CustService = _II_Item_CustService;
 
         }
 
@@ -157,16 +161,19 @@ namespace API.Controllers
 
         //***************asmaa********************//
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult UpdateCustlist(List<CUSTOMER> CUSTOMERList)
+        public IHttpActionResult UpdateCustlist([FromBody]CustomerMasterDetails CUSTOMERList)
         {
 
 
 
             try
             {
-                var insertedRecords = CUSTOMERList.Where(x => x.StatusFlag == 'i').ToList();
-                var updatedRecords = CUSTOMERList.Where(x => x.StatusFlag == 'u').ToList();
-                var deletedRecords = CUSTOMERList.Where(x => x.StatusFlag == 'd').ToList();
+                CUSTOMER CUSTOMERListNew;
+                int CUSTOMER_ID = 0;
+
+                var insertedRecords = CUSTOMERList.CUSTOMER.Where(x => x.StatusFlag == 'i').ToList();
+                var updatedRecords = CUSTOMERList.CUSTOMER.Where(x => x.StatusFlag == 'u').ToList();
+                var deletedRecords = CUSTOMERList.CUSTOMER.Where(x => x.StatusFlag == 'd').ToList();
                 ResponseResult res = new ResponseResult();
                 //loop insered 
                 if (insertedRecords.Count > 0)
@@ -178,7 +185,9 @@ namespace API.Controllers
                         string quer = "insert_Outlet 'رصيد للعميل "+ item.CUSTOMER_NAME+ "', " + item.Openbalance + ", '" + item.UserCode + "', 'رصيد عميل'";
                         var Outlet = db.Database.SqlQuery<decimal>(quer);
                         var InsertedRec = CustomerServices.Insert(item);
-                        return Ok(new BaseResponse(InsertedRec.CUSTOMER_ID));
+                        CUSTOMERListNew = InsertedRec;
+                        CUSTOMER_ID = CUSTOMERListNew.CUSTOMER_ID;
+                        //return Ok(new BaseResponse(InsertedRec.CUSTOMER_ID));
                     }
 
                 }
@@ -190,10 +199,46 @@ namespace API.Controllers
                     foreach (var item in updatedRecords)
                     {
                         var updatedRec = CustomerServices.Update(item);
-                        return Ok(new BaseResponse(updatedRec.CUSTOMER_ID));
+                        CUSTOMERListNew = updatedRec;
+                        CUSTOMER_ID = CUSTOMERListNew.CUSTOMER_ID;
+                        //return Ok(new BaseResponse(updatedRec.CUSTOMER_ID));
                     }
 
                 }
+
+
+                var insertedRecordsItem = CUSTOMERList.I_Item_Customer.Where(x => x.StatusFlag == 'i').ToList();
+                var updatedRecordsItem = CUSTOMERList.I_Item_Customer.Where(x => x.StatusFlag == 'u').ToList();
+                var deletedRecordsItem = CUSTOMERList.I_Item_Customer.Where(x => x.StatusFlag == 'd').ToList();
+
+
+
+
+                //loop insered  
+                foreach (var item in insertedRecordsItem)
+                {
+                    item.CUSTOMER_ID = CUSTOMER_ID;
+                    var InsertedRec = I_Item_CustService.Insert(item);
+                }
+
+                //loop Update  
+                foreach (var item in updatedRecordsItem)
+                { 
+                    item.CUSTOMER_ID = CUSTOMER_ID;
+                    var updatedRec = I_Item_CustService.Update(item);
+                }
+
+                //loop Delete  
+                foreach (var item in deletedRecordsItem)
+                {
+                    int deletedId = item.Id;
+                    item.CUSTOMER_ID = CUSTOMER_ID;
+                    I_Item_CustService.Delete(deletedId);
+                }
+
+
+
+                return Ok(new BaseResponse(CUSTOMER_ID));
 
                 //var ID_CUSTOMER = CustomerServices.GetAll(x => x.PHONE == CUSTOMERList[0].PHONE).ToList();
 

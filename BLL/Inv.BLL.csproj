@@ -86,6 +86,8 @@
     <Compile Include="Services\PurInvoiceItems\PurTRReceiveItemsService.cs" />
     <Compile Include="Services\PurTRCharges\IPurTRChargesService.cs" />
     <Compile Include="Services\PurTRCharges\PurTRChargesService.cs" />
+    <Compile Include="Services\I_Item_Cust\II_Item_CustService.cs" />
+    <Compile Include="Services\I_Item_Cust\I_Item_CustService.cs" />
     <Compile Include="Services\PurTrReceive\IPurTrReceiveService.cs" />
     <Compile Include="Services\PurTrReceive\PurTrReceiveService.cs" />
     <Compile Include="Services\SlsInvoiceItems\ISlsInvoiceItemsService.cs" />

@@ -10657,3 +10657,43 @@ class UnitGroup extends SecurityClass {
     public I_D_UnitGroupUom: Array<I_D_UnitGroupUom>;
 
 }
+
+
+class I_Item_Customer {
+    constructor() {
+        this.Id = 0;
+        this.CUSTOMER_ID = 0;
+        this.ItemID = 0;
+        this.Serial = 0;
+        this.Unitprice = 0;
+        this.ItemCode = "";
+        this.DescA = "";
+        this.DescL = "";
+        this.UomID = 0;
+        this.STATUS = false; 
+        this.Statusflag = "";
+    }
+    public Id: number;
+    public CUSTOMER_ID: number;
+    public ItemID: number;
+    public Serial: number;
+    public Unitprice: number;
+    public ItemCode: string;
+    public DescA: string;
+    public DescL: string;
+    public UomID: number;
+    public STATUS: boolean;
+    public Statusflag: string;
+}
+
+class CustomerMasterDetails extends SecurityClass {
+    constructor() {
+        super(); 
+        this.CUSTOMER = new Array<CUSTOMER>();
+        this.I_Item_Customer = new Array<I_Item_Customer>();
+    } 
+    public CUSTOMER: Array<CUSTOMER>;
+    public I_Item_Customer: Array<I_Item_Customer>;
+
+
+}

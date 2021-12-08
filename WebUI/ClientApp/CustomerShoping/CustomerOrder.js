@@ -151,8 +151,6 @@ var CustomerOrder;
     //------------------------------------------------------ Events Region------------------------
     //------------------------------------------------------ Buttons Region------------------------
     function btnSave_onclick() {
-        if (!SysSession.CurrentPrivileges.AddNew)
-            return;
         if (!ValidationHeader())
             return;
         var CanAdd = true;
@@ -214,7 +212,6 @@ var CustomerOrder;
         $("#cotrolDiv").addClass("disabledDiv");
         Show = false;
         NewAdd = true;
-        //chkActive.disabled = !SysSession.CurrentPrivileges.CUSTOM1;
         $('#txtCreatedBy').prop("value", SysSession.CurrentEnvironment.UserCode);
         $('#txtCreatedAt').prop("value", DateTimeFormat(Date().toString()));
         //SysSession.CurrentEnvironment.UserType == 2 || SysSession.CurrentEnvironment.UserType == 3 ? ($('#ddlCashBox').prop('selectedIndex', 1), $("#Div_Money").removeClass("display_none")) : $('#ddlCashBox').prop('selectedIndex', 0); $('#ddlCashBox').attr('disabled', 'disabled');
@@ -284,7 +281,7 @@ var CustomerOrder;
             var GetItemInfo = new Array();
             NumCnt = cnt;
             var Storeid = 1;
-            sys.ShowItems(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, function () {
+            sys.ShowItemsCust(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, function () {
                 var id = sysInternal_Comm.Itemid;
                 debugger;
                 if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val())))
@@ -564,8 +561,6 @@ var CustomerOrder;
         return true;
     }
     function DeleteRow(RecNo) {
-        if (!SysSession.CurrentPrivileges.Remove)
-            return;
         WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", function () {
             $("#txt_StatusFlag" + RecNo).val() == 'i' ? $("#txt_StatusFlag" + RecNo).val('m') : $("#txt_StatusFlag" + RecNo).val('d');
             CountItems = CountItems - 1;
@@ -586,8 +581,6 @@ var CustomerOrder;
         //    Errorinput(btnCustomerSrch);
         //    return false
         //}
-        if (!SysSession.CurrentPrivileges.AddNew)
-            return;
         var CanAdd = true;
         if (CountGrid > 0) {
             for (var i = 0; i < CountGrid; i++) {
@@ -880,7 +873,7 @@ var CustomerOrder;
         InvoiceModel.InvoiceID = 0;
         Ajax.Callsync({
             type: "POST",
-            url: sys.apiUrl("SlsTrSales", "InsertInvoiceMasterDetail"),
+            url: sys.apiUrl("SlsTrSales", "InsertCustomerOrderDetail"),
             data: JSON.stringify(MasterDetailsModel),
             success: function (d) {
                 var result = d;

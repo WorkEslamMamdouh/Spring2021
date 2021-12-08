@@ -827,7 +827,7 @@
           <Property Name="VatPrc" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.HIJRA_CONVERT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="HIJRA_CONVERT">
           <Key>
             <PropertyRef Name="HYEAR" />
@@ -1026,6 +1026,21 @@ warning 6002: The table/view 'Stores2021.dbo.HIJRA_CONVERT' does not have a prim
           <Property Name="LastBarCodeSeq" Type="int" />
           <Property Name="BarCodePrefix" Type="nvarchar" MaxLength="10" />
           <Property Name="FirstYear" Type="int" />
+        </EntityType>
+        <EntityType Name="I_Item_Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CUSTOMER_ID" Type="int" />
+          <Property Name="ItemID" Type="int" />
+          <Property Name="Serial" Type="int" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="DescL" Type="nvarchar" MaxLength="100" />
+          <Property Name="Unitprice" Type="money" />
+          <Property Name="UomID" Type="int" />
+          <Property Name="STATUS" Type="bit" />
         </EntityType>
         <EntityType Name="I_ItemBatch">
           <Key>
@@ -1554,7 +1569,7 @@ warning 6002: The table/view 'Stores2021.dbo.HIJRA_CONVERT' does not have a prim
           <Property Name="PRODUCT_PRICE" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.AQVAT_GetService' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.AQVAT_GetService' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AQVAT_GetService">
           <Key>
             <PropertyRef Name="Itemid" />
@@ -1591,7 +1606,7 @@ warning 6002: The table/view 'Stores2021.dbo.AQVAT_GetService' does not have a p
           <Property Name="Expr1" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.AQVAT_GetSlsInvoiceItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.AQVAT_GetSlsInvoiceItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AQVAT_GetSlsInvoiceItem">
           <Key>
             <PropertyRef Name="InvoiceItemID" />
@@ -1651,7 +1666,7 @@ warning 6002: The table/view 'Stores2021.dbo.AQVAT_GetSlsInvoiceItem' does not h
           <Property Name="CAT_CODE" Type="nvarchar" MaxLength="8" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.AQVAT_GetSrvCategory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.AQVAT_GetSrvCategory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AQVAT_GetSrvCategory">
           <Key>
             <PropertyRef Name="SrvCategoryID" />
@@ -1687,7 +1702,7 @@ warning 6002: The table/view 'Stores2021.dbo.AQVAT_GetSrvCategory' does not have
           <Property Name="Dis_Acc_DescE" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.AQVat_Srch_VatPurchaseHeader' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.AQVat_Srch_VatPurchaseHeader' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AQVat_Srch_VatPurchaseHeader">
           <Key>
             <PropertyRef Name="InvoiceHeaderID" />
@@ -1709,7 +1724,7 @@ warning 6002: The table/view 'Stores2021.dbo.AQVat_Srch_VatPurchaseHeader' does 
           <Property Name="CompCode" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_GetStore' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_GetStore' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_GetStore">
           <Key>
             <PropertyRef Name="StoreId" />
@@ -1738,10 +1753,9 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_GetStore' does not have a primar
           <Property Name="BRA_DESCL" Type="nvarchar" MaxLength="100" />
           <Property Name="ACC_DESCA" Type="nvarchar" MaxLength="100" />
           <Property Name="ACC_DESCL" Type="nvarchar" MaxLength="100" />
-          <Property Name="CommissionPRC" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserBarnchAccess' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_GetUserBarnchAccess' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_GetUserBarnchAccess">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -1766,7 +1780,7 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserBarnchAccess' does not ha
           <Property Name="PRINT" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_GetUserBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_GetUserBranch">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -1781,7 +1795,7 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserBranch' does not have a p
           <Property Name="BRA_DESC" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserModule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_GetUserModule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_GetUserModule">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -1857,7 +1871,7 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserModule' does not have a p
           <Property Name="M_images_enabled" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_GetUserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_GetUserRole">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -1873,7 +1887,7 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_GetUserRole' does not have a pri
           <Property Name="IsShowable" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_GetUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_GetUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_GetUsers">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -1915,7 +1929,7 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_GetUsers' does not have a primar
           <Property Name="StoreID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_Notifications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_Notifications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_Notifications">
           <Key>
             <PropertyRef Name="SYSTEM_CODE" />
@@ -1938,7 +1952,7 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_Notifications' does not have a p
           <Property Name="FIN_YEAR" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.GQ_ReportWebSetting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.GQ_ReportWebSetting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GQ_ReportWebSetting">
           <Key>
             <PropertyRef Name="ReportSettingID" />
@@ -1972,7 +1986,7 @@ warning 6002: The table/view 'Stores2021.dbo.GQ_ReportWebSetting' does not have 
           <Property Name="OutputType" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.I_VW_GetCompStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.I_VW_GetCompStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="I_VW_GetCompStatus">
           <Key>
             <PropertyRef Name="CompCode" />
@@ -1986,7 +2000,7 @@ warning 6002: The table/view 'Stores2021.dbo.I_VW_GetCompStatus' does not have a
           <Property Name="LoginMsg" Type="varchar" MaxLength="106" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_Catch_Receipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Catch_Receipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_Catch_Receipt">
           <Key>
             <PropertyRef Name="ID_Receipt" />
@@ -2019,7 +2033,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_Catch_Receipt' does not have a p
           <Property Name="USER_ACTIVE" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemCategory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetItemCategory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetItemCategory">
           <Key>
             <PropertyRef Name="CatID" />
@@ -2062,7 +2076,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemCategory' does not have a
           <Property Name="VatPrc" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemStore' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetItemStore' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetItemStore">
           <Key>
             <PropertyRef Name="ItemStoreID" />
@@ -2100,7 +2114,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemStore' does not have a pr
           <Property Name="BRA_CODE" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemStoreInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetItemStoreInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetItemStoreInfo">
           <Key>
             <PropertyRef Name="ItemID" />
@@ -2152,7 +2166,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemStoreInfo' does not have 
           <Property Name="Expr1" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemYearUom' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetItemYearUom' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetItemYearUom">
           <Key>
             <PropertyRef Name="ItemYearUomID" />
@@ -2176,7 +2190,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetItemYearUom' does not have a 
           <Property Name="IsStock" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetPurReceiveItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetPurReceiveItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetPurReceiveItem">
           <Key>
             <PropertyRef Name="ReciveDetailsID" />
@@ -2220,7 +2234,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetPurReceiveItem' does not have
           <Property Name="RecUnitPriceFC" Type="numeric" Precision="18" Scale="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetSalesMan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetSalesMan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetSalesMan">
           <Key>
             <PropertyRef Name="SalesmanId" />
@@ -2258,7 +2272,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetSalesMan' does not have a pri
           <Property Name="CC_DESCE" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetSlsInvoiceItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetSlsInvoiceItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetSlsInvoiceItem">
           <Key>
             <PropertyRef Name="InvoiceItemID" />
@@ -2323,7 +2337,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetSlsInvoiceItem' does not have
           <Property Name="NetUnitPriceWithVat" Type="numeric" Precision="18" Scale="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetSlsInvoiceList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetSlsInvoiceList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetSlsInvoiceList">
           <Key>
             <PropertyRef Name="InvoiceID" />
@@ -2420,7 +2434,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetSlsInvoiceList' does not have
           <Property Name="NAMEE" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_GetSlsInvoiceStatistic' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetSlsInvoiceStatistic' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_GetSlsInvoiceStatistic">
           <Key>
             <PropertyRef Name="InvoiceID" />
@@ -2524,7 +2538,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_GetSlsInvoiceStatistic' does not
           <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_Outlet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Outlet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_Outlet">
           <Key>
             <PropertyRef Name="id" />
@@ -2541,7 +2555,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_Outlet' does not have a primary 
           <Property Name="Num_Day" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_Purchases_Details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Purchases_Details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_Purchases_Details">
           <Key>
             <PropertyRef Name="ID" />
@@ -2562,7 +2576,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_Purchases_Details' does not have
           <Property Name="PRODUCT_QET" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.IQ_Purchases_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Purchases_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_Purchases_Master">
           <Key>
             <PropertyRef Name="TrNo" />
@@ -2583,7 +2597,7 @@ warning 6002: The table/view 'Stores2021.dbo.IQ_Purchases_Master' does not have 
           <Property Name="ReceiveID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReviewSalesItemInfo">
           <Key>
             <PropertyRef Name="ID_DELIVERY" />
@@ -2601,7 +2615,7 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesItemInfo' does not have 
           <Property Name="PRODUCT_ID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReviewSalesMaster">
           <Key>
             <PropertyRef Name="ID_ORDER_Delivery" />
@@ -3153,6 +3167,7 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
           <EntitySet Name="I_G_ItemType" EntityType="Self.I_G_ItemType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="I_G_StockMethods" EntityType="Self.I_G_StockMethods" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="I_Item" EntityType="Self.I_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="I_Item_Customer" EntityType="Self.I_Item_Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="I_ItemBatch" EntityType="Self.I_ItemBatch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="I_ItemFamily" EntityType="Self.I_ItemFamily" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="I_ItemSpecsValue" EntityType="Self.I_ItemSpecsValue" Schema="dbo" store:Type="Tables" />
@@ -3351,8 +3366,7 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
     [GQ_GetStore].[BRA_DESC] AS [BRA_DESC], 
     [GQ_GetStore].[BRA_DESCL] AS [BRA_DESCL], 
     [GQ_GetStore].[ACC_DESCA] AS [ACC_DESCA], 
-    [GQ_GetStore].[ACC_DESCL] AS [ACC_DESCL], 
-    [GQ_GetStore].[CommissionPRC] AS [CommissionPRC]
+    [GQ_GetStore].[ACC_DESCL] AS [ACC_DESCL]
     FROM [dbo].[GQ_GetStore] AS [GQ_GetStore]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="GQ_GetUserBarnchAccess" EntityType="Self.GQ_GetUserBarnchAccess" store:Type="Views" store:Schema="dbo">
@@ -5551,7 +5565,6 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
           <EntitySet Name="Purchases_Master" EntityType="POS2021Model.Purchases_Master" />
           <EntitySet Name="IQ_Purchases_Master" EntityType="POS2021Model.IQ_Purchases_Master" />
           <EntitySet Name="G_STORE" EntityType="POS2021Model.G_STORE" />
-          <EntitySet Name="GQ_GetStore" EntityType="POS2021Model.GQ_GetStore" />
           <FunctionImport Name="IProc_Prnt_SlsInvoice" ReturnType="Collection(POS2021Model.IProc_Prnt_SlsInvoice_Result)">
             <Parameter Name="comp" Mode="In" Type="Int32" />
             <Parameter Name="bra" Mode="In" Type="Int32" />
@@ -5563,6 +5576,8 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
             <Parameter Name="RepType" Mode="In" Type="Int32" />
             <Parameter Name="TRId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="GQ_GetStore" EntityType="POS2021Model.GQ_GetStore" />
+          <EntitySet Name="I_Item_Customer" EntityType="POS2021Model.I_Item_Customer" />
         </EntityContainer>
         <ComplexType Name="Get_Settings_Report_Result">
           <Property Type="Int32" Name="ID_Report" Nullable="false" />
@@ -7408,36 +7423,6 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CommissionPRC" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
-        <EntityType Name="GQ_GetStore">
-          <Key>
-            <PropertyRef Name="StoreId" />
-          </Key>
-          <Property Name="StoreId" Type="Int32" Nullable="false" />
-          <Property Name="BranchId" Type="Int32" />
-          <Property Name="COMP_CODE" Type="Int32" />
-          <Property Name="BRA_CODE" Type="Int32" />
-          <Property Name="STORE_CODE" Type="Int32" />
-          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="StockAccCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tel1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Tel2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="STORE_TYPE" Type="Byte" />
-          <Property Name="TYPE_CODE" Type="Byte" />
-          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BRA_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BRA_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ACC_DESCA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ACC_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CommissionPRC" Type="Decimal" Precision="18" Scale="0" />
-        </EntityType>
         <ComplexType Name="IProc_Prnt_SlsInvoice_Result">
           <Property Type="Int32" Name="Comp" Nullable="true" />
           <Property Type="Int32" Name="Bra" Nullable="true" />
@@ -7524,6 +7509,50 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
           <Property Type="String" Name="Op_RefNo" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="iv_Commission" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
+        <EntityType Name="GQ_GetStore">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="COMP_CODE" Type="Int32" />
+          <Property Name="BRA_CODE" Type="Int32" />
+          <Property Name="STORE_CODE" Type="Int32" />
+          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="StockAccCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="STORE_TYPE" Type="Byte" />
+          <Property Name="TYPE_CODE" Type="Byte" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BRA_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BRA_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACC_DESCA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACC_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="I_Item_Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CUSTOMER_ID" Type="Int32" />
+          <Property Name="ItemID" Type="Int32" />
+          <Property Name="Serial" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Unitprice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UomID" Type="Int32" />
+          <Property Name="STATUS" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10537,37 +10566,6 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GQ_GetStore">
-            <EntityTypeMapping TypeName="POS2021Model.GQ_GetStore">
-              <MappingFragment StoreEntitySet="GQ_GetStore">
-                <ScalarProperty Name="CommissionPRC" ColumnName="CommissionPRC" />
-                <ScalarProperty Name="ACC_DESCL" ColumnName="ACC_DESCL" />
-                <ScalarProperty Name="ACC_DESCA" ColumnName="ACC_DESCA" />
-                <ScalarProperty Name="BRA_DESCL" ColumnName="BRA_DESCL" />
-                <ScalarProperty Name="BRA_DESC" ColumnName="BRA_DESC" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="TYPE_CODE" ColumnName="TYPE_CODE" />
-                <ScalarProperty Name="STORE_TYPE" ColumnName="STORE_TYPE" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
-                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
-                <ScalarProperty Name="StockAccCode" ColumnName="StockAccCode" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="DescL" ColumnName="DescL" />
-                <ScalarProperty Name="DescA" ColumnName="DescA" />
-                <ScalarProperty Name="STORE_CODE" ColumnName="STORE_CODE" />
-                <ScalarProperty Name="BRA_CODE" ColumnName="BRA_CODE" />
-                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="IProc_Prnt_SlsInvoice" FunctionName="POS2021Model.Store.IProc_Prnt_SlsInvoice">
             <ResultMapping>
               <ComplexTypeMapping TypeName="POS2021Model.IProc_Prnt_SlsInvoice_Result">
@@ -10658,6 +10656,52 @@ warning 6002: The table/view 'Stores2021.dbo.ReviewSalesMaster' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="GQ_GetStore">
+            <EntityTypeMapping TypeName="POS2021Model.GQ_GetStore">
+              <MappingFragment StoreEntitySet="GQ_GetStore">
+                <ScalarProperty Name="ACC_DESCL" ColumnName="ACC_DESCL" />
+                <ScalarProperty Name="ACC_DESCA" ColumnName="ACC_DESCA" />
+                <ScalarProperty Name="BRA_DESCL" ColumnName="BRA_DESCL" />
+                <ScalarProperty Name="BRA_DESC" ColumnName="BRA_DESC" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="TYPE_CODE" ColumnName="TYPE_CODE" />
+                <ScalarProperty Name="STORE_TYPE" ColumnName="STORE_TYPE" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+                <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+                <ScalarProperty Name="StockAccCode" ColumnName="StockAccCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DescL" ColumnName="DescL" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="STORE_CODE" ColumnName="STORE_CODE" />
+                <ScalarProperty Name="BRA_CODE" ColumnName="BRA_CODE" />
+                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="I_Item_Customer">
+            <EntityTypeMapping TypeName="POS2021Model.I_Item_Customer">
+              <MappingFragment StoreEntitySet="I_Item_Customer">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="UomID" ColumnName="UomID" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="DescL" ColumnName="DescL" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

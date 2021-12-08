@@ -301,6 +301,7 @@
     <Compile Include="Models\CustomModel\PurchasesMasterDetails.cs" />
     <Compile Include="Models\CustomModel\PurInvoiceMasterDetails.cs" />
     <Compile Include="Models\CustomModel\SlsInvoiceMasterDetails.cs" />
+    <Compile Include="Models\CustomModel\CustomerMasterDetails.cs" />
     <Compile Include="Models\CustomModel\SlsMasterDetails.cs" />
     <Compile Include="Models\ResponseResult.cs" />
     <Compile Include="Models\SessionRecord.cs" />

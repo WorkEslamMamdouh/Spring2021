@@ -1053,5 +1053,59 @@ namespace Inv.API.Controllers
             return BadRequest(ModelState);
         }
 
+
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult InsertCustomerOrderDetail([FromBody] SlsInvoiceMasterDetails obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+
+
+
+
+
+                    // doha 4-7-2021 GUID and QR Code
+                    string st = SystemToolsController.GenerateGuid();
+                    obj.I_Sls_TR_Invoice.DocUUID = st;
+
+                    var tm = DateTime.Now.ToString("HH:mm:ss");
+                    obj.I_Sls_TR_Invoice.TrTime = TimeSpan.Parse(tm);
+                     
+
+                    var Sls_TR_Invoice = SlsTrSalesService.Insert(obj.I_Sls_TR_Invoice);
+
+                    for (int i = 0; i < obj.I_Sls_TR_InvoiceItems.Count; i++)
+                    {
+                        obj.I_Sls_TR_InvoiceItems[i].InvoiceID = Sls_TR_Invoice.InvoiceID;
+                    }
+                    SlsInvoiceItemsService.InsertLst(obj.I_Sls_TR_InvoiceItems);
+                    // call process trans 
+
+                    ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.I_Sls_TR_Invoice.CompCode), Convert.ToInt32(obj.I_Sls_TR_Invoice.BranchCode), Sls_TR_Invoice.InvoiceID, "SlsInvoice", "Add", db);
+                    if (res.ResponseState == true)
+                    {
+                        obj.I_Sls_TR_Invoice.TrNo = int.Parse(res.ResponseData.ToString());
+                        dbTransaction.Commit();
+                        return Ok(new BaseResponse(obj.I_Sls_TR_Invoice));
+                    }
+                    else
+                    {
+                        dbTransaction.Rollback();
+                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                    }
+                    ////////
+                }
+                catch (Exception ex)
+                {
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+
+        }
+
+
     }
 }

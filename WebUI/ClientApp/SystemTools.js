@@ -464,8 +464,10 @@ var SystemTools = /** @class */ (function () {
         var _this = this;
         debugger;
         $('#Popupitem').modal('show');
-        $('#Likedesc').val(Desc);
-        $('#Likecode').val(Code);
+        //$('#Likedesc').val(Desc);
+        //$('#Likecode').val(Code);
+        $('#Likedesc').val('');
+        $('#Likecode').val('');
         $('#drpcontaindesc').val('1');
         $('#drpcontaincode').val('1');
         var divpopupGrid = new JsGrid();
@@ -593,13 +595,13 @@ var SystemTools = /** @class */ (function () {
                         divpopupGrid.SelectedIndex = 1;
                         divpopupGrid.OnRowDoubleClicked = function () {
                             var OnHand = Details.filter(function (x) { return x.ItemID == Number(divpopupGrid.SelectedKey); });
-                            if (Mode != 3) {
-                                if (OnHand[0].StoreQty == 0) {
-                                    DisplayMassage("الصنف لا يوجد له كميه في المستودع", "Item found before", MessageType.Error);
-                                    $('#Popupitem').modal('hide');
-                                    return false;
-                                }
-                            }
+                            //if (Mode != 3) {
+                            //    if (OnHand[0].StoreQty == 0) {
+                            //        DisplayMassage("الصنف لا يوجد له كميه في المستودع", "Item found before", MessageType.Error);
+                            //        $('#Popupitem').modal('hide');
+                            //        return false
+                            //    }
+                            //}
                             sysInternal_Comm.Itemid = Number(divpopupGrid.SelectedKey);
                             OnSearchSelected();
                             $('#Popupitem').modal('hide');
@@ -653,14 +655,14 @@ var SystemTools = /** @class */ (function () {
                     divpopupGrid.Inserting = false;
                     divpopupGrid.SelectedIndex = 1;
                     divpopupGrid.OnRowDoubleClicked = function () {
-                        var OnHand = Details.filter(function (x) { return x.ItemID == Number(divpopupGrid.SelectedKey); });
-                        if (Mode != 3) {
-                            if (OnHand[0].StoreQty == 0) {
-                                DisplayMassage("الصنف لا يوجد له كميه في المستودع", "Item found before", MessageType.Error);
-                                $('#Popupitem').modal('hide');
-                                return false;
-                            }
-                        }
+                        //var OnHand = Details.filter(x => x.ItemID == Number(divpopupGrid.SelectedKey))
+                        //if (Mode != 3) {
+                        //    if (OnHand[0].StoreQty == 0) {
+                        //        DisplayMassage("الصنف لا يوجد له كميه في المستودع", "Item found before", MessageType.Error);
+                        //        $('#Popupitem').modal('hide');
+                        //        return false
+                        //    }
+                        //}
                         sysInternal_Comm.Itemid = Number(divpopupGrid.SelectedKey);
                         OnSearchSelected();
                         $('#Popupitem').modal('hide');
@@ -677,6 +679,217 @@ var SystemTools = /** @class */ (function () {
                         //{ title: 'الكمية في الشركة ', name: "CompQty", type: "text", width: "13%" },
                         //{ title: 'الكمية  في الفرع ', name: "BranchQty", type: "text", width: "13%" },
                         { title: 'الكمية  في المستودع ', name: "StoreQty", type: "text", width: "10%" },
+                    ];
+                    divpopupGrid.DataSource = Details;
+                    divpopupGrid.Bind();
+                    $('#divGridShow').removeClass('display_none');
+                }
+            }
+        });
+        //---------------------------------------------------------------------------------
+    };
+    SystemTools.prototype.ShowItemsCust = function (BranchCode, Storeid, Desc, Code, Mode, OnSearchSelected) {
+        var _this = this;
+        debugger;
+        $('#Popupitem').modal('show');
+        $('#Likedesc').val(Desc);
+        $('#Likecode').val(Code);
+        $('#drpcontaindesc').val('1');
+        $('#drpcontaincode').val('1');
+        var divpopupGrid = new JsGrid();
+        var Details = new Array();
+        var SearchDetails = new Array();
+        var FamilyDetails = new Array();
+        var Display_ItemFamilynew = new Array();
+        var detailunitgrp = new Array();
+        var CategoryDetails = new Array();
+        var lang = this.SysSession.CurrentEnvironment.ScreenLanguage;
+        Ajax.Callsync({
+            type: "Get",
+            url: this.apiUrl("StkDefCategory", "GetAll"),
+            data: {
+                CompCode: this.SysSession.CurrentEnvironment.CompCode, UserCode: this.SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + this.SysSession.CurrentEnvironment.Token
+            },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    CategoryDetails = result.Response;
+                    $('#drpPaymentType').html('');
+                    $('#drpPaymentType').append('<option value="' + 0 + '"> ' + (lang == "ar" ? " اختر الفئة " : "Choose Category") + '</option>');
+                    for (var i = 0; i < CategoryDetails.length; i++) {
+                        $('#drpPaymentType').append('<option value="' + CategoryDetails[i].CatID + '">' + (lang == "ar" ? CategoryDetails[i].DescA : CategoryDetails[i].DescL) + '</option>');
+                    }
+                }
+            }
+        });
+        Ajax.Callsync({
+            type: "Get",
+            url: this.apiUrl("I_D_UnitGroup", "GetAllUnitGroup"),
+            data: {
+                CompCode: this.SysSession.CurrentEnvironment.CompCode, UserCode: this.SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + this.SysSession.CurrentEnvironment.Token
+            },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    detailunitgrp = result.Response;
+                    $('#drp_UnitGroup').html('');
+                    $('#drp_UnitGroup').append('<option value="' + 0 + '"> ' + (lang == "ar" ? " اختر مجموعة الوحدة " : "Choose Unit Group") + '</option>');
+                    for (var i = 0; i < detailunitgrp.length; i++) {
+                        $('#drp_UnitGroup').append('<option value="' + detailunitgrp[i].UnitGrpID + '">' + (lang == "ar" ? detailunitgrp[i].DescA : detailunitgrp[i].DescE) + '</option>');
+                    }
+                }
+            }
+        });
+        Ajax.Callsync({
+            type: "Get",
+            url: this.apiUrl("StkDefItemType", "GetAll"),
+            data: {
+                CompCode: this.SysSession.CurrentEnvironment.CompCode, UserCode: this.SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + this.SysSession.CurrentEnvironment.Token
+            },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    FamilyDetails = result.Response;
+                    $('#drpitem_family').html('');
+                    $('#drpitem_family').append('<option value="0"> ' + (lang == "ar" ? " اختر النوع " : "Choose Type") + '</option>');
+                    for (var i = 0; i < FamilyDetails.length; i++) {
+                        $('#drpitem_family').append('<option value="' + FamilyDetails[i].ItemFamilyID + '">' + (lang == "ar" ? FamilyDetails[i].DescA : FamilyDetails[i].DescL) + '</option>');
+                    }
+                }
+            }
+        });
+        //-------------------------------------------------------------------------------
+        var btnsrePopup;
+        var drpPaymentType;
+        var Text_ItemSearch;
+        btnsrePopup = document.getElementById("btnsrePopup");
+        drpPaymentType = document.getElementById("drpPaymentType");
+        Text_ItemSearch = document.getElementById("txtSearch");
+        Text_ItemSearch.onkeyup = function () {
+            debugger;
+            if (Text_ItemSearch.value != "") {
+                var search_2 = Text_ItemSearch.value.toLowerCase();
+                SearchDetails = Details.filter(function (x) { return x.ItemCode.toLowerCase().search(search_2) >= 0 || x.DescA.toString().toLowerCase().search(search_2) >= 0
+                    || x.DescL.toLowerCase().search(search_2) >= 0 || x.cat_DescA.toLowerCase().search(search_2) >= 0
+                    || x.Cat_DescE.toLowerCase().search(search_2) >= 0 || x.fm_DescA.toLowerCase().search(search_2) >= 0
+                    || x.uom_DescA.toString().search(search_2) >= 0 || x.Uom_DescE.search(search_2) >= 0
+                    || x.BranchQty.toString().search(search_2) >= 0 || x.CompQty.toString().search(search_2) >= 0; });
+                divpopupGrid.DataSource = SearchDetails;
+                divpopupGrid.Bind();
+            }
+            else {
+                divpopupGrid.DataSource = Details;
+                divpopupGrid.Bind();
+            }
+        };
+        drpPaymentType.onchange = function () {
+            $('#drpitem_family').html('');
+            $('#drpitem_family').append('<option value="0"> ' + (lang == "ar" ? " اختر النوع " : "Choose Type") + '</option>');
+            var CatID = $('#drpPaymentType').val();
+            Display_ItemFamilynew = FamilyDetails.filter(function (x) { return x.CatID == Number(CatID); });
+            for (var i = 0; i < Display_ItemFamilynew.length; i++) {
+                $('#drpitem_family').append('<option value="' + Display_ItemFamilynew[i].ItemFamilyID + '">' + (lang == "ar" ? Display_ItemFamilynew[i].DescA : Display_ItemFamilynew[i].DescL) + '</option>');
+            }
+        };
+        btnsrePopup.onclick = function () {
+            var catId = $('#drpPaymentType').val();
+            var ItemFamilyID = $('#drpitem_family').val();
+            var uomgrpid = $('#drp_UnitGroup').val();
+            var qtytype = Number($('#drp_Qty').val());
+            var LikeDesc = $('#Likedesc').val();
+            var LikeCode = $('#Likecode').val();
+            var containdesc = $('#drpcontaindesc').val();
+            var containcode = $('#drpcontaincode').val();
+            Ajax.Callsync({
+                type: "Get",
+                url: _this.apiUrl("StkDefItems", "GetAll_Item_Proc"),
+                data: {
+                    CompCode: _this.SysSession.CurrentEnvironment.CompCode, FinYear: _this.SysSession.CurrentEnvironment.CurrentYear, Branch: BranchCode, storeCode: Storeid, catid: catId, ItemFamilyID: ItemFamilyID, uomgrpid: uomgrpid, qtytype: qtytype, LikeDesc: LikeDesc, LikeCode: LikeCode, containdesc: containdesc, containcode: containcode, UserCode: _this.SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + _this.SysSession.CurrentEnvironment.Token
+                },
+                success: function (d) {
+                    var result = d;
+                    if (result.IsSuccess) {
+                        Details = result.Response;
+                        var res = GetResourceList("");
+                        divpopupGrid.ElementName = "divpopupGrid";
+                        divpopupGrid.Paging = true;
+                        divpopupGrid.PageSize = 10;
+                        divpopupGrid.Sorting = true;
+                        divpopupGrid.InsertionMode = JsGridInsertionMode.Binding;
+                        divpopupGrid.Editing = false;
+                        divpopupGrid.Inserting = false;
+                        divpopupGrid.SelectedIndex = 1;
+                        divpopupGrid.OnRowDoubleClicked = function () {
+                            var OnHand = Details.filter(function (x) { return x.ItemID == Number(divpopupGrid.SelectedKey); });
+                            sysInternal_Comm.Itemid = Number(divpopupGrid.SelectedKey);
+                            OnSearchSelected();
+                            $('#Popupitem').modal('hide');
+                        };
+                        divpopupGrid.PrimaryKey = "ItemID";
+                        divpopupGrid.SelectedItem = "StoreQty";
+                        divpopupGrid.Columns = [
+                            { title: "ID", name: "ItemID", type: "text", width: "2%", visible: false },
+                            { title: 'رقم الصنف', name: "ItemCode", type: "text", width: "100%" },
+                            { title: 'الوصف', name: (lang == "ar" ? "DescA" : "DescL"), type: "text", width: "100%" },
+                            { title: 'الفئة', name: (lang == "ar" ? "cat_DescA" : "Cat_DescE"), type: "text", width: "100%" },
+                            { title: 'الصنف الرئيسي', name: (lang == "ar" ? "fm_DescA" : "fm_DescE"), type: "text", width: "100%" },
+                            { title: 'الوحدة الرئيسية', name: (lang == "ar" ? "uom_DescA" : "Uom_DescE"), type: "text", width: "100%" },
+                            //{ title: 'الكمية في الشركة ', name: "CompQty", type: "text", width: "13%" },
+                            //{ title: 'الكمية  في الفرع ', name: "BranchQty", type: "text", width: "13%" },
+                            //{ title: 'الكمية  في المستودع ', name: "StoreQty", type: "text", width: "10%" },
+                        ];
+                        divpopupGrid.DataSource = Details;
+                        divpopupGrid.Bind();
+                        $('#divGridShow').removeClass('display_none');
+                    }
+                }
+            });
+        };
+        //--------------------------------------Display_Show-----------------------------------------
+        var catId = $('#drpPaymentType').val();
+        var ItemFamilyID = $('#drpitem_family').val();
+        var uomgrpid = $('#drp_UnitGroup').val();
+        var qtytype = Number($('#drp_Qty').val());
+        var LikeDesc = $('#Likedesc').val();
+        var LikeCode = $('#Likecode').val();
+        var containdesc = $('#drpcontaindesc').val();
+        var containcode = $('#drpcontaincode').val();
+        Ajax.Callsync({
+            type: "Get",
+            url: this.apiUrl("StkDefItems", "GetAll_Item_Proc"),
+            data: {
+                CompCode: this.SysSession.CurrentEnvironment.CompCode, FinYear: this.SysSession.CurrentEnvironment.CurrentYear, Branch: BranchCode, storeCode: Storeid, catid: catId, ItemFamilyID: ItemFamilyID, uomgrpid: uomgrpid, qtytype: qtytype, LikeDesc: LikeDesc, LikeCode: LikeCode, containdesc: containdesc, containcode: containcode, UserCode: this.SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + this.SysSession.CurrentEnvironment.Token
+            },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    Details = result.Response;
+                    var res = GetResourceList("");
+                    divpopupGrid.ElementName = "divpopupGrid";
+                    divpopupGrid.Paging = true;
+                    divpopupGrid.PageSize = 10;
+                    divpopupGrid.Sorting = true;
+                    divpopupGrid.InsertionMode = JsGridInsertionMode.Binding;
+                    divpopupGrid.Editing = false;
+                    divpopupGrid.Inserting = false;
+                    divpopupGrid.SelectedIndex = 1;
+                    divpopupGrid.OnRowDoubleClicked = function () {
+                        sysInternal_Comm.Itemid = Number(divpopupGrid.SelectedKey);
+                        OnSearchSelected();
+                        $('#Popupitem').modal('hide');
+                    };
+                    divpopupGrid.PrimaryKey = "ItemID";
+                    divpopupGrid.SelectedItem = "StoreQty";
+                    divpopupGrid.Columns = [
+                        { title: "ID", name: "ItemID", type: "text", width: "2%", visible: false },
+                        { title: 'رقم الصنف', name: "ItemCode", type: "text", width: "100%" },
+                        { title: 'الوصف', name: (lang == "ar" ? "DescA" : "DescL"), type: "text", width: "100%" },
+                        { title: 'الفئة', name: (lang == "ar" ? "cat_DescA" : "Cat_DescE"), type: "text", width: "100%" },
+                        { title: 'الصنف الرئيسي', name: (lang == "ar" ? "fm_DescA" : "fm_DescE"), type: "text", width: "100%" },
+                        { title: 'الوحدة الرئيسية', name: (lang == "ar" ? "uom_DescA" : "Uom_DescE"), type: "text", width: "100%" },
+                        //{ title: 'الكمية في الشركة ', name: "CompQty", type: "text", width: "13%" },
+                        //{ title: 'الكمية  في الفرع ', name: "BranchQty", type: "text", width: "13%" },
+                        //{ title: 'الكمية  في المستودع ', name: "StoreQty", type: "text", width: "10%" },
                     ];
                     divpopupGrid.DataSource = Details;
                     divpopupGrid.Bind();

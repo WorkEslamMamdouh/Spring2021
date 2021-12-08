@@ -366,6 +366,9 @@
     <Compile Include="Domain\I_ItemYearUom.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\I_Item_Customer.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\I_Pur_TR_Receive.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>

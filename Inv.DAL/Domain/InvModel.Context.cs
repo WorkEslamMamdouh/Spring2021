@@ -129,6 +129,7 @@ namespace Inv.DAL.Domain
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
         public virtual DbSet<G_STORE> G_STORE { get; set; }
         public virtual DbSet<GQ_GetStore> GQ_GetStore { get; set; }
+        public virtual DbSet<I_Item_Customer> I_Item_Customer { get; set; }
     
         [DbFunction("InvEntities", "GFun_Companies")]
         public virtual IQueryable<GFun_Companies_Result> GFun_Companies(string userCode)
