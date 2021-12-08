@@ -1,0 +1,226 @@
+﻿
+
+@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = "تحديد الوحدات";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<style>
+    .posation_overflow {
+        position: absolute;
+        left: -79px;
+    }
+
+    .style_pading_lepel {
+        /*padding-top: 10px;*/
+        padding: 10px 12px 0 0;
+    }
+
+    .style_pading_lepel2 {
+        /*padding-top: 10px;*/
+        padding: 10px 30px 0 0;
+    }
+
+    .pading_ {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .pad_ {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .inner tr td {
+        border-top: none !important;
+    }
+
+
+
+    .fontitm3 {
+        float: right;
+        margin: 5px -2% 0px 0px !important;
+        font-size: 25px !important;
+        position: absolute;
+    }
+
+    .style_pading {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .table_11 tr td:nth-child(3) {
+        width: 200px;
+    }
+
+    .table_11 tr th:nth-child(12), .table_11 tr td:nth-child(12) {
+        width: 120px;
+    }
+
+    .table_11 {
+        margin-bottom: 0px;
+    }
+
+    .auto-style1 {
+        background-color: #F5F5F5;
+    }
+
+    .display_none {
+        display: none !important;
+    }
+
+    #btnAddDetails {
+        font-size: 40px;
+    }
+
+        #btnAddDetails:hover {
+            color: #24b414;
+        }
+
+    .glyphicon-remove-sign:hover {
+        color: red
+    }
+
+    .minus_btn {
+    }
+
+    .font_codenumber {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .style_border {
+        border-top: solid 1px;
+        padding: 10px 0px 4px 0px;
+    }
+
+    .pading_2 {
+        padding: 6px 5px 0px 0px !important;
+    }
+</style>
+
+@*<div id="printableArea">
+
+    </div>*@
+<div class="panel-body  margingred  borderred">
+
+
+    <div class="col-lg-12">
+
+        <div id="MasterGrid" class="col-lg-12  margingred  borderred  ">
+            <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+                <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.App_SearchbyNumPh ">
+            </div>
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-success" id="btnAdd">
+                    <span class="glyphicon glyphicon-plus"></span> @SystemResource.App_Add
+                </button>
+
+                <button type="button" class="btn btn-warning display_none" id="ID_Print">
+                    <span class="glyphicon glyphicon-print"></span>طباعه
+                </button>
+
+
+            </div>
+            <div class="col-lg-12 ">
+                <table id="divGrid"></table>
+            </div>
+            <h4 class="col-lg-12 " style="text-align: center;font-weight: bold;color: #0088c7;"><i class="glyphicon glyphicon-hand-up"></i> @SystemResource.App_DoubleDisplay <i class="glyphicon glyphicon-hand-up"></i></h4>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+            <div id="id_divGridDetails" class="  margingred  display_none  ">
+                <div id="div_Master_Hedr" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred  ">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+                        <div class=" col-xs-9">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                            <button id="btnBack_1" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-save"></span></button>
+                            <button id="btnSave_1" type="button" class="btn btn-success display_none" style="margin-right:9%">@SystemResource.App_save <span class="glyphicon glyphicon-save"></span></button>
+                            <button id="btnEdit_1" type="button" class="btn btn-primary">@SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="div_ContentData" class="">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  ">رقم </label>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                                <input type="text" class="form-control input-sm addable editable" name="UnitGrpCode" disabled id="txtUnitGrpCode">
+                            </div>
+
+                            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  " style="padding-right:25px">وصف عربي</label>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                                <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtDescA">
+                            </div>
+
+                            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 ">وصف الانجليزي </label>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                                <input type="text" class="form-control input-sm addable editable" disabled name="DescE" id="txtDescE">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                            <label class="col-lg-1 col-xs-4 pading_2 " style="padding-right:12px">الوحدة الأساسية </label>
+                            <div class="col-md-2 col-sm-5 col-xs-10">
+                                <select class="form-control input-sm addable editable" disabled name="UomID" id="txtUomID"></select>
+                            </div>
+                            <label class="col-lg-1 col-xs-4 pading_2 " style="padding-right:12px"> @SystemResource.App_Notes   </label>
+                            <div class="col-md-7 col-sm-7 col-xs-10">
+                                <textarea type="text" class="form-control input-sm addable editable" disabled name="Remarks" id="txtRemarks"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="DivMassage" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred  borderred display_none">
+        <h4 id="Text_Massage" style=""> رساله </h4>
+    </div>
+    <div id="div_ContentDatacontrol" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred  borderred  display_none">
+        <div id="Div_Show_units" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12     ">
+
+            <div id="DivShow" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  " style="overflow:auto ;">
+                <div id=" " class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  font_header" style="bottom: 5px;font-weight:bold!important">
+                    <br />
+                    <div class="col-lg-2 text-center">
+                        <span class="">الوحدة  </span>
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        <span class="">معامل التحويل </span>
+                    </div>
+                     
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 text-center">
+                        <span class="">متاح للشراء </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 text-center">
+                        <span class="">  مبيعات تجزئة  </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 text-center">
+                        <span class="">  مبيعات جملة   </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 text-center">
+                        <span class="">   مخزون   </span>
+                    </div>
+                </div>
+                <div class=" col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                        <div class="row " id="div_Data">
+
+
+
+                        </div>
+                        <div class="col-lg-1" style="">
+                            <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign display_none"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/ClientApp/StkDefinition/StkDefUnitGroup.js"></script>

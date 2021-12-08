@@ -1,0 +1,540 @@
+﻿@using Inv.WebUI.Resources
+
+<!doctype html>
+<html id="body_img" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="John Doe">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="~/images/newlogo.jpg">
+    <title>@SystemResource.App_Home</title>
+    @Styles.Render("~/Bundles/AppStyle2")
+    <link id="bootstrap_rtl" href="~/Style_design/bootstrap-rtl.css" rel="stylesheet" />
+    <link id="Style_Arabic" href="~/Style_design/Style_Arabic.css" rel="stylesheet" />
+    @*<script src="http://code.jquery.com/jquery-3.0.0.js"></script>*@
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Style_design/js/jquery-3.4.1.js"></script>
+    @Scripts.Render("~/Bundles/AppScript2")
+    <script src="~/Style_design/jquery.cookie.min.js"></script>
+    @Scripts.Render("~/Bundles/AppScript3")
+    <link href="~/Style_design/Stylelayout.css" rel="stylesheet" />
+
+
+    @*<script src="~/New_Design/website-menu-16/js/bootstrap.min.js"></script>*@
+    @*<script src="~/New_Design/website-menu-16/js/jquery.min.js"></script>*@
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/New_Design/website-menu-16/css/style.css">
+
+    <script src="~/New_Design/website-menu-16/js/popper.js"></script>
+    <script src="~/New_Design/website-menu-16/js/main.js"></script>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/New_Design/Login_v1/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/New_Design/Login_v1/css/main.css">
+    <!--===============================================================================================-->
+    <style>
+        .display_none {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body id="main-menu" class=" materialdesign">
+
+    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+    <input type="hidden" id="GetAPIUrl" name="name" value="@System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]" />
+    @*<div class="wrapper-pro">*@
+
+
+        <section class=" ">
+
+            <div class="wrap">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <label id="Screen_name" class="mb-0 phone"></label>
+                        </div>
+                        <div class="col">
+                            <label id="camp_name" class="mb-0 phone"></label>
+                            <label id="" class="mb-0 phone">   (    </label>
+                            <label id="TitleSpan" class="mb-0 phone"></label>
+                            <label id="" class="mb-0 phone">   )     </label>
+                        </div>
+
+                        <div class="col d-flex justify-content-end">
+                            <div class="social-media">
+                                <p class="mb-0 d-flex">
+                                    <a href="#" id="btnHelpRep" class="d-flex align-items-center justify-content-center"><span class=" "> <i class="fa fa-question-circle styleHelp" alt="Help" data-toggle="modal" data-target="#myModal">  </i></span></a>
+                                    <a href="#" id="btnClose" class="d-flex align-items-center justify-content-center display_none"><span id="Close" title="Close Day" class="fa fa-dribbble"> <i class="fa fa-power-off"></i></span></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+                <div class="container">
+                    <ul class="navbar-nav m-auto">
+
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="Admin_name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page</a>
+                            <div class="dropdown-menu" aria-labelledby="Admin_name">
+                                <a class="dropdown-item" href="#" id="LanguageButtonHome"> <span id="LanguageButtonHome" class="adminpro-icon adminpro-money author-log-ic"></span> </a>
+                                <a class="dropdown-item" href="#" id="btnUsers" data-toggle="modal" data-target="#user_setting"> @SystemResource.tol_change_Password<span id="btn_G_User" class="adminpro-icon adminpro-locked author-log-ic"></span>  </a>
+                                <a class="dropdown-item" id="btn_loguotuser" href="#">  تسجيل الخروج @*@SystemResource.l_Log_Out*@<span class="adminpro-icon adminpro-reload author-log-ic"></span></a>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                  
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="fa fa-bars"></span> Menu
+                    </button>
+                    <div class="collapse navbar-collapse" id="ftco-nav">
+                        <ul class="navbar-nav m-auto">
+                            <li class="nav-item ">
+                                <a id="btnHome" href="#" class="nav-link">  <span id="btnHome">@SystemResource.Men_Home</span></a>
+                            </li>
+                            <li class="nav-item dropdown MED display_none" id="btnSales">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">المبيعات</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                    <a class="dropdown-item" href="#" id="btnSlsTrSales" key="SlsTrSales"> المبيعات</a>
+                                    <a class="dropdown-item" href="#" id="btnSlsTrShowPrice" key="SlsTrShowPrice">  عرض اسعار</a>
+                                    <a class="dropdown-item" href="#" id="btnSlsTrSalesManager" key="SlsTrSalesManager">   الفواتير </a>
+                                    <a class="dropdown-item" href="#" id="btnSlsTrReturn" key="SlsTrReturn"> مرتجع الفواتير</a>
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown MED display_none" id="btnPurchase">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">المشتريات</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown02">
+                                    <a class="dropdown-item" href="#" id="btnPurchases" key="Purchases"> المشتريات</a>
+                                    <a class="dropdown-item" href="#" id="btnPurchasesNew" key="PurchasesNew">   المشتريات مخزن</a>
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown MED display_none" id="btnservicesystem">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">إعدادات عامة</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown03">
+                                    <a class="dropdown-item" href="#" id="btnCatch_Receipt" key="Catch_Receipt"> سداد مديونيه</a>
+                                    <a class="dropdown-item" href="#" id="btnCUSTOMERS" key="CUSTOMERS">     العملاء</a>
+                                    <a class="dropdown-item" href="#" id="btnSupplier" key="Supplier"> الموردين</a>
+                                    <a class="dropdown-item" href="#" id="btnAccDefSalesmen" key="AccDefSalesmen"> @SystemResource.Men_AccDefSalesmen</a>
+                                    <a class="dropdown-item" href="#" id="btnUSERS" key="USERS"> الموظفين</a>
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown MED display_none" id="btnInventory">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">التقارير</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="#" id="btnSalesinventory" key="Salesinventory"> جرد  المبيعات</a>
+                                    <a class="dropdown-item" href="#" id="btnIncome_expenses" key="Income_expenses">   كشف حساب</a>
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown MED display_none" id="btnStkDefinitionMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@SystemResource.StkDefItemsMen </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown05">
+                                    <a class="dropdown-item" href="#" id="btnStkDefUnitGroup" key="StkDefUnitGroup">    حدد الوحدات </a>
+                                    <a class="dropdown-item" href="#" id="btnStkDefCategory" key="StkDefCategory">      @SystemResource.Men_StkDefCategory</a>
+                                    <a class="dropdown-item" href="#" id="btnStkDefItemType" key="StkDefItemType">    @SystemResource.Men_StkDefItemType</a>
+                                    <a class="dropdown-item" href="#" id="btnStkDefItemsNew" key="StkDefItemsNew">    @SystemResource.Men_StkDefItems</a>
+                                    <a class="dropdown-item" href="#" id="btnDefStore" key="DefStore">    @SystemResource.Men_StkDefStore</a>
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown MED display_none" id="btnReportMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">تقارير المخزون </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown06">
+                                    <a class="dropdown-item" href="#" id="btnInventorymove" key="Inventorymove">      @SystemResource.Inventorymove</a>
+                                    <a class="dropdown-item" href="#" id="btnInventoryvalue" key="Inventoryvalue">      @SystemResource.Inventoryvalue</a>
+                                    <a class="dropdown-item" href="#" id="btnIncomeoperations" key="Incomeoperations">    @SystemResource.Incomeoperations</a>
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown MED display_none" id="btnCashBoxDefinitions">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">إدارة المخازن </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown07">
+                                    <a class="dropdown-item" href="#" id="btnfamilly_Cat" key="familly_Cat">  انواع الفئات </a>
+                                    <a class="dropdown-item" href="#" id="btnCategories" key="Categories">    الفئات</a>
+                                    <a class="dropdown-item" href="#" id="btnItems" key="Items">  الاصناف</a>
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown MED display_none" id="btnCash">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">الخزينة </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown08">
+                                    <ul>
+
+                                        <li class="liItem dropdown-item" id=" " key=" ">
+
+
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-3">
+
+                                                </div>
+                                                <label id="Balance" class="login2 pull-right pull-right-pro" style="color: #f50d0d;">المبلغ </label>
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label class="login2 pull-right pull-right-pro" style="color: bisque;">الـوصـف</label>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <textarea id="id_Dasc_Name" class="form-control" style="height: 60px;background-color: #ffd8a5;" type="text" placeholder="الـوصـف"></textarea>
+                                            </div>
+
+                                        </li>
+                                        <li class="liItem dropdown-item" id=" " key=" ">
+
+                                            <div class="col-lg-4">
+
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label class="login2 pull-right pull-right-pro" style="color: bisque;font-weight: bold;font-size: 21px;">السعـــر</label>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <input id="id_pirce" class="form-control" style="background-color: #d7ff99;" type="number" placeholder="السعـــر">
+                                            </div>
+
+                                        </li>
+                                        <li class="liItem dropdown-item" id=" " key=" ">
+                                            <div class="col-lg-1" style="width: 0px;">
+
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <input id="But_Outlet" type="button" class="btn btn-info" style=" width: 118%; background: linear-gradient(to right, #652f08 0%, #c80000 100%);" value=" Out ">
+                                            </div>
+
+
+                                            <div class="col-lg-5">
+                                                <input id="But_Input" type="button" class="btn btn-info" style="width: 118%; " value="Push">
+                                            </div>
+                                            <div class="col-lg-1">
+
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse" id="ftco-Log">
+
+                    </div>
+                </div>
+            </nav>
+            <!-- END nav -->
+
+        </section>
+
+
+     
+
+
+
+        <div id="cont" class=" ">
+            @RenderBody()
+        </div>
+    @*</div>*@
+    <!--..............................user setting..................................................-->
+    <div class="modal fade" id="user_setting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@SystemResource.App_UserSetting </h4>
+                </div>
+                <div class="user_2">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">@SystemResource.App_OldPassword </label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="txtOldPassword">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label"> @SystemResource.App_NewPassword</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="txtNewPassword">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" id="btnChangePassword" class="btn btn-danger">@SystemResource.App_Confirm </button>
+                        <button type="button" class="btn btn-primary btn_back">@SystemResource.App_Return</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">@SystemResource.App_Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="glyphicon glyphicon-arrow-up	"></i></a>
+    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+    <input type="hidden" id="ModelPreview" name="name" value="" />
+    <input type="hidden" id="SearchControlName" name="name" value="" />
+    <div class="modal fade messagealert" id="MessageBoxDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="MessageBoxTitle">حذف!!</h4>
+                </div>
+                <div class="modal-body" style="max-height:200px; overflow:auto;">
+                    <div class="col-xs-7"> <h3 id="MessageBoxMessage">هل تريد حقا الحذف ؟</h3></div>
+                    <div class="col-xs-5 text-center">
+                        <i class="glyphicon btn-danger"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="MessageBoxOk" class="btn btn-danger">@SystemResource.App_Confirm</button>
+                    <button type="button" id="MessageBoxCancel" class="btn btn-warning" data-dismiss="modal">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="help-pop modal fade in" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@SystemResource.App_Help</h4>
+                </div>
+                <div class="modal-body content content-8" id="modalHelpRep">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">@SystemResource.App_Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="SearchBox" class=" fade styleserch" style="display:none;z-index:999999999;">
+        <div style="background-color: #000000 !important; position: absolute; top: 0px; left: 0px; width: 100%; height: 40px; cursor: move; border-top-right-radius: 13px !important; border-top-left-radius: 13px !important; ">
+            <input type="button" onclick="$('#SearchBox').modal('hide');" id="btnCloseSearch" name="name" value="x" class="btn colose_lay_btn btn-danger" style="height: 40px;
+              width: 38px;font-size: 20px;float: left;border-color: #ef6603!important;background-color: #ffec09!important" />
+            <h4 id="searchTitle" class="col-xs-3" style="color: #fff;line-height: 36px;text-align:right"></h4>
+        </div>
+        <div style="overflow-x:scroll;overflow-y:scroll;padding-left: 1%; margin-top:20px;width:100%;left:0px;left: 0px; position: absolute; width: 100%; height: 85%;">
+            <div id="tableDiv" class="table table-bordered table-hover" style="width: 100%; color: #000000 !important;"></div>
+        </div>
+    </div>
+    <div id="caret_script" style="display:none!important">
+    </div>
+    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/Bundles/AppScript4")
+    <script>
+        $('#sidebarCollapse').on('click', function () {
+            $('#cont').toggleClass('colapsdivcont');
+        });
+        $('#chinng_languag').on('click', function () {
+            $('#main-menu').toggleClass('rtl-menu');
+        });
+
+
+        var elem = document.documentElement;
+        function openFullscreen() {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebarCollapse').toggleClass('stylebtnmenu');
+            $('#sidebarCollapse').toggleClass('bla');
+
+            $('#cont').toggleClass('colapsdivcont');
+
+        });
+
+        $('#chinng_languag').on('click', function () {
+            $('#main-menu').toggleClass('rtl-menu');
+        });
+
+
+        $(document).ready(function () {
+
+            $("#btnclosefooter").click(function () {
+                $("#displaydiv").removeClass("display_none");
+                $("#btnclosefooter").addClass("display_none");
+                $("#chevron2").removeClass("display_none");
+                $("#footer").animate({ width: '500px', opacity: '0.8' }, "slow");
+
+                $("#chevron").toggleClass("glyphicon-hand-right");
+                $("#chevron").toggleClass("glyphicon-chevron-left");
+
+
+            });
+
+            $('#tol_allnotification').on('click', function () {
+                $('#divtest').toggleClass('display_none');
+            });
+
+            $("#chevron2").click(function () {
+                $("#displaydiv").addClass("display_none");
+                $("#btnclosefooter").removeClass("display_none");
+                $("#footer").animate({ width: '0px', opacity: '0' }, "slow");
+
+                $("#chevron").toggleClass("glyphicon-hand-right");
+                $("#chevron").toggleClass("glyphicon-chevron-left");
+
+
+            });
+
+        });
+    </script>
+
+    <script src="~/Style_design/messages_Script.js"></script>
+
+
+
+
+    <div class="modal fade" id="Popupitem" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 borderred">
+                <button type="button" class="close col-xs-1" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="col-xs-12">
+                    <div class="col-lg-12">
+
+                        <div class="col-lg-1 pad_">
+                            <label class=" pading_2 ">@SystemResource.APP_Category</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <select id="drpPaymentType" class="form-control"></select>
+                        </div>
+                        <div class="col-lg-1 pad_">
+                            <label class=" pading_2 ">@SystemResource.App_Type</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <select id="drpitem_family" class="form-control"><option value="0">@SystemResource.App_Type</option></select>
+                        </div>
+                        <div class="col-lg-1 pad_ display_none">
+                            <label class=" pading_2 ">@SystemResource.Itm_ItemCode</label>
+                        </div>
+                        <div class="col-lg-3 display_none">
+                            <input id="ItemCodePopup" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+
+                        <div class="col-lg-1 pad_">
+                            <label class=" style_pading_lepel2 "> مجموعات</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <select id="drp_UnitGroup" class="form-control"></select>
+                        </div>
+
+                        <div class="col-lg-1 pad_">
+                            <label class=" style_pading_lepel2 ">@SystemResource.App_Quantity</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <select id="drp_Qty" class="form-control">
+                                <option value="0">@SystemResource.App_All</option>
+                                <option value="1">متوفر في الفرع الحالي</option>
+                                @*<option value="2">متوفر في الشركة</option>
+                                    <option value="3">غير متوفر في الفرع الحالي</option>
+                                    <option value="4">غير متوفر في الشركة</option>*@
+
+                            </select>
+                        </div>
+
+                        <div class="col-lg-2 float-left ">
+                            <button type="button" class="btn btn-info" id="btnsrePopup">
+                                @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-2 pad_">
+                            <label class=" style_pading_lepel2 ">الاسم يحتوى علي </label>
+                        </div>
+                        <div class="col-lg-2 pad_">
+                            <input type="text" id="Likedesc" class=" form-control" />
+                        </div>
+                        <div class="col-lg-2 pad_">
+                            <select id="drpcontaindesc" class="form-control">
+                                <option value="0">في البداية</option>
+                                <option value="1">يحتوي علي</option>
+                                <option value="2">فى النهاية</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 pad_">
+                            <label class=" style_pading_lepel2 ">الكود يحتوى علي </label>
+                        </div>
+                        <div class="col-lg-2 pad_">
+                            <input type="text" id="Likecode" class=" form-control" />
+                        </div>
+                        <div class="col-lg-2 pad_">
+                            <select id="drpcontaincode" class="form-control">
+                                <option value="0">في البداية</option>
+                                <option value="1">يحتوي علي</option>
+                                <option value="2">فى النهاية</option>
+                            </select>
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 display_none" id="divGridShow">
+                    <input type="text" class="  form-control  col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4" placeholder="@SystemResource.App_Search" id="txtSearch" />
+                    <table id="divpopupGrid"></table>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+  
+
+
+
+
+</body>
+</html>

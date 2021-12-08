@@ -1,0 +1,211 @@
+﻿ 
+ 
+@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = @SystemResource.Men_StkDefItems;
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<style>
+    .posation_overflow {
+        position: absolute;
+        left: -79px;
+    }
+    .style_pading_lepel {
+        /*padding-top: 10px;*/
+        padding: 10px 12px 0 0;
+    }
+
+    .style_pading_lepel2 {
+        /*padding-top: 10px;*/
+        padding: 10px 30px 0 0;
+    }
+
+    .pading_ {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .pad_ {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .inner tr td {
+        border-top: none !important;
+    }
+
+     
+
+    .fontitm3 {
+        float: right;
+        margin: 5px -2% 0px 0px !important;
+        font-size: 25px !important;
+        position: absolute;
+    }
+
+    .style_pading {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .table_11 tr td:nth-child(3) {
+        width: 200px;
+    }
+
+    .table_11 tr th:nth-child(12), .table_11 tr td:nth-child(12) {
+        width: 120px;
+    }
+
+    .table_11 {
+        margin-bottom: 0px;
+    }
+
+    .auto-style1 {
+        background-color: #F5F5F5;
+    }
+
+    .display_none {
+        display: none !important;
+    }
+
+    #btnAddDetails {
+        font-size: 40px;
+    }
+
+        #btnAddDetails:hover {
+            color: #24b414;
+        }
+
+    .glyphicon-remove-sign:hover {
+        color: red
+    }
+
+    .minus_btn {
+    }
+
+    .font_codenumber {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .style_border {
+        border-top: solid 1px;
+        padding: 10px 0px 4px 0px;
+    }
+</style>
+ 
+    <div class="panel-body" id="div_ContentData">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.Men_StkDefStore</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drp_G_Store" class="form-control"><option value="null">@SystemResource.Men_StkDefStore</option></select>
+                </div>
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.APP_Category</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drpPaymentType" class="form-control"><option value="null">@SystemResource.APP_Category</option></select>
+                </div>
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.App_Type</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drpitem_family" class="form-control"><option value="null">@SystemResource.App_Type</option></select>
+                </div>
+
+               
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.APP_Stoke</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drp_StocK" class="form-control">
+                        <option value="All">@SystemResource.App_All</option>
+                        <option value=">"> @SystemResource.His_stoke</option>
+                        <option value="=">  @SystemResource.Zero_Stoke</option>
+                        <option value="<"> @SystemResource.Exposed_balance</option>
+
+                    </select>
+                </div>
+                <div class="col-lg-4 pad_">
+                    
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-info" id="btnShow">
+                    @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
+                    </button>
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-warning display_none" id="btnback">
+                        <span class="glyphicon glyphicon-backward"></span> @SystemResource.App_back
+                    </button>
+
+                    <button id="btnsave" type="button" class="btn btn-success display_none">
+                    @SystemResource.App_save    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    </button>
+
+                    <button type="button" class="btn btn-primary" id="btnedite">
+                        <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
+                    </button>
+                </div>
+            </div> 
+        </div>
+
+        <div class="col-lg-12">
+            <div class="col-lg-12">
+
+                <style>
+                    #div_Data .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+                        padding: 2px !important;
+                        padding-right: 2px !important;
+                        padding-top: 1px !important;
+                        padding-bottom: 1px !important;
+                    }
+                    #div_Data_devolte .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+                        padding: 2px !important;
+                        padding-right: 2px !important;
+                        padding-top: 1px !important;
+                        padding-bottom: 1px !important;
+                    }
+                    
+
+
+                </style>
+
+                <div class="col-lg-12" style="overflow:scroll;height:600px" >
+                    <div class="col-lg-12" id="div_Data_devolte">
+                        <div class="col-lg-1 pad_"><label class=" style_pading_lepel  ">@SystemResource.App_Code</label></div>
+                        <div class="col-lg-3 pad_"><label class=" style_pading_lepel position_DescA position_lepelcAE">@SystemResource.App_DescA</label></div>
+                        <div class="col-lg-1 pad_"><label class="style_pading_lepel">@SystemResource.APP_Category</label></div>
+                        <div class="col-lg-1 pad_"><label class="style_pading_lepel">@SystemResource.App_Type</label></div>
+                        <div class="col-lg-2 pad_"><label class=" style_pading_lepel ">@SystemResource.App_ReferenceNumber</label></div>
+                        <div class="col-lg-1 pad_"><label class="  style_pading_lepel">@SystemResource.App_AvailableQuantity</label></div>
+                        <div class="col-lg-1 pad_"><label class="  style_pading_lepel2">@SystemResource.App_Price</label></div>
+                        <div class="col-lg-1 pad_"><label class="  style_pading_lepel2">@SystemResource.App_LessPrice</label></div>
+                        <div class="col-lg-1 pad_  "><label class=" style_pading_lepel ">@SystemResource.App_MeasuringUnit</label></div>
+
+                     </div>
+                    <div class="col-lg-3 position_DescEStkDefItems ">
+                         <div class="col-lg-12 pad_"><label class=" style_pading_lepel position_DescEA position_lepelcEE  ">@SystemResource.App_DescE</label></div>
+
+                    </div>
+                    <div class="row " id="div_Data">
+                        
+                    </div>
+                    <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign  display_none"></span>
+
+                </div>
+
+       </div>
+
+   </div> 
+    </div>
+
+  
+<script src="~/ClientApp/StkDefinition/StkDefItems.js"></script>

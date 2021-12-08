@@ -1,0 +1,398 @@
+﻿
+
+@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = @SystemResource.Men_StkDefItems;
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<style>
+    .posation_overflow {
+        position: absolute;
+        left: -79px;
+    }
+
+    .style_pading_lepel {
+        /*padding-top: 10px;*/
+        padding: 10px 12px 0 0;
+    }
+
+    .style_pading_lepel2 {
+        /*padding-top: 10px;*/
+        padding: 10px 30px 0 0;
+    }
+
+    .pading_ {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .pad_ {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .inner tr td {
+        border-top: none !important;
+    }
+
+
+
+    .fontitm3 {
+        float: right;
+        margin: 5px -2% 0px 0px !important;
+        font-size: 25px !important;
+        position: absolute;
+    }
+
+    .style_pading {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .table_11 tr td:nth-child(3) {
+        width: 200px;
+    }
+
+    .table_11 tr th:nth-child(12), .table_11 tr td:nth-child(12) {
+        width: 120px;
+    }
+
+    .table_11 {
+        margin-bottom: 0px;
+    }
+
+    .auto-style1 {
+        background-color: #F5F5F5;
+    }
+
+    .display_none {
+        display: none !important;
+    }
+
+    #btnAddDetails {
+        font-size: 40px;
+    }
+
+        #btnAddDetails:hover {
+            color: #24b414;
+        }
+
+    .glyphicon-remove-sign:hover {
+        color: red
+    }
+
+    .minus_btn {
+    }
+
+    .font_codenumber {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .style_border {
+        border-top: solid 1px;
+        padding: 10px 0px 4px 0px;
+    }
+    .disabledDiv {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>
+
+@*<div id="printableArea">
+
+</div>*@ 
+<div class="panel-body  margingred  borderred" id="div_ContentData">
+    <div id="div_dis">
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.Men_StkDefStore</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drp_G_Store" class="form-control"><option value="null">@SystemResource.Men_StkDefStore</option></select>
+                </div>
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.APP_Category</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drpPaymentType" class="form-control"></select>
+                </div>
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.App_Type</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drpitem_family" class="form-control"><option value="0">@SystemResource.App_Type</option></select>
+                </div>
+
+
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 "> مجموعات</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drp_UnitGroup" class="form-control"></select>
+                </div>
+
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2 ">@SystemResource.App_Quantity</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drp_Qty" class="form-control">
+                        <option value="0">@SystemResource.App_All</option>
+                        <option value="1">متوفر في الفرع الحالي</option>
+                        <option value="2">متوفر في الشركة</option>
+                        <option value="3">غير متوفر في الفرع الحالي</option>
+                        <option value="4">غير متوفر في الشركة</option>
+
+                    </select>
+                </div>
+                <div class="col-lg-2 pad_">
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-info" id="btnShow">
+                        @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
+                    </button>
+                    <button type="button" class="btn btn-success " id="btnAdd">
+                        <span class="glyphicon glyphicon-plus-sign"></span> @SystemResource.App_Add
+                    </button>
+                </div>
+                <div class="col-lg-2">
+                    <button id="btnsave" type="button" class="btn btn-success display_none">
+                        @SystemResource.App_save    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    </button>
+
+                    <button type="button" class="btn btn-primary display_none" id="btnedite">
+                        <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
+                    </button>
+
+                    <button type="button" class="btn btn-primary display_none" id="ID_Print">
+                        <span class="glyphicon glyphicon-edit"></span>طباعه
+                    </button>
+
+
+                </div>
+
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-1">
+                    <label class=" style_pading_lepel2 ">أسم الصنف </label>
+                </div>
+                <div class="col-lg-2">
+                    <input type="text" id="Likedesc" class=" form-control" />
+                </div>
+                <div class="col-lg-1">
+                    <select id="drpcontaindesc" class="form-control">
+                        <option value="0">في البداية</option>
+                        <option value="1">يحتوي علي</option>
+                        <option value="2">فى النهاية</option>
+                    </select>
+                </div>
+                <div class="col-lg-1">
+                    <label class=" style_pading_lepel2 ">كود الصنف </label>
+                </div>
+                <div class="col-lg-2">
+                    <input type="text" id="Likecode" class=" form-control" />
+                </div>
+                <div class="col-lg-1">
+                    <select id="drpcontaincode" class="form-control">
+                        <option value="0">في البداية</option>
+                        <option value="1">يحتوي علي</option>
+                        <option value="2">فى النهاية</option>
+                    </select>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="col-lg-12">
+
+                <style>
+                    #div_Data .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+                        padding: 2px !important;
+                        padding-right: 2px !important;
+                        padding-top: 1px !important;
+                        padding-bottom: 1px !important;
+                    }
+
+                    #div_Data_devolte .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+                        padding: 2px !important;
+                        padding-right: 2px !important;
+                        padding-top: 1px !important;
+                        padding-bottom: 1px !important;
+                    }
+                </style>
+
+                <div id="id_divMasterGrid" class="col-lg-12  margingred  borderred  display_none">
+                    <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+                        <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.App_SearchbyNumPh ">
+                    </div>
+                    <div class="col-lg-15 ">
+                        <table id="divMasterGrid"></table>
+
+                    </div>
+                    <h4 style="text-align: center;font-weight: bold;color: #0088c7;"><i class="glyphicon glyphicon-hand-up"></i> @SystemResource.App_DoubleDisplay <i class="glyphicon glyphicon-hand-up"></i></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+        <div id="id_divGridDetails" class="row  margingred    ">
+            <div id="div_Master_Hedr" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred display_none">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xl-9 col-xs-9" style="">
+                        <div class="col-lg-5">
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                        <button id="btnBack_1" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-save"></span></button>
+                        <button id="btnSave_1" type="button" class="btn btn-success display_none" style="margin-right:9%">@SystemResource.App_save <span class="glyphicon glyphicon-save"></span></button>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
+                        <button id="btnUpdate" type="button" class="btn btn-primary">@SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
+                    </div>
+                </div>
+                <br />
+                <div id="div_Master" class="">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">رقم الصنف </label>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                            <input type="text" class="form-control input-sm addable editable" name="ItemCode" disabled id="txtItemCode">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  " style="padding-right:25px">وصف عربي</label>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                            <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtItm_DescA">
+                        </div>
+
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes textcentrProcesses2 ">وصف بالانجليزي </label>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                            <input type="text" class="form-control input-sm addable editable" disabled name="DescL" id="txtItm_DescE">
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الفئة  </label>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                            <select id="txtCat_Type" name="CatID" class="form-control" disabled style='width: 100%;border-radius: 30px;'></select>
+                        </div>
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الصنف الرئيسي   </label>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                            <select id="txtFamily" name="ItemFamilyID" class="form-control" disabled style='width: 100%;border-radius: 30px;'></select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes   ">  الرقم المرجعي    </label>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                            <input type="text" class="form-control input-sm addable editable" disabled name="RefItemCode" id="txtRefItemCode">
+                        </div>
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes text_cent " style="padding-right:12px">مجموعة الوحدات </label>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                            <select id="txtGroupofUnits" name="UnitGrpID" class="form-control" disabled style='width: 100%;border-radius: 30px;'></select>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+
+                        <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
+                        <div class="col-md-2 col-sm-5 col-xs-10">
+                            <select id="txtPolice_num" name="UomID" class="form-control" disabled style='width: 100%;border-radius: 30px;'></select>
+                        </div>
+
+                    </div>
+                    <div id="costdiv" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+
+                        <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">التكلفة الافتتاحية </label>
+                        <div class="col-md-2 col-sm-5 col-xs-10">
+                            <input type="text" class="form-control input-sm addable editable" disabled name="StarGlobalCost" id="txtStarGlobalCost">
+                        </div>
+
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  "> التكلفة الحالية </label>
+                        <div class="col-md-2 col-sm-5 col-xs-10">
+                            <input type="text" class="form-control input-sm addable editable" disabled name="GlobalCost" id="txtGlobalCost">
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
+
+        <h4 id="Text_Massage" style=""> رساله </h4>
+
+    </div>
+
+
+
+
+</div>
+
+<div id="Div_Show_units" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred  borderred  display_none">
+    <div class="col-lg-9 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+    <label id="Payload_data" class="col-lg-9 col-md-9 col-sm-9 col-xl-9 col-xs-9  labeltitel " style="margin-right: 20px;"><i id="spanlepRentdata_1" class="ifontowsam fa fa-caret-down" aria-hidden="true"></i>عرض الوحدات   </label>
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+    </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+        <button id="btnBack_2" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-save"></span></button>
+        <button id="btnSave_2" type="button" class="btn btn-success display_none" style="margin-right:9%">@SystemResource.App_save <span class="glyphicon glyphicon-save"></span></button>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
+        <button id="btnUpdate2" type="button" class="btn btn-primary">@SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
+    </div>
+    <div id="divlepRentdata_1" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12     ">
+
+        <div class="col-lg-12 ">
+            <table id="divGrid1"></table>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="Div_Show_Quantity" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred  borderred  display_none">
+    <label id="Payload_data" class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2  labeltitel " style="margin-right: 20px; "><i id="spanlepRentdata_1" class="ifontowsam fa fa-caret-down" aria-hidden="true"></i>عرض الكميات  </label>
+    <button id="btnpriv" type="button" class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 btn btn-warning "style="height: 33px;border-radius: 20px;">عرض الكميات المتاحة فقط<span class="glyphicon glyphicon-arrow-down"></span></button>
+    <div class="col-lg-4 "></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+            <button id="btnBack_3" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-save"></span></button>
+            <button id="btnSave_3" type="button" class="btn btn-success display_none" style="margin-right:9%">@SystemResource.App_save <span class="glyphicon glyphicon-save"></span></button>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
+            <button id="btnUpdate3" type="button" class="btn btn-primary">@SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+        <div id="divlepRentdata_1" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+            <div class="col-lg-12 ">
+                <table id="divGrid3"></table>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-12 ">
+        <br />
+        <br />
+        <br />
+    </div>
+    <script src="~/ClientApp/StkDefinition/StkDefItemsNew.js"></script>

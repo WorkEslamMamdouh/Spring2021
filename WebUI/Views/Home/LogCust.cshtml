@@ -1,0 +1,293 @@
+﻿@using Inv.WebUI.Resources
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/CustLayout.cshtml";
+}
+<div>
+
+    <input type="hidden" id="OnLogged" name="name" value="@Url.Action("CustHome_","Home")" />
+    <input type="hidden" id="GetAPIUrl" name="name" value="@System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]" />
+    <link href="~/Style_design/StyleSheet1.css" rel="stylesheet" />
+    <input id="popup" value="" class="input100" type="text">
+</div>
+<div id="tblLogin" class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img alt="IMG" src="~/New_Design/Login_v1/images/img-01.png" />
+            </div>
+
+            <form class="login100-form validate-form">
+                <span class="login100-form-title">
+                    تسجيل الدخول
+                </span>
+
+                <div class="wrap-input100 validate-input"  >
+                    <input id="txtUserName" class="input100" type="text" name="email" placeholder="UserName">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input id="txtUserPassword" class="input100" type="password" name="pass" placeholder="Password">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input type="hidden" class="login_input2" id="txtYear" placeholder="2021">
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button id="btnLogin" class="login100-form-btn">
+                        تسجيل الدخول
+                    </button>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button id="btnSignUp" class="login100-form-btn SignUp" style="background-color: #5b57cd !important;">
+                        اشتراك
+                    </button>
+                </div>
+
+                <div class="text-center p-t-12">
+                    <input type="checkbox" id="chkRemember">
+                    <span class="txt1">
+                        نسيت
+                    </span>
+                    <a class="txt2" href="#">
+                        اسم المستخدم / كلمة السر ؟
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="tblSignUp" class="limiter" style="display:none;">
+    
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img alt="IMG" src="~/New_Design/Login_v1/images/img-01.png" />
+            </div>
+
+            <form class="login100-form validate-form">
+                <div id="DivMassage" class="col-lg-5  margingred  borderred display_none"style="background-color:#b552c3 !important">
+                    <h4 id="Text_Massage" style=""> رساله </h4>
+                </div>
+                <span class="login100-form-title">
+                    اشتراك جديد
+                </span>
+
+                <div class="wrap-input100 validate-input"data-validate="الاسم بالعربي مطلوب ">
+                    <input id="txtNameArS" class="input100" type="text" name="NameAr" placeholder="الاسم بالعربي">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate=" الاسم بالانجليزي مطلوب" >
+                    <input id="txtNameEnS" class="input100" type="text" name="NameEn" placeholder="الاسم بالانجليزي">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate=" رقم الهاتف مطلوب">
+                    <input id="txtPhoneS" class="input100" type="text" name="NameEn" placeholder="رقم الهاتف">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input"data-validate="يجب ادخال العنوان">
+                    <input id="txtAddressS" class="input100" type="text" name="Address" placeholder="العنوان">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="الايميل مطلوب">
+                    <input id="txtEmailS" class="input100" type="text" name="NameEn" placeholder="الايميل">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="اسم المستخدم مطلوب ">
+                    <input id="txtUserNameS" class="input100" type="text" name="email" placeholder="اسم المستخدم ">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="كلمة المرور مطلوبه">
+                    <input id="txtUserPasswordS" class="input100" maxlength="20" type="password" name="pass" placeholder="كلمة المرور ">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="تأكيد كلمة المرور مطلوبه">
+                    <input id="txtConfirmpasswordS" class="input100" type="password" name="pass" placeholder="تأكيد كلمة المرور">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+
+
+                <div class="container-login100-form-btn">
+                    <button id="btnOkS" class="login100-form-btn">
+                        اشترك الان
+                    </button>
+
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button id="btnBackS" class="login100-form-btn" style="background-color: cadetblue;">
+                        رجوع
+                    </button>
+
+                </div>
+
+                <div class="text-center p-t-12">
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div><!--    .........................login...............-->
+<!--<div class="container-fluid" style="padding:0%">
+    <div class="content">
+        <div id="large-header" class="large-header" style="height:797px;">
+            <div class="col-xs-12" id="center">
+
+                <div class="container_login" id="divLogin" style="position: fixed;top: 25%;z-index: 100;left:29%;">
+                    <div id="back_circle"></div>
+                    <div id="content_login">
+                        <div id="img_title">
+                            <h1> System login</h1>
+
+                        </div>
+                        <div id="padding">
+                            <div class="div_input"> <input type="text" class="login_input" id="txtUserName" placeholder="enter your Name"><span class="user"></span></div>
+                            <div class="div_input">  <input type="password" class="login_input" id="txtUserPassword" placeholder="enter your Password"><span class="pass"></span></div>
+                            <select id="cmbLanguage" style=" height: 25px; width: 271px;">
+                                <option value="ar">عربي</option>
+                                <option value="en">English</option>
+                            </select>
+                            <input type="hidden" class="login_input2" id="txtYear" placeholder="2018">
+
+                            <div class="clear"></div>
+                            <input type="checkbox" id="chkRemember">
+                            <label style="color:#ffffff">Remember me</label>
+                            <input type="button" class="login_btn" id="btnLogin" value="Login">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="clear"></div>
+                    <div id="shadow"></div>
+
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>-->
+<!--                    <canvas id="demo-canvas"></canvas>-->
+<!--</div>
+
+
+</div>-->
+<!-- Related demos -->
+<!--</div>--><!-- /container -->
+<!--    ..............intro...............-->
+<!--    .........................login...............-->
+<!--<div class="container_login flip" id="divCompanies" style="display: none;
+    position: fixed;
+        top: 25%;
+    z-index: 100;left:29%;">
+    <div id="back_circle"></div>
+    <div id="content_login">
+        <div id="img_title">
+            <h1 id="hLoggedName"></h1>
+            <span id="spnLoggedYear" class="date_login"> </span>
+
+
+        </div>
+        <div id="padding">
+            <select class="se_login" id="cmbCompany" style="margin-top:30px;" name="CompCode"></select>
+            <select class="se_login" id="cmbBranch" style="margin-top:15px;" name="Language"></select>-->
+@*<select class="se_login" id="drlSemister" style="margin-top:15px;" name="Semister" ></select>*@
+
+<!--<div class="clear"></div>
+
+            <div style="width: 270px;float: right;">
+                <input type="button" class="login_btn_back" id="btnBack" value="back" style="margin-top:25px;float: left;">
+                <input type="submit" class="login_btn" id="btnOk" value="Enter" style="margin-top:25px;float: right;">
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="shadow"></div>
+    <div class="clear"></div>
+</div>-->
+
+<div class="modal message_popup fade" id="MessageBoxDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="MessageBoxTitle">حذف</h4>
+            </div>
+            <div class="modal-body" style="max-height:200px; overflow:auto; text-align: center;">
+                <div class="col-xs-12"> <h3 id="MessageBoxMessage">هل تريد الحذف حقا</h3></div>
+
+                <div class="col-xs-5 text-center">
+                    <i class="glyphicon btn-danger"></i>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="MessageBoxOk" class="btn btn-danger">موافق</button>
+                <button type="button" id="MessageBoxCancel" class="btn btn-warning" data-dismiss="modal">الغاء</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal message_popup fade" id="MessageBoxDialogwithoutclick" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="MessageBoxTitlewithoutclick">حذف</h4>
+            </div>
+            <div class="modal-body" style="max-height:200px; overflow:auto; text-align: center;">
+                <div class="col-xs-12"> <h3 id="MessageBoxMessagewithoutclick"></h3></div>
+
+                <div class="col-xs-5 text-center">
+                    <i class="glyphicon btn-danger"></i>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<script src="~/ClientApp/Pages/LoginAdmin.js"></script>*@
+
+<script src="~/ClientApp/Pages/LoginCust.js"></script>

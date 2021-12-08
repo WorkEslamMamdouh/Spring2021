@@ -1,0 +1,284 @@
+﻿@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = @SystemResource.Men_AccDefSalesmen;
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<style>
+    .class_btn_drop {
+        background-color: #c8c8c8;
+        padding: 6px 10px 2px 10px;
+    }
+
+    .dropdown-item:hover {
+        cursor: pointer !important;
+        background-color: #c8c8c8 !important;
+    }
+
+    .pading_3 {
+        padding: 0px 50px 0px !important
+    }
+
+    .display_none {
+        display: none !important;
+    }
+
+    .textalign {
+        text-align: center
+    }
+
+    .textcentr_pading {
+        padding-right: 29px !important;
+    }
+
+    .src-btn {
+        border-radius: 18px !important;
+    }
+
+    .dropdown-menu {
+        border-radius: 11px;
+    }
+
+    .disabledDiv {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+
+    #gg .MineBar {
+        width: 1% !important;
+    }
+
+    .border_radio {
+        border: 1px solid;
+        border-radius: 24px;
+        text-align: center;
+    }
+
+    input[class=checkbox]:checked:before {
+        right: 3.3em;
+    }
+
+    input[type=radio] {
+        height: 25px !important
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#but_read').click(function () {
+            $('#result').html("id : " + userid + ", name : " + username);
+        });
+    });
+</script>
+<div id="informtionReserved" class="col-lg-12 margingred  borderred">
+    <div id="id_div_Add">
+        <div class="col-lg-12">
+            <div id="gg" class="">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-3 col-xs-8 border_radio">
+
+                    <label class="col-lg-12 col-xs-4  " style="font-size: 19px;">@SystemResource.Men_Sales </label>
+
+                    <div class="col-lg-12 col-xs-4">
+                        <label class="col-lg-4 col-xs-4 pading_2AccDefSalesmen ">@SystemResource.App_He_has_right </label>
+                        <label class="col-lg-6 col-xs-4 pading_2AccDefSalesmen ">   @SystemResource.App_He_has_no_right </label>
+                        <label class="col-lg-2 col-xs-4 pading_2AccDefSalesmen ">@SystemResource.App_Everybody</label>
+                    </div>
+                    <div class="col-lg-12 col-xs-4">
+                        <input class="col-lg-4 col-xs-4 form-control input-sm" type="radio" id="" name="IsSalesEnable" value="true">
+                        <input class="col-lg-6 col-xs-4 form-control input-sm" type="radio" id="" name="IsSalesEnable" value="false">
+                        <input class="col-lg-2 col-xs-4 form-control input-sm" type="radio" id="IsSalesEnable" name="IsSalesEnable" value="All">
+                    </div>
+                    <div class="col-lg-12 col-xs-4">
+
+                    </div>
+
+                </div>
+                <div class="col-xs-1 ">
+
+                </div>
+                <div class="col-lg-3 col-xs-8 border_radio display_none">
+
+                    <label class="col-lg-12 col-xs-4 pading_2AccDefSalesmen " style="font-size: 19px;">@SystemResource.Purchase </label>
+
+                    <div class="col-lg-12 col-xs-4">
+                        <label class="col-lg-4 col-xs-4 pading_2AccDefSalesmen ">@SystemResource.App_He_has_right </label>
+                        <label class="col-lg-6 col-xs-4 pading_2AccDefSalesmen ">   @SystemResource.App_He_has_no_right </label>
+                        <label class="col-lg-2 col-xs-4 pading_2AccDefSalesmen ">@SystemResource.App_Everybody</label>
+                    </div>
+                    <div class="col-lg-12 col-xs-4">
+                        <input class="col-lg-4 col-xs-4 form-control input-sm" type="radio" id="" name="IsPurchaseEnable" value="true">
+                        <input class="col-lg-6 col-xs-4 form-control input-sm" type="radio" id="" name="IsPurchaseEnable" value="false">
+                        <input class="col-lg-2 col-xs-4 form-control input-sm" type="radio" id="IsPurchaseEnable" name="IsPurchaseEnable" value="All">
+                    </div>
+                    <div class="col-lg-12 col-xs-4">
+
+                    </div>
+                </div>
+                <div class="col-xs-1 MineBar">
+
+                </div>
+                <div class="col-lg-3 col-xs-8 border_radio" style="display:none">
+
+                    <label class="col-lg-12 col-xs-4 pading_2AccDefSalesmen " style="font-size: 19px;">@SystemResource.App_ISOperationEnable </label>
+
+                    <div class="col-lg-12 col-xs-4">
+                        <label class="col-lg-4 col-xs-4  ">@SystemResource.App_He_has_right </label>
+                        <label class="col-lg-6 col-xs-4  ">   @SystemResource.App_He_has_no_right </label>
+                        <label class="col-lg-2 col-xs-4  ">@SystemResource.App_Everybody</label>
+                    </div>
+                    <div class="col-lg-12 col-xs-4">
+                        <input class="col-lg-4 col-xs-4 form-control input-sm" type="radio" id="" name="ISOperationEnable" value="true">
+                        <input class="col-lg-6 col-xs-4 form-control input-sm" type="radio" id="" name="ISOperationEnable" value="false">
+                        <input class="col-lg-2 col-xs-4 form-control input-sm" type="radio" id="ISOperationEnable" name="ISOperationEnable" value="All">
+                    </div>
+                    <div class="col-lg-12 col-xs-4">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-xs-8">
+                <button type="button" class="btn btn-info" id="btnShow">
+                    @SystemResource.App_Show   <span class="glyphicon glyphicon-save "></span>
+                </button>
+                <button type="button" class="btn btn-success" id="btnAdd">
+                    @SystemResource.App_Add  <span class="glyphicon glyphicon-plus-sign"></span>
+                </button>
+            </div>
+        </div>
+        <div id="id_ReportGrid" class="col-lg-12  margingred   " style="display: none;">
+            <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+                <input id="searchbutmemreport" name="" type="text" class="form-control input-sm  text_Display" placeholder="@SystemResource.App_SearchbyNumPh ">
+            </div>
+            <div class="col-lg-15 ">
+                <table id="ReportGrid"></table>
+            </div>
+            <h4 style="text-align: center;font-weight: bold;color: #0088c7;"><i class="glyphicon glyphicon-hand-up"></i> @SystemResource.App_DoubleDisplay <i class="glyphicon glyphicon-hand-up"></i></h4>
+        </div>
+    </div>
+    <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
+        <h4 id="Text_Massage" style=""> رساله </h4>
+    </div>
+    <div id="Div_control" class="col-lg-12 margingred  " style="height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;">
+        <div class="col-lg-12 " style="padding-top: 3px;margin-top: 13px;">
+            <div class="col-lg-12 " style="margin-bottom: -37px">
+                <div class="col-lg-8 col-xs-8">
+                </div>
+                <div class="col-lg-3">
+                    <button type="button" class="btn btn-warning" id="btnback">
+                        <span class="glyphicon glyphicon-backward"></span>  @SystemResource.App_back
+                    </button>
+                    <button id="btnsave" type="button" class="btn btn-success">
+                        @SystemResource.App_save  <span class="glyphicon glyphicon-floppy-saved"></span>
+                    </button>
+                </div>
+                <div class="col-lg-1">
+                    <button type="button" class="btn btn-primary display_none" id="btnedite">
+                        <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
+                    </button>
+                </div>
+            </div>
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen">@SystemResource.App_SalesmanCode</label>
+            <div class="col-lg-2 col-xs-8">
+                <input id="txt_CustomerCODE" name="SalesmanCode" type="number" class="form-control input-sm  text_Display" placeholder="@SystemResource.App_SalesmanCode" disabled="disabled">
+            </div>
+            <div class="col-lg-1 col-xs-8">
+            </div>
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen textcentr_pading"> @SystemResource.App_Active </label>
+
+            <div class="col-xs-1">
+                <input type="checkbox" class="checkbox" id="id_chkcustom6" name="">
+            </div>
+        </div>
+        <div class="col-lg-12 ">
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen">@SystemResource.Name_Arabic</label>
+            <div class="col-lg-3 col-xs-8">
+                <input id="txt_NAME" name="NameA" type="text" class="form-control input-sm  text_Display" placeholder="@SystemResource.Name_Arabic ">
+            </div>
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen">@SystemResource.Name_English </label>
+            <div class="col-lg-3 col-xs-8">
+                <input id="txt_NAMEE" name="NameE" type="text" class="form-control input-sm  text_Display" placeholder="@SystemResource.Name_English  ">
+            </div>
+        </div>
+        <div class="col-lg-12 ">
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen">  @SystemResource.App_Mobile  </label>
+            <div class="col-lg-3 col-xs-8">
+                <input id="txt_MOBILE" name="MOBILE" type="number" class="form-control input-sm  text_Display" placeholder="@SystemResource.App_Mobile   ">
+            </div>
+            <div class="col-lg-3 col-xs-8 contrnerAccDefsalesman1" style="">
+
+                <label class="col-lg-7 col-xs-4 pading_2AccDefSalesmen  textcentr_pading3 display_none ">@SystemResource.App_AuthToPurchase </label>
+                <div class="col-xs-2 display_none">
+                    <input type="checkbox" class="checkbox" checked="checked" id="chk_IsPurchaseEnable" name="CUSTOM6">
+                </div>
+                <label class="col-lg-7 col-xs-4 pading_2AccDefSalesmen textcentr_pading3"> @SystemResource.App_AuthTosellfor   </label>
+                <div class="col-xs-2">
+                    <input type="checkbox" class="checkbox" checked="checked" id="chk_IsSalesEnable" name="CUSTOM6">
+                </div>
+                <label style="display:none" class="col-lg-7 col-xs-4 pading_2AccDefSalesmen textcentr_pading3  ">@SystemResource.App_AuthTheCommission</label>
+                <div style="display:none" class="col-xs-2">
+                    <input type="checkbox" class="checkbox" checked="checked" id="chk_ISOperationEnable" name="CUSTOM6">
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-8 contrnerAccDefsalesman2" style="">
+                <div class="col-lg-12 ">
+                    <label class="col-lg-4 col-xs-4 Trns_Store ">@SystemResource.App_SaleTheInvoice</label>
+                    <div class="col-xs-8">
+                        <input id="chk_PurchaseLimit" name="PurchaseLimit" type="number" class="form-control input-sm  text_Display" placeholder="@SystemResource.App_SaleTheInvoice   " disabled="">
+                    </div>
+                </div>
+                <div class="col-lg-12 display_none">
+                    <label class="col-lg-4 col-xs-4 Trns_Store">@SystemResource.App_PurchaseTheInvoice </label>
+                    <div class="col-xs-8">
+
+                        <input id="chk_SalesCreditLimit" name="SalesCreditLimit" type="number" class="form-control input-sm  text_Display" placeholder="@SystemResource.App_PurchaseTheInvoice " disabled="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 ">
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen">   @SystemResource.App_address </label>
+            <div class="col-lg-3 col-xs-8">
+                <input id="txt_ADDRESS" name="ADDRESS" type="text" class="form-control input-sm  text_Display" placeholder="@SystemResource.App_address  ">
+            </div>
+        </div>
+        <div class="col-lg-12 " style="margin-top: 12px;">
+            <label class="col-lg-1 col-xs-4 pl-0 pr-0" style="padding-top:6px!important">@SystemResource.App_IDNumberOrRecord</label>
+
+            <div class="col-lg-3 col-xs-8">
+                <input id="txt_IDNo" name="IDNo" type="text" class="form-control input-sm  text_Display" placeholder="@SystemResource.App_IDNumberOrRecord ">
+            </div>
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen textcentr_pading display_none"> @SystemResource.App_Nationality  </label>
+            <div class="col-lg-2 col-xs-8 display_none">
+                <select id="ddlNationality" name="" class="form-control input-sm  text_Display">
+                    <option value="Null"> @SystemResource.App_Nationality </option>
+                </select>
+            </div>
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen textcentr_pading display_none">  @SystemResource.menu_Costcenter   </label>
+            <div class="col-lg-2 col-xs-8 display_none">
+                <select id="txt_CC_Code" name="" class="form-control input-sm  text_Display">
+                    <option value="Null"> @SystemResource.choose_Cost   </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <label class="col-lg-1 col-xs-4 pading_2AccDefSalesmen">@SystemResource.App_Notes </label>
+            <div class="col-lg-6 col-xs-8">
+                <textarea id="txt_note" name="REMARKS" type="text" class="form-control input-sm   " placeholder="@SystemResource.App_Notes"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12">
+    <br />
+</div>
+<script>
+    $('#lepnotifications').on('click', function () {
+        $('#divnotifications').toggleClass('showdiv');
+        $('#spanlepnotifications').toggleClass('fa-caret-left');
+        $('#spanlepnotifications').toggleClass('fa-caret-down');
+    });
+</script>
+
+<script src="~/ClientApp/Generalsetting/AccDefSalesmen.js"></script>
