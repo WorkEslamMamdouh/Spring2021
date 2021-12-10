@@ -41,6 +41,7 @@ var CustomerOrder;
     var MasterDetailsModel = new SlsInvoiceMasterDetails();
     var invoiceItemSingleModel = new I_Sls_TR_InvoiceItems();
     var List_MinUnitPrice = new Array();
+    var I_Item_Cust = new Array();
     var storeDetails = new Array();
     //TextBoxes
     var txt_Tax_total_Discount;
@@ -235,29 +236,46 @@ var CustomerOrder;
         $("#txtSupply_end_Date").removeAttr("disabled");
         $("#txtTerms_of_Payment").removeAttr("disabled");
         AddNewRow();
+        GetCustItemsGridData(CustomerId);
     }
     //------------------------------------------------------ Drop Down Region------------------------
     //------------------------------------------------------ Controls Grid Region------------------------
+    function GetCustItemsGridData(CUSTOMERID) {
+        debugger;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Customer", "GetI_Item_CustomerByID"),
+            data: { CUSTOMER_ID: CUSTOMERID },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    I_Item_Cust = result.Response;
+                }
+            }
+        });
+    }
     function BuildControls(cnt) {
         var html;
-        html = '<div id= "No_Row' + cnt + '" class="container-fluid style_border" > <div class="row " > <div class="col-lg-12" > ' +
+        html = '<div id= "No_Row' + cnt + '" class="container-fluid style_border" > <div class="row " > <div class="col-lg-12" style="right:2%;"> ' +
             '<span id="btn_minus' + cnt + '" class="fa fa-minus-circle fontitm3SlsTrSalesManager2 display_none"></span>' +
-            '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-3 p-0" >' +
+            '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-3 p-0" style="width: 17%;" >' +
             '<input id="txtSerial' + cnt + '" type="text" class="form-control input-sm input-sm right2" disabled /></div>' +
             '<input id="InvoiceItemID' + cnt + '" type="hidden" class="form-control input-sm right2 display_none"  />' +
             '<div class="display_none col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0" style="width: 11%;">' +
             '<input id="txtServiceCode' + cnt + '" name=""   type="text" class="  col-lg-9 form-control input-sm  text_Display  " />' +
             '</div>' +
-            '<div class=" col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-9 p-0">' +
-            '<button type="button" class="col-lg-1 col-xs-1 src-btn btn btn-search input-sm " id="btnSearchService' + cnt + '" name="ColSearch">   ' +
+            '<div class=" col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-9 p-0" style="width: 82%;">' +
+            '<button type="button" class="col-lg-1 col-xs-1 src-btn btn btn-search input-sm " style="width:22%;" id="btnSearchService' + cnt + '" name="ColSearch">   ' +
             '<i class="fa fa-search  "></i></button>' +
-            '<input id="txtServiceName' + cnt + '" name="FromDate" disabled  type="text" class=" col-lg-11 col-xs-8 form-control input-sm  text_Display" style="width:90%;" />' +
+            '<input id="txtServiceName' + cnt + '" name="FromDate" disabled  style="width: 77%;" type="text" class=" col-lg-11 col-xs-8 form-control input-sm  text_Display" style="width:90%;" />' +
             '</div>' +
-            '<div class=" col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-4 p-0">' +
-            '<select id="ddlTypeuom' + cnt + '" class="form-control input-sm"   style="width: 100%;border-radius: 30px;"><option value="null">الوحده</option></select> </div>' +
-            '<div class=" col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-4 p-0"><input type="number" id="txtQuantity' + cnt + '" name="quant[1]" class="form-control input-sm   font1" value="1" min="1" max="1000" step="1"></div>' +
+            '<div class="   col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3 Mopil"  >' +
+            '<div class="  col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4 p-0" style="width: 33%;">' +
+            '<select id="ddlTypeuom' + cnt + '" disabled class="form-control input-sm"   style="width: 100%;border-radius: 30px;"><option value="null">الوحده</option></select> </div>' +
+            '<div class="  col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4 p-0" style="width: 33%;"><input type="number" id="txtQuantity' + cnt + '" name="quant[1]" class="form-control input-sm   font1" value="1" min="1" max="1000" step="1"></div>' +
+            '<div class="  col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4 p-0" style="width: 33%;" ><input type="number" disabled id="txtPrice' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="1" min="0" max="1000" step="0.5"></div>' +
+            '</div>' +
             '<div class="display_none col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"><input type="text"  disabled class="form-control input-sm" id="txtReturnQuantity' + cnt + '" name="quant[3]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="1"></div>' +
-            '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-4 p-0"  ><input type="number" disabled id="txtPrice' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="1" min="0" max="1000" step="0.5"></div>' +
             '<div class="display_none col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number"  id="txtDiscountPrc' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="0.5"></div>' +
             '<div class="display_none col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number"  id="txtDiscountAmount' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="0.5"></div>' +
             '<div class="display_none col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number" disabled id="txtNetUnitPrice' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="0.5"></div>' +
@@ -275,20 +293,75 @@ var CustomerOrder;
         $("#div_Data").append(html);
         //Search Region
         //// First Search
+        //$('#btnSearchService' + cnt).click(function (e) {
+        //    debugger
+        //    let sys: SystemTools = new SystemTools();
+        //    let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
+        //    NumCnt = cnt;
+        //    var Storeid =1
+        //    sys.ShowItemsCust(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, () => {
+        //        let id = sysInternal_Comm.Itemid;
+        //        debugger
+        //        if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+        //        $("#txt_ItemID" + NumCnt + "").val(id);
+        //        let ItemCode = '';
+        //        let ItemID = id;
+        //        let Mode = InvoiceType;
+        //        Ajax.Callsync({
+        //            type: "Get",
+        //            url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
+        //            data: {
+        //                CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+        //            },
+        //            success: (d) => {
+        //                let result = d as BaseResponse;
+        //                if (result.IsSuccess) {
+        //                    GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
+        //                    if (GetItemInfo.length > 0) {
+        //                        $('#ddlTypeuom' + NumCnt + '').html('');
+        //                        for (var i = 0; i < GetItemInfo.length; i++) {
+        //                            $('#ddlTypeuom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+        //                        }
+        //                        $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
+        //                        $('#txtServiceCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
+        //                        $('#txtPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
+        //                        $('#txtNetUnitPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
+        //                        $('#txtQuantity' + NumCnt + '').val('1');
+        //                        $('#txtServiceName' + NumCnt + '').attr('disabled', 'disabled');
+        //                        $('#txtServiceCode' + NumCnt + '').attr('disabled', 'disabled');
+        //                        totalRow(NumCnt);
+        //                    }
+        //                    else {
+        //                        $('#ddlTypeuom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
+        //                        $('#txtServiceName' + NumCnt + '').val('');
+        //                        $('#txtServiceCode' + NumCnt + '').val('');
+        //                        $('#txtPrice' + NumCnt + '').val('0');
+        //                        $('#txtNetUnitPrice' + NumCnt + '').val('0');
+        //                        $('#txtQuantity' + NumCnt + '').val('1');
+        //                        $('#txtServiceName' + NumCnt + '').removeAttr('disabled');
+        //                        $('#txtServiceCode' + NumCnt + '').removeAttr('disabled');
+        //                    }
+        //                }
+        //            }
+        //        });
+        //    });
+        //});
         $('#btnSearchService' + cnt).click(function (e) {
             debugger;
             var sys = new SystemTools();
             var GetItemInfo = new Array();
             NumCnt = cnt;
             var Storeid = 1;
-            sys.ShowItemsCust(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, function () {
-                var id = sysInternal_Comm.Itemid;
+            sys.FindKey(Modules.CUSTOMERS, "btnCustomerOrder", " STATUS = 1 and CUSTOMER_ID = " + CustomerId, function () {
+                var id = SearchGrid.SearchDataGrid.SelectedKey;
+                alert(id);
                 debugger;
+                var ListCustItem = I_Item_Cust.filter(function (x) { return x.Id == id; });
                 if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val())))
                     return;
-                $("#txt_ItemID" + NumCnt + "").val(id);
+                //$("#txt_ItemID" + NumCnt + "").val(id);
                 var ItemCode = '';
-                var ItemID = id;
+                var ItemID = ListCustItem[0].ItemID;
                 var Mode = InvoiceType;
                 Ajax.Callsync({
                     type: "Get",
@@ -299,17 +372,21 @@ var CustomerOrder;
                     success: function (d) {
                         var result = d;
                         if (result.IsSuccess) {
+                            debugger;
                             GetItemInfo = result.Response;
                             if (GetItemInfo.length > 0) {
+                                debugger;
                                 $('#ddlTypeuom' + NumCnt + '').html('');
                                 for (var i = 0; i < GetItemInfo.length; i++) {
                                     $('#ddlTypeuom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
                                 }
-                                $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
-                                $('#txtServiceCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
-                                $('#txtPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
-                                $('#txtNetUnitPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
                                 $('#txtQuantity' + NumCnt + '').val('1');
+                                $('#txt_ItemID' + NumCnt + '').val(ListCustItem[0].ItemID);
+                                $('#txtServiceCode' + NumCnt + '').val(ListCustItem[0].ItemCode);
+                                $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? ListCustItem[0].DescA : ListCustItem[0].DescL));
+                                $('#ddlTypeuom' + NumCnt + '').val(ListCustItem[0].UomID);
+                                $('#txtPrice' + NumCnt + '').val(ListCustItem[0].Unitprice);
+                                $('#txtNetUnitPrice' + NumCnt + '').val(ListCustItem[0].Unitprice);
                                 $('#txtServiceName' + NumCnt + '').attr('disabled', 'disabled');
                                 $('#txtServiceCode' + NumCnt + '').attr('disabled', 'disabled');
                                 totalRow(NumCnt);
@@ -672,25 +749,25 @@ var CustomerOrder;
             if ($("#txt_ItemID" + rowcount).val() == "" || $("#txt_ItemID" + rowcount).val() == "0" || $("#txt_ItemID" + rowcount).val() == null) {
                 DisplayMassage(" برجاء ادخال الصنف", "Please enter the type", MessageType.Error);
                 Errorinput($("#btnSearchService" + rowcount));
-                Errorinput($("#txtServiceCode" + rowcount));
+                Errorinput($("#txtServiceName" + rowcount));
                 return false;
             }
-            else if ($("#txtServiceCode" + rowcount).val() == "") {
-                DisplayMassage(" برجاء ادخال الكود", "Please enter the type", MessageType.Error);
-                Errorinput($("#txtServiceCode" + rowcount));
-                return false;
-            }
+            //else if ($("#txtServiceCode" + rowcount).val() == "") {
+            //    DisplayMassage(" برجاء ادخال الكود", "Please enter the type", MessageType.Error);
+            //    Errorinput($("#txtServiceCode" + rowcount));
+            //    return false
+            //}
             else if (Qty == 0) {
                 DisplayMassage(" برجاء ادخال الكمية المباعة", "Please enter the Quantity sold", MessageType.Error);
                 Errorinput($("#txtQuantity" + rowcount));
                 return false;
             }
-            else if (Price == 0) {
-                DisplayMassage(" برجاء ادخال السعر", "Please enter the Price", MessageType.Error);
-                Errorinput($("#txtPrice" + rowcount));
-                Errorinput($("#txtUnitpriceWithVat" + rowcount));
-                return false;
-            }
+            //else if (Price == 0) {
+            //    DisplayMassage(" برجاء ادخال السعر", "Please enter the Price", MessageType.Error);
+            //    Errorinput($("#txtPrice" + rowcount));
+            //    Errorinput($("#txtUnitpriceWithVat" + rowcount));
+            //    return false
+            //}
             return true;
         }
     }

@@ -1,4 +1,15 @@
 ﻿
+.Mopil {
+  
+}
+
+@media only screen and (max-width: 600px) {
+    .Mopil {
+        position: absolute !important;
+        right: 96% !important;
+    }
+}
+
 .borderred {
     border: solid 1px #f3f3f3 !important;
     border-radius: 30px;
