@@ -70,6 +70,17 @@ namespace Inv.API.Controllers
             //}
             //return BadRequest(ModelState);
         }
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetItemstore(int CompCode ,string TypeStock, string UserCode, string Token)
+        {
+            if (ModelState.IsValid && UserControl.CheckUser(Token, UserCode))
+            {
+               
+                var ItemStockList = db.IQ_GetItemStore.Where(x=>x.CompCode == CompCode && x.LOCATION2 == TypeStock).ToList();
 
+                return Ok(new BaseResponse(ItemStockList));
+            }
+            return BadRequest(ModelState);
+        }
     }
 }
