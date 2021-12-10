@@ -6240,7 +6240,8 @@ var IQ_GetItemYearUom = /** @class */ (function () {
 }());
 var IQ_GetItemStore = /** @class */ (function () {
     function IQ_GetItemStore() {
-        this.CreatedAt = "";
+        this.DescA = "";
+        this.DescL = "";
         this.ItemStoreID = 0;
         this.ItemID = 0;
         this.FinYear = 0;
@@ -6270,9 +6271,14 @@ var IQ_GetItemStore = /** @class */ (function () {
         this.BRA_DESC = "";
         this.BRA_DESCL = "";
         this.BRA_CODE = 0;
+        this.UOMDescA = "";
+        this.UOMDescE = "";
+        this.ItemFamilyDescA = "";
+        this.ItemFamilyDescE = "";
+        this.CategoryDescA = "";
+        this.CategoryDescL = "";
         this.Statusflag = "";
     }
-    ;
     return IQ_GetItemStore;
 }());
 var I_ItemYearUom = /** @class */ (function () {

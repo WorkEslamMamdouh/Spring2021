@@ -38,8 +38,15 @@
 
 
 
-
-<div class="row  margingred borderred ">
+<div class="col-lg-12">
+    <select id="drpType" class="col-lg-3 form-control input-sm"style="text-align-last:center ;background-color: black;color: yellow;font-weight: bold;border: yellow;">
+        <option value="null">اختر النظام</option>
+        <option value="2">استلام</option>
+        <option value="0">المخزون</option>
+        <option value="1">تحويل</option>
+    </select>
+</div>
+<div id="Stock" class="row  margingred borderred display_none">
     <div class="col-lg-12">
 
         <div class="col-lg-9">
@@ -47,198 +54,79 @@
 
 
     </div>
-    <div id="masterdiv">
-        <div class="col-lg-12">
-            <label class="col-lg-1 col-xs-4      pading_2DefStore  "> @SystemResource.App_BranchName </label>
-            <div class="col-lg-3 col-xs-8">
-                <select id="drpuserType" class="form-control input-sm"></select>
-            </div>
 
-
-            <div class="col-md-3 col-sm-5 col-xs-10">
-            </div>
-
-
-            <div class="col-md-2">
-            </div>
-            <div class="col-lg-1">
-                <button id="btnadd" type="button" class="btn btn-success">
-                    @SystemResource.App_Add  <span class="glyphicon glyphicon-plus-sign "></span>
-                </button>
-            </div>
-            <div class="col-md-1 col-sm-5 col-xs-10">
-                <button id="btnShow" type="button" class="btn btn-info">
-                    @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
-                </button>
-            </div>
+    <div id="divMasterGridiv" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
+        <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+            <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
         </div>
+        <div class="col-lg-12 ">
 
-        <div id="divMasterGridiv" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
-            <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
-                <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
-            </div>
-            <div class="col-lg-12 ">
-
-                <table id="divMasterGrid"></table>
-            </div>
+            <table id="divMasterGrid"></table>
         </div>
+    </div>
+
+    <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
+
+        <h4 id="Text_Massage"> @SystemResource.App_Message </h4>
 
     </div>
 
+    <div id="div_Master_Hedr" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred display_none">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xl-9 col-xs-9" style="">
+                <div class="col-lg-5">
 
-
-
-
-
-    <div id="divDetails" class="col-lg-12 ">
-
-        <div class="col-lg-12 display_none " id="divEdit">
-
-            <div class="col-md-2 col-sm-5 col-xs-10 ckekPurOrder">
-                <label class="col-lg-6 col-xs-4  marginstenig pading_lep  pading_2DefStore textcentr_PurOrder ">  @SystemResource.App_approved  </label>
-                <div class="col-xs-6">
-                    <input type="checkbox" class="checkbox" id="chkActive" name="CUSTOM6" />
                 </div>
-            </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
 
-
-            <div class="col-md-5 col-sm-5 col-xs-10">
-
-            </div>
-
-            <div class="col-md-4 col-sm-5 col-xs-10">
-                <button id="btnPrintReceive" type="button" class="btn btn-info display_none"> @SystemResource.App_PrintReceive  <span class="glyphicon"></span>  </button>
-
-
-                <button id="btnPrintPurchaseDemand" type="button" class="btn btn-info display_none">@SystemResource.App_PrintPurchaseDemand <span class="glyphicon"></span> </button>
-                <button id="btnPrntPrice" type="button" class="btn btn-warning display_none"> @SystemResource.App_PrintPrice <span class="glyphicon "></span></button>
-
-            </div>
-            <div class="col-lg-2 ">
-
-
-                <button id="btnBack" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-backward"></span></button>
-                <button id="btnSave" type="button" class="btn btn-success display_none "> @SystemResource.App_save <span class="glyphicon glyphicon-floppy-saved"></span></button>
-
-            </div>
-
-            <div class="col-md-1 col-sm-5 col-xs-10">
-                <button id="btnUpdate" type="button" class="btn btn-primary ">  @SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
-
+                </div>
             </div>
         </div>
-
-    </div>
-    <div id="rowData" class="col-lg-12 ">
-
-        <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
-
-            <h4 id="Text_Massage"> @SystemResource.App_Message </h4>
-
-        </div>
-        <div id="StoreDetail" class="display_none">
-            <div class="col-lg-12 ">
-
-
-
-                <div class="col-lg-12">
-
-                    <label class="col-lg-1 col-xs-6   marginstenig pading_lep pading_2DefStore   ">  @SystemResource.Trns_StoreNO   </label>
-                    <div class="col-md-2">
-                        <input type="number" class="form-control input-sm   " name="STORE_CODE" id="txtPurTrNo" disabled="disabled">
-                    </div>
-
-                    <label class="col-lg-1 col-xs-4      pading_2DefStore  ">    @SystemResource.App_BranchName  </label>
-                    <div class="col-lg-3 col-xs-8">
-                        <select id="drpuserType_new" name="BRA_CODE" class="form-control input-sm" disabled="disabled">
-                            <option value="Null"> @SystemResource.choose_branch</option>
-
-                        </select>
-                    </div>
-
-                    <label class="col-lg-1 col-xs-6 marginstenig pading_lep pading_2DefStore" style="text-align:end">  @SystemResource.App_Active  </label>
-                    <div class="col-md-2">
-                        <input type="checkbox" class="checkbox" name="IsActive" id="checkactive" disabled="disabled">
-                    </div>
-                    <div class="col-lg-1">
-                        <button type="button" class="btn btn-primary floatleftPurOrder display_none" id="btnedite">
-                            <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
-                        </button>
-                    </div>
-                    <div class="col-lg-2">
-
-                        <button type="button" class="btn btn-warning display_none" id="btnback">
-                            <span class="glyphicon glyphicon-backward"></span> @SystemResource.App_back
-                        </button>
-
-
-                        <button id="btnsave" type="button" class="btn btn-success floatleftPurOrder display_none">
-                            @SystemResource.App_save  <span class="glyphicon glyphicon-floppy-saved"></span>
-                        </button>
-
-                    </div>
+        <br />
+        <div id="div_Master" class="">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">كود الصنف </label>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                    <input type="text" class="form-control input-sm addable editable" name="ItemCode" disabled id="txtItemCode">
                 </div>
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
 
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">  @SystemResource.Name_Arabic</label>
-                    <div class="col-lg-3 ">
-                        <input type="text" class="form-control input-sm" name="DescA" id="txtName_Arabic" disabled="disabled">
-                    </div>
-
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">   @SystemResource.Name_English</label>
-                    <div class="col-lg-3 ">
-                        <input type="text" class="form-control input-sm" name="DescL" id="txtName_English" disabled="disabled">
-                    </div>
-
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  " style="padding-right:25px">وصف عربي</label>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtItm_DescA">
                 </div>
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.inventoryAccount  </label>
-                    <div class="col-lg-3 ">
-                        <select id="drpinventoryAccount" name="StockAccCode" class="form-control input-sm" disabled="disabled"></select>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone </label>
-                    <div class="col-lg-3 ">
-                        <input type="number" class="form-control input-sm" name="Tel1" id="txtphone" disabled="disabled">
-                    </div>
 
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone 2</label>
-                    <div class="col-lg-3 ">
-                        <input type="number" class="form-control input-sm" name="Tel2" id="txtphone2" disabled="disabled">
-                    </div>
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes textcentrProcesses2 ">وصف بالانجليزي </label>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="DescL" id="txtItm_DescE">
 
                 </div>
 
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.App_address </label>
-                    <div class="col-lg-3 ">
-                        <div class="form-outline">
-                            <textarea class="form-control" name="Address" id="txtaddress" rows="2" disabled="disabled"></textarea>
-                        </div>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_Notes </label>
-                    <div class="col-lg-3 ">
-                        <div class="form-outline">
-                            <textarea class="form-control" id="txtNotes" name="Remarks" rows="2" disabled="disabled"></textarea>
-                        </div>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> نسبة @SystemResource.App_Commission  </label>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الفئة  </label>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="CategoryDescA" id="txtCat_Type">
+                </div>
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الصنف الرئيسي   </label>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="ItemFamilyDescA" id="txtFamily">
 
-                    <div class="col-lg-1 ">
-                        <input type="text" class="form-control" id="txtCommission" name="CommissionPRC" rows="2" disabled="disabled" />
-                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+
+                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
+                <div class="col-md-2 col-sm-5 col-xs-10">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="UOMDescA" id="txtUOM">
                 </div>
 
-                <div class="col-lg-12">
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Create </label>
-                    <input id="txtCreatedBy" name="CreatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom ">
-                    <input id="txtCreatedAt" name="CreatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
-                    <div class="col-lg-2"> </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Update  </label>
-                    <input id="txtUpdatedBy" name="UpdatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom">
-                    <input id="txtUpdatedAt" name="UpdatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
+                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الكمية المتاحه</label>
+                <div class="col-md-2 col-sm-5 col-xs-10">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="OnhandQty" id="txtQTY">
                 </div>
-
-
             </div>
         </div>
     </div>

@@ -10522,7 +10522,8 @@ class IQ_GetItemYearUom {
 }
 class IQ_GetItemStore {
     constructor() {
-
+        this.DescA = "";
+        this.DescL = "";
         this.ItemStoreID = 0;
         this.ItemID = 0;
         this.FinYear = 0;
@@ -10552,17 +10553,24 @@ class IQ_GetItemStore {
         this.BRA_DESC = "";
         this.BRA_DESCL = "";
         this.BRA_CODE = 0;
+        this.UOMDescA = "";
+        this.UOMDescE = "";
+        this.ItemFamilyDescA = "";
+        this.ItemFamilyDescE = "";
+        this.CategoryDescA = "";
+        this.CategoryDescL = "";
         this.Statusflag = "";
     }
-    public ItemYearUomID: number;
+    public DescA: string;
+    public DescL: string;
     public ItemStoreID: number;
     public ItemID: number;
     public FinYear: number;
     public StoreCode: number;
     public BraCode: number;
     public CompCode: number;
-    public LOCATION: string; ce: number;
-    public LOCATION2: string;;
+    public LOCATION: string;
+    public LOCATION2: string;
     public OnhandQty: number;
     public BookQty: number;
     public OnRoadQty: number;
@@ -10573,7 +10581,7 @@ class IQ_GetItemStore {
     public StartQty: number;
     public StartLocalCost: number;
     public LocalCost: number;
-    public CreatedAt = ""
+    public CreatedAt: string;
     public CreatedBy: string;
     public UpdatedAt: string;
     public UpdatedBy: string;
@@ -10584,8 +10592,16 @@ class IQ_GetItemStore {
     public BRA_DESC: string;
     public BRA_DESCL: string;
     public BRA_CODE: number;
+    public UOMDescA: string;
+    public UOMDescE: string;
+    public ItemFamilyDescA: string;
+    public ItemFamilyDescE: string;
+    public CategoryDescA: string;
+    public CategoryDescL: string;
     public Statusflag: string;
 }
+
+
 class I_ItemYearUom {
     constructor() {
         this.ItemID = 0;
