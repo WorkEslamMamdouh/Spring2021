@@ -116,7 +116,7 @@
     /*background: #fff;*/
     background: #000000 !important;
     color: wheat;
-    border-radius: 13px;
+    /*border-radius: 13px;*/
     font-weight: bold;
 }
 
@@ -124,7 +124,7 @@
         /*background: #ffe1c6 !important;*/
         background: #414141 !important;
         color: wheat;
-        border-radius: 13px;
+        /*border-radius: 13px;*/
         font-weight: bold;
     }
 
@@ -133,7 +133,7 @@
     /*background: #ffe1c6 !important;*/
     background: #000000 !important;
     color: wheat;
-    border-radius: 13px;
+    /*border-radius: 13px;*/
     font-weight: bold;
 }
 
@@ -141,7 +141,7 @@
         /*background: #ffe1c6 !important;*/
         background: #414141 !important;
         color: wheat;
-        border-radius: 13px;
+        /*border-radius: 13px;*/
         font-weight: bold;
     }
 
@@ -149,7 +149,7 @@
     /*background: #f9f9f9;*/
     background: #f1bc31;
     color: black;
-    border-radius: 13px;
+    /*border-radius: 13px;*/
 }
 
 .jsgrid-filter-row > .jsgrid-cell {

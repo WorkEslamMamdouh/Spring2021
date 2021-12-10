@@ -15,6 +15,7 @@ namespace CUSTOMERS {
     var CustMasterDetails: CustomerMasterDetails = new CustomerMasterDetails();
     var Details_Updata_Cust: Array<CUSTOMER> = new Array<CUSTOMER>();
 
+    var I_Item_Cust: Array<I_Item_Customer> = new Array<I_Item_Customer>();
     var CustomerDetails: Array<CUSTOMER> = new Array<CUSTOMER>();
     var SearchDetails: Array<CUSTOMER> = new Array<CUSTOMER>();
     var BilldIData: Array<CUSTOMER> = new Array<CUSTOMER>();
@@ -35,7 +36,7 @@ namespace CUSTOMERS {
     var VatPrc: number;
     var Finyear: number;
     var BranchCode: number;
-    var CountGrid: number = 0; 
+    var CountGrid: number = 0;
     var CountItems: number = 0;
 
     var lang = (SysSession.CurrentEnvironment.ScreenLanguage);
@@ -85,10 +86,11 @@ namespace CUSTOMERS {
     var StatusFlag;
     var txt_ID_APP_Category: HTMLSelectElement;
     var txt_Cust_Type: HTMLSelectElement;
-    
+
     var CUSTOMER_ID = 0;
     var NumCnt = 0;
     var status: HTMLInputElement;
+    var CheckISActive: HTMLInputElement;
 
 
     export function InitalizeComponent() {
@@ -123,7 +125,8 @@ namespace CUSTOMERS {
         txt_ID_APP_Category = document.getElementById("txt_ID_APP_Category") as HTMLSelectElement;
         txt_Cust_Type = document.getElementById("txt_Cust_Type") as HTMLSelectElement;
 
-          status  = document.getElementById('id_chkcustom6') as HTMLInputElement;
+        status = document.getElementById('id_chkcustom6') as HTMLInputElement;
+        CheckISActive = document.getElementById('CheckISActive') as HTMLInputElement;
 
 
         btnShow = document.getElementById("btnShow") as HTMLButtonElement;
@@ -179,13 +182,13 @@ namespace CUSTOMERS {
                     for (var i = 0; i < CustomerDetails.length; i++) {
 
                         CustomerDetails[i].Name_STATUS = CustomerDetails[i].STATUS == false ? 'غير فعال' : 'فعال';
-                        CustomerDetails[i].NameIsCreditCustomer = CustomerDetails[i].IsCreditCustomer == false ? 'أجل' : 'نقدي';  
+                        CustomerDetails[i].NameIsCreditCustomer = CustomerDetails[i].IsCreditCustomer == false ? 'أجل' : 'نقدي';
 
                         //Credit = Number(CustomerDetails[i].Openbalance - CustomerDetails[i].CreditLimit);
                         //if (Credit < 0) {
                         //    CustomerDetails[i].Debit = (Credit * -1);
                         //    CustomerDetails[i].DebitFC = 0;
-                                                        
+
 
                         //}
                         //else {
@@ -227,10 +230,10 @@ namespace CUSTOMERS {
             { title: "الاسم", name: "CUSTOMER_NAME", type: "text", width: "100px" },
             { title: "رقم الجوال", name: "PHONE", type: "text", width: "100px" },
             { title: "النوع", name: "NameIsCreditCustomer", type: "text", width: "100px" },
-            { title: "الرصيد الافتتاحي", name: "Openbalance", type: "text", width: "100px" },      
-            { title: "مدين", name: "Debit", type: "text", width: "100px" },    
-            { title: "دائن", name: "Credit", type: "text", width: "100px" },    
-            { title: "الرصيد", name: "CreditLimit", type: "text", width: "100px" },     
+            { title: "الرصيد الافتتاحي", name: "Openbalance", type: "text", width: "100px" },
+            { title: "مدين", name: "Debit", type: "text", width: "100px" },
+            { title: "دائن", name: "Credit", type: "text", width: "100px" },
+            { title: "الرصيد", name: "CreditLimit", type: "text", width: "100px" },
             { title: "مفعل", name: "Name_STATUS", type: "textdd", width: "100px" },
         ];
         ReportGrid.Bind();
@@ -247,13 +250,15 @@ namespace CUSTOMERS {
         if (Selecteditem[0].STATUS) { status.checked = true }
         else status.checked = false;
 
+        $('#txtItemCount').val("0");
+
         $('#btnedite').removeClass("display_none");
         $('#btnsave').addClass("display_none");
         $('#btnback').addClass("display_none");
         $('#btnedite').removeAttr("disabled");
         $('#Div_control').removeClass("display_none");
 
-        if (Selecteditem[0].IsCreditCustomer == false ) {
+        if (Selecteditem[0].IsCreditCustomer == false) {
             $('#div_Balance').removeClass("display_none");
         }
         else {
@@ -263,8 +268,16 @@ namespace CUSTOMERS {
         }
 
 
+        CUSTOMER_ID = Selecteditem[0].CUSTOMER_ID;
+        $('#Div_control').removeClass("display_none");
+
+        BindCustItemsGridData(CUSTOMER_ID);
+        $('#DivShow').removeClass("display_none");
+        $("#DivShow :input").attr("disabled", "disabled");
+
+
         //Debit = Selecteditem[0].CreditLimit;
-        
+
 
         //Credit = Number(Selecteditem[0].Openbalance - Selecteditem[0].CreditLimit);
         //if (Credit < 0) {
@@ -279,10 +292,38 @@ namespace CUSTOMERS {
 
         //}
 
-        CUSTOMER_ID = Selecteditem[0].CUSTOMER_ID;
-        $('#Div_control').removeClass("display_none");
-
     }
+    function BindCustItemsGridData(CUSTOMERID: number) {
+        debugger
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Customer", "GetI_Item_CustomerByID"),
+            data: { CUSTOMER_ID: CUSTOMERID },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    I_Item_Cust = result.Response as Array<I_Item_Customer>;
+                    CountGrid = 0;
+                    $("#div_Data").html('');
+                    for (var i = 0; i < I_Item_Cust.length; i++) {
+
+                        BuildControls(i);
+                        Disbly_BuildControls(i, I_Item_Cust);
+                        CountGrid++;
+                    }
+
+                    $("#txtItemCount").val(CountGrid);
+
+
+
+
+
+                }
+            }
+        });
+    }
+
+
 
     function txt_Openbalance_onchange() {
         if (IsNew != true) {
@@ -297,13 +338,13 @@ namespace CUSTOMERS {
                 $('#txt_DebitFC').val(credit * -1);
                 $('#txt_Debit').val("0");
 
-                
+
             }
-         
-            
+
+
         }
         else {
-            $('#txt_DebitFC').val(txt_Openbalance.value);    
+            $('#txt_DebitFC').val(txt_Openbalance.value);
         }
 
     }
@@ -321,16 +362,28 @@ namespace CUSTOMERS {
         $('#txt_balance').attr("disabled", "disabled");
         $('#txt_DebitFC').attr("disabled", "disabled");
         $('#txt_Debit').attr("disabled", "disabled");
-        $('#txt_Openbalance').attr("disabled", "disabled");  
+        $('#txt_Openbalance').attr("disabled", "disabled");
         $('#txt_CustomerCODE').attr("disabled", "disabled");
 
+        $("#btnAddDetails").removeAttr("disabled");
+        $('#btnAddDetails').removeClass("display_none");
+
+        for (var i = 0; i < CountGrid; i++) {
+            $("#btnSearchService" + i).removeAttr("disabled");
+            $("#ddlTypeuom" + i).removeAttr("disabled");
+            $("#txtPrice" + i).removeAttr("disabled");
+            $("#CheckISActive" + i).removeAttr("disabled");
+            $("#btn_minus" + i).removeAttr("disabled");
+            $("#btn_minus" + i).removeClass("display_none");
+
+        }
 
     }
     function btnAdd_onclick() {
         debugger
         IsNew = true;
         EnableControls();
-                    
+
 
         $('#btnsave').removeClass("display_none");
         $('#btnback').removeClass("display_none");
@@ -345,7 +398,7 @@ namespace CUSTOMERS {
         $('#txt_Debit').attr("disabled", "disabled");
         $('#txt_CustomerCODE').attr("disabled", "disabled");
 
-        
+
         $('#Div_control').removeClass("display_none");
 
         status.checked = true;
@@ -360,9 +413,22 @@ namespace CUSTOMERS {
             return
 
 
-            Insert();            
-        
 
+
+        var CanAdd: boolean = true;
+        if (CountGrid > 0) {
+            for (var i = 0; i < CountGrid; i++) {
+                CanAdd = Validation_Grid(i);
+                if (CanAdd == false) {
+                    break;
+                }
+            }
+        }
+        if (CanAdd) {
+
+            Insert();
+
+        }
     }
     function btnback_onclick() {
 
@@ -412,13 +478,13 @@ namespace CUSTOMERS {
 
 
 
-        
+
         if ($('#txt_Cust_Type').val() == "Null") {
             MessageBox.Show("يجب اختيار النوع ", " ");
             Errorinput($('#txt_Cust_Type'));
             return false;
 
-        }     
+        }
         if ($('#txt_NAME').val() == "") {
 
             MessageBox.Show("يجب ادخال اسم العميل ", " ");
@@ -440,7 +506,7 @@ namespace CUSTOMERS {
                 Errorinput($('#txt_Email'));
                 return false;
             }
-        } 
+        }
 
 
 
@@ -466,8 +532,8 @@ namespace CUSTOMERS {
         txt_Notes.value = "";
         txt_Type_CUSTOMER.value = "";
 
-
-
+        $("#btnAddDetails").removeAttr("disabled");
+        $('#btnAddDetails').removeClass("display_none");
 
 
     }
@@ -492,42 +558,45 @@ namespace CUSTOMERS {
 
     function Assign() {
 
-       
+
         if (IsNew == true) {
             Details_Updata_Cust = new Array<CUSTOMER>();
-            Det_Single_Cust = new CUSTOMER();   
-            DocumentActions.AssignToModel(Det_Single_Cust);    
-            Det_Single_Cust.CustomerCODE = (Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 1000)).toString();    
-            Det_Single_Cust.CUSTOMER_ID = 0;    
+            Det_Single_Cust = new CUSTOMER();
+            DocumentActions.AssignToModel(Det_Single_Cust);
+            Det_Single_Cust.CustomerCODE = (Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 1000)).toString();
+            //Det_Single_Cust.CustomerCODE = $('#txt_CustomerCODE').val();
+            Det_Single_Cust.CUSTOMER_ID = 0;
             Det_Single_Cust.STATUS = status.checked;
             Det_Single_Cust.UserCode = SysSession.CurrentEnvironment.UserCode;
             Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;
-            Det_Single_Cust.StatusFlag = "i";    
+            Det_Single_Cust.StatusFlag = "i";
             Details_Updata_Cust.push(Det_Single_Cust);
         }
         else {
-                      
+
             Details_Updata_Cust = new Array<CUSTOMER>();
-            Det_Single_Cust = new CUSTOMER();   
-            DocumentActions.AssignToModel(Det_Single_Cust);    
-            Det_Single_Cust.CustomerCODE = (Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 1000)).toString();
-            Det_Single_Cust.CUSTOMER_ID = Number(CUSTOMER_ID);   
+            Det_Single_Cust = new CUSTOMER();
+            DocumentActions.AssignToModel(Det_Single_Cust);
+            //Det_Single_Cust.CustomerCODE = (Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 1000)).toString();
+            Det_Single_Cust.CustomerCODE = $('#txt_CustomerCODE').val();;
+            Det_Single_Cust.CUSTOMER_ID = Number(CUSTOMER_ID);
             Det_Single_Cust.STATUS = status.checked;
-            Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;    
-            Det_Single_Cust.StatusFlag = "u";   
+            Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;
+            Det_Single_Cust.StatusFlag = "u";
             Details_Updata_Cust.push(Det_Single_Cust);
 
         }
 
 
 
-
+        CustMasterDetails = new CustomerMasterDetails();
+        InvoiceItemsDetailsModel = new Array<I_Item_Customer>();
 
         // Details
         for (var i = 0; i < CountGrid; i++) {
             invoiceItemSingleModel = new I_Item_Customer();
             StatusFlag = $("#txt_StatusFlag" + i).val();
- 
+
             if (StatusFlag == "i") {
                 invoiceItemSingleModel.Id = 0;
                 invoiceItemSingleModel.CUSTOMER_ID = 0;
@@ -538,13 +607,13 @@ namespace CUSTOMERS {
                 invoiceItemSingleModel.DescL = $("#txtServiceName" + i).val();
                 invoiceItemSingleModel.UomID = Number($("#ddlTypeuom" + i).val());
                 invoiceItemSingleModel.Unitprice = Number($("#txtPrice" + i).val());
-                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).attr('checked') == "true" ? true : false;
+                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).prop('checked');
                 invoiceItemSingleModel.Statusflag = StatusFlag.toString();
                 InvoiceItemsDetailsModel.push(invoiceItemSingleModel);
 
             }
             if (StatusFlag == "u") {
-                var invoiceItemId = $("#InvoiceItemID" + i).val() 
+                var invoiceItemId = $("#InvoiceItemID" + i).val()
                 invoiceItemSingleModel.Id = invoiceItemId;
                 invoiceItemSingleModel.CUSTOMER_ID = Number(CUSTOMER_ID);
                 invoiceItemSingleModel.ItemID = Number($("#txt_ItemID" + i).val());
@@ -554,14 +623,14 @@ namespace CUSTOMERS {
                 invoiceItemSingleModel.DescL = $("#txtServiceName" + i).val();
                 invoiceItemSingleModel.UomID = Number($("#ddlTypeuom" + i).val());
                 invoiceItemSingleModel.Unitprice = Number($("#txtPrice" + i).val());
-                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).attr('checked') == "true" ? true : false;
+                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).prop('checked');
                 invoiceItemSingleModel.Statusflag = StatusFlag.toString();
                 InvoiceItemsDetailsModel.push(invoiceItemSingleModel);
-                 
+
             }
             if (StatusFlag == "d") {
                 if ($("#InvoiceItemID" + i).val() != "") {
-                    var deletedID = Number( $("#InvoiceItemID" + i).val());
+                    var deletedID = Number($("#InvoiceItemID" + i).val());
                     invoiceItemSingleModel.Statusflag = StatusFlag.toString();
                     invoiceItemSingleModel.Id = deletedID;
                     InvoiceItemsDetailsModel.push(invoiceItemSingleModel);
@@ -586,11 +655,11 @@ namespace CUSTOMERS {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     CUSTOMER_ID = result.Response;
-                          
+
                     success()
                 }
                 else {
-                    
+
                     MessageBox.Show(result.ErrorMessage, "خطأ");
                 }
             }
@@ -613,7 +682,7 @@ namespace CUSTOMERS {
 
         $("#txt_ID_APP_Type").val('Null');
         $("#txt_indebtedness").val('All');
-        Display_All();   
+        Display_All();
         Selecteditem = CustomerDetails.filter(s => s.CUSTOMER_ID == Number(CUSTOMER_ID));
 
         DocumentActions.RenderFromModel(Selecteditem[0]);
@@ -655,10 +724,12 @@ namespace CUSTOMERS {
 
 
         //}
-
+        CountGrid = 0;
         CUSTOMER_ID = Selecteditem[0].CUSTOMER_ID;
         $('#Div_control').removeClass("display_none");
-
+        BindCustItemsGridData(CUSTOMER_ID);
+        $('#DivShow').removeClass("display_none");
+        $("#DivShow :input").attr("disabled", "disabled");
     }
 
     function txt_Cust_Type_onchange() {
@@ -683,7 +754,7 @@ namespace CUSTOMERS {
         return re.test(email);
     }
     function validate_email() {
-                      
+
         const email = $("#txt_Email").val();
         validateEmail(email)
 
@@ -700,15 +771,10 @@ namespace CUSTOMERS {
             if ($("#txt_ItemID" + rowcount).val() == "" || $("#txt_ItemID" + rowcount).val() == "0" || $("#txt_ItemID" + rowcount).val() == null) {
                 DisplayMassage(" برجاء ادخال الصنف", "Please enter the type", MessageType.Error);
                 Errorinput($("#btnSearchService" + rowcount));
-                Errorinput($("#txtServiceCode" + rowcount));
+                Errorinput($("#txtServiceName" + rowcount));
                 return false
             }
-
-            else if ($("#txtServiceCode" + rowcount).val() == "") {
-                DisplayMassage(" برجاء ادخال الكود", "Please enter the type", MessageType.Error);
-                Errorinput($("#txtServiceCode" + rowcount));
-                return false
-            }
+ 
             else if (Qty == 0) {
                 DisplayMassage(" برجاء ادخال الكمية المباعة", "Please enter the Quantity sold", MessageType.Error);
                 Errorinput($("#txtQuantity" + rowcount));
@@ -725,8 +791,6 @@ namespace CUSTOMERS {
             return true;
         }
     }
-
-
 
 
 
@@ -982,8 +1046,14 @@ namespace CUSTOMERS {
             if ($("#txt_StatusFlag" + cnt).val() != "i") {
                 $("#txt_StatusFlag" + cnt).val("u");
             }
-       
-            totalRow(cnt); 
+
+            totalRow(cnt);
+
+        });
+        $("#CheckISActive" + cnt).on('change', function () {
+            if ($("#txt_StatusFlag" + cnt).val() != "i") {
+                $("#txt_StatusFlag" + cnt).val("u");
+            }
 
         });
 
@@ -1038,6 +1108,57 @@ namespace CUSTOMERS {
         });
 
         return;
+    }
+    function Disbly_BuildControls(cnt: number, CustItemsDetails: Array<I_Item_Customer>) {
+        debugger
+        $("#btnAddDetails").addClass("display_none");
+        $("#btn_minus" + cnt).addClass("display_none");
+        $("#txt_StatusFlag" + cnt).val("");
+        $("#InvoiceItemID" + cnt).prop("value", CustItemsDetails[cnt].Id);
+        $("#txt_ItemID" + cnt).prop("value", CustItemsDetails[cnt].ItemID);
+        $("#txtSerial" + cnt).prop("value", CustItemsDetails[cnt].Serial);
+        $("#txtServiceCode" + cnt).prop("value", CustItemsDetails[cnt].ItemCode);
+        $("#txtServiceName" + cnt).prop("value", CustItemsDetails[cnt].DescA);
+        $("#txtQuantity" + cnt).prop("value", "1");
+        $("#txtPrice" + cnt).prop("value", CustItemsDetails[cnt].Unitprice);
+        if (CustItemsDetails[cnt].STATUS == true) {
+            $('#CheckISActive' + cnt).attr('checked', 'checked');
+        }
+        filldlltypeuom(cnt, CustItemsDetails);
+        $("#ddlTypeuom" + cnt).prop("value", CustItemsDetails[cnt].UomID);
+
+    }
+    function filldlltypeuom(cnt: number, SlsInvoiceItemsDetails: Array<I_Item_Customer>) {
+
+
+        var Storeid = 1;
+        let ItemCode = '';
+        let ItemID = SlsInvoiceItemsDetails[cnt].ItemID;
+        let Mode = InvoiceType;
+        let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
+            data: {
+                CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+            },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
+                    if (GetItemInfo.length > 0) {
+
+                        $('#ddlTypeuom' + cnt + '').html('');
+                        for (var i = 0; i < GetItemInfo.length; i++) {
+                            $('#ddlTypeuom' + cnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].OnhandQty + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+                        }
+
+
+                    }
+
+                }
+            }
+        });
     }
     function totalRow(cnt: number) {
         let txtPrice = Number($("#txtPrice" + cnt).val());
@@ -1170,8 +1291,7 @@ namespace CUSTOMERS {
             CountItems = CountItems - 1;
             ComputeTotals();
             Insert_Serial();
-
-            txtItemCount.value = CountItems.toString();
+             
             $("#ddlFamily" + RecNo).val("99");
             $("#ddlItem" + RecNo).val("99");
             $("#txtQuantity" + RecNo).val("99");
@@ -1182,7 +1302,7 @@ namespace CUSTOMERS {
     }
     function AddNewRow() {
 
- 
+
 
         //var CanAdd: boolean = true;
         //if (CountGrid > 0) {
@@ -1194,25 +1314,25 @@ namespace CUSTOMERS {
         //    }
         //}
         //if (CanAdd) {
-            CountItems = CountItems + 1;
-            txtItemCount.value = CountItems.toString();
-            BuildControls(CountGrid);
-            $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode 
-            $("#ddlFamily" + CountGrid).removeAttr("disabled");
-            $("#ddlItem" + CountGrid).removeAttr("disabled");
-            $("#txtPrice" + CountGrid).removeAttr("disabled");
+        //CountItems = CountItems + 1;
+        //txtItemCount.value = CountItems.toString();
+        BuildControls(CountGrid);
+        $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode 
+        $("#ddlFamily" + CountGrid).removeAttr("disabled");
+        $("#ddlItem" + CountGrid).removeAttr("disabled");
+        $("#txtPrice" + CountGrid).removeAttr("disabled");
 
-            $("#txtReturnQuantity" + CountGrid).attr("disabled", "disabled");
-            $("#btn_minus" + CountGrid).removeClass("display_none");
-            $("#btn_minus" + CountGrid).removeAttr("disabled");
-            CountGrid++;
-            Insert_Serial();
-
+        $("#txtReturnQuantity" + CountGrid).attr("disabled", "disabled");
+        $("#btn_minus" + CountGrid).removeClass("display_none");
+        $("#btn_minus" + CountGrid).removeAttr("disabled");
+        CountGrid++;
+        Insert_Serial();
+     
         //}
     }
     function ComputeTotals() {
 
-        let  PackageCount = 0;
+        let PackageCount = 0;
         let CountTotal = 0;
         let TotalDiscount = 0;
         let Totalbefore = 0;
@@ -1241,8 +1361,8 @@ namespace CUSTOMERS {
 
             }
         }
-        txtItemCount.value = CountItems.toString();
-        txtPackageCount.value = PackageCount.toString(); 
+        //txtItemCount.value = CountItems.toString();
+        txtPackageCount.value = PackageCount.toString();
     }
     function Insert_Serial() {
 
@@ -1254,13 +1374,13 @@ namespace CUSTOMERS {
                 Ser++;
             }
         }
-
+        txtItemCount.value = (Ser-1).toString();
     }
 
 
 
 
-    
+
 
 
 
