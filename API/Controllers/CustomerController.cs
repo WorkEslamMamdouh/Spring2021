@@ -86,6 +86,22 @@ namespace API.Controllers
         }
 
 
+          [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetI_Item_CustomerByID(int CUSTOMER_ID)
+        {
+
+            string s = "select * from [dbo].[I_Item_Customer] where [CUSTOMER_ID]  = "+ CUSTOMER_ID + " ";
+           
+            string query = s ;
+            var res = db.Database.SqlQuery<I_Item_Customer>(query).ToList();
+            return Ok(new BaseResponse(res));
+
+
+        }
+
+
+
+
         [HttpPost, AllowAnonymous]
         public IHttpActionResult Insert([FromBody]CUSTOMER Nation)
         {

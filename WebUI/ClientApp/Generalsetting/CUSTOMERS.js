@@ -12,6 +12,7 @@ var CUSTOMERS;
     var Det_Single_Cust = new CUSTOMER();
     var CustMasterDetails = new CustomerMasterDetails();
     var Details_Updata_Cust = new Array();
+    var I_Item_Cust = new Array();
     var CustomerDetails = new Array();
     var SearchDetails = new Array();
     var BilldIData = new Array();
@@ -68,6 +69,7 @@ var CUSTOMERS;
     var CUSTOMER_ID = 0;
     var NumCnt = 0;
     var status;
+    var CheckISActive;
     function InitalizeComponent() {
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
@@ -88,6 +90,7 @@ var CUSTOMERS;
         txt_ID_APP_Category = document.getElementById("txt_ID_APP_Category");
         txt_Cust_Type = document.getElementById("txt_Cust_Type");
         status = document.getElementById('id_chkcustom6');
+        CheckISActive = document.getElementById('CheckISActive');
         btnShow = document.getElementById("btnShow");
         btnAdd = document.getElementById("btnAdd");
         btnEdit = document.getElementById("btnedite");
@@ -188,6 +191,7 @@ var CUSTOMERS;
         }
         else
             status.checked = false;
+        $('#txtItemCount').val("0");
         $('#btnedite').removeClass("display_none");
         $('#btnsave').addClass("display_none");
         $('#btnback').addClass("display_none");
@@ -201,6 +205,11 @@ var CUSTOMERS;
             txt_Debit.value = "0";
             txt_DebitFC.value = "0";
         }
+        CUSTOMER_ID = Selecteditem[0].CUSTOMER_ID;
+        $('#Div_control').removeClass("display_none");
+        BindCustItemsGridData(CUSTOMER_ID);
+        $('#DivShow').removeClass("display_none");
+        $("#DivShow :input").attr("disabled", "disabled");
         //Debit = Selecteditem[0].CreditLimit;
         //Credit = Number(Selecteditem[0].Openbalance - Selecteditem[0].CreditLimit);
         //if (Credit < 0) {
@@ -211,8 +220,28 @@ var CUSTOMERS;
         //    $('#txt_DebitFC').val((Credit));
         //    $('#txt_Debit').val(('0'));
         //}
-        CUSTOMER_ID = Selecteditem[0].CUSTOMER_ID;
-        $('#Div_control').removeClass("display_none");
+    }
+    function BindCustItemsGridData(CUSTOMERID) {
+        debugger;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Customer", "GetI_Item_CustomerByID"),
+            data: { CUSTOMER_ID: CUSTOMERID },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    I_Item_Cust = result.Response;
+                    CountGrid = 0;
+                    $("#div_Data").html('');
+                    for (var i = 0; i < I_Item_Cust.length; i++) {
+                        BuildControls(i);
+                        Disbly_BuildControls(i, I_Item_Cust);
+                        CountGrid++;
+                    }
+                    $("#txtItemCount").val(CountGrid);
+                }
+            }
+        });
     }
     function txt_Openbalance_onchange() {
         if (IsNew != true) {
@@ -243,6 +272,16 @@ var CUSTOMERS;
         $('#txt_Debit').attr("disabled", "disabled");
         $('#txt_Openbalance').attr("disabled", "disabled");
         $('#txt_CustomerCODE').attr("disabled", "disabled");
+        $("#btnAddDetails").removeAttr("disabled");
+        $('#btnAddDetails').removeClass("display_none");
+        for (var i = 0; i < CountGrid; i++) {
+            $("#btnSearchService" + i).removeAttr("disabled");
+            $("#ddlTypeuom" + i).removeAttr("disabled");
+            $("#txtPrice" + i).removeAttr("disabled");
+            $("#CheckISActive" + i).removeAttr("disabled");
+            $("#btn_minus" + i).removeAttr("disabled");
+            $("#btn_minus" + i).removeClass("display_none");
+        }
     }
     function btnAdd_onclick() {
         debugger;
@@ -265,7 +304,18 @@ var CUSTOMERS;
     function btnsave_onClick() {
         if (!Validation())
             return;
-        Insert();
+        var CanAdd = true;
+        if (CountGrid > 0) {
+            for (var i = 0; i < CountGrid; i++) {
+                CanAdd = Validation_Grid(i);
+                if (CanAdd == false) {
+                    break;
+                }
+            }
+        }
+        if (CanAdd) {
+            Insert();
+        }
     }
     function btnback_onclick() {
         Selecteditem = CustomerDetails.filter(function (x) { return x.CUSTOMER_ID == Number(ReportGrid.SelectedKey); });
@@ -337,6 +387,8 @@ var CUSTOMERS;
         txt_phone.value = "";
         txt_Notes.value = "";
         txt_Type_CUSTOMER.value = "";
+        $("#btnAddDetails").removeAttr("disabled");
+        $('#btnAddDetails').removeClass("display_none");
     }
     function _SearchBox_Change() {
         debugger;
@@ -357,6 +409,7 @@ var CUSTOMERS;
             Det_Single_Cust = new CUSTOMER();
             DocumentActions.AssignToModel(Det_Single_Cust);
             Det_Single_Cust.CustomerCODE = (Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 1000)).toString();
+            //Det_Single_Cust.CustomerCODE = $('#txt_CustomerCODE').val();
             Det_Single_Cust.CUSTOMER_ID = 0;
             Det_Single_Cust.STATUS = status.checked;
             Det_Single_Cust.UserCode = SysSession.CurrentEnvironment.UserCode;
@@ -368,13 +421,17 @@ var CUSTOMERS;
             Details_Updata_Cust = new Array();
             Det_Single_Cust = new CUSTOMER();
             DocumentActions.AssignToModel(Det_Single_Cust);
-            Det_Single_Cust.CustomerCODE = (Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 1000)).toString();
+            //Det_Single_Cust.CustomerCODE = (Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 1000)).toString();
+            Det_Single_Cust.CustomerCODE = $('#txt_CustomerCODE').val();
+            ;
             Det_Single_Cust.CUSTOMER_ID = Number(CUSTOMER_ID);
             Det_Single_Cust.STATUS = status.checked;
             Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;
             Det_Single_Cust.StatusFlag = "u";
             Details_Updata_Cust.push(Det_Single_Cust);
         }
+        CustMasterDetails = new CustomerMasterDetails();
+        InvoiceItemsDetailsModel = new Array();
         // Details
         for (var i = 0; i < CountGrid; i++) {
             invoiceItemSingleModel = new I_Item_Customer();
@@ -389,7 +446,7 @@ var CUSTOMERS;
                 invoiceItemSingleModel.DescL = $("#txtServiceName" + i).val();
                 invoiceItemSingleModel.UomID = Number($("#ddlTypeuom" + i).val());
                 invoiceItemSingleModel.Unitprice = Number($("#txtPrice" + i).val());
-                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).attr('checked') == "true" ? true : false;
+                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).prop('checked');
                 invoiceItemSingleModel.Statusflag = StatusFlag.toString();
                 InvoiceItemsDetailsModel.push(invoiceItemSingleModel);
             }
@@ -404,7 +461,7 @@ var CUSTOMERS;
                 invoiceItemSingleModel.DescL = $("#txtServiceName" + i).val();
                 invoiceItemSingleModel.UomID = Number($("#ddlTypeuom" + i).val());
                 invoiceItemSingleModel.Unitprice = Number($("#txtPrice" + i).val());
-                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).attr('checked') == "true" ? true : false;
+                invoiceItemSingleModel.STATUS = $("#CheckISActive" + i).prop('checked');
                 invoiceItemSingleModel.Statusflag = StatusFlag.toString();
                 InvoiceItemsDetailsModel.push(invoiceItemSingleModel);
             }
@@ -485,8 +542,12 @@ var CUSTOMERS;
         //    $('#txt_DebitFC').val((Credit));
         //    $('#txt_Debit').val(('0'));
         //}
+        CountGrid = 0;
         CUSTOMER_ID = Selecteditem[0].CUSTOMER_ID;
         $('#Div_control').removeClass("display_none");
+        BindCustItemsGridData(CUSTOMER_ID);
+        $('#DivShow').removeClass("display_none");
+        $("#DivShow :input").attr("disabled", "disabled");
     }
     function txt_Cust_Type_onchange() {
         if (txt_Cust_Type.value == "0" || txt_Cust_Type.value == "Null") {
@@ -519,12 +580,7 @@ var CUSTOMERS;
             if ($("#txt_ItemID" + rowcount).val() == "" || $("#txt_ItemID" + rowcount).val() == "0" || $("#txt_ItemID" + rowcount).val() == null) {
                 DisplayMassage(" برجاء ادخال الصنف", "Please enter the type", MessageType.Error);
                 Errorinput($("#btnSearchService" + rowcount));
-                Errorinput($("#txtServiceCode" + rowcount));
-                return false;
-            }
-            else if ($("#txtServiceCode" + rowcount).val() == "") {
-                DisplayMassage(" برجاء ادخال الكود", "Please enter the type", MessageType.Error);
-                Errorinput($("#txtServiceCode" + rowcount));
+                Errorinput($("#txtServiceName" + rowcount));
                 return false;
             }
             else if (Qty == 0) {
@@ -723,6 +779,11 @@ var CUSTOMERS;
             }
             totalRow(cnt);
         });
+        $("#CheckISActive" + cnt).on('change', function () {
+            if ($("#txt_StatusFlag" + cnt).val() != "i") {
+                $("#txt_StatusFlag" + cnt).val("u");
+            }
+        });
         $("#txtDiscountPrc" + cnt).on('keyup', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
@@ -758,6 +819,50 @@ var CUSTOMERS;
             // alert('delete');
         });
         return;
+    }
+    function Disbly_BuildControls(cnt, CustItemsDetails) {
+        debugger;
+        $("#btnAddDetails").addClass("display_none");
+        $("#btn_minus" + cnt).addClass("display_none");
+        $("#txt_StatusFlag" + cnt).val("");
+        $("#InvoiceItemID" + cnt).prop("value", CustItemsDetails[cnt].Id);
+        $("#txt_ItemID" + cnt).prop("value", CustItemsDetails[cnt].ItemID);
+        $("#txtSerial" + cnt).prop("value", CustItemsDetails[cnt].Serial);
+        $("#txtServiceCode" + cnt).prop("value", CustItemsDetails[cnt].ItemCode);
+        $("#txtServiceName" + cnt).prop("value", CustItemsDetails[cnt].DescA);
+        $("#txtQuantity" + cnt).prop("value", "1");
+        $("#txtPrice" + cnt).prop("value", CustItemsDetails[cnt].Unitprice);
+        if (CustItemsDetails[cnt].STATUS == true) {
+            $('#CheckISActive' + cnt).attr('checked', 'checked');
+        }
+        filldlltypeuom(cnt, CustItemsDetails);
+        $("#ddlTypeuom" + cnt).prop("value", CustItemsDetails[cnt].UomID);
+    }
+    function filldlltypeuom(cnt, SlsInvoiceItemsDetails) {
+        var Storeid = 1;
+        var ItemCode = '';
+        var ItemID = SlsInvoiceItemsDetails[cnt].ItemID;
+        var Mode = InvoiceType;
+        var GetItemInfo = new Array();
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
+            data: {
+                CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+            },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    GetItemInfo = result.Response;
+                    if (GetItemInfo.length > 0) {
+                        $('#ddlTypeuom' + cnt + '').html('');
+                        for (var i = 0; i < GetItemInfo.length; i++) {
+                            $('#ddlTypeuom' + cnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].OnhandQty + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+                        }
+                    }
+                }
+            }
+        });
     }
     function totalRow(cnt) {
         var txtPrice = Number($("#txtPrice" + cnt).val());
@@ -859,7 +964,6 @@ var CUSTOMERS;
             CountItems = CountItems - 1;
             ComputeTotals();
             Insert_Serial();
-            txtItemCount.value = CountItems.toString();
             $("#ddlFamily" + RecNo).val("99");
             $("#ddlItem" + RecNo).val("99");
             $("#txtQuantity" + RecNo).val("99");
@@ -879,8 +983,8 @@ var CUSTOMERS;
         //    }
         //}
         //if (CanAdd) {
-        CountItems = CountItems + 1;
-        txtItemCount.value = CountItems.toString();
+        //CountItems = CountItems + 1;
+        //txtItemCount.value = CountItems.toString();
         BuildControls(CountGrid);
         $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode 
         $("#ddlFamily" + CountGrid).removeAttr("disabled");
@@ -917,7 +1021,7 @@ var CUSTOMERS;
                 //NetCount = (Number(NetCount.toFixed(2)) - Number(txtDiscountValue.value));
             }
         }
-        txtItemCount.value = CountItems.toString();
+        //txtItemCount.value = CountItems.toString();
         txtPackageCount.value = PackageCount.toString();
     }
     function Insert_Serial() {
@@ -929,6 +1033,7 @@ var CUSTOMERS;
                 Ser++;
             }
         }
+        txtItemCount.value = (Ser - 1).toString();
     }
 })(CUSTOMERS || (CUSTOMERS = {}));
 //# sourceMappingURL=CUSTOMERS.js.map
