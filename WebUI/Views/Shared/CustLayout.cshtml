@@ -91,45 +91,28 @@
 
     <link id="bootstrap_rtl" href="~/Style_design/bootstrap-rtl.css" rel="stylesheet" />
     <link id="Style_Arabic" href="~/Style_design/Style_Arabic.css" rel="stylesheet" />
-
-     
+    <link href="~/Style_design/Home_Style.css" rel="stylesheet" />
+    <link href="~/New_Design/website-menu-16/css/style.css" rel="stylesheet" />
 
 </head>
-<body>
-    <div id="btnclosefooter" class="display_none">
-        <i id="chevron" style="font-size: 27px" class="glyphicon glyphicon-chevron-right"></i>
-        <i class=" glefbtnclosefooter" style="font-size: 25px"> اعدادات </i>
-        <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
-        <input type="hidden" id="GetAPIUrl" name="name" value="@System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]" />
-    </div>
-    <div id="footer" class="stfooter">
-        <div id="displaydiv" class="col-lg-12 display_none" style="top: 3px">
-            </button>
-            <a href="/Home/AdminBarIndex">
-                <span class="glyphicon glyphicon-floppy-saved">
-                    <button id="" type="button" class="btn btn-success   ">
-                        اعدادات الفرع   <span class="glyphicon glyphicon-floppy-saved"></span>
-                    </button>
-                </span>
-            </a>
-            <a href="/Home/AdminCompIndex">
-                <span class="glyphicon glyphicon-floppy-saved">
-                    <button id="" type="button" class="btn btn-success   ">
-                        اعدادات الشركة   <span class="glyphicon glyphicon-floppy-saved"></span>
-                    </button>
-                </span>
-            </a>
+
+<body id="main-menu" class=" materialdesign">
+
+    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+    <input type="hidden" id="GetAPIUrl" name="name" value="@System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]" />
+    @*<div class="wrapper-pro">*@
+
+ 
 
 
 
 
-            <i id="chevron2" style="font-size: 30px;float:right" class="glyphicon glyphicon-hand-left display_none"></i>
 
-        </div>
-    </div>
-    <div>
+    <div id="cont" class=" ">
         @RenderBody()
     </div>
+    @*</div>*@
+    <!--..............................user setting..................................................-->
     <div class="modal fade" id="user_setting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -202,17 +185,99 @@
         </div>
     </div>
     <div id="SearchBox" class=" fade styleserch" style="display:none;z-index:999999999;">
-        <div style="background-color:#ef6603!important; position:absolute;top:0px;left:0px;width:100%;height:40px;cursor:move;border-top-right-radius: 13px!important;border-top-left-radius: 13px!important;">
+        <div style="background-color: #000000 !important; position: absolute; top: 0px; left: 0px; width: 100%; height: 40px; cursor: move; border-top-right-radius: 13px !important; border-top-left-radius: 13px !important; ">
             <input type="button" onclick="$('#SearchBox').modal('hide');" id="btnCloseSearch" name="name" value="x" class="btn colose_lay_btn btn-danger" style="height: 40px;
-              width: 38px;font-size: 20px;float: left;border-color: #ef6603!important;background-color: #ef6603!important;" />
+              width: 38px;font-size: 20px;float: left;border-color: #ef6603!important;background-color: #ffec09!important" />
             <h4 id="searchTitle" class="col-xs-3" style="color: #fff;line-height: 36px;text-align:right"></h4>
         </div>
         <div style="overflow-x:scroll;overflow-y:scroll;padding-left: 1%; margin-top:20px;width:100%;left:0px;left: 0px; position: absolute; width: 100%; height: 85%;">
-            <div id="tableDiv" class="table table-bordered table-hover" style="width:100%;"></div>
+            <div id="tableDiv" class="table table-bordered table-hover" style="width: 100%; color: #000000 !important;"></div>
         </div>
     </div>
     <div id="caret_script" style="display:none!important">
     </div>
+    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/Bundles/AppScript4")
+    <script>
+        $('#sidebarCollapse').on('click', function () {
+            $('#cont').toggleClass('colapsdivcont');
+        });
+        $('#chinng_languag').on('click', function () {
+            $('#main-menu').toggleClass('rtl-menu');
+        });
+
+
+        var elem = document.documentElement;
+        function openFullscreen() {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebarCollapse').toggleClass('stylebtnmenu');
+            $('#sidebarCollapse').toggleClass('bla');
+
+            $('#cont').toggleClass('colapsdivcont');
+
+        });
+
+        $('#chinng_languag').on('click', function () {
+            $('#main-menu').toggleClass('rtl-menu');
+        });
+
+
+        $(document).ready(function () {
+
+            $("#btnclosefooter").click(function () {
+                $("#displaydiv").removeClass("display_none");
+                $("#btnclosefooter").addClass("display_none");
+                $("#chevron2").removeClass("display_none");
+                $("#footer").animate({ width: '500px', opacity: '0.8' }, "slow");
+
+                $("#chevron").toggleClass("glyphicon-hand-right");
+                $("#chevron").toggleClass("glyphicon-chevron-left");
+
+
+            });
+
+            $('#tol_allnotification').on('click', function () {
+                $('#divtest').toggleClass('display_none');
+            });
+
+            $("#chevron2").click(function () {
+                $("#displaydiv").addClass("display_none");
+                $("#btnclosefooter").removeClass("display_none");
+                $("#footer").animate({ width: '0px', opacity: '0' }, "slow");
+
+                $("#chevron").toggleClass("glyphicon-hand-right");
+                $("#chevron").toggleClass("glyphicon-chevron-left");
+
+
+            });
+
+        });
+    </script>
+
+    <script src="~/Style_design/messages_Script.js"></script>
+
+
+
 
     <div class="modal fade" id="Popupitem" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
@@ -223,16 +288,16 @@
                 <div class="col-xs-12">
                     <div class="col-lg-12">
 
-                        <div class="col-lg-1 pad_ display_none">
+                        <div class="col-lg-1 pad_">
                             <label class=" pading_2 ">@SystemResource.APP_Category</label>
                         </div>
-                        <div class="col-lg-3 display_none">
+                        <div class="col-lg-3">
                             <select id="drpPaymentType" class="form-control"></select>
                         </div>
-                        <div class="col-lg-1 pad_ display_none">
+                        <div class="col-lg-1 pad_">
                             <label class=" pading_2 ">@SystemResource.App_Type</label>
                         </div>
-                        <div class="col-lg-3 display_none">
+                        <div class="col-lg-3">
                             <select id="drpitem_family" class="form-control"><option value="0">@SystemResource.App_Type</option></select>
                         </div>
                         <div class="col-lg-1 pad_ display_none">
@@ -244,17 +309,17 @@
                     </div>
                     <div class="col-lg-12">
 
-                        <div class="col-lg-1 pad_ display_none">
+                        <div class="col-lg-1 pad_">
                             <label class=" style_pading_lepel2 "> مجموعات</label>
                         </div>
-                        <div class="col-lg-3 display_none">
+                        <div class="col-lg-3">
                             <select id="drp_UnitGroup" class="form-control"></select>
                         </div>
 
-                        <div class="col-lg-1 pad_ display_none">
+                        <div class="col-lg-1 pad_">
                             <label class=" style_pading_lepel2 ">@SystemResource.App_Quantity</label>
                         </div>
-                        <div class="col-lg-3 display_none">
+                        <div class="col-lg-3">
                             <select id="drp_Qty" class="form-control">
                                 <option value="0">@SystemResource.App_All</option>
                                 <option value="1">متوفر في الفرع الحالي</option>
@@ -265,7 +330,11 @@
                             </select>
                         </div>
 
-
+                        <div class="col-lg-2 float-left ">
+                            <button type="button" class="btn btn-info" id="btnsrePopup">
+                                @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
+                            </button>
+                        </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="col-lg-2 pad_">
@@ -281,18 +350,13 @@
                                 <option value="2">فى النهاية</option>
                             </select>
                         </div>
-                        <div class="col-lg-2 float-left ">
-                            <button type="button" class="btn btn-info" id="btnsrePopup">
-                                بحث <span class="glyphicon glyphicon-save "></span>
-                            </button>
-                        </div>
-                        <div class="col-lg-2 pad_ display_none">
+                        <div class="col-lg-2 pad_">
                             <label class=" style_pading_lepel2 ">الكود يحتوى علي </label>
                         </div>
-                        <div class="col-lg-2 pad_ display_none">
+                        <div class="col-lg-2 pad_">
                             <input type="text" id="Likecode" class=" form-control" />
                         </div>
-                        <div class="col-lg-2 pad_ display_none">
+                        <div class="col-lg-2 pad_">
                             <select id="drpcontaincode" class="form-control">
                                 <option value="0">في البداية</option>
                                 <option value="1">يحتوي علي</option>
@@ -319,73 +383,11 @@
     </div>
 
 
-    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
-    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
-    @Scripts.Render("~/Bundles/AppScript4")
-    <script>
-
-        $('#lepcompinformtion').on('click', function () {
-            $('#divcompinformtion').toggleClass('showdiv');
-            $('#spanlepcompinformtion').toggleClass('fa-caret-left');
-            $('#spanlepcompinformtion').toggleClass('fa-caret-down');
-        });
-        $('#lepnotifications').on('click', function () {
-            $('#divnotifications').toggleClass('showdiv');
-            $('#spanlepnotifications').toggleClass('fa-caret-left');
-            $('#spanlepnotifications').toggleClass('fa-caret-down');
-        });
-        $('#lepsystem').on('click', function () {
-            $('#divsystem').toggleClass('showdiv');
-            $('#spanlepsystem').toggleClass('fa-caret-left');
-            $('#spanlepsystem').toggleClass('fa-caret-down');
-        });
-        $(document).ready(function () {
-
-            $("#btnclosefooter").click(function () {
-                $("#displaydiv").removeClass("display_none");
-                $("#btnclosefooter").addClass("display_none");
-                $("#chevron2").removeClass("display_none");
-                $("#footer").animate({ width: '500px', opacity: '0.8' }, "slow");
-
-                $("#chevron").toggleClass("glyphicon-hand-right");
-                $("#chevron").toggleClass("glyphicon-chevron-left");
-
-
-            });
-
-            $("#chevron2").click(function () {
-                $("#displaydiv").addClass("display_none");
-                $("#btnclosefooter").removeClass("display_none");
-                $("#footer").animate({ width: '0px', opacity: '0' }, "slow");
-
-                $("#chevron").toggleClass("glyphicon-hand-right");
-                $("#chevron").toggleClass("glyphicon-chevron-left");
-
-
-            });
-
-        });
-    </script>
 
 
 
 
 
-    <!--===============================================================================================-->
-    @*<script src="~/New_Design/Login_v1/vendor/jquery/jquery-3.2.1.min.js"></script>*@
-    <!--===============================================================================================-->
-    <script src="~/New_Design/Login_v1/vendor/bootstrap/js/popper.js"></script>
-    <script src="~/New_Design/Login_v1/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/New_Design/Login_v1/vendor/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
-    @*<script src="~/New_Design/Login_v1/vendor/tilt/tilt.jquery.min.js"></script>
-        <script>
-            $('.js-tilt').tilt({
-                scale: 1.1
-            })
-        </script>*@
-    <!--===============================================================================================-->
-    <script src="~/New_Design/Login_v1/js/main.js"></script>
+
 </body>
 </html>

@@ -415,6 +415,8 @@ var CUSTOMERS;
             Det_Single_Cust.UserCode = SysSession.CurrentEnvironment.UserCode;
             Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;
             Det_Single_Cust.StatusFlag = "i";
+            Det_Single_Cust.CompCode = compcode;
+            Det_Single_Cust.BranchCode = BranchCode;
             Details_Updata_Cust.push(Det_Single_Cust);
         }
         else {
@@ -428,6 +430,8 @@ var CUSTOMERS;
             Det_Single_Cust.STATUS = status.checked;
             Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;
             Det_Single_Cust.StatusFlag = "u";
+            Det_Single_Cust.CompCode = compcode;
+            Det_Single_Cust.BranchCode = BranchCode;
             Details_Updata_Cust.push(Det_Single_Cust);
         }
         CustMasterDetails = new CustomerMasterDetails();
