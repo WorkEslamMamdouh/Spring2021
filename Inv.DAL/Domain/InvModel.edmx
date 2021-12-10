@@ -2083,6 +2083,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetItemStore' does not ha
             <PropertyRef Name="ItemID" />
             <PropertyRef Name="BRA_CODE" />
           </Key>
+          <Property Name="DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="DescL" Type="nvarchar" MaxLength="100" />
           <Property Name="ItemStoreID" Type="int" Nullable="false" />
           <Property Name="ItemID" Type="int" Nullable="false" />
           <Property Name="FinYear" Type="int" />
@@ -3620,6 +3622,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           </EntitySet>
           <EntitySet Name="IQ_GetItemStore" EntityType="Self.IQ_GetItemStore" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [IQ_GetItemStore].[DescA] AS [DescA], 
+    [IQ_GetItemStore].[DescL] AS [DescL], 
     [IQ_GetItemStore].[ItemStoreID] AS [ItemStoreID], 
     [IQ_GetItemStore].[ItemID] AS [ItemID], 
     [IQ_GetItemStore].[FinYear] AS [FinYear], 
@@ -5440,7 +5444,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="I_ItemStoreBatch" EntityType="POS2021Model.I_ItemStoreBatch" />
           <EntitySet Name="I_ItemYearUom" EntityType="POS2021Model.I_ItemYearUom" />
           <EntitySet Name="IQ_GetItemCategory" EntityType="POS2021Model.IQ_GetItemCategory" />
-          <EntitySet Name="IQ_GetItemStore" EntityType="POS2021Model.IQ_GetItemStore" />
           <EntitySet Name="IQ_GetItemStoreInfo" EntityType="POS2021Model.IQ_GetItemStoreInfo" />
           <EntitySet Name="IQ_GetItemYearUom" EntityType="POS2021Model.IQ_GetItemYearUom" />
           <EntitySet Name="IQ_GetSlsInvoiceItem" EntityType="POS2021Model.IQ_GetSlsInvoiceItem" />
@@ -5578,6 +5581,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           </FunctionImport>
           <EntitySet Name="GQ_GetStore" EntityType="POS2021Model.GQ_GetStore" />
           <EntitySet Name="I_Item_Customer" EntityType="POS2021Model.I_Item_Customer" />
+          <EntitySet Name="IQ_GetItemStore" EntityType="POS2021Model.IQ_GetItemStore" />
         </EntityContainer>
         <ComplexType Name="Get_Settings_Report_Result">
           <Property Type="Int32" Name="ID_Report" Nullable="false" />
@@ -6312,42 +6316,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="VatNatureDescA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VatNatureDescE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VatPrc" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
-        <EntityType Name="IQ_GetItemStore">
-          <Key>
-            <PropertyRef Name="ItemStoreID" />
-            <PropertyRef Name="ItemID" />
-            <PropertyRef Name="BRA_CODE" />
-          </Key>
-          <Property Name="ItemStoreID" Type="Int32" Nullable="false" />
-          <Property Name="ItemID" Type="Int32" Nullable="false" />
-          <Property Name="FinYear" Type="Int32" />
-          <Property Name="StoreCode" Type="Int32" />
-          <Property Name="BraCode" Type="Int32" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="LOCATION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LOCATION2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OnhandQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="BookQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="OnRoadQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="OnOrderQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="ReOrderQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="MinQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="MaxQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="StartQty" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="StartLocalCost" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="LocalCost" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StoreId" Type="Int32" />
-          <Property Name="STORE_CODE" Type="Int32" />
-          <Property Name="St_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="st_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BRA_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BRA_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BRA_CODE" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="IQ_GetItemStoreInfo">
           <Key>
@@ -7552,6 +7520,44 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Unitprice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="UomID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="IQ_GetItemStore">
+          <Key>
+            <PropertyRef Name="ItemStoreID" />
+            <PropertyRef Name="ItemID" />
+            <PropertyRef Name="BRA_CODE" />
+          </Key>
+          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemStoreID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="FinYear" Type="Int32" />
+          <Property Name="StoreCode" Type="Int32" />
+          <Property Name="BraCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="LOCATION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LOCATION2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OnhandQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BookQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="OnRoadQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="OnOrderQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="ReOrderQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="MinQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="MaxQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="StartQty" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="StartLocalCost" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="LocalCost" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="STORE_CODE" Type="Int32" />
+          <Property Name="St_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="st_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BRA_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BRA_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BRA_CODE" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -9408,41 +9414,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IQ_GetItemStore">
-            <EntityTypeMapping TypeName="POS2021Model.IQ_GetItemStore">
-              <MappingFragment StoreEntitySet="IQ_GetItemStore">
-                <ScalarProperty Name="BRA_CODE" ColumnName="BRA_CODE" />
-                <ScalarProperty Name="BRA_DESCL" ColumnName="BRA_DESCL" />
-                <ScalarProperty Name="BRA_DESC" ColumnName="BRA_DESC" />
-                <ScalarProperty Name="st_DescE" ColumnName="st_DescE" />
-                <ScalarProperty Name="St_DescA" ColumnName="St_DescA" />
-                <ScalarProperty Name="STORE_CODE" ColumnName="STORE_CODE" />
-                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="LocalCost" ColumnName="LocalCost" />
-                <ScalarProperty Name="StartLocalCost" ColumnName="StartLocalCost" />
-                <ScalarProperty Name="StartQty" ColumnName="StartQty" />
-                <ScalarProperty Name="MaxQty" ColumnName="MaxQty" />
-                <ScalarProperty Name="MinQty" ColumnName="MinQty" />
-                <ScalarProperty Name="ReOrderQty" ColumnName="ReOrderQty" />
-                <ScalarProperty Name="OnOrderQty" ColumnName="OnOrderQty" />
-                <ScalarProperty Name="OnRoadQty" ColumnName="OnRoadQty" />
-                <ScalarProperty Name="BookQty" ColumnName="BookQty" />
-                <ScalarProperty Name="OnhandQty" ColumnName="OnhandQty" />
-                <ScalarProperty Name="LOCATION2" ColumnName="LOCATION2" />
-                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="BraCode" ColumnName="BraCode" />
-                <ScalarProperty Name="StoreCode" ColumnName="StoreCode" />
-                <ScalarProperty Name="FinYear" ColumnName="FinYear" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-                <ScalarProperty Name="ItemStoreID" ColumnName="ItemStoreID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="IQ_GetItemStoreInfo">
             <EntityTypeMapping TypeName="POS2021Model.IQ_GetItemStoreInfo">
               <MappingFragment StoreEntitySet="IQ_GetItemStoreInfo">
@@ -10699,6 +10670,43 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_GetItemStore">
+            <EntityTypeMapping TypeName="POS2021Model.IQ_GetItemStore">
+              <MappingFragment StoreEntitySet="IQ_GetItemStore">
+                <ScalarProperty Name="BRA_CODE" ColumnName="BRA_CODE" />
+                <ScalarProperty Name="BRA_DESCL" ColumnName="BRA_DESCL" />
+                <ScalarProperty Name="BRA_DESC" ColumnName="BRA_DESC" />
+                <ScalarProperty Name="st_DescE" ColumnName="st_DescE" />
+                <ScalarProperty Name="St_DescA" ColumnName="St_DescA" />
+                <ScalarProperty Name="STORE_CODE" ColumnName="STORE_CODE" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="LocalCost" ColumnName="LocalCost" />
+                <ScalarProperty Name="StartLocalCost" ColumnName="StartLocalCost" />
+                <ScalarProperty Name="StartQty" ColumnName="StartQty" />
+                <ScalarProperty Name="MaxQty" ColumnName="MaxQty" />
+                <ScalarProperty Name="MinQty" ColumnName="MinQty" />
+                <ScalarProperty Name="ReOrderQty" ColumnName="ReOrderQty" />
+                <ScalarProperty Name="OnOrderQty" ColumnName="OnOrderQty" />
+                <ScalarProperty Name="OnRoadQty" ColumnName="OnRoadQty" />
+                <ScalarProperty Name="BookQty" ColumnName="BookQty" />
+                <ScalarProperty Name="OnhandQty" ColumnName="OnhandQty" />
+                <ScalarProperty Name="LOCATION2" ColumnName="LOCATION2" />
+                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BraCode" ColumnName="BraCode" />
+                <ScalarProperty Name="StoreCode" ColumnName="StoreCode" />
+                <ScalarProperty Name="FinYear" ColumnName="FinYear" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ItemStoreID" ColumnName="ItemStoreID" />
+                <ScalarProperty Name="DescL" ColumnName="DescL" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

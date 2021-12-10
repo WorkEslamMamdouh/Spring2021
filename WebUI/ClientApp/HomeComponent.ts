@@ -755,8 +755,9 @@ namespace HomeComponent {
         $("#btnIncome_expenses").click(() => { OpenPage(Modules.Income_expenses); })
         $("#btnSlsTrSalesManager").click(() => { OpenPage(Modules.SlsTrSalesManager); })
         $("#btnSlsTrShowPrice").click(() => { OpenPage(Modules.SlsTrShowPrice); })
-
-
+        $("#btnFullStock").click(() => { OpenPage(Modules.FullStock); })
+        $("#btnOperatingStock").click(() => { OpenPage(Modules.OperatingStock); })
+        $("#btnRawStock").click(() => { OpenPage(Modules.RawStock); })
         $("#btnStkDefItems").click(() => { OpenPage(Modules.StkDefItems); })
         $("#btnStkDefItemsNew").click(() => { OpenPage(Modules.StkDefItemsNew); })
         $("#btnStkDefCategory").click(() => { OpenPage(Modules.StkDefCategory); })

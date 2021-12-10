@@ -28,9 +28,9 @@ var Modules = {
     Income_expenses: "Income_expenses",
     SlsTrSalesManager: "SlsTrSalesManager",
     SlsTrShowPrice: "SlsTrShowPrice",
-
-
-    
+    FullStock: "FullStock",
+    OperatingStock: "OperatingStock",
+    RawStock: "RawStock",     
     StkDefinitionMenu: "StkDefinitionMenu",
     StkDefItems: "StkDefItems",
     StkDefItemsNew: "StkDefItemsNew",

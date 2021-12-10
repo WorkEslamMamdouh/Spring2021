@@ -834,9 +834,6 @@ var SystemTools = /** @class */ (function () {
                             { title: 'الفئة', name: (lang == "ar" ? "cat_DescA" : "Cat_DescE"), type: "text", width: "100%" },
                             { title: 'الصنف الرئيسي', name: (lang == "ar" ? "fm_DescA" : "fm_DescE"), type: "text", width: "100%" },
                             { title: 'الوحدة الرئيسية', name: (lang == "ar" ? "uom_DescA" : "Uom_DescE"), type: "text", width: "100%" },
-                            //{ title: 'الكمية في الشركة ', name: "CompQty", type: "text", width: "13%" },
-                            //{ title: 'الكمية  في الفرع ', name: "BranchQty", type: "text", width: "13%" },
-                            //{ title: 'الكمية  في المستودع ', name: "StoreQty", type: "text", width: "10%" },
                         ];
                         divpopupGrid.DataSource = Details;
                         divpopupGrid.Bind();
@@ -887,9 +884,6 @@ var SystemTools = /** @class */ (function () {
                         { title: 'الفئة', name: (lang == "ar" ? "cat_DescA" : "Cat_DescE"), type: "text", width: "100%" },
                         { title: 'الصنف الرئيسي', name: (lang == "ar" ? "fm_DescA" : "fm_DescE"), type: "text", width: "100%" },
                         { title: 'الوحدة الرئيسية', name: (lang == "ar" ? "uom_DescA" : "Uom_DescE"), type: "text", width: "100%" },
-                        //{ title: 'الكمية في الشركة ', name: "CompQty", type: "text", width: "13%" },
-                        //{ title: 'الكمية  في الفرع ', name: "BranchQty", type: "text", width: "13%" },
-                        //{ title: 'الكمية  في المستودع ', name: "StoreQty", type: "text", width: "10%" },
                     ];
                     divpopupGrid.DataSource = Details;
                     divpopupGrid.Bind();

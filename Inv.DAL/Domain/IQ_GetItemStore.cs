@@ -14,6 +14,8 @@ namespace Inv.DAL.Domain
     
     public partial class IQ_GetItemStore
     {
+        public string DescA { get; set; }
+        public string DescL { get; set; }
         public int ItemStoreID { get; set; }
         public int ItemID { get; set; }
         public Nullable<int> FinYear { get; set; }

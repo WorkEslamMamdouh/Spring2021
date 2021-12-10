@@ -944,8 +944,6 @@ var StkDefItemsNew;
             },
             { title: 'الكمية الافتتاحية', name: "StartQty", type: "number", width: "10%" },
             { title: 'الكمية الحالية', name: "OnhandQty", type: "number", width: "10%" },
-            //{ title: 'محول اليه', name: "OnRoadQty", type: "number", width: "10%" },
-            //{ title: 'تحت الطلب ', name: "OnOrderQty", type: "number", width: "10%" },
         ];
     }
     function btnUpdate3_onclick() {

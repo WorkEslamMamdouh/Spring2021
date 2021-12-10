@@ -283,7 +283,18 @@ namespace Inv.WebUI.Controllers
         {
             return View("~/Views/CollectionReports/IncomeoperationsIndex.cshtml");
         }
-
+        public ActionResult FullStockIndex()
+        {
+            return View("~/Views/StkDefinition/FullStockIndex.cshtml");
+        }
+        public ActionResult OperatingStockIndex()
+        {
+            return View("~/Views/StkDefinition/OperatingStockIndex.cshtml");
+        }
+        public ActionResult RawStockIndex()
+        {
+            return View("~/Views/StkDefinition/RawStockIndex.cshtml");
+        }
 
         #endregion  Open Pages 
 

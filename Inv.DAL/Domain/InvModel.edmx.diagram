@@ -82,7 +82,6 @@
         <EntityTypeShape EntityType="POS2021Model.I_ItemStoreBatch" Width="1.5" PointX="30.375" PointY="0.75" />
         <EntityTypeShape EntityType="POS2021Model.I_ItemYearUom" Width="1.5" PointX="30.375" PointY="4.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_GetItemCategory" Width="1.5" PointX="17.375" PointY="30.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_GetItemStore" Width="1.5" PointX="32.375" PointY="0.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_GetItemStoreInfo" Width="1.875" PointX="7.375" PointY="32.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_GetItemYearUom" Width="1.5" PointX="19.375" PointY="32.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_GetSlsInvoiceItem" Width="1.5" PointX="21.375" PointY="32.75" />
@@ -108,6 +107,7 @@
         <EntityTypeShape EntityType="POS2021Model.G_STORE" Width="1.5" PointX="32.375" PointY="8.75" />
         <EntityTypeShape EntityType="POS2021Model.GQ_GetStore" Width="1.5" PointX="32.375" PointY="14.75" />
         <EntityTypeShape EntityType="POS2021Model.I_Item_Customer" Width="1.5" PointX="13.375" PointY="36.75" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_GetItemStore" Width="1.5" PointX="32.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

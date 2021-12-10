@@ -1,0 +1,247 @@
+﻿@using Inv.WebUI.Resources
+@{
+    ViewBag.Title = @SystemResource.Men_AccDefBox;
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<style>
+
+    .fontitm3DefStore {
+        float: right;
+        margin: 5px -15px 0px 0px !important;
+        font-size: 25px !important;
+        position: absolute;
+    }
+
+    .display_none {
+        display: none !important;
+    }
+
+    #btnAddDetails {
+        font-size: 40px;
+    }
+
+        #btnAddDetails:hover {
+            color: #24b414;
+        }
+
+    .glyphicon-remove-sign:hover {
+        color: red
+    }
+
+    .disabledDiv {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+</style>
+
+
+
+
+
+<div class="row  margingred borderred ">
+    <div class="col-lg-12">
+
+        <div class="col-lg-9">
+        </div>
+
+
+    </div>
+    <div id="masterdiv">
+        <div class="col-lg-12">
+            <label class="col-lg-1 col-xs-4      pading_2DefStore  "> @SystemResource.App_BranchName </label>
+            <div class="col-lg-3 col-xs-8">
+                <select id="drpuserType" class="form-control input-sm"></select>
+            </div>
+
+
+            <div class="col-md-3 col-sm-5 col-xs-10">
+            </div>
+
+
+            <div class="col-md-2">
+            </div>
+            <div class="col-lg-1">
+                <button id="btnadd" type="button" class="btn btn-success">
+                    @SystemResource.App_Add  <span class="glyphicon glyphicon-plus-sign "></span>
+                </button>
+            </div>
+            <div class="col-md-1 col-sm-5 col-xs-10">
+                <button id="btnShow" type="button" class="btn btn-info">
+                    @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
+                </button>
+            </div>
+        </div>
+
+        <div id="divMasterGridiv" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
+            <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+                <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
+            </div>
+            <div class="col-lg-12 ">
+
+                <table id="divMasterGrid"></table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div id="divDetails" class="col-lg-12 ">
+
+        <div class="col-lg-12 display_none " id="divEdit">
+
+            <div class="col-md-2 col-sm-5 col-xs-10 ckekPurOrder">
+                <label class="col-lg-6 col-xs-4  marginstenig pading_lep  pading_2DefStore textcentr_PurOrder ">  @SystemResource.App_approved  </label>
+                <div class="col-xs-6">
+                    <input type="checkbox" class="checkbox" id="chkActive" name="CUSTOM6" />
+                </div>
+            </div>
+
+
+            <div class="col-md-5 col-sm-5 col-xs-10">
+
+            </div>
+
+            <div class="col-md-4 col-sm-5 col-xs-10">
+                <button id="btnPrintReceive" type="button" class="btn btn-info display_none"> @SystemResource.App_PrintReceive  <span class="glyphicon"></span>  </button>
+
+
+                <button id="btnPrintPurchaseDemand" type="button" class="btn btn-info display_none">@SystemResource.App_PrintPurchaseDemand <span class="glyphicon"></span> </button>
+                <button id="btnPrntPrice" type="button" class="btn btn-warning display_none"> @SystemResource.App_PrintPrice <span class="glyphicon "></span></button>
+
+            </div>
+            <div class="col-lg-2 ">
+
+
+                <button id="btnBack" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-backward"></span></button>
+                <button id="btnSave" type="button" class="btn btn-success display_none "> @SystemResource.App_save <span class="glyphicon glyphicon-floppy-saved"></span></button>
+
+            </div>
+
+            <div class="col-md-1 col-sm-5 col-xs-10">
+                <button id="btnUpdate" type="button" class="btn btn-primary ">  @SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
+
+            </div>
+        </div>
+
+    </div>
+    <div id="rowData" class="col-lg-12 ">
+
+        <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
+
+            <h4 id="Text_Massage"> @SystemResource.App_Message </h4>
+
+        </div>
+        <div id="StoreDetail" class="display_none">
+            <div class="col-lg-12 ">
+
+
+
+                <div class="col-lg-12">
+
+                    <label class="col-lg-1 col-xs-6   marginstenig pading_lep pading_2DefStore   ">  @SystemResource.Trns_StoreNO   </label>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control input-sm   " name="STORE_CODE" id="txtPurTrNo" disabled="disabled">
+                    </div>
+
+                    <label class="col-lg-1 col-xs-4      pading_2DefStore  ">    @SystemResource.App_BranchName  </label>
+                    <div class="col-lg-3 col-xs-8">
+                        <select id="drpuserType_new" name="BRA_CODE" class="form-control input-sm" disabled="disabled">
+                            <option value="Null"> @SystemResource.choose_branch</option>
+
+                        </select>
+                    </div>
+
+                    <label class="col-lg-1 col-xs-6 marginstenig pading_lep pading_2DefStore" style="text-align:end">  @SystemResource.App_Active  </label>
+                    <div class="col-md-2">
+                        <input type="checkbox" class="checkbox" name="IsActive" id="checkactive" disabled="disabled">
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="btn btn-primary floatleftPurOrder display_none" id="btnedite">
+                            <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
+                        </button>
+                    </div>
+                    <div class="col-lg-2">
+
+                        <button type="button" class="btn btn-warning display_none" id="btnback">
+                            <span class="glyphicon glyphicon-backward"></span> @SystemResource.App_back
+                        </button>
+
+
+                        <button id="btnsave" type="button" class="btn btn-success floatleftPurOrder display_none">
+                            @SystemResource.App_save  <span class="glyphicon glyphicon-floppy-saved"></span>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
+
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">  @SystemResource.Name_Arabic</label>
+                    <div class="col-lg-3 ">
+                        <input type="text" class="form-control input-sm" name="DescA" id="txtName_Arabic" disabled="disabled">
+                    </div>
+
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">   @SystemResource.Name_English</label>
+                    <div class="col-lg-3 ">
+                        <input type="text" class="form-control input-sm" name="DescL" id="txtName_English" disabled="disabled">
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.inventoryAccount  </label>
+                    <div class="col-lg-3 ">
+                        <select id="drpinventoryAccount" name="StockAccCode" class="form-control input-sm" disabled="disabled"></select>
+                    </div>
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone </label>
+                    <div class="col-lg-3 ">
+                        <input type="number" class="form-control input-sm" name="Tel1" id="txtphone" disabled="disabled">
+                    </div>
+
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone 2</label>
+                    <div class="col-lg-3 ">
+                        <input type="number" class="form-control input-sm" name="Tel2" id="txtphone2" disabled="disabled">
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.App_address </label>
+                    <div class="col-lg-3 ">
+                        <div class="form-outline">
+                            <textarea class="form-control" name="Address" id="txtaddress" rows="2" disabled="disabled"></textarea>
+                        </div>
+                    </div>
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_Notes </label>
+                    <div class="col-lg-3 ">
+                        <div class="form-outline">
+                            <textarea class="form-control" id="txtNotes" name="Remarks" rows="2" disabled="disabled"></textarea>
+                        </div>
+                    </div>
+                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> نسبة @SystemResource.App_Commission  </label>
+                    
+                        <div class="col-lg-1 "> 
+                            <input  type="text" class="form-control" id="txtCommission" name="CommissionPRC" rows="2" disabled="disabled" /> 
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Create </label>
+                        <input id="txtCreatedBy" name="CreatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom ">
+                        <input id="txtCreatedAt" name="CreatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
+                        <div class="col-lg-2"> </div>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Update  </label>
+                        <input id="txtUpdatedBy" name="UpdatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom">
+                        <input id="txtUpdatedAt" name="UpdatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
+                    </div>
+
+
+                </div>
+        </div>
+    </div>
+</div>
+<script src="~/ClientApp/StkDefinition/FullStock.js"></script>
+ 
