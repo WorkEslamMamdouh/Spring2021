@@ -68,7 +68,7 @@ namespace CUSTOMERS {
 
 
 
-    var compcode: Number;//SharedSession.CurrentEnvironment.CompCode;
+    var compcode: number;//SharedSession.CurrentEnvironment.CompCode;
     var IsNew = false;
     var index;
     var Selecteditem: Array<CUSTOMER> = new Array<CUSTOMER>();
@@ -570,6 +570,8 @@ namespace CUSTOMERS {
             Det_Single_Cust.UserCode = SysSession.CurrentEnvironment.UserCode;
             Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;
             Det_Single_Cust.StatusFlag = "i";
+            Det_Single_Cust.CompCode = compcode;
+            Det_Single_Cust.BranchCode = BranchCode;
             Details_Updata_Cust.push(Det_Single_Cust);
         }
         else {
@@ -583,6 +585,8 @@ namespace CUSTOMERS {
             Det_Single_Cust.STATUS = status.checked;
             Det_Single_Cust.IsCreditCustomer = $('#txt_Cust_Type').val() == '0' ? false : true;
             Det_Single_Cust.StatusFlag = "u";
+            Det_Single_Cust.CompCode = compcode;
+            Det_Single_Cust.BranchCode = BranchCode;
             Details_Updata_Cust.push(Det_Single_Cust);
 
         }

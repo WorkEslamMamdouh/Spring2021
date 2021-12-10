@@ -8,7 +8,7 @@ var AjaxCaller = /** @class */ (function () {
             else
                 return this.Url;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     AjaxCaller.prototype.CallAsync = function (OnSuccess) {
