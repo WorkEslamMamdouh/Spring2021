@@ -107,7 +107,7 @@
         <EntityTypeShape EntityType="POS2021Model.G_STORE" Width="1.5" PointX="32.375" PointY="8.75" />
         <EntityTypeShape EntityType="POS2021Model.GQ_GetStore" Width="1.5" PointX="32.375" PointY="14.75" />
         <EntityTypeShape EntityType="POS2021Model.I_Item_Customer" Width="1.5" PointX="13.375" PointY="36.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_GetItemStore" Width="1.5" PointX="32.375" PointY="0.75" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_GetItemStore" Width="1.5" PointX="32.375" PointY="36.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -39,13 +39,14 @@
 
 
 <div class="col-lg-12">
-    <select id="drpType" class="col-lg-2 form-control input-sm">
-        <option value="null" >اختر</option>
-        <option value="0" >المخزون</option>
-        <option value="1" >التحويل</option>
+    <select id="drpType" class="col-lg-3 form-control input-sm"style="text-align-last:center ;background-color: black;color: yellow;font-weight: bold;border: yellow;">
+        <option value="null">اختر النظام</option>
+        <option value="0">المخزون</option>
+        <option value="1">تحويل</option>
     </select>
 </div>
-<div id="Stock"class="row  margingred borderred display_none">
+
+<div id="Stock" class="row  margingred borderred display_none">
     <div class="col-lg-12">
 
         <div class="col-lg-9">
@@ -53,365 +54,287 @@
 
 
     </div>
-     
-        <div id="divMasterGridiv" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
-            <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
-                <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
-            </div>
-            <div class="col-lg-12 ">
 
-                <table id="divMasterGrid"></table>
-            </div>
+    <div id="divMasterGridiv" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
+        <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+            <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
         </div>
+        <div class="col-lg-12 ">
 
-    </div> 
-    <div id="divDetails" class="col-lg-12 ">
-
-        <div class="col-lg-12 display_none " id="divEdit">
-
-            <div class="col-md-2 col-sm-5 col-xs-10 ckekPurOrder">
-                <label class="col-lg-6 col-xs-4  marginstenig pading_lep  pading_2DefStore textcentr_PurOrder ">  @SystemResource.App_approved  </label>
-                <div class="col-xs-6">
-                    <input type="checkbox" class="checkbox" id="chkActive" name="CUSTOM6" />
-                </div>
-            </div>
-
-
-            <div class="col-md-5 col-sm-5 col-xs-10">
-
-            </div>
-
-            <div class="col-md-4 col-sm-5 col-xs-10">
-                <button id="btnPrintReceive" type="button" class="btn btn-info display_none"> @SystemResource.App_PrintReceive  <span class="glyphicon"></span>  </button>
-
-
-                <button id="btnPrintPurchaseDemand" type="button" class="btn btn-info display_none">@SystemResource.App_PrintPurchaseDemand <span class="glyphicon"></span> </button>
-                <button id="btnPrntPrice" type="button" class="btn btn-warning display_none"> @SystemResource.App_PrintPrice <span class="glyphicon "></span></button>
-
-            </div>
-            <div class="col-lg-2 ">
-
-
-                <button id="btnBack" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-backward"></span></button>
-                <button id="btnSave" type="button" class="btn btn-success display_none "> @SystemResource.App_save <span class="glyphicon glyphicon-floppy-saved"></span></button>
-
-            </div>
-
-            <div class="col-md-1 col-sm-5 col-xs-10">
-                <button id="btnUpdate" type="button" class="btn btn-primary ">  @SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
-
-            </div>
+            <table id="divMasterGrid"></table>
         </div>
+    </div>
+
+    <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
+
+        <h4 id="Text_Massage"> @SystemResource.App_Message </h4>
 
     </div>
-    <div id="rowData" class="col-lg-12 ">
 
-        <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
+    <div id="div_Master_Hedr" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred display_none">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xl-9 col-xs-9" style="">
+                <div class="col-lg-5">
 
-            <h4 id="Text_Massage"> @SystemResource.App_Message </h4>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
 
+                </div>
+            </div> 
         </div>
-        <div id="StoreDetail" class="display_none">
-            <div class="col-lg-12 ">
-
-
-
-                <div class="col-lg-12">
-
-                    <label class="col-lg-1 col-xs-6   marginstenig pading_lep pading_2DefStore   ">  @SystemResource.Trns_StoreNO   </label>
-                    <div class="col-md-2">
-                        <input type="number" class="form-control input-sm   " name="STORE_CODE" id="txtPurTrNo" disabled="disabled">
-                    </div>
-
-                    <label class="col-lg-1 col-xs-4      pading_2DefStore  ">    @SystemResource.App_BranchName  </label>
-                    <div class="col-lg-3 col-xs-8">
-                        <select id="drpuserType_new" name="BRA_CODE" class="form-control input-sm" disabled="disabled">
-                            <option value="Null"> @SystemResource.choose_branch</option>
-
-                        </select>
-                    </div>
-
-                    <label class="col-lg-1 col-xs-6 marginstenig pading_lep pading_2DefStore" style="text-align:end">  @SystemResource.App_Active  </label>
-                    <div class="col-md-2">
-                        <input type="checkbox" class="checkbox" name="IsActive" id="checkactive" disabled="disabled">
-                    </div>
-                    <div class="col-lg-1">
-                        <button type="button" class="btn btn-primary floatleftPurOrder display_none" id="btnedite">
-                            <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
-                        </button>
-                    </div>
-                    <div class="col-lg-2">
-
-                        <button type="button" class="btn btn-warning display_none" id="btnback">
-                            <span class="glyphicon glyphicon-backward"></span> @SystemResource.App_back
-                        </button>
-
-
-                        <button id="btnsave" type="button" class="btn btn-success floatleftPurOrder display_none">
-                            @SystemResource.App_save  <span class="glyphicon glyphicon-floppy-saved"></span>
-                        </button>
-
-                    </div>
+        <br />
+        <div id="div_Master" class="">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">كود الصنف </label>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                    <input type="text" class="form-control input-sm addable editable" name="ItemCode" disabled id="txtItemCode">
                 </div>
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
 
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">  @SystemResource.Name_Arabic</label>
-                    <div class="col-lg-3 ">
-                        <input type="text" class="form-control input-sm" name="DescA" id="txtName_Arabic" disabled="disabled">
-                    </div>
-
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">   @SystemResource.Name_English</label>
-                    <div class="col-lg-3 ">
-                        <input type="text" class="form-control input-sm" name="DescL" id="txtName_English" disabled="disabled">
-                    </div>
-
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  " style="padding-right:25px">وصف عربي</label>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtItm_DescA">
                 </div>
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.inventoryAccount  </label>
-                    <div class="col-lg-3 ">
-                        <select id="drpinventoryAccount" name="StockAccCode" class="form-control input-sm" disabled="disabled"></select>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone </label>
-                    <div class="col-lg-3 ">
-                        <input type="number" class="form-control input-sm" name="Tel1" id="txtphone" disabled="disabled">
-                    </div>
 
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone 2</label>
-                    <div class="col-lg-3 ">
-                        <input type="number" class="form-control input-sm" name="Tel2" id="txtphone2" disabled="disabled">
-                    </div>
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes textcentrProcesses2 ">وصف بالانجليزي </label>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="DescL" id="txtItm_DescE">
 
                 </div>
 
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.App_address </label>
-                    <div class="col-lg-3 ">
-                        <div class="form-outline">
-                            <textarea class="form-control" name="Address" id="txtaddress" rows="2" disabled="disabled"></textarea>
-                        </div>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_Notes </label>
-                    <div class="col-lg-3 ">
-                        <div class="form-outline">
-                            <textarea class="form-control" id="txtNotes" name="Remarks" rows="2" disabled="disabled"></textarea>
-                        </div>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> نسبة @SystemResource.App_Commission  </label>
-                    
-                        <div class="col-lg-1 "> 
-                            <input  type="text" class="form-control" id="txtCommission" name="CommissionPRC" rows="2" disabled="disabled" /> 
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Create </label>
-                        <input id="txtCreatedBy" name="CreatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom ">
-                        <input id="txtCreatedAt" name="CreatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
-                        <div class="col-lg-2"> </div>
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Update  </label>
-                        <input id="txtUpdatedBy" name="UpdatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom">
-                        <input id="txtUpdatedAt" name="UpdatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
-                    </div>
-
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الفئة  </label>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2"> 
+                    <input type="text" class="form-control input-sm addable editable" disabled name="CategoryDescA" id="txtCat_Type">
+                </div>
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الصنف الرئيسي   </label>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2"> 
+                    <input type="text" class="form-control input-sm addable editable" disabled name="ItemFamilyDescA" id="txtFamily">
 
                 </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
+
+                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
+                <div class="col-md-2 col-sm-5 col-xs-10">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="UOMDescA" id="txtUOM">
+                </div>
+
+                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الكمية المتاحه</label>
+                <div class="col-md-2 col-sm-5 col-xs-10">
+                    <input type="text" class="form-control input-sm addable editable" disabled name="OnhandQty" id="txtQTY">
+                </div>
+            </div> 
         </div>
     </div>
 </div>
+
+
+
+
 <div id="Trans" class="row  margingred borderred display_none">
-    <div class="col-lg-12"> 
-        <div class="col-lg-9">
-        </div>  
-    </div>
-    <div id="masterdivTrans">
-        <div class="col-lg-12">
-            <label class="col-lg-1 col-xs-4      pading_2DefStore  "> @SystemResource.App_BranchName </label>
-            <div class="col-lg-3 col-xs-8">
-                <select id="drpuserTypeTrans" class="form-control input-sm"></select>
+     
+    <div id="div_hedr">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  ">@SystemResource.App_FromDate</label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <input type="date" class="form-control input-sm addable editable" name="GosiJoinDate" id="txtFromDate">
             </div>
 
 
-            <div class="col-md-3 col-sm-5 col-xs-10">
-            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer ">@SystemResource.App_ToDate</label>
 
-
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-5 col-xs-10">
+                <input type="date" class="form-control input-sm addable editable" name="GosiJoinDate" id="txtToDate">
             </div>
-            <div class="col-lg-1">
-                <button id="btnaddTrans" type="button" class="btn btn-success">
-                    @SystemResource.App_Add  <span class="glyphicon glyphicon-plus-sign "></span>
-                </button>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer  ">  @SystemResource.App_State	</label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <select id="ddlStatusFilter" name="" class="form-control"></select>
             </div>
-            <div class="col-md-1 col-sm-5 col-xs-10">
-                <button id="btnShowTrans" type="button" class="btn btn-info">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
+                <button id="btnShow" type="button" class="btn btn-info">
                     @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
                 </button>
             </div>
-        </div>
-
-        <div id="divMasterGridivTrans" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
-            <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
-                <input id="searchbutmemreportTrans" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                    @SystemResource.App_Print    <span class="glyphicon glyphicon-hand-down"></span>
+                </button>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
+                    <button id="btnAdd" type="button" class="btn btn-success">
+                        @SystemResource.App_Add  <span class="glyphicon glyphicon-plus "></span>
+                    </button>
+                </div>
+                <div class="dropdown-menu" role="menu" style="border-radius:15px">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                        <button style="width:100%" id="btnPrint" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl display_none"><span class="adminpro-icon adminpro-paint-roller"></span>           @SystemResource.App_Print      </button>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                        <button style="width:100%" id="btnPrintTrview" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>           @SystemResource.Print_Report      </button>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                        <button style="width:100%" id="btnPrintTrPDF" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span>   @SystemResource.Download_PDF     </button>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                        <button style="width:100%" id="btnPrintTrEXEL" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span> @SystemResource.Download_EXCEL   </button>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-12 ">
-
-                <table id="divMasterGridTrans"></table>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 "> @SystemResource.Trns_SrcBranch </label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <select id="ddlSourceBranch" name="" class="form-control"></select>
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer">@SystemResource.Trns_SrcStore </label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <select id="ddlSourceStore" name="" class="form-control"></select>
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer "> @SystemResource.Trns_ToBranch </label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <select id="ddlToBranch" name="" class="form-control"></select>
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer">@SystemResource.Trns_ToStore </label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <select id="ddlToStore" name="" class="form-control"></select>
             </div>
         </div>
-
+        <div class="form-group" id="divShow">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 display_none" id="divGridShoow">
+                <input type="text" class="  form-control  col-lg-4" placeholder="@SystemResource.App_Search" id="txtSearch" />
+                <table id="divGridDetails_View"></table>
+            </div>
+        </div>
     </div>
-    <div id="divDetailsTrans" class="col-lg-12 ">
-
-        <div class="col-lg-12 display_none " id="divEditTrans">
-
-            <div class="col-md-2 col-sm-5 col-xs-10 ckekPurOrder">
-                <label class="col-lg-6 col-xs-4  marginstenig pading_lep  pading_2DefStore textcentr_PurOrder ">  @SystemResource.App_approved  </label>
-                <div class="col-xs-6">
-                    <input type="checkbox" class="checkbox" id="chkActiveTrans" name="CUSTOM6" />
-                </div>
-            </div>
-
-
-            <div class="col-md-5 col-sm-5 col-xs-10">
-
-            </div>
-
-            <div class="col-md-4 col-sm-5 col-xs-10">
-                <button id="btnPrintReceiveTrans" type="button" class="btn btn-info display_none"> @SystemResource.App_PrintReceive  <span class="glyphicon"></span>  </button>
-
-
-                <button id="btnPrintPurchaseDemandTrans" type="button" class="btn btn-info display_none">@SystemResource.App_PrintPurchaseDemand <span class="glyphicon"></span> </button>
-                <button id="btnPrntPriceTrans" type="button" class="btn btn-warning display_none"> @SystemResource.App_PrintPrice <span class="glyphicon "></span></button>
-
-            </div>
-            <div class="col-lg-2 ">
-
-
-                <button id="btnBackTrans" type="button" class="btn btn-warning display_none"> @SystemResource.App_back <span class="glyphicon glyphicon-backward"></span></button>
-                <button id="btnSaveTrans" type="button" class="btn btn-success display_none "> @SystemResource.App_save <span class="glyphicon glyphicon-floppy-saved"></span></button>
-
-            </div>
-
-            <div class="col-md-1 col-sm-5 col-xs-10">
-                <button id="btnUpdateTrans" type="button" class="btn btn-primary ">  @SystemResource.App_Update <span class="glyphicon glyphicon-edit"></span></button>
-
-            </div>
-        </div>
-
+    <div id="DivMassage" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred  borderred display_none ">
+        <h4 id="Text_Massage" style=""> رساله </h4>
     </div>
-    <div id="rowDataTrans" class="col-lg-12 ">
-
-        <div id="DivMassageTrans" class="col-lg-12  margingred  borderred display_none">
-
-            <h4 id="Text_MassageTrans"> @SystemResource.App_Message </h4>
-
-        </div>
-        <div id="StoreDetailTrans" class="display_none">
-            <div class="col-lg-12 ">
-
-
-
-                <div class="col-lg-12">
-
-                    <label class="col-lg-1 col-xs-6   marginstenig pading_lep pading_2DefStore   ">  @SystemResource.Trns_StoreNO   </label>
-                    <div class="col-md-2">
-                        <input type="number" class="form-control input-sm   " name="STORE_CODE" id="txtPurTrNoTrans" disabled="disabled">
-                    </div>
-
-                    <label class="col-lg-1 col-xs-4      pading_2DefStore  ">    @SystemResource.App_BranchName  </label>
-                    <div class="col-lg-3 col-xs-8">
-                        <select id="drpuserType_newTrans" name="BRA_CODE" class="form-control input-sm" disabled="disabled">
-                            <option value="Null"> @SystemResource.choose_branch</option>
-
-                        </select>
-                    </div>
-
-                    <label class="col-lg-1 col-xs-6 marginstenig pading_lep pading_2DefStore" style="text-align:end">  @SystemResource.App_Active  </label>
-                    <div class="col-md-2">
-                        <input type="checkbox" class="checkbox" name="IsActive" id="checkactiveTrans" disabled="disabled">
-                    </div>
-                    <div class="col-lg-1">
-                        <button type="button" class="btn btn-primary floatleftPurOrder display_none" id="btnediteTrans">
-                            <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
-                        </button>
-                    </div>
-                    <div class="col-lg-2">
-
-                        <button type="button" class="btn btn-warning display_none" id="btnbackTrans">
-                            <span class="glyphicon glyphicon-backward"></span> @SystemResource.App_back
-                        </button>
-
-
-                        <button id="btnsaveTrans" type="button" class="btn btn-success floatleftPurOrder display_none">
-                            @SystemResource.App_save  <span class="glyphicon glyphicon-floppy-saved"></span>
-                        </button>
-
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="Trans">
-
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">  @SystemResource.Name_Arabic</label>
-                    <div class="col-lg-3 ">
-                        <input type="text" class="form-control input-sm" name="DescA" id="txtName_ArabicTrans" disabled="disabled">
-                    </div>
-
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">   @SystemResource.Name_English</label>
-                    <div class="col-lg-3 ">
-                        <input type="text" class="form-control input-sm" name="DescL" id="txtName_EnglishTrans" disabled="disabled">
-                    </div>
-
-                </div>
-                <div class="col-md-12 col-sm-5 col-xs-10  " id="">
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.inventoryAccount  </label>
-                    <div class="col-lg-3 ">
-                        <select id="drpinventoryAccountTrans" name="StockAccCode" class="form-control input-sm" disabled="disabled"></select>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone </label>
-                    <div class="col-lg-3 ">
-                        <input type="number" class="form-control input-sm" name="Tel1" id="txtphoneTrans" disabled="disabled">
-                    </div>
-
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_phone 2</label>
-                    <div class="col-lg-3 ">
-                        <input type="number" class="form-control input-sm" name="Tel2" id="txtphone2Trans" disabled="disabled">
-                    </div>
-
-                </div>
-
-                <div class="col-md-12 col-sm-5 col-xs-10  "  >
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  ">    @SystemResource.App_address </label>
-                    <div class="col-lg-3 ">
-                        <div class="form-outline">
-                            <textarea class="form-control" name="Address" id="txtaddressTrans" rows="2" disabled="disabled"></textarea>
-                        </div>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> @SystemResource.App_Notes </label>
-                    <div class="col-lg-3 ">
-                        <div class="form-outline">
-                            <textarea class="form-control" id="txtNotesTrans" name="Remarks" rows="2" disabled="disabled"></textarea>
-                        </div>
-                    </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore "> نسبة @SystemResource.App_Commission  </label>
-
-                    <div class="col-lg-1 ">
-                        <input type="text" class="form-control" id="txtCommissionTrans" name="CommissionPRC" rows="2" disabled="disabled" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Create </label>
-                    <input id="txtCreatedByTrans" name="CreatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom ">
-                    <input id="txtCreatedAtTrans" name="CreatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
-                    <div class="col-lg-2"> </div>
-                    <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom "> @SystemResource.App_Update  </label>
-                    <input id="txtUpdatedByTrans" name="UpdatedBy" type="text" disabled class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2DefStore  borderbottom">
-                    <input id="txtUpdatedAtTrans" name="UpdatedAt" type="text" disabled class="col-lg-2 col-xs-4  marginstenig pading_lep  pading_2DefStore style_borderbottom">
-                </div>
-
-
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+        <div class="display_none col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 floatleftPurOrder" id="div_Approve">
+            <label class="col-lg-6 col-md-6 col-sm-6 col-xl-6 col-xs-6 pading_2 textcentr_sendTransfer font-weight-bold  ">@SystemResource.Trns_IsSent</label>
+            <div class="col-xs-3 cheksendTransfer">
+                <input type="checkbox" class="checkbox" id="chkApproved" style="" />
             </div>
         </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 floatleftPurOrder">
+            <button id="btnSave" type="button" class="btn btn-success  display_none ">
+                @SystemResource.App_save    <span class="glyphicon glyphicon-floppy-saved"></span>
+            </button>
+            <button id="btnBack" type="button" class="btn btn-warning display_none  ">
+                <span class="glyphicon glyphicon-save"></span> @SystemResource.App_back
+            </button>
+            <button id="btnPrintTransaction" type="button" class="btn btn-warning   display_none ">
+                <span class="glyphicon glyphicon-print"></span> @SystemResource.App_Print
+            </button>
+            <button id="btnEdit" type="button" class="btn btn-info  display_none floatleftPurOrder ">
+                <span class="glyphicon glyphicon-edit"></span> @SystemResource.App_Update
+            </button>
+        </div>
+    </div>
+    <div id="divTransferDetails" class="display_none  ">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12" style="    margin-top: 8px!important;">
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 col-xs-6 border_gridCont">
+            <label class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 pading_2textcentr_sendTransfer " style="font-size:15px"> @SystemResource.Trns_TransFrom </label>
+            <label class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 pading_2 textcentr_sendTransfer">@SystemResource.App_Branch </label>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+                <select id='ddlSourceBranchAdd' class="form-control"></select>
+            </div>
+            <label class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2Trns_Store"> @SystemResource.Trns_Store  </label>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+                <select id='ddlSourceStoreAdd' class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 col-xs-6 border_gridCont">
+            <label class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  pading_2 textcentr_sendTransfer" style="font-size:15px">@SystemResource.Trns_TransTo </label>
+
+            <label class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 pading_2 textcentr_sendTransfer">@SystemResource.App_Branch </label>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+                <select id='ddlToBranchAdd' class="form-control"></select>
+            </div>
+            <label class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 pading_2 textcentr_sendTransfer"> @SystemResource.Trns_Store </label>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+                <select id='ddlToStoreAdd' class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  marginstenig pading_lep  pading_2" style="width: 9.5%;">@SystemResource.Trns_SenderTrNO </label>
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xl-2 col-xs-2" style="width: 10.5%;">
+                <button type="button" class=" styelrightReceiveTransfer col-lg-4 col-md-3 col-sm-3 col-xl-3 col-xs-3 src-btn btn btn-warning input-sm " id="btnSearchSendTransfer" name="ColSearch">
+                    <i class="fa fa-search"></i>
+                </button>
+                <input id="txtSenderTrNO" name="" type="text" class="col-lg-8 col-md-9 col-sm-9 col-xl-9 col-xs-9   form-control input-sm  text_Display" disabled="">
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 marginstenig pading_lep  pading_2 textcentr_ReceiveTransfer2   " style="width: 7.5%;">@SystemResource.Trns_TrNO</label>
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xl-2 col-xs-2" style="width: 10.5%;">
+                <input type="text" class="  form-control input-sm " id="txtTrNo" disabled="">
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  marginstenig pading_lep  pading_2 textcentr_ReceiveTransfer2 ">@SystemResource.App_date</label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                <input type="date" class="form-control input-sm" name="" id="txtTransferDate" style="font-size: 16px !important;">
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  marginstenig pading_lep  pading_2 textcentr_ReceiveTransfer2   " style="width: 7.5%;">@SystemResource.Trns_RefNum </label>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" style="width: 10.5%;">
+                <input type="text" class="  form-control input-sm " id="txtRefNumber">
+            </div>
+            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  marginstenig pading_lep  pading_2 textcentr_ReceiveTransfer2   " style="width: 8.5%;">@SystemResource.App_Registration_Number </label>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" disabled="disabled" style="width: 10.5%;">
+                <input type="text" class="  form-control input-sm " id="txtVoucherNo" disabled="disabled">
+            </div>
+
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 font_header border_gridCont" style="bottom: 5px;font-size: 13px;   ">
+                <br />
+                <div id="div_label" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                    <label class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">  @SystemResource.Itm_ItemCode   </label>
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3"> @SystemResource.Itm_Item     </label>
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 rightsendTransfer">  @SystemResource.Itm_Uom      </label>
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 leftsendTransfer p-0">   @SystemResource.Itm_QunityFromStore  </label>
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 leftsendTransfer"> @SystemResource.Itm_QunityToStore    </label>
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 leftsendTransfer"> @SystemResource.Itm_ConvertedQuntity  </label>
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 leftsendTransfer"> @SystemResource.Itm_ReceivedQuntity    </label>
+
+
+                </div>
+
+
+                <div class=" " id="div_Data">
+                </div>
+                <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign  "></span>
+
+            </div>
+
+
+            <br />
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 " style="    margin-top: 0.5%;">
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer ">@SystemResource.Trns_ApprovedBy </label>
+                <input id="txtApprovedBy" name="" type="text" class="col-lg-8 col-md-8 col-sm-8 col-xl-8 col-xs-8 marginstenig   pading_2 form-control " style="height:40px">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 " style="    margin-top: 0.5%;">
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer ">@SystemResource.App_Notes</label>
+                <textarea id="txtRemarks" name="" type="text" class="col-lg-8 col-md-8 col-sm-8 col-xl-8 col-xs-8  marginstenig   pading_2 form-control "></textarea>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  borderbottom "> @SystemResource.App_Create </label>
+                <input id="txtCreatedBy" name="CreatedBy" type="text" disabled class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  borderbottom ">
+                <input id="txtCreatedAt" name="CreatedAt" type="text" disabled class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 pading_2 style_borderbottom">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2"> </div>
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  borderbottom "> @SystemResource.App_Update  </label>
+                <input id="txtUpdatedBy" name="CreatedBy" type="text" disabled class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  borderbottom">
+                <input id="txtUpdatedAt" name="UpdatedAt" type="text" disabled class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 pading_2 style_borderbottom">
+            </div>
+
+        </div>
+
+
+
+
+        <br />
+        <br />
     </div>
 </div>
 <script src="~/ClientApp/StkDefinition/RawStock.js"></script>
- 

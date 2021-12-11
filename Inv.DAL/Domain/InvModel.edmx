@@ -2114,6 +2114,13 @@ warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetItemStore' does not ha
           <Property Name="BRA_DESC" Type="nvarchar" MaxLength="50" />
           <Property Name="BRA_DESCL" Type="nvarchar" MaxLength="100" />
           <Property Name="BRA_CODE" Type="int" Nullable="false" />
+          <Property Name="UOMDescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="UOMDescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemFamilyDescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemFamilyDescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryDescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryDescL" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetItemStoreInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3652,7 +3659,14 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
     [IQ_GetItemStore].[st_DescE] AS [st_DescE], 
     [IQ_GetItemStore].[BRA_DESC] AS [BRA_DESC], 
     [IQ_GetItemStore].[BRA_DESCL] AS [BRA_DESCL], 
-    [IQ_GetItemStore].[BRA_CODE] AS [BRA_CODE]
+    [IQ_GetItemStore].[BRA_CODE] AS [BRA_CODE], 
+    [IQ_GetItemStore].[UOMDescA] AS [UOMDescA], 
+    [IQ_GetItemStore].[UOMDescE] AS [UOMDescE], 
+    [IQ_GetItemStore].[ItemFamilyDescA] AS [ItemFamilyDescA], 
+    [IQ_GetItemStore].[ItemFamilyDescE] AS [ItemFamilyDescE], 
+    [IQ_GetItemStore].[CategoryDescA] AS [CategoryDescA], 
+    [IQ_GetItemStore].[CategoryDescL] AS [CategoryDescL], 
+    [IQ_GetItemStore].[ItemCode] AS [ItemCode]
     FROM [dbo].[IQ_GetItemStore] AS [IQ_GetItemStore]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="IQ_GetItemStoreInfo" EntityType="Self.IQ_GetItemStoreInfo" store:Type="Views" store:Schema="dbo">
@@ -7558,6 +7572,13 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="BRA_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BRA_DESCL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="BRA_CODE" Type="Int32" Nullable="false" />
+          <Property Name="UOMDescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UOMDescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemFamilyDescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemFamilyDescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryDescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryDescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -10676,6 +10697,13 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySetMapping Name="IQ_GetItemStore">
             <EntityTypeMapping TypeName="POS2021Model.IQ_GetItemStore">
               <MappingFragment StoreEntitySet="IQ_GetItemStore">
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="CategoryDescL" ColumnName="CategoryDescL" />
+                <ScalarProperty Name="CategoryDescA" ColumnName="CategoryDescA" />
+                <ScalarProperty Name="ItemFamilyDescE" ColumnName="ItemFamilyDescE" />
+                <ScalarProperty Name="ItemFamilyDescA" ColumnName="ItemFamilyDescA" />
+                <ScalarProperty Name="UOMDescE" ColumnName="UOMDescE" />
+                <ScalarProperty Name="UOMDescA" ColumnName="UOMDescA" />
                 <ScalarProperty Name="BRA_CODE" ColumnName="BRA_CODE" />
                 <ScalarProperty Name="BRA_DESCL" ColumnName="BRA_DESCL" />
                 <ScalarProperty Name="BRA_DESC" ColumnName="BRA_DESC" />

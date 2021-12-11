@@ -45,5 +45,12 @@ namespace Inv.DAL.Domain
         public string BRA_DESC { get; set; }
         public string BRA_DESCL { get; set; }
         public int BRA_CODE { get; set; }
+        public string UOMDescA { get; set; }
+        public string UOMDescE { get; set; }
+        public string ItemFamilyDescA { get; set; }
+        public string ItemFamilyDescE { get; set; }
+        public string CategoryDescA { get; set; }
+        public string CategoryDescL { get; set; }
+        public string ItemCode { get; set; }
     }
 }

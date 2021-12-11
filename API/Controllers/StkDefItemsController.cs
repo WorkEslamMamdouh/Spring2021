@@ -422,6 +422,39 @@ namespace Inv.API.Controllers
 
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAllItemsInStore(int CompCode, int FinYear, int? catid, int? itemFamilyid, int? Storeid, string StocK, string UserCode, string Token)
+        {
+            try
+            {
 
+                if (ModelState.IsValid && UserControl.CheckUser(Token, UserCode))
+                {
+                    string cond = " CompCode= " + CompCode + " and FinYear =" + FinYear;
+                    if (catid != null)
+                        cond = cond + " and CatID = " + catid;
+                    if (itemFamilyid != 0)
+                        cond = cond + " and ItemFamilyID = " + itemFamilyid;
+                    if (Storeid != null)
+                        cond = cond + " and Storeid = " + Storeid;
+                    if (StocK != "All")
+                    {
+                        cond = cond + " and OnhandQty " + StocK + "0";
+                    }
+
+
+                    string SQL = "Select *  from IQ_GetItemStoreInfo    where " + cond;
+                    var ItemList = db.Database.SqlQuery<IQ_GetItemStoreInfo>(SQL).ToList();
+
+                    return Ok(new BaseResponse(ItemList));
+                }
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+            }
+        }
     }
 }
