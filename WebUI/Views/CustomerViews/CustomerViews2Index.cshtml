@@ -246,9 +246,7 @@
                     <button id="btnBack" type="button" class="btn btn-warning  display_none float_left">
                         <span class="glyphicon glyphicon-save"></span> @SystemResource.App_back
                     </button>
-                    <button id="btnSendeEmail" onclick="SendeEmail()" type="button" class="btn btn-warning    float_left">
-                        <span class="glyphicon glyphicon-save"></span> @SystemResource.App_back
-                    </button>
+                   
                 </div>
             </div>
 
@@ -399,35 +397,64 @@
 
 <script>
 
-    function SendeEmail() {
+    //function SendeEmail() {
 
-        //Email.send({
-        //    Host: "smtp.yourisp.com",
-        //    Username: "krkrman619@gmail.com",
-        //    Password: "619619Ss619619",
-        //    To: 'krkrman619@gmail.com',
-        //    From: "EslamMamdouh@gmail.com",
-        //    Subject: "This is the subject",
-        //    Body: "And this is the body"
-        //}).then(
-        //    message => alert(message)
-        //);
-
-
-        Email.send({
-            SecureToken: "a44e5baf-f72d-4cd6-b642-d5ace27df1b0",
-            To: 'krkrman619@gmail.com',
-            From: "sales@spring-eg.net",
-            Subject: "This is the subject",
-            Body: "And this is the body"
-        }).then(
-            message => alert(message)
-        );
+    //    //Email.send({
+    //    //    Host: "smtp.yourisp.com",
+    //    //    Username: "krkrman619@gmail.com",
+    //    //    Password: "619619Ss619619",
+    //    //    To: 'krkrman619@gmail.com',
+    //    //    From: "EslamMamdouh@gmail.com",
+    //    //    Subject: "This is the subject",
+    //    //    Body: "And this is the body"
+    //    //}).then(
+    //    //    message => alert(message)
+    //    //);
 
 
-    }
+    //    Email.send({
+    //        SecureToken: "a44e5baf-f72d-4cd6-b642-d5ace27df1b0",
+    //        To: 'krkrman619@gmail.com',
+    //        From: "sales@spring-eg.net",
+    //        Subject: "This is the subject",
+    //        Body: "And this is the body"
+    //    }).then(
+    //        message => alert(message)
+    //    );
 
 
+    //}
 
+
+    //const mandrill = require('node-mandrill')('<your API Key>');
+
+    //function sendEmail(_name, _email, _subject, _message) {
+    //    mandrill('/messages/send', {
+    //        message: {
+    //            to: [{ email: _email, name: _name }],
+    //            from_email: 'KrkrMan619@gmail.com',
+    //            subject: _subject,
+    //            text: _message
+    //        }
+    //    }, function (error, response) {
+    //        if (error) console.log(error);
+    //        else console.log(response);
+    //    });
+    //}
+
+    //// define your own email api which points to your server.
+
+    //app.post('/api/sendemail/', function (req, res) {
+
+    //    let _name = req.body.name;
+    //    let _email = req.body.email;
+    //    let _subject = req.body.subject;
+    //    let _messsage = req.body.message;
+
+    //    //implement your spam protection or checks. 
+
+    //    sendEmail(_name, _email, _subject, _message);
+
+    //});
 
 </script>
