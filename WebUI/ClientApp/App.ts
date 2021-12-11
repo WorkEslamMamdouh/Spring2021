@@ -1641,41 +1641,41 @@ function convertToG(date: string) {
         });
     return result;
 }
-function CheckTime() {
-    var SysSession: SystemSession = GetSystemSession();
+//function CheckTime() {
+//    var SysSession: SystemSession = GetSystemSession();
 
-    var timelogin;
-    var dt = new Date();
-    var timenow = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-    var LastAccess = localStorage.getItem("LastAccess");
-    var SysTimeOut = localStorage.getItem("startTimeOut");
-    timelogin = LastAccess
-    var timeout = CompareTime(timenow, timelogin);
-    localStorage.setItem("LastAccess", timenow)
-    var newSysTimeOut;
+//    var timelogin;
+//    var dt = new Date();
+//    var timenow = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+//    var LastAccess = localStorage.getItem("LastAccess");
+//    var SysTimeOut = localStorage.getItem("startTimeOut");
+//    timelogin = LastAccess
+//    var timeout = CompareTime(timenow, timelogin);
+//    localStorage.setItem("LastAccess", timenow)
+//    var newSysTimeOut;
 
-    try {
-        if (SysSession.CurrentEnvironment.I_Control[0].SysTimeOut == null) {
-            newSysTimeOut = 10;
-        }
-        else {
-            newSysTimeOut = SysSession.CurrentEnvironment.I_Control[0].SysTimeOut;
-        }
+//    try {
+//        if (SysSession.CurrentEnvironment.I_Control[0].SysTimeOut == null) {
+//            newSysTimeOut = 10;
+//        }
+//        else {
+//            newSysTimeOut = SysSession.CurrentEnvironment.I_Control[0].SysTimeOut;
+//        }
 
-    } catch (e) {
-        newSysTimeOut = 10;
-    }
+//    } catch (e) {
+//        newSysTimeOut = 10;
+//    }
 
-    if (timeout > newSysTimeOut || timeout < 0)
-        MessageBox.Show("لقد استنفذت وقت الجلسة، يجب معاودة الدخول مرة اخري ", "System Time out , Please relogin ", function () {
-            document.cookie = "Inv1_systemProperties=" + null + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
-            document.cookie = "Inv1_Privilage=" + null + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
-            document.cookie = "Privilage=" + null + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+//    if (timeout > newSysTimeOut || timeout < 0)
+//        MessageBox.Show("لقد استنفذت وقت الجلسة، يجب معاودة الدخول مرة اخري ", "System Time out , Please relogin ", function () {
+//            document.cookie = "Inv1_systemProperties=" + null + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+//            document.cookie = "Inv1_Privilage=" + null + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+//            document.cookie = "Privilage=" + null + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
 
-            window.location.href = "/Login/LoginIndex";
-        }), 1000;
+//            window.location.href = "/Login/LoginIndex";
+//        }), 1000;
 
-}
+//}
 
 
 function Get_PriceWithVAT(item_unitprice: number, VatPRc: number, flag_PriceWithVAT: boolean) {

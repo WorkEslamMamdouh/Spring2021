@@ -4238,6 +4238,7 @@ class IQ_GetSlsInvoiceList extends SecurityClass {
         this.CustomerCODE = "";
         this.CUSTOMER_NAME = "";
         this.NAMEE = "";
+        this.StatusNAME = "";
     }
     public InvoiceID: number;
     public TrNo: number;
@@ -4329,6 +4330,7 @@ class IQ_GetSlsInvoiceList extends SecurityClass {
     public CustomerCODE: string;
     public CUSTOMER_NAME: string;
     public NAMEE: string;
+    public StatusNAME: string;
 }
 class I_TR_OperationItems extends SecurityClass {
     constructor() {

@@ -112,8 +112,11 @@ namespace CustomerOrder {
     //------------------------------------------------------ Main Region------------------------
     export function InitalizeComponent() {
         // VatPrc                                           
- 
-
+        debugger
+        CustomerId = Number(SysSession.CurrentEnvironment.CustomerId);
+        if (isNaN(CustomerId)) {
+            window.open(Url.Action("LogCust", "Home"), "_self");
+        }
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         Finyear = Number(SysSession.CurrentEnvironment.CurrentYear);
@@ -508,11 +511,16 @@ namespace CustomerOrder {
             var Storeid = 1
 
             sys.FindKey(Modules.CUSTOMERS, "btnCustomerOrder", " STATUS = 1 and CUSTOMER_ID = " + CustomerId, () => {
-                let id = SearchGrid.SearchDataGrid.SelectedKey;
-                alert(id)
-                debugger
+                let id = SearchGrid.SearchDataGrid.SelectedKey;  
                 var ListCustItem = I_Item_Cust.filter(x => x.Id == id);
-                if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+
+
+               
+
+                
+
+                if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+
 
                 //$("#txt_ItemID" + NumCnt + "").val(id);
                 let ItemCode = '';
@@ -571,6 +579,7 @@ namespace CustomerOrder {
             });
 
 
+            setTimeout(function () { $("#SearchDataTable_wrapper").attr("class", "") }, 200);
         });
         $("#txtServiceCode" + cnt).on('change', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
@@ -678,12 +687,12 @@ namespace CustomerOrder {
             let Typeuom = $("#ddlTypeuom" + cnt);
             let OnhandQty = $('option:selected', Typeuom).attr('data-OnhandQty');
 
-            if (Number(txtQuantityValue) > Number(OnhandQty)) {
+            //if (Number(txtQuantityValue) > Number(OnhandQty)) {
 
-                DisplayMassage(" لا يمكن تجاوز الكميه المتاحه  " + OnhandQty + " ", "Please select a customer", MessageType.Worning);
-                $("#txtQuantity" + cnt).val(OnhandQty);
-                Errorinput($("#txtQuantity" + cnt));
-            }
+            //    DisplayMassage(" لا يمكن تجاوز الكميه المتاحه  " + OnhandQty + " ", "Please select a customer", MessageType.Worning);
+            //    $("#txtQuantity" + cnt).val(OnhandQty);
+            //    Errorinput($("#txtQuantity" + cnt));
+            //}
 
             totalRow(cnt);
 
@@ -912,16 +921,16 @@ namespace CustomerOrder {
         //}
 
          
-        var CanAdd: boolean = true;
-        if (CountGrid > 0) {
-            for (var i = 0; i < CountGrid; i++) {
-                CanAdd = Validation_Grid(i);
-                if (CanAdd == false) {
-                    break;
-                }
-            }
-        }
-        if (CanAdd) {
+        //var CanAdd: boolean = true;
+        //if (CountGrid > 0) {
+        //    for (var i = 0; i < CountGrid; i++) {
+        //        CanAdd = Validation_Grid(i);
+        //        if (CanAdd == false) {
+        //            break;
+        //        }
+        //    }
+        //}
+        //if (CanAdd) {
             CountItems = CountItems + 1;
             txtItemCount.value = CountItems.toString();
             BuildControls(CountGrid);
@@ -936,7 +945,7 @@ namespace CustomerOrder {
             CountGrid++;
             Insert_Serial();
  
-        }
+        //}
     }
     function ComputeTotals() {
 
@@ -1156,7 +1165,7 @@ namespace CustomerOrder {
 
 
         InvoiceModel.IsCash = true;
-        InvoiceModel.Status = 1;
+        InvoiceModel.Status = 0;
     
      
         // Details

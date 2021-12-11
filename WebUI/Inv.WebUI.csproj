@@ -414,6 +414,7 @@
     <Content Include="New_Design\website-menu-16\js\popper.js" />
     <Content Include="OnBarcode.Barcode.WinForms.dll" />
     <Content Include="Reports\Forms\ReportsForm.aspx" />
+    <Content Include="Scripts\smtp.js" />
     <Content Include="Style_design\bootstrap-rtl.css" />
     <Content Include="Style_design\bootstrap.js" />
     <Content Include="Style_design\bootstrap.min.css" />
@@ -1608,6 +1609,7 @@
     <TypeScriptCompile Include="ClientApp\CollectionReports\Inventorymove.ts" />
     <TypeScriptCompile Include="ClientApp\CollectionReports\Inventoryvalue.ts" />
     <TypeScriptCompile Include="ClientApp\CustomerShoping\CustomerOrder.ts" />
+    <TypeScriptCompile Include="ClientApp\CustomerShoping\CustomerHome.ts" />
     <TypeScriptCompile Include="ClientApp\CustomerShoping\CustomerView.ts" />
     <TypeScriptCompile Include="ClientApp\Generalsetting\AccDefSalesmen.ts" />
     <TypeScriptCompile Include="ClientApp\Generalsetting\CUSTOMERS.ts" />

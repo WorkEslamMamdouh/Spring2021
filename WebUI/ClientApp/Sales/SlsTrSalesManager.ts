@@ -19,7 +19,7 @@ namespace SlsTrSalesManager {
     if (SlsInv == "1") {  //  1:Retail invoice 
         InvoiceType = 1;
 
-        (lang == "ar" ? Screen_name = 'فواتير التجزئه' : Screen_name = 'Retail invoice')
+        (lang == "ar" ? Screen_name = 'فواتير  ' : Screen_name = 'Retail invoice')
     }
     else {       //2: Wholesale invoice 
         InvoiceType = 2;
@@ -352,7 +352,7 @@ namespace SlsTrSalesManager {
 
 
         let sys: SystemTools = new SystemTools();
-        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", "CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 2  and SlsInvSrc = 1 ", () => {
+        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", " Status = 1 and CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 2  and SlsInvSrc = 1 ", () => {
 
 
             let id = SearchGrid.SearchDataGrid.SelectedKey;
@@ -455,7 +455,7 @@ namespace SlsTrSalesManager {
 
 
         let sys: SystemTools = new SystemTools();
-        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", "CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 3  and SlsInvSrc = 1 ", () => {
+        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", " Status = 0 and CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 3  and SlsInvSrc = 1 ", () => {
 
 
             let id = SearchGrid.SearchDataGrid.SelectedKey; 
@@ -547,8 +547,10 @@ namespace SlsTrSalesManager {
 
                                         $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
                                         $('#txtServiceCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
-                                        $('#txtPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
-                                        $('#txtNetUnitPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
+
+                                        $('#txtPrice' + NumCnt + '').val(PriceInvitemsDetails[NumCnt].Unitprice);
+                                        $('#txtNetUnitPrice' + NumCnt + '').val(PriceInvitemsDetails[NumCnt].Unitprice);
+                                        $('#ddlTypeuom' + NumCnt + '').val(PriceInvitemsDetails[NumCnt].UomID);
                                         //$('#txtQuantity' + NumCnt + '').val('1');
 
                                         Tax_Rate = GetItemInfo[0].VatPrc;

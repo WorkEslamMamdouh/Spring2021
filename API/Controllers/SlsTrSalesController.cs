@@ -284,9 +284,9 @@ namespace Inv.API.Controllers
         {
             //if (ModelState.IsValid && UserControl.CheckUser(Token, UserCode))
             //{
-                string s = "select * from IQ_GetSlsInvoiceList where TrType = 3  and BranchCode = " + BranchCode + " and CompCode = " + CompCode + "and SlsInvSrc = 1 and TrDate >=' " + StartDate + "' and TrDate <= ' " + EndDate + " ' and CustomerId =" + CustId +"";
+                string s = "select * from I_Sls_TR_Invoice where TrType = 3  and BranchCode = " + BranchCode + " and CompCode = " + CompCode + "and SlsInvSrc = 1 and TrDate >=' " + StartDate + "' and TrDate <= ' " + EndDate + " ' and CustomerId =" + CustId +"";
               
-                var res = db.Database.SqlQuery<IQ_GetSlsInvoiceList>(s).ToList();
+                var res = db.Database.SqlQuery<I_Sls_TR_Invoice>(s).ToList();
                 return Ok(new BaseResponse(res));
             //}
             //return BadRequest(ModelState);
@@ -1064,7 +1064,10 @@ namespace Inv.API.Controllers
                 {
 
 
+                    string subject= "Eslam Msksdnkadnk";
+                    string Boody= "Eslam Mammsndsnnsddskandjkasnd";
 
+                    //WebMail.Send()
 
 
                     // doha 4-7-2021 GUID and QR Code

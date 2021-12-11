@@ -28,7 +28,12 @@ var CustomerView;
     var btnPrintslip;
     // giedView
     var Grid = new JsGrid();
+    var CustomerId = 0;
     function InitalizeComponent() {
+        CustomerId = Number(SysSession.CurrentEnvironment.CustomerId);
+        if (isNaN(CustomerId)) {
+            window.open(Url.Action("LogCust", "Home"), "_self");
+        }
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         Finyear = Number(SysSession.CurrentEnvironment.CurrentYear);
@@ -104,10 +109,10 @@ var CustomerView;
             { title: res.App_Number, name: "TrNo", type: "text", width: "13%" },
             { title: res.App_Cutomer, name: "CustomerName", type: "text", width: "25%" },
             { title: res.App_date, name: "TrDate", type: "text", width: "20%" },
-            { title: res.App_total, name: "TotalAmount", type: "text", width: "15%" },
-            { title: res.App_Tax, name: "VatAmount", type: "text", width: "12%" },
-            { title: res.App_Net, name: "NetAfterVat", type: "text", width: "13%" },
-            { title: res.App_TobePaid, name: "RemainAmount", type: "text", width: "17%", css: "classfont" },
+            { title: 'الحاله', name: "StatusNAME", type: "text", width: "15%" },
+            //{ title: res.App_Tax, name: "VatAmount", type: "text", width: "12%" },
+            //{ title: res.App_Net, name: "NetAfterVat", type: "text", width: "13%" },            
+            //{ title: res.App_TobePaid, name: "RemainAmount", type: "text", width: "17%", css: "classfont" },  
         ];
         BindStatisticGridData();
     }
@@ -123,6 +128,11 @@ var CustomerView;
                 var result = d;
                 if (result.IsSuccess) {
                     SlsInvoiceStatisticsDetails = result.Response;
+                    for (var i = 0; i < SlsInvoiceStatisticsDetails.length; i++) {
+                        SlsInvoiceStatisticsDetails[i].TrDate = DateFormat(SlsInvoiceStatisticsDetails[i].TrDate);
+                        //Get_IQ_Purchases_Master[i].Type_Supplier = DateFormat(Get_IQ_Purchases_Master[i].Tr_Date);
+                        SlsInvoiceStatisticsDetails[i].StatusNAME = SlsInvoiceStatisticsDetails[i].Status == 0 ? 'لم يتم الاستلام' : 'تم الاستلام';
+                    }
                     Grid.DataSource = SlsInvoiceStatisticsDetails;
                     Grid.Bind();
                 }

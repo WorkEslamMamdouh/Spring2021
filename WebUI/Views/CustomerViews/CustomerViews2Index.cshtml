@@ -217,7 +217,7 @@
             </div>
         </div>
     </div>
-   
+
     <div id="DivMassage" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred  borderred display_none">
         <h4 id="Text_Massage" style=""> رساله </h4>
     </div>
@@ -226,7 +226,7 @@
 
 
 
-        
+
         <div id="div_1" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 borderred   ">
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12" style="    margin-top: 22px!important;">
@@ -244,6 +244,9 @@
                         @SystemResource.App_save  <span class="glyphicon glyphicon-floppy-saved"></span>
                     </button>
                     <button id="btnBack" type="button" class="btn btn-warning  display_none float_left">
+                        <span class="glyphicon glyphicon-save"></span> @SystemResource.App_back
+                    </button>
+                    <button id="btnSendeEmail" onclick="SendeEmail()" type="button" class="btn btn-warning    float_left">
                         <span class="glyphicon glyphicon-save"></span> @SystemResource.App_back
                     </button>
                 </div>
@@ -296,7 +299,7 @@
 
             <br />
             <div class=" col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 border_gridCont" style="overflow: scroll;">
-                <div id=" " class="display_none col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 font_header" style="bottom: 5px;font-size: 13px;font-weight: bold; ">
+                <div id=" " class="display_none  col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 font_header" style="bottom: 5px;font-size: 13px;font-weight: bold; ">
                     <br />
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-1 p-0 ">
                         <span class="">@SystemResource.serial</span>
@@ -306,16 +309,17 @@
                         <span class="">الصـنـــف</span>
                     </div>
 
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" style="margin-right: 2%;">
-                        <span class="">  الوحده  </span>
+                    <div class="   col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4 Mopil">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2" style="margin-right: 2%;">
+                            <span class="">  الوحده  </span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+                            <span class="">الكميه المطلوبه</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
+                            <span class="">السعر</span>
+                        </div>
                     </div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
-                        <span class="">الكميه المطلوبه</span>
-                    </div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
-                        <span class="">السعر</span>
-                    </div>
-
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
                     <div class="row " id="div_Data">
@@ -326,7 +330,7 @@
 
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12">
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"> 
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0">
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 p-0">
                     <span id="btnAddDetails" class="fa fa-plus-circle     " style="z-index: 9999; font-size: 61px !important;"></span>
@@ -374,7 +378,7 @@
             </div>
 
         </div>
-        
+
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
             <br />
@@ -389,3 +393,41 @@
 
 </div>
 <script src="~/ClientApp/CustomerShoping/CustomerOrder.js"></script>
+
+<script src="~/Scripts/smtp.js"></script>
+
+
+<script>
+
+    function SendeEmail() {
+
+        //Email.send({
+        //    Host: "smtp.yourisp.com",
+        //    Username: "krkrman619@gmail.com",
+        //    Password: "619619Ss619619",
+        //    To: 'krkrman619@gmail.com',
+        //    From: "EslamMamdouh@gmail.com",
+        //    Subject: "This is the subject",
+        //    Body: "And this is the body"
+        //}).then(
+        //    message => alert(message)
+        //);
+
+
+        Email.send({
+            SecureToken: "a44e5baf-f72d-4cd6-b642-d5ace27df1b0",
+            To: 'krkrman619@gmail.com',
+            From: "sales@spring-eg.net",
+            Subject: "This is the subject",
+            Body: "And this is the body"
+        }).then(
+            message => alert(message)
+        );
+
+
+    }
+
+
+
+
+</script>

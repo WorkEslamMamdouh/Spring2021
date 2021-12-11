@@ -16,7 +16,7 @@ var SlsTrSalesManager;
     var SlsInv = $('#SlsInvType').val();
     if (SlsInv == "1") { //  1:Retail invoice 
         InvoiceType = 1;
-        (lang == "ar" ? Screen_name = 'فواتير التجزئه' : Screen_name = 'Retail invoice');
+        (lang == "ar" ? Screen_name = 'فواتير  ' : Screen_name = 'Retail invoice');
     }
     else { //2: Wholesale invoice 
         InvoiceType = 2;
@@ -307,7 +307,7 @@ var SlsTrSalesManager;
     }
     function btnpriceSrch_onclick() {
         var sys = new SystemTools();
-        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", "CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 2  and SlsInvSrc = 1 ", function () {
+        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", " Status = 1 and CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 2  and SlsInvSrc = 1 ", function () {
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             Invpriceshow(id);
             //-----------------------------------------------  function Price;
@@ -395,7 +395,7 @@ var SlsTrSalesManager;
     }
     function btnOrderSrch_onclick() {
         var sys = new SystemTools();
-        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", "CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 3  and SlsInvSrc = 1 ", function () {
+        sys.FindKey(Modules.SlsTrSalesManager, "btnpriceSrch", " Status = 0 and CompCode=" + compcode + "and BranchCode=" + BranchCode + " and TrType = 3  and SlsInvSrc = 1 ", function () {
             var id = SearchGrid.SearchDataGrid.SelectedKey;
             InvOrderCust(id);
             //-----------------------------------------------  function Price;
@@ -476,8 +476,9 @@ var SlsTrSalesManager;
                                         }
                                         $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? GetItemInfo_1[0].It_DescA : GetItemInfo_1[0].it_DescE));
                                         $('#txtServiceCode' + NumCnt + '').val(GetItemInfo_1[0].ItemCode);
-                                        $('#txtPrice' + NumCnt + '').val(GetItemInfo_1[0].UnitPrice);
-                                        $('#txtNetUnitPrice' + NumCnt + '').val(GetItemInfo_1[0].UnitPrice);
+                                        $('#txtPrice' + NumCnt + '').val(PriceInvitemsDetails[NumCnt].Unitprice);
+                                        $('#txtNetUnitPrice' + NumCnt + '').val(PriceInvitemsDetails[NumCnt].Unitprice);
+                                        $('#ddlTypeuom' + NumCnt + '').val(PriceInvitemsDetails[NumCnt].UomID);
                                         //$('#txtQuantity' + NumCnt + '').val('1');
                                         Tax_Rate = GetItemInfo_1[0].VatPrc;
                                         Tax_Type_Model = GetVat(GetItemInfo_1[0].VatNatID, Tax_Rate, vatType);
