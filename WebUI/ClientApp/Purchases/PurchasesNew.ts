@@ -279,6 +279,7 @@ namespace PurchasesNew {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Supplier", "GetAll"),
+            data: { CompCode: compcode, BranchCode: BranchCode },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -1646,8 +1647,8 @@ namespace PurchasesNew {
         //$("#txtPaid_Up").removeAttr("disabled");
         //$("#txtTo_be_Paid").removeAttr("disabled");
         $("#txtRemarks").removeAttr("disabled");
-        $("#ddlStore").removeAttr("disabled");
-        $("#ddlType").removeAttr("disabled");
+        //$("#ddlStore").removeAttr("disabled");
+        //$("#ddlType").removeAttr("disabled");
         //remove_disabled_Grid_Controls();
  
 
@@ -1697,6 +1698,15 @@ namespace PurchasesNew {
     }
     function btnSave_onclick() {
         //alert('ok');
+
+        if ($("#ddlType").val() == "1" && txtPaid_Up.value != txtTo_be_Paid.value) {
+            
+            DisplayMassage("يجب ان يكون المبلغ المدفوع مساوي الإجمالي ", "Error", MessageType.Error);
+            Errorinput($("#ddlType"))
+            Errorinput(txtPaid_Up)
+        return
+        }
+
         debugger
         if (ID_Supp == 0) {
 

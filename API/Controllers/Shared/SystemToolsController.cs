@@ -969,6 +969,20 @@ namespace Inv.API.Controllers
                 )
             };
         }
+
+        [HttpGet]
+        public HttpResponseMessage ReportConnectionString()
+        {
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(
+                    GetConnectionStringReport(),
+                    Encoding.UTF8,
+                    "text/html"
+                )
+            };
+        }
+
         [HttpGet]
         public IHttpActionResult getBackgroundImage(int CompCode)
         {

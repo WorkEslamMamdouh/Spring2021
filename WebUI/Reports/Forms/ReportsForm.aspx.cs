@@ -40,7 +40,8 @@ namespace RS.WebUI.Reports.Forms
 
         protected InvEntities db = UnitOfWork.context(BuildConnectionString());
         //private SamahEntities _db = new SamahEntities();
-        string cs = ConfigurationManager.ConnectionStrings["InvEntities"].ConnectionString;
+        //string cs = ConfigurationManager.ConnectionStrings["InvEntities"].ConnectionString;
+        string cs = ReportConnectionString();
 
 
         //string cs = "Data Source=SQL5061.site4now.net; database =db_a7882d_apieltawhed; user id =db_a7882d_apieltawhed_admin; Password=619619Ss619619";
@@ -56,6 +57,12 @@ namespace RS.WebUI.Reports.Forms
         {
             var httpClient = new HttpClient();
             var res = httpClient.GetStringAsync(WebConfigurationManager.AppSettings["ServiceUrl"] + "SystemTools/BuildConnection").Result;
+            return res;
+        }
+          public static string ReportConnectionString()
+        {
+            var httpClient = new HttpClient();
+            var res = httpClient.GetStringAsync(WebConfigurationManager.AppSettings["ServiceUrl"] + "SystemTools/ReportConnectionString").Result;
             return res;
         }
 
