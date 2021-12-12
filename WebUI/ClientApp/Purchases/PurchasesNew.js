@@ -257,7 +257,7 @@ var PurchasesNew;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Purchases", "GetAll_IQ_PurchasesMaster"),
-            data: { startDate: startdt, endDate: enddt, ID_Supplier: Number(ID_Supplier), Type_Debit: Number(Type_Debit) },
+            data: { CompCode: compcode, BranchCode: BranchCode, startDate: startdt, endDate: enddt, ID_Supplier: Number(ID_Supplier), Type_Debit: Number(Type_Debit) },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -368,7 +368,7 @@ var PurchasesNew;
                 Bal += cash;
             }
         }
-        Get_balance(); // Chack Balance
+        //Get_balance();// Chack Balance
         if (Success_Balance == false) {
             Success_Balance = true;
             ValidDataFlag = false;
@@ -414,7 +414,7 @@ var PurchasesNew;
                 }
             }
             if (IsSuccess != false) {
-                Outpirce(Bal);
+                Outpirce(Bal, UpdatedModel[0].ID_Supplier);
             }
         }
         ////////////////
@@ -425,8 +425,15 @@ var PurchasesNew;
         ID_Supp = Selected_Data[0].ID_Supplier;
         $("#ddlStore").attr("disabled", "disabled");
         $("#ddlType").attr("disabled", "disabled");
-        $("#ddlStore").addClass("display_none");
-        $("#ddlType").addClass("display_none");
+        $("#ddlStore").val(Selected_Data[0].StoreID);
+        if (Selected_Data[0].IsCash) {
+            $("#ddlType").val("1");
+        }
+        else {
+            $("#ddlType").val("0");
+        }
+        //$("#ddlStore").addClass("display_none");
+        //$("#ddlType").addClass("display_none");
         $("#rowData").removeClass("display_none");
         $("#divTotalSatistics").removeClass("display_none");
         DisplayData(Selected_Data);
@@ -447,11 +454,12 @@ var PurchasesNew;
                 var result = d;
                 if (result.IsSuccess) {
                     AllGetStokMasterDetail = result.Response;
+                    CountGrid = 0;
                     $("#div_Data").html('');
                     for (var i = 0; i < AllGetStokMasterDetail.length; i++) {
                         BuildControls(i);
                         Disbly_BuildControls(i, AllGetStokMasterDetail);
-                        CountGrid++;
+                        CountGrid += 1;
                     }
                     $("#txtItemCount").val(CountGrid);
                 }
@@ -765,7 +773,7 @@ var PurchasesNew;
         $("#txtPrice" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].RecUnitPrice);
         $("#txtTax_Rate" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].VatPrc);
         $("#txtReturnQuantity" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].TotRetQty);
-        $("#txtTax" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].VatAmount.toFixed(2));
+        $("#txtTax" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].VatAmount == null ? 0 : SlsInvoiceItemsDetails[cnt].VatAmount.toFixed(2));
         $("#txt_ItemID" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].ItemID);
         $("#txtTotal" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].NetUnitCost);
         filldlltypeuom(cnt, SlsInvoiceItemsDetails);
@@ -1162,41 +1170,41 @@ var PurchasesNew;
     }
     function Get_balance() {
         Success_Balance = true;
-        Ajax.Callsync({
-            type: "Get",
-            url: sys.apiUrl("Outletpirce", "Get_Balance"),
-            success: function (d) {
-                debugger;
-                var result = d;
-                if (result.IsSuccess == true) {
-                    var Balance = result.Response;
-                    if (Balance < Number(Bal)) {
-                        MessageBox.Show('لا يوجد مبلغ كافي لاتمام الشراء ( المبلغ المتواجد ( ' + Balance + ' )ج ) ', '');
-                        Success_Balance = false;
-                    }
-                }
-                else {
-                    Success_Balance = false;
-                }
-            }
-        });
+        //Ajax.Callsync({
+        //    type: "Get",
+        //    url: sys.apiUrl("Outletpirce", "Get_Balance"),
+        //    success: (d) => {
+        //        debugger
+        //        let result = d as BaseResponse;
+        //        if (result.IsSuccess == true) {
+        //            var Balance = result.Response;
+        //            if (Balance < Number(Bal)) {
+        //                MessageBox.Show('لا يوجد مبلغ كافي لاتمام الشراء ( المبلغ المتواجد ( ' + Balance + ' )ج ) ', '');
+        //                Success_Balance = false;
+        //            }
+        //        }
+        //        else {
+        //            Success_Balance = false;
+        //        }
+        //    }
+        //});
     }
-    function Outpirce(pirce) {
+    function Outpirce(pirce, ID_Supplier) {
         var Tr_Type = 'مشتريات';
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert"),
-            data: { Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
+            data: { CompCode: compcode, BranchCode: BranchCode, ID_Supplier: ID_Supplier, Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
                 debugger;
                 var result = d;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
-                    if (Outlet == pirce) {
-                    }
-                    else {
-                        MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
-                    }
+                    //if (Outlet == pirce) {
+                    //}
+                    //else {
+                    //    MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
+                    //}
                 }
                 else {
                     MessageBox.Show(result.ErrorMessage, "خطأ");
@@ -1204,13 +1212,13 @@ var PurchasesNew;
             }
         });
     }
-    function Enter_Money(pirce) {
+    function Enter_Money(pirce, CustomerID) {
         var Dasc_Name = 'مشتريات';
         var Tr_Type = "مرتجع مشتريات";
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
-            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
+            data: { CompCode: compcode, BranchCode: BranchCode, CustomerID: CustomerID, Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
                 debugger;
                 var result = d;
@@ -1350,7 +1358,7 @@ var PurchasesNew;
                     else {
                         Update();
                         if (IsSuccess != false) {
-                            Outpirce(Bal);
+                            Outpirce(Bal, UpdatedModel[0].ID_Supplier);
                         }
                     }
                 }
@@ -1363,7 +1371,7 @@ var PurchasesNew;
                             Assign();
                             Update();
                             if (IsSuccess != false) {
-                                Enter_Money(Paid_1);
+                                Enter_Money(Paid_1, ID_Supp);
                             }
                         });
                     }
@@ -1377,7 +1385,7 @@ var PurchasesNew;
     }
     function Search() {
         var sys = new SystemTools();
-        sys.FindKey(Modules.Purchases, "btnSupplierSearch", "", function () {
+        sys.FindKey(Modules.Purchases, "btnSupplierSearch", " CompCode =" + compcode + "", function () {
             var ID_Supplier = SearchGrid.SearchDataGrid.SelectedKey;
             ID_Supp = ID_Supplier;
             //alert(id);

@@ -403,6 +403,8 @@ var SlsTrSalesManager;
     }
     function InvOrderCust(id) {
         debugger;
+        InvoiceStatisticsModel = new Array();
+        Selecteditem = new Array();
         $("#div_Data").html("");
         Ajax.Callsync({
             type: "Get",
@@ -850,12 +852,12 @@ var SlsTrSalesManager;
                 InvoiceModel.UpdatedBy = SysSession.CurrentEnvironment.UserCode;
                 InvoiceModel.UpdatedAt = DateTimeFormat(Date().toString());
                 MasterDetailsModel.I_Sls_TR_Invoice = InvoiceModel;
-                if (AutherizeFlag == false) {
-                    Update();
-                }
-                else {
-                    updateWithProcess();
-                }
+                Update();
+                //if (AutherizeFlag == false) {
+                //}
+                //else {
+                //    updateWithProcess();
+                //}
                 IsSuccess = false;
             }
         }
@@ -929,7 +931,7 @@ var SlsTrSalesManager;
         else {
             $('#btndiv_2').removeClass('display_none');
         }
-        chkActive.disabled = true;
+        //chkActive.disabled = true;
         $("#DivInvoiceDetails").removeClass("display_none");
         lblInvoiceNumber.value = '';
         txtInvoiceDate.value = GetDate();
@@ -989,7 +991,7 @@ var SlsTrSalesManager;
         $("#cotrolDiv").addClass("disabledDiv");
         Show = false;
         NewAdd = true;
-        //chkActive.disabled = !SysSession.CurrentPrivileges.CUSTOM1;
+        chkActive.disabled = !SysSession.CurrentPrivileges.CUSTOM1;
         $('#txtCreatedBy').prop("value", SysSession.CurrentEnvironment.UserCode);
         $('#txtCreatedAt').prop("value", DateTimeFormat(Date().toString()));
         SysSession.CurrentEnvironment.UserType == 2 || SysSession.CurrentEnvironment.UserType == 3 ? ($('#ddlCashBox').prop('selectedIndex', 1), $("#Div_Money").removeClass("display_none")) : $('#ddlCashBox').prop('selectedIndex', 0);
@@ -1120,7 +1122,7 @@ var SlsTrSalesManager;
         $("#txtCustomerCode").removeAttr("disabled");
         $("#txtCustomerMobile").removeAttr("disabled");
         $("#ddlType").removeAttr("disabled");
-        $("#chkActive").removeAttr("disabled");
+        //$("#chkActive").removeAttr("disabled");
         $("#txt_Tax_Discount").removeAttr("disabled");
         $("#txt_Tax_total_Discount").removeAttr("disabled");
         $("#txt_Tax_total_AfterDiscount").removeAttr("disabled");
@@ -1466,13 +1468,14 @@ var SlsTrSalesManager;
         if (InvoiceStatisticsModel.length) {
             txtItemCount.value = InvoiceStatisticsModel[0].Line_Count.toString();
             txtPackageCount.value = InvoiceStatisticsModel[0].Tot_Qty.toString();
-            txtTotal.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotalbefore.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotal.value = InvoiceStatisticsModel[0].ItemTotal.toString();
             txtTax.value = InvoiceStatisticsModel[0].VatAmount.toString();
             txtNet.value = InvoiceStatisticsModel[0].NetAfterVat == null ? '' : InvoiceStatisticsModel[0].NetAfterVat.toString();
             txtDiscountValue.value = InvoiceStatisticsModel[0].RoundingAmount.toString();
             txt_Remarks.value = InvoiceStatisticsModel[0].Remark.toString();
             $('#txtPriceshow').val(InvoiceStatisticsModel[0].PurchaseorderNo);
-            ComputeTotals();
+            //ComputeTotals();
             GlobalinvoiceID = InvoiceStatisticsModel[0].InvoiceID;
             lblInvoiceNumber.value = InvoiceStatisticsModel[0].TrNo.toString();
             txtInvoiceDate.value = DateFormat(InvoiceStatisticsModel[0].TrDate.toString());
@@ -1796,6 +1799,10 @@ var SlsTrSalesManager;
         $("#txtPrice" + cnt).on('keyup', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
+            var txtPrice = Number($("#txtPrice" + cnt).val());
+            var txtDiscountPrc = Number($("#txtDiscountPrc" + cnt).val());
+            $("#txtDiscountAmount" + cnt).val(((txtDiscountPrc * txtPrice) / 100).toFixed(2));
+            $("#txtNetUnitPrice" + cnt).val((txtPrice - ((txtDiscountPrc * txtPrice) / 100)));
             var txtQuantityValue = $("#txtQuantity" + cnt).val();
             var txtPriceValue = $("#txtNetUnitPrice" + cnt).val();
             $('#txtTax_Rate' + cnt).val(Tax_Rate);
@@ -1807,10 +1814,6 @@ var SlsTrSalesManager;
             $("#txtTotal" + cnt).val(total.toFixed(2));
             var totalAfterVat = Number(vatAmount.toFixed(2)) + Number(total.toFixed(2));
             $("#txtTotAfterTax" + cnt).val(totalAfterVat.toFixed(2));
-            var txtPrice = Number($("#txtPrice" + cnt).val());
-            var txtDiscountPrc = Number($("#txtDiscountPrc" + cnt).val());
-            $("#txtDiscountAmount" + cnt).val(((txtDiscountPrc * txtPrice) / 100).toFixed(2));
-            $("#txtNetUnitPrice" + cnt).val((txtPrice - ((txtDiscountPrc * txtPrice) / 100)));
             ComputeTotals();
         });
         $("#txtDiscountPrc" + cnt).on('keyup', function () {
@@ -2233,6 +2236,7 @@ var SlsTrSalesManager;
             InvoiceModel.DocNo = InvoiceStatisticsModel[0].DocNo;
             InvoiceModel.DocUUID = InvoiceStatisticsModel[0].DocUUID;
             InvoiceModel.TrTime = InvoiceStatisticsModel[0].TrTime;
+            InvoiceModel.GlobalInvoiceCounter = InvoiceStatisticsModel[0].GlobalInvoiceCounter;
             //InvoiceModel.PaymentMeansTypeCode = InvoiceStatisticsModel[0].PaymentMeansTypeCode //  Cash or   Credit
         }
         else { //insert
@@ -2259,7 +2263,8 @@ var SlsTrSalesManager;
         InvoiceModel.StoreId = Number(ddlStore.value);
         InvoiceModel.NetAfterVat = Number(txtNet.value) - Number(txtDiscountValue.value);
         InvoiceModel.ItemDiscountTotal = Number(txtTotalDiscount.value);
-        InvoiceModel.TotalAmount = Number(txtTotal.value);
+        InvoiceModel.TotalAmount = Number(txtTotalbefore.value);
+        InvoiceModel.ItemTotal = Number(txtTotal.value);
         InvoiceModel.TrDate = txtInvoiceDate.value;
         InvoiceModel.CustomerName = txtInvoiceCustomerName.value;
         InvoiceModel.CustomerMobileNo = txtCustomerMobile.value;
@@ -2286,7 +2291,6 @@ var SlsTrSalesManager;
         InvoiceModel.DeliveryDate = $('#txtDate_of_supply').val();
         InvoiceModel.DeliveryEndDate = $('#txtSupply_end_Date').val();
         InvoiceModel.TaxNotes = $('#txtTerms_of_Payment').val();
-        InvoiceModel.ItemTotal = Number(txtTotalbefore.value);
         InvoiceModel.RoundingAmount = Number(txtDiscountValue.value);
         InvoiceModel.PurchaseorderNo = $('#txtPriceshow').val();
         InvoiceModel.CashBoxID = null;
@@ -2470,9 +2474,11 @@ var SlsTrSalesManager;
             txtTax.value = InvoiceStatisticsModel[0].VatAmount.toString();
             txtNet.value = InvoiceStatisticsModel[0].NetAfterVat.toString();
             txt_Remarks.value = InvoiceStatisticsModel[0].Remark.toString();
+            txtTotalbefore.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotal.value = InvoiceStatisticsModel[0].ItemTotal.toString();
             $('#txtPriceshow').val(InvoiceStatisticsModel[0].PurchaseorderNo);
             txtDiscountValue.value = InvoiceStatisticsModel[0].RoundingAmount.toString();
-            ComputeTotals();
+            //ComputeTotals();
             GlobalinvoiceID = InvoiceStatisticsModel[0].InvoiceID;
             lblInvoiceNumber.value = InvoiceStatisticsModel[0].TrNo.toString();
             txtInvoiceDate.value = DateFormat(InvoiceStatisticsModel[0].TrDate.toString());
@@ -2571,8 +2577,8 @@ var SlsTrSalesManager;
             }
         }
         DocumentActions.RenderFromModel(InvoiceStatisticsModel[0]);
-        txtTotal.value = Selecteditem[0].TotalAmount.toString();
-        txtTotalbefore.value = Selecteditem[0].ItemTotal.toString();
+        txtTotalbefore.value = Selecteditem[0].TotalAmount.toString();
+        txtTotal.value = Selecteditem[0].ItemTotal.toString();
         NewAdd = false;
         btndiv_1_onclick();
         $("#btnCustomerSrch").attr("disabled", "disabled");
@@ -2597,13 +2603,14 @@ var SlsTrSalesManager;
         if (InvoiceStatisticsModel.length) {
             txtItemCount.value = InvoiceStatisticsModel[0].Line_Count.toString();
             txtPackageCount.value = InvoiceStatisticsModel[0].Tot_Qty.toString();
-            txtTotal.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotalbefore.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotal.value = InvoiceStatisticsModel[0].ItemTotal.toString();
             txtTax.value = InvoiceStatisticsModel[0].VatAmount.toString();
             txtNet.value = InvoiceStatisticsModel[0].NetAfterVat.toString();
             txt_Remarks.value = InvoiceStatisticsModel[0].Remark.toString();
             $('#txtPriceshow').val(InvoiceStatisticsModel[0].PurchaseorderNo);
             txtDiscountValue.value = InvoiceStatisticsModel[0].RoundingAmount.toString();
-            ComputeTotals();
+            //ComputeTotals();
             GlobalinvoiceID = InvoiceStatisticsModel[0].InvoiceID;
             lblInvoiceNumber.innerText = InvoiceStatisticsModel[0].TrNo.toString();
             txtInvoiceDate.value = DateFormat(InvoiceStatisticsModel[0].TrDate.toString());
@@ -2804,13 +2811,12 @@ var SlsTrSalesManager;
                 insert();
             }
             else {
-                if (AutherizeFlag == false) {
-                    Update();
-                }
-                else {
-                    updateWithProcess();
-                    AutherizeFlag = false;
-                }
+                Update();
+                //if (AutherizeFlag == false) {
+                //} else {
+                //    updateWithProcess();
+                //    AutherizeFlag = false;
+                //}
             }
             if (IsSuccess == true) {
                 $('#popu_Passowrd').attr('style', 'display:none;');

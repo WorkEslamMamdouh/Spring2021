@@ -46,6 +46,8 @@ var Income_expenses;
         btnPrintTrview = document.getElementById("btnPrintTrview");
         btnPrintTrPDF = document.getElementById("btnPrintTrPDF");
         btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
+        txtFromDate.value = SysSession.CurrentEnvironment.StartDate;
+        txtToDate.value = ConvertToDateDash(GetDate()) <= ConvertToDateDash(SysSession.CurrentEnvironment.EndDate) ? GetDate() : SysSession.CurrentEnvironment.EndDate;
     }
     function IntializeEvents() {
         btnPrint.onclick = function () { printreport(4); };
@@ -97,8 +99,8 @@ var Income_expenses;
         else {
             _Stock.ID_Button_Print = 'ACCstament2';
         }
-        _Stock.Parameter_1 = DateFormatDataBes(txtFromDate.value);
-        _Stock.Parameter_2 = DateFormatDataBes(txtToDate.value);
+        _Stock.Parameter_1 = txtFromDate.value;
+        _Stock.Parameter_2 = txtToDate.value;
         _Stock.Parameter_3 = UserVal;
         _Stock.Parameter_4 = DType;
         //_Stock.Parameter_5 = "";

@@ -10037,6 +10037,9 @@ class IQ_Purchases_Master extends SecurityClass {
         this.To_be_Paid = 0;
         this.CashPaidAmount = 0;
         this.ReceiveID = 0;
+        this.StoreID = 0;
+        this.IsCash = false;
+        
     }
     public TrNo: number;
     public Tr_Date: string;
@@ -10054,6 +10057,8 @@ class IQ_Purchases_Master extends SecurityClass {
     public To_be_Paid: any;
     public CashPaidAmount: any;
     public ReceiveID: number;
+    public StoreID: number;
+    public IsCash: boolean; 
 
 }
 
@@ -10193,6 +10198,8 @@ class The_Gard extends SecurityClass {
 class Supplier extends SecurityClass {
     constructor() {
         super();
+        this.BranchCode = 0;
+        this.CompCode = 0;
         this.ID_Supplier = 0;
         this.Name_Supplier = "";
         this.phone = "";
@@ -10201,6 +10208,8 @@ class Supplier extends SecurityClass {
         this.IS_Active = false;
         this.IS_Active_Name = "";
     }
+    public BranchCode: number;
+    public CompCode: number;
     public ID_Supplier: number;
     public Name_Supplier: string;
     public phone: string;

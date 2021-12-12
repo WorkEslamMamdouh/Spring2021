@@ -8411,16 +8411,22 @@ h1, h2, h3, h4, h5,
     @media (max-width: 767.98px) {
       .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
         border-bottom: 1px solid rgba(0, 0, 0, 0.05); } }
-  .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
+.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
     border: none;
-    background: #fff;
-    -webkit-box-shadow: 0px 10px 34px -20px rgba(0, 0, 0, 0.41);
+    background: #b6b6b6f2;
+    -webkit-box-shadow: 0px 10px 34px -20px rgb(0 0 0 / 41%);
     -moz-box-shadow: 0px 10px 34px -20px rgba(0, 0, 0, 0.41);
-    box-shadow: 0px 10px 34px -20px rgba(0, 0, 0, 0.41);
-    border-radius: 4px; }
+    box-shadow: 0px 10px 34px -20px rgb(0 0 0 / 41%);
+    border-radius: 18px;
+}
     .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item {
-      font-size: 12px;
-      color: #000; }
+        font-size: 14px;
+        color: #000;
+        font-weight: bold; 
+        background-color: #ffd400;
+        border: 1px solid #a5c1dd;
+        border-radius: 15px;
+    }
       .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:hover, .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:focus {
         background: #f1bc31;
         color: #fff; }

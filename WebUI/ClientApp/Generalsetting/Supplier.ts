@@ -6,6 +6,9 @@
 namespace AccDefVendor {
     // Arrays
 
+    var compcode: number;
+    var BranchCode: number;
+
     var AccountType: Number = 2;
     var MSG_ID: number;
     var Details: Array<Supplier> = new Array<Supplier>();
@@ -35,8 +38,7 @@ namespace AccDefVendor {
     var btnsave: HTMLButtonElement;
    
     var searchbutmemreport: HTMLInputElement;
-
-    var compcode: Number;//SharedSession.CurrentEnvironment.CompCode;
+     
     var IsNew = false;
     var index;
     var Selecteditem
@@ -58,7 +60,9 @@ namespace AccDefVendor {
 
     export function InitalizeComponent() {
 
-
+        debugger
+        compcode = Number(SysSession.CurrentEnvironment.CompCode);
+        BranchCode = Number(SysSession.CurrentEnvironment.BranchCode); 
 
         //debugger;
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
@@ -120,7 +124,7 @@ namespace AccDefVendor {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Supplier", "GetAll"),
-            data: { CompCode: compcode },
+            data: { CompCode: compcode, BranchCode: BranchCode },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -517,7 +521,10 @@ namespace AccDefVendor {
             Model.Name_Supplier = $('#txt_NAME').val();
             Model.IS_Active = $('#txt_IS_Active').val() == '1' ? true : false;
             Model.phone = $('#txt_phone').val();
-            Model.Notes = $('#txt_Notes').val();   
+        Model.Notes = $('#txt_Notes').val();
+
+        Model.CompCode = compcode;
+        Model.BranchCode = BranchCode;
     }
 
     function Insert() {

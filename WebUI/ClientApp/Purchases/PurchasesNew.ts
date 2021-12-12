@@ -324,7 +324,7 @@ namespace PurchasesNew {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Purchases", "GetAll_IQ_PurchasesMaster"),
-            data: { startDate: startdt, endDate: enddt, ID_Supplier: Number(ID_Supplier), Type_Debit: Number(Type_Debit) },
+            data: { CompCode: compcode, BranchCode: BranchCode ,startDate: startdt, endDate: enddt, ID_Supplier: Number(ID_Supplier), Type_Debit: Number(Type_Debit) },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -452,7 +452,7 @@ namespace PurchasesNew {
         }
 
 
-        Get_balance();// Chack Balance
+        //Get_balance();// Chack Balance
         if (Success_Balance == false) {
 
             Success_Balance = true;
@@ -511,7 +511,7 @@ namespace PurchasesNew {
             }
 
             if (IsSuccess != false) {
-                Outpirce(Bal);
+                Outpirce(Bal, UpdatedModel[0].ID_Supplier );
             }
         }
 
@@ -529,10 +529,18 @@ namespace PurchasesNew {
         $("#ddlStore").attr("disabled", "disabled");
         $("#ddlType").attr("disabled", "disabled");
 
-       
+        $("#ddlStore").val(Selected_Data[0].StoreID)
+        if (Selected_Data[0].IsCash) {
+        $("#ddlType").val("1")
 
-        $("#ddlStore").addClass("display_none");
-        $("#ddlType").addClass("display_none");
+        }
+        else {
+            $("#ddlType").val("0")
+
+        }
+
+        //$("#ddlStore").addClass("display_none");
+        //$("#ddlType").addClass("display_none");
 
 
         $("#rowData").removeClass("display_none");
@@ -546,11 +554,7 @@ namespace PurchasesNew {
 
         DocumentActions.RenderFromModel(Selected_Data[0]);
         BindGetOperationItemsGridData(Selected_Data[0].ReceiveID);
-
-
-
-
-
+         
     }
     function BindGetOperationItemsGridData(TrNo: number) {
         debugger
@@ -563,12 +567,13 @@ namespace PurchasesNew {
                 if (result.IsSuccess) {
                     AllGetStokMasterDetail = result.Response as Array<IQ_GetPurReceiveItem>;
 
+                    CountGrid = 0; 
                     $("#div_Data").html('');
                     for (var i = 0; i < AllGetStokMasterDetail.length; i++) {
 
                         BuildControls(i);
                         Disbly_BuildControls(i, AllGetStokMasterDetail);
-                        CountGrid++;
+                        CountGrid+=1;
                     }
 
                     $("#txtItemCount").val(CountGrid);
@@ -980,7 +985,7 @@ namespace PurchasesNew {
         $("#txtPrice" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].RecUnitPrice);
         $("#txtTax_Rate" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].VatPrc);
         $("#txtReturnQuantity" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].TotRetQty);
-        $("#txtTax" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].VatAmount.toFixed(2));
+        $("#txtTax" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].VatAmount == null ? 0 : SlsInvoiceItemsDetails[cnt].VatAmount.toFixed(2));
         $("#txt_ItemID" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].ItemID);
         $("#txtTotal" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].NetUnitCost);
         filldlltypeuom(cnt, SlsInvoiceItemsDetails);
@@ -1495,53 +1500,53 @@ namespace PurchasesNew {
 
         Success_Balance = true;
 
-        Ajax.Callsync({
-            type: "Get",
-            url: sys.apiUrl("Outletpirce", "Get_Balance"),
-            success: (d) => {
-                debugger
-                let result = d as BaseResponse;
-                if (result.IsSuccess == true) {
-                    var Balance = result.Response;
+        //Ajax.Callsync({
+        //    type: "Get",
+        //    url: sys.apiUrl("Outletpirce", "Get_Balance"),
+        //    success: (d) => {
+        //        debugger
+        //        let result = d as BaseResponse;
+        //        if (result.IsSuccess == true) {
+        //            var Balance = result.Response;
 
-                    if (Balance < Number(Bal)) {
-                        MessageBox.Show('لا يوجد مبلغ كافي لاتمام الشراء ( المبلغ المتواجد ( ' + Balance + ' )ج ) ', '');
+        //            if (Balance < Number(Bal)) {
+        //                MessageBox.Show('لا يوجد مبلغ كافي لاتمام الشراء ( المبلغ المتواجد ( ' + Balance + ' )ج ) ', '');
 
-                        Success_Balance = false;
-                    }
+        //                Success_Balance = false;
+        //            }
 
-                }
-                else {
-                    Success_Balance = false;
+        //        }
+        //        else {
+        //            Success_Balance = false;
 
 
 
-                }
-            }
-        });
+        //        }
+        //    }
+        //});
 
 
 
     }
-    function Outpirce(pirce: number) {
+    function Outpirce(pirce: number, ID_Supplier: number) {
 
         let Tr_Type = 'مشتريات';
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert"),
-            data: { Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type },
+            data: { CompCode: compcode, BranchCode: BranchCode, ID_Supplier: ID_Supplier , Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
-                    if (Outlet == pirce) {
+                    //if (Outlet == pirce) {
 
 
-                    }
-                    else {
-                        MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
-                    }
+                    //}
+                    //else {
+                    //    MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
+                    //}
 
                 }
                 else {
@@ -1553,7 +1558,7 @@ namespace PurchasesNew {
 
 
     }
-    function Enter_Money(pirce: number) {
+    function Enter_Money(pirce: number, CustomerID: number) {
 
 
         var Dasc_Name = 'مشتريات';
@@ -1561,7 +1566,7 @@ namespace PurchasesNew {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
-            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
+            data: { CompCode: compcode, BranchCode: BranchCode, CustomerID: CustomerID,Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
@@ -1750,7 +1755,7 @@ namespace PurchasesNew {
 
 
                         if (IsSuccess != false) {
-                            Outpirce(Bal);
+                            Outpirce(Bal, UpdatedModel[0].ID_Supplier);
                         }
                     }
 
@@ -1769,7 +1774,7 @@ namespace PurchasesNew {
                             Assign();
                             Update();
                             if (IsSuccess != false) {
-                                Enter_Money(Paid);
+                                Enter_Money(Paid, ID_Supp);
                             }
                         });
 
@@ -1789,7 +1794,7 @@ namespace PurchasesNew {
     function Search() {
 
         let sys: SystemTools = new SystemTools();
-        sys.FindKey(Modules.Purchases, "btnSupplierSearch", "", () => {
+        sys.FindKey(Modules.Purchases, "btnSupplierSearch", " CompCode =" + compcode + "", () => {
             let ID_Supplier = SearchGrid.SearchDataGrid.SelectedKey;
             ID_Supp = ID_Supplier;
             //alert(id);

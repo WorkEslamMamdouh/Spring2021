@@ -21,5 +21,8 @@ namespace Inv.DAL.Domain
         public Nullable<int> EMPLOYEE_ID { get; set; }
         public string Time { get; set; }
         public string Tr_Type { get; set; }
+        public Nullable<int> BranchCode { get; set; }
+        public Nullable<int> CompCode { get; set; }
+        public Nullable<int> ID_Supplier { get; set; }
     }
 }

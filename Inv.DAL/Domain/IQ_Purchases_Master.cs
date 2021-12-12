@@ -28,5 +28,9 @@ namespace Inv.DAL.Domain
         public Nullable<decimal> To_be_Paid { get; set; }
         public string REMARKS { get; set; }
         public Nullable<int> ReceiveID { get; set; }
+        public Nullable<int> StoreID { get; set; }
+        public Nullable<bool> IsCash { get; set; }
+        public Nullable<int> CompCode { get; set; }
+        public Nullable<int> BranchCode { get; set; }
     }
 }

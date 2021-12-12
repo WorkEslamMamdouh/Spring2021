@@ -1474,11 +1474,13 @@ namespace SlsTrShowPrice {
             txtItemCount.value = InvoiceStatisticsModel[0].Line_Count.toString();
             txtPackageCount.value = InvoiceStatisticsModel[0].Tot_Qty.toString();
             //txtTotal.value = InvoiceStatisticsModel[0].ItemTotal.toString();
+            txtTotalbefore.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotal.value = InvoiceStatisticsModel[0].ItemTotal.toString();
             txtTax.value = InvoiceStatisticsModel[0].VatAmount.toString();
             txtNet.value = InvoiceStatisticsModel[0].NetAfterVat == null ? '' : InvoiceStatisticsModel[0].NetAfterVat.toString();
             txtDiscountValue.value = InvoiceStatisticsModel[0].RoundingAmount.toString();
             txt_Remarks.value = InvoiceStatisticsModel[0].Remark.toString();
-            ComputeTotals();
+            //ComputeTotals();
 
             GlobalinvoiceID = InvoiceStatisticsModel[0].InvoiceID;
             lblInvoiceNumber.value = InvoiceStatisticsModel[0].TrNo.toString();
@@ -1611,9 +1613,9 @@ namespace SlsTrShowPrice {
 
         var DeliveryEndDate: string = DateFormat(InvoiceStatisticsModel[0].DeliveryEndDate);
         $('#txtSupply_end_Date').val(DeliveryEndDate);
-
-        txtTotal.value = Selecteditem[0].TotalAmount.toString();
-        txtTotalbefore.value = Selecteditem[0].ItemTotal.toString();
+         
+        txtTotalbefore.value = Selecteditem[0].TotalAmount.toString();
+        txtTotal.value = Selecteditem[0].ItemTotal.toString();
         NewAdd = false;
 
         btndiv_1_onclick();
@@ -1870,16 +1872,26 @@ namespace SlsTrShowPrice {
             if ($("#txt_StatusFlag" + cnt).val() != "i") {
                 $("#txt_StatusFlag" + cnt).val("u");
             }
-            let total = Number($("#txtQuantity" + cnt).val()) * Number($("#txtPrice" + cnt).val());
-            let vatAmount = (Number(total) * Number($("#txtTax_Rate" + cnt).val())) / 100;
-            let totalAfterVat = Number(vatAmount.toFixed(2)) + Number(total.toFixed(2));
+            let txtPrice = Number($("#txtPrice" + cnt).val());
+            let txtDiscountPrc = Number($("#txtDiscountPrc" + cnt).val());
+
+            $("#txtDiscountAmount" + cnt).val(((txtDiscountPrc * txtPrice) / 100).toFixed(2));
+
+            $("#txtNetUnitPrice" + cnt).val((txtPrice - ((txtDiscountPrc * txtPrice) / 100)));
+
+            var txtQuantityValue = $("#txtQuantity" + cnt).val();
+            var txtPriceValue = $("#txtNetUnitPrice" + cnt).val();
             $('#txtTax_Rate' + cnt).val(Tax_Rate);
+
+            var total = Number(txtQuantityValue) * Number(txtPriceValue);
             VatPrc = $("#txtTax_Rate" + cnt).val();
+            var vatAmount = Number(total) * VatPrc / 100;
             $("#txtTax" + cnt).val(vatAmount.toFixed(2));
+            var total = Number(txtQuantityValue) * Number(txtPriceValue);
             $("#txtTotal" + cnt).val(total.toFixed(2));
+
+            var totalAfterVat = Number(vatAmount.toFixed(2)) + Number(total.toFixed(2));
             $("#txtTotAfterTax" + cnt).val(totalAfterVat.toFixed(2));
-            $("#txtDiscountAmount" + cnt).val(((Number($("#txtDiscountPrc" + cnt).val()) * Number($("#txtPrice" + cnt).val())) / 100).toFixed(2));
-            $("#txtNetUnitPrice" + cnt).val((Number($("#txtPrice" + cnt).val()) - ((Number($("#txtDiscountPrc" + cnt).val()) * Number($("#txtPrice" + cnt).val())) / 100)));
 
             ComputeTotals();
 
@@ -2397,6 +2409,8 @@ namespace SlsTrShowPrice {
             InvoiceModel.DocNo = InvoiceStatisticsModel[0].DocNo
             InvoiceModel.DocUUID = InvoiceStatisticsModel[0].DocUUID
             InvoiceModel.TrTime = InvoiceStatisticsModel[0].TrTime
+
+            InvoiceModel.GlobalInvoiceCounter = InvoiceStatisticsModel[0].GlobalInvoiceCounter;
         }
         else {                  //insert
             InvoiceModel.SlsInvType = InvoiceType //  retail  or WholeSale      
@@ -2426,8 +2440,9 @@ namespace SlsTrShowPrice {
         InvoiceModel.SalesmanId = Number(ddlSalesman.value);
         InvoiceModel.StoreId = Number(ddlStore.value);
         InvoiceModel.NetAfterVat = Number(txtNet.value) - Number(txtDiscountValue.value);
-        InvoiceModel.ItemDiscountTotal = Number(txtTotalDiscount.value);
-        InvoiceModel.TotalAmount = Number(txtTotal.value);
+        InvoiceModel.ItemDiscountTotal = Number(txtTotalDiscount.value); 
+        InvoiceModel.TotalAmount = Number(txtTotalbefore.value);
+        InvoiceModel.ItemTotal = Number(txtTotal.value);
         InvoiceModel.TrDate = txtInvoiceDate.value;
         InvoiceModel.CustomerName = txtInvoiceCustomerName.value;
         InvoiceModel.CustomerMobileNo = txtCustomerMobile.value;
@@ -2666,12 +2681,13 @@ namespace SlsTrShowPrice {
         if (InvoiceStatisticsModel.length) {
             txtItemCount.value = InvoiceStatisticsModel[0].Line_Count.toString();
             txtPackageCount.value = InvoiceStatisticsModel[0].Tot_Qty.toString();
-            txtTotal.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotalbefore.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotal.value = InvoiceStatisticsModel[0].ItemTotal.toString();
             txtTax.value = InvoiceStatisticsModel[0].VatAmount.toString();
             txtNet.value = InvoiceStatisticsModel[0].NetAfterVat.toString();
             txt_Remarks.value = InvoiceStatisticsModel[0].Remark.toString();
             txtDiscountValue.value = InvoiceStatisticsModel[0].RoundingAmount.toString();
-            ComputeTotals();
+            //ComputeTotals();
             GlobalinvoiceID = InvoiceStatisticsModel[0].InvoiceID;
             lblInvoiceNumber.value = InvoiceStatisticsModel[0].TrNo.toString();
             txtInvoiceDate.value = DateFormat(InvoiceStatisticsModel[0].TrDate.toString());
@@ -2807,12 +2823,13 @@ namespace SlsTrShowPrice {
         if (InvoiceStatisticsModel.length) {
             txtItemCount.value = InvoiceStatisticsModel[0].Line_Count.toString();
             txtPackageCount.value = InvoiceStatisticsModel[0].Tot_Qty.toString();
-            txtTotal.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotalbefore.value = InvoiceStatisticsModel[0].TotalAmount.toString();
+            txtTotal.value = InvoiceStatisticsModel[0].ItemTotal.toString();
             txtTax.value = InvoiceStatisticsModel[0].VatAmount.toString();
             txtNet.value = InvoiceStatisticsModel[0].NetAfterVat.toString();
             txt_Remarks.value = InvoiceStatisticsModel[0].Remark.toString();
             txtDiscountValue.value = InvoiceStatisticsModel[0].RoundingAmount.toString();
-            ComputeTotals();
+            //ComputeTotals();
             GlobalinvoiceID = InvoiceStatisticsModel[0].InvoiceID;
             lblInvoiceNumber.innerText = InvoiceStatisticsModel[0].TrNo.toString();
             txtInvoiceDate.value = DateFormat(InvoiceStatisticsModel[0].TrDate.toString());
