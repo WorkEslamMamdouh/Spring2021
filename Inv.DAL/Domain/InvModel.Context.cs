@@ -29,7 +29,6 @@ namespace Inv.DAL.Domain
     
         public virtual DbSet<CATEGRE> CATEGRES { get; set; }
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
-        public virtual DbSet<Enter_Money> Enter_Money { get; set; }
         public virtual DbSet<familly_Cat> familly_Cat { get; set; }
         public virtual DbSet<G_AlertControl> G_AlertControl { get; set; }
         public virtual DbSet<G_AlertLog> G_AlertLog { get; set; }
@@ -59,7 +58,6 @@ namespace Inv.DAL.Domain
         public virtual DbSet<G_USER_COMPANY> G_USER_COMPANY { get; set; }
         public virtual DbSet<G_USER_LOG> G_USER_LOG { get; set; }
         public virtual DbSet<ORDER_DELIVERY> ORDER_DELIVERY { get; set; }
-        public virtual DbSet<Outlet> Outlets { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
         public virtual DbSet<Report_Parameters> Report_Parameters { get; set; }
@@ -125,11 +123,13 @@ namespace Inv.DAL.Domain
         public virtual DbSet<I_Pur_TR_ReceiveItems> I_Pur_TR_ReceiveItems { get; set; }
         public virtual DbSet<IQ_GetPurReceiveItem> IQ_GetPurReceiveItem { get; set; }
         public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
-        public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
         public virtual DbSet<G_STORE> G_STORE { get; set; }
         public virtual DbSet<GQ_GetStore> GQ_GetStore { get; set; }
         public virtual DbSet<I_Item_Customer> I_Item_Customer { get; set; }
         public virtual DbSet<IQ_GetItemStore> IQ_GetItemStore { get; set; }
+        public virtual DbSet<Enter_Money> Enter_Money { get; set; }
+        public virtual DbSet<Outlet> Outlet { get; set; }
+        public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
     
         [DbFunction("InvEntities", "GFun_Companies")]
         public virtual IQueryable<GFun_Companies_Result> GFun_Companies(string userCode)
@@ -477,27 +477,6 @@ namespace Inv.DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GProc_SecCreateUser", userParameter, compParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> Insert_Enter_Money(string dasc_Name, Nullable<decimal> pirce, string userName, string tr_Type)
-        {
-            var dasc_NameParameter = dasc_Name != null ?
-                new ObjectParameter("Dasc_Name", dasc_Name) :
-                new ObjectParameter("Dasc_Name", typeof(string));
-    
-            var pirceParameter = pirce.HasValue ?
-                new ObjectParameter("pirce", pirce) :
-                new ObjectParameter("pirce", typeof(decimal));
-    
-            var userNameParameter = userName != null ?
-                new ObjectParameter("UserName", userName) :
-                new ObjectParameter("UserName", typeof(string));
-    
-            var tr_TypeParameter = tr_Type != null ?
-                new ObjectParameter("Tr_Type", tr_Type) :
-                new ObjectParameter("Tr_Type", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Insert_Enter_Money", dasc_NameParameter, pirceParameter, userNameParameter, tr_TypeParameter);
-        }
-    
         public virtual ObjectResult<Nullable<int>> insert_ORDER_DELIVERY(string userName, Nullable<int> namber_Order_Delivery, Nullable<decimal> total_All, string date_Order_Delivery, Nullable<double> tax, Nullable<int> cUSTOMER_ID, string type_order, Nullable<bool> confirmation)
         {
             var userNameParameter = userName != null ?
@@ -533,27 +512,6 @@ namespace Inv.DAL.Domain
                 new ObjectParameter("Confirmation", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insert_ORDER_DELIVERY", userNameParameter, namber_Order_DeliveryParameter, total_AllParameter, date_Order_DeliveryParameter, taxParameter, cUSTOMER_IDParameter, type_orderParameter, confirmationParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> insert_Outlet(string dasc_Name, Nullable<decimal> pirce, string userName, string tr_Type)
-        {
-            var dasc_NameParameter = dasc_Name != null ?
-                new ObjectParameter("Dasc_Name", dasc_Name) :
-                new ObjectParameter("Dasc_Name", typeof(string));
-    
-            var pirceParameter = pirce.HasValue ?
-                new ObjectParameter("pirce", pirce) :
-                new ObjectParameter("pirce", typeof(decimal));
-    
-            var userNameParameter = userName != null ?
-                new ObjectParameter("UserName", userName) :
-                new ObjectParameter("UserName", typeof(string));
-    
-            var tr_TypeParameter = tr_Type != null ?
-                new ObjectParameter("Tr_Type", tr_Type) :
-                new ObjectParameter("Tr_Type", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("insert_Outlet", dasc_NameParameter, pirceParameter, userNameParameter, tr_TypeParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> insert_Purchases_Master(string tr_Date, Nullable<int> iD_Supplier, Nullable<bool> type_Debit, Nullable<decimal> total_Amount, Nullable<decimal> paid_Up, Nullable<decimal> to_be_Paid, string rEMARKS)
@@ -1107,6 +1065,52 @@ namespace Inv.DAL.Domain
                 new ObjectParameter("TRId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IProc_Prnt_SlsInvoice_Result>("IProc_Prnt_SlsInvoice", compParameter, braParameter, compNameAParameter, compNameEParameter, braNameAParameter, braNameEParameter, loginUserParameter, repTypeParameter, tRIdParameter);
+        }
+    
+        public virtual int insert_EMPLOYEE(string eMPLOYEE_NAME, string uSER_CODE)
+        {
+            var eMPLOYEE_NAMEParameter = eMPLOYEE_NAME != null ?
+                new ObjectParameter("EMPLOYEE_NAME", eMPLOYEE_NAME) :
+                new ObjectParameter("EMPLOYEE_NAME", typeof(string));
+    
+            var uSER_CODEParameter = uSER_CODE != null ?
+                new ObjectParameter("USER_CODE", uSER_CODE) :
+                new ObjectParameter("USER_CODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_EMPLOYEE", eMPLOYEE_NAMEParameter, uSER_CODEParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> insert_Outlet(string dasc_Name, Nullable<decimal> pirce, string userName, string tr_Type, Nullable<int> branchCode, Nullable<int> compCode, Nullable<int> iD_Supplier)
+        {
+            var dasc_NameParameter = dasc_Name != null ?
+                new ObjectParameter("Dasc_Name", dasc_Name) :
+                new ObjectParameter("Dasc_Name", typeof(string));
+    
+            var pirceParameter = pirce.HasValue ?
+                new ObjectParameter("pirce", pirce) :
+                new ObjectParameter("pirce", typeof(decimal));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var tr_TypeParameter = tr_Type != null ?
+                new ObjectParameter("Tr_Type", tr_Type) :
+                new ObjectParameter("Tr_Type", typeof(string));
+    
+            var branchCodeParameter = branchCode.HasValue ?
+                new ObjectParameter("BranchCode", branchCode) :
+                new ObjectParameter("BranchCode", typeof(int));
+    
+            var compCodeParameter = compCode.HasValue ?
+                new ObjectParameter("CompCode", compCode) :
+                new ObjectParameter("CompCode", typeof(int));
+    
+            var iD_SupplierParameter = iD_Supplier.HasValue ?
+                new ObjectParameter("ID_Supplier", iD_Supplier) :
+                new ObjectParameter("ID_Supplier", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("insert_Outlet", dasc_NameParameter, pirceParameter, userNameParameter, tr_TypeParameter, branchCodeParameter, compCodeParameter, iD_SupplierParameter);
         }
     }
 }

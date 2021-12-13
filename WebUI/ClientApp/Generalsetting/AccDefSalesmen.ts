@@ -718,7 +718,7 @@ namespace AccDefSalesmen {
             { title: res.App_SalesmanCode, name: "SalesmanCode", type: "text", width: "100px" },
             { title: res.SHT_Name, name: (lang == "ar" ? "NameA" : "NameE"), type: "text", width: "100px" },
             { title: res.App_Mobile, name: "MOBILE", type: "text", width: "100px" },
-            { title: res.App_Nationality, name: (lang == "ar" ? "Nat_DescA" : "Nat_DescE") , type: "text", width: "100px" },
+            //{ title: res.App_Nationality, name: (lang == "ar" ? "Nat_DescA" : "Nat_DescE") , type: "text", width: "100px" },
             { title: res.App_AuthTosellfor, name: "text_IsSalesEnable", type: "text", width: "100px" },
             { title: res.App_AuthToPurchase, name: "text_IsPurchaseEnable", type: "text", width: "100px" },
             //{ title: res.App_AuthTheCommission, name: "text_ISOperationEnable", type: "text", width: "100px" },

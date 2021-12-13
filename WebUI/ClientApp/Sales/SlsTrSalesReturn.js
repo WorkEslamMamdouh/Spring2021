@@ -1540,6 +1540,7 @@ var SlsTrSalesReturn;
         if (InvoiceStatisticsModel.length > 0) {
             InvoiceModel.CreatedBy = InvoiceStatisticsModel[0].CreatedBy;
             InvoiceModel.CreatedAt = InvoiceStatisticsModel[0].CreatedAt;
+            InvoiceModel.GlobalInvoiceCounter = InvoiceStatisticsModel[0].GlobalInvoiceCounter;
         }
         else {
             InvoiceModel.CreatedBy = SysSession.CurrentEnvironment.UserCode;

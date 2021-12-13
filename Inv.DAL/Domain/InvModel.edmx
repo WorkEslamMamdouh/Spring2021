@@ -202,6 +202,9 @@
           <Property Name="EMPLOYEE_ID" Type="int" />
           <Property Name="Time" Type="nvarchar" MaxLength="50" />
           <Property Name="Tr_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="CustomerID" Type="int" />
         </EntityType>
         <EntityType Name="familly_Cat">
           <Key>
@@ -1450,6 +1453,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="EMPLOYEE_ID" Type="int" />
           <Property Name="Time" Type="nvarchar" MaxLength="50" />
           <Property Name="Tr_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="ID_Supplier" Type="int" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -1541,6 +1547,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="Type_Supplier" Type="nvarchar" MaxLength="50" />
           <Property Name="Notes" Type="nvarchar" MaxLength="200" />
           <Property Name="IS_Active" Type="bit" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CompCode" Type="int" />
         </EntityType>
         <EntityType Name="Table_two_days">
           <Key>
@@ -2604,6 +2612,10 @@ warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Purchases_Master' does no
           <Property Name="To_be_Paid" Type="money" />
           <Property Name="REMARKS" Type="nvarchar" MaxLength="1000" />
           <Property Name="ReceiveID" Type="int" />
+          <Property Name="StoreID" Type="int" />
+          <Property Name="IsCash" Type="bit" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="BranchCode" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2986,11 +2998,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             </CollectionType>
           </ReturnType>
         </Function>
-        <Function Name="Insert_Enter_Money" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Dasc_Name" Type="nvarchar" Mode="In" />
-          <Parameter Name="pirce" Type="money" Mode="In" />
-          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
-          <Parameter Name="Tr_Type" Type="nvarchar" Mode="In" />
+        <Function Name="insert_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPLOYEE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="USER_CODE" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="insert_ORDER_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
@@ -3007,6 +3017,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Parameter Name="pirce" Type="money" Mode="In" />
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
           <Parameter Name="Tr_Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="BranchCode" Type="int" Mode="In" />
+          <Parameter Name="CompCode" Type="int" Mode="In" />
+          <Parameter Name="ID_Supplier" Type="int" Mode="In" />
         </Function>
         <Function Name="insert_Purchases_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Tr_Date" Type="nvarchar" Mode="In" />
@@ -4113,7 +4126,11 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
     [IQ_Purchases_Master].[Paid_Up] AS [Paid_Up], 
     [IQ_Purchases_Master].[To_be_Paid] AS [To_be_Paid], 
     [IQ_Purchases_Master].[REMARKS] AS [REMARKS], 
-    [IQ_Purchases_Master].[ReceiveID] AS [ReceiveID]
+    [IQ_Purchases_Master].[ReceiveID] AS [ReceiveID], 
+    [IQ_Purchases_Master].[StoreID] AS [StoreID], 
+    [IQ_Purchases_Master].[IsCash] AS [IsCash], 
+    [IQ_Purchases_Master].[CompCode] AS [CompCode], 
+    [IQ_Purchases_Master].[BranchCode] AS [BranchCode]
     FROM [dbo].[IQ_Purchases_Master] AS [IQ_Purchases_Master]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ReviewSalesItemInfo" EntityType="Self.ReviewSalesItemInfo" store:Type="Views" store:Schema="dbo">
@@ -4281,18 +4298,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Enter_Money">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Num_Day" Type="Int32" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="familly_Cat">
           <Key>
@@ -4797,18 +4802,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Confirmation" Type="Boolean" />
           <Property Name="Num_Day" Type="Int32" />
         </EntityType>
-        <EntityType Name="Outlet">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Num_Day" Type="Int32" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
             <PropertyRef Name="PRODUCT_ID" />
@@ -4884,6 +4877,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
         </EntityType>
         <EntityType Name="Table_two_days">
           <Key>
@@ -5224,7 +5219,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CATEGRES" EntityType="Self.CATEGRE" />
           <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
-          <EntitySet Name="Enter_Money" EntityType="Self.Enter_Money" />
           <EntitySet Name="familly_Cat" EntityType="Self.familly_Cat" />
           <EntitySet Name="G_AlertControl" EntityType="Self.G_AlertControl" />
           <EntitySet Name="G_AlertLog" EntityType="Self.G_AlertLog" />
@@ -5254,7 +5248,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="G_USER_COMPANY" EntityType="Self.G_USER_COMPANY" />
           <EntitySet Name="G_USER_LOG" EntityType="Self.G_USER_LOG" />
           <EntitySet Name="ORDER_DELIVERY" EntityType="Self.ORDER_DELIVERY" />
-          <EntitySet Name="Outlets" EntityType="Self.Outlet" />
           <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
           <EntitySet Name="Purchases_Details" EntityType="Self.Purchases_Details" />
           <EntitySet Name="Report_Parameters" EntityType="Self.Report_Parameters" />
@@ -5376,12 +5369,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="Comp" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Insert_Enter_Money" ReturnType="Collection(Decimal)">
-            <Parameter Name="Dasc_Name" Mode="In" Type="String" />
-            <Parameter Name="pirce" Mode="In" Type="Decimal" />
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Tr_Type" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="insert_ORDER_DELIVERY" ReturnType="Collection(Int32)">
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="Namber_Order_Delivery" Mode="In" Type="Int32" />
@@ -5391,12 +5378,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             <Parameter Name="CUSTOMER_ID" Mode="In" Type="Int32" />
             <Parameter Name="type_order" Mode="In" Type="String" />
             <Parameter Name="Confirmation" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="insert_Outlet" ReturnType="Collection(Decimal)">
-            <Parameter Name="Dasc_Name" Mode="In" Type="String" />
-            <Parameter Name="pirce" Mode="In" Type="Decimal" />
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Tr_Type" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="insert_Purchases_Master" ReturnType="Collection(Int32)">
             <Parameter Name="Tr_Date" Mode="In" Type="String" />
@@ -5580,7 +5561,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="I_Pur_TR_ReceiveItems" EntityType="POS2021Model.I_Pur_TR_ReceiveItems" />
           <EntitySet Name="IQ_GetPurReceiveItem" EntityType="POS2021Model.IQ_GetPurReceiveItem" />
           <EntitySet Name="Purchases_Master" EntityType="POS2021Model.Purchases_Master" />
-          <EntitySet Name="IQ_Purchases_Master" EntityType="POS2021Model.IQ_Purchases_Master" />
           <EntitySet Name="G_STORE" EntityType="POS2021Model.G_STORE" />
           <FunctionImport Name="IProc_Prnt_SlsInvoice" ReturnType="Collection(POS2021Model.IProc_Prnt_SlsInvoice_Result)">
             <Parameter Name="comp" Mode="In" Type="Int32" />
@@ -5596,6 +5576,22 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="GQ_GetStore" EntityType="POS2021Model.GQ_GetStore" />
           <EntitySet Name="I_Item_Customer" EntityType="POS2021Model.I_Item_Customer" />
           <EntitySet Name="IQ_GetItemStore" EntityType="POS2021Model.IQ_GetItemStore" />
+          <EntitySet Name="Enter_Money" EntityType="POS2021Model.Enter_Money" />
+          <EntitySet Name="Outlet" EntityType="POS2021Model.Outlet" />
+          <FunctionImport Name="insert_EMPLOYEE">
+            <Parameter Name="EMPLOYEE_NAME" Mode="In" Type="String" />
+            <Parameter Name="USER_CODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insert_Outlet" ReturnType="Collection(Decimal)">
+            <Parameter Name="Dasc_Name" Mode="In" Type="String" />
+            <Parameter Name="pirce" Mode="In" Type="Decimal" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Tr_Type" Mode="In" Type="String" />
+            <Parameter Name="BranchCode" Mode="In" Type="Int32" />
+            <Parameter Name="CompCode" Mode="In" Type="Int32" />
+            <Parameter Name="ID_Supplier" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="IQ_Purchases_Master" EntityType="POS2021Model.IQ_Purchases_Master" />
         </EntityContainer>
         <ComplexType Name="Get_Settings_Report_Result">
           <Property Type="Int32" Name="ID_Report" Nullable="false" />
@@ -7360,25 +7356,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Num_Day" Type="Int32" />
           <Property Name="ReceiveID" Type="Int32" />
         </EntityType>
-        <EntityType Name="IQ_Purchases_Master">
-          <Key>
-            <PropertyRef Name="TrNo" />
-          </Key>
-          <Property Name="TrNo" Type="Int32" Nullable="false" />
-          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Supplier" Type="Int32" />
-          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Debit" Type="Boolean" />
-          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IS_Active" Type="Boolean" />
-          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiveID" Type="Int32" />
-        </EntityType>
         <EntityType Name="G_STORE">
           <Key>
             <PropertyRef Name="StoreId" />
@@ -7580,6 +7557,59 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="CategoryDescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ItemCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Enter_Money">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Num_Day" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outlet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Num_Day" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="ID_Supplier" Type="Int32" />
+        </EntityType>
+        <EntityType Name="IQ_Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveID" Type="Int32" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="IsCash" Type="Boolean" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="BranchCode" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7601,19 +7631,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
                 <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
                 <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Enter_Money">
-            <EntityTypeMapping TypeName="POS2021Model.Enter_Money">
-              <MappingFragment StoreEntitySet="Enter_Money">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
-                <ScalarProperty Name="pirce" ColumnName="pirce" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8113,19 +8130,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Outlets">
-            <EntityTypeMapping TypeName="POS2021Model.Outlet">
-              <MappingFragment StoreEntitySet="Outlet">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
-                <ScalarProperty Name="pirce" ColumnName="pirce" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PRODUCTs">
             <EntityTypeMapping TypeName="POS2021Model.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCT">
@@ -8199,6 +8203,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="POS2021Model.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
                 <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
                 <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
@@ -8688,9 +8694,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <FunctionImportMapping FunctionImportName="GProc_CreateStore" FunctionName="POS2021Model.Store.GProc_CreateStore" />
           <FunctionImportMapping FunctionImportName="GProc_CreateUser" FunctionName="POS2021Model.Store.GProc_CreateUser" />
           <FunctionImportMapping FunctionImportName="GProc_SecCreateUser" FunctionName="POS2021Model.Store.GProc_SecCreateUser" />
-          <FunctionImportMapping FunctionImportName="Insert_Enter_Money" FunctionName="POS2021Model.Store.Insert_Enter_Money" />
           <FunctionImportMapping FunctionImportName="insert_ORDER_DELIVERY" FunctionName="POS2021Model.Store.insert_ORDER_DELIVERY" />
-          <FunctionImportMapping FunctionImportName="insert_Outlet" FunctionName="POS2021Model.Store.insert_Outlet" />
           <FunctionImportMapping FunctionImportName="insert_Purchases_Master" FunctionName="POS2021Model.Store.insert_Purchases_Master" />
           <FunctionImportMapping FunctionImportName="insert_Table_two_days" FunctionName="POS2021Model.Store.insert_Table_two_days" />
           <FunctionImportMapping FunctionImportName="IProc_CreateCompany" FunctionName="POS2021Model.Store.IProc_CreateCompany" />
@@ -10511,26 +10515,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IQ_Purchases_Master">
-            <EntityTypeMapping TypeName="POS2021Model.IQ_Purchases_Master">
-              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
-                <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
-                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
-                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
-                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
-                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="G_STORE">
             <EntityTypeMapping TypeName="POS2021Model.G_STORE">
               <MappingFragment StoreEntitySet="G_STORE">
@@ -10735,6 +10719,64 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <ScalarProperty Name="ItemStoreID" ColumnName="ItemStoreID" />
                 <ScalarProperty Name="DescL" ColumnName="DescL" />
                 <ScalarProperty Name="DescA" ColumnName="DescA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enter_Money">
+            <EntityTypeMapping TypeName="POS2021Model.Enter_Money">
+              <MappingFragment StoreEntitySet="Enter_Money">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outlet">
+            <EntityTypeMapping TypeName="POS2021Model.Outlet">
+              <MappingFragment StoreEntitySet="Outlet">
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insert_EMPLOYEE" FunctionName="POS2021Model.Store.insert_EMPLOYEE" />
+          <FunctionImportMapping FunctionImportName="insert_Outlet" FunctionName="POS2021Model.Store.insert_Outlet" />
+          <EntitySetMapping Name="IQ_Purchases_Master">
+            <EntityTypeMapping TypeName="POS2021Model.IQ_Purchases_Master">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="IsCash" ColumnName="IsCash" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

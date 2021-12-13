@@ -2550,6 +2550,7 @@ var IQ_GetSlsInvoiceList = /** @class */ (function (_super) {
         _this.CustomerCODE = "";
         _this.CUSTOMER_NAME = "";
         _this.NAMEE = "";
+        _this.StatusNAME = "";
         return _this;
     }
     return IQ_GetSlsInvoiceList;
@@ -5958,6 +5959,8 @@ var IQ_Purchases_Master = /** @class */ (function (_super) {
         _this.To_be_Paid = 0;
         _this.CashPaidAmount = 0;
         _this.ReceiveID = 0;
+        _this.StoreID = 0;
+        _this.IsCash = false;
         return _this;
     }
     return IQ_Purchases_Master;
@@ -6054,6 +6057,8 @@ var Supplier = /** @class */ (function (_super) {
     __extends(Supplier, _super);
     function Supplier() {
         var _this = _super.call(this) || this;
+        _this.BranchCode = 0;
+        _this.CompCode = 0;
         _this.ID_Supplier = 0;
         _this.Name_Supplier = "";
         _this.phone = "";

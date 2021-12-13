@@ -294,12 +294,12 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult Insert(int CUSTOMER_ID ,string USER_CODE ,int ID_ORDER_Delivery, decimal AmountRequired ,decimal Amount ,decimal ShootMoney ,string Remarks , string Data)
+        public IHttpActionResult Insert(int CUSTOMER_ID ,string USER_CODE ,int ID_ORDER_Delivery, decimal AmountRequired ,decimal Amount ,decimal ShootMoney ,string Remarks , string Data, int CompCode, int BranchCode, int InvoiceID)
         {
             
                 try
                 {
-                    string query = "insert into [dbo].[Catch_Receipt] values("+ CUSTOMER_ID+ ",'"+USER_CODE+ "',"+ ID_ORDER_Delivery+ ","+AmountRequired+ "," +Amount + "," +ShootMoney + ",'" +Remarks + "','" + Data + "')";
+                    string query = "insert into [dbo].[Catch_Receipt] values("+ CUSTOMER_ID+ ",'"+USER_CODE+ "',"+ ID_ORDER_Delivery+ ","+AmountRequired+ "," +Amount + "," +ShootMoney + ",'" +Remarks + "','" + Data + "'," + BranchCode + "," + CompCode + "," + InvoiceID + ")";
                      
                     db.Database.ExecuteSqlCommand(query);
 
@@ -310,7 +310,7 @@ namespace API.Controllers
 
 
 
-                string Receipt = "select max(ID_Receipt) from [dbo].[Catch_Receipt] ";
+                string Receipt = "select max(ID_Receipt) from [dbo].[Catch_Receipt] where BranchCode = "+ BranchCode + " and CompCode = "+ CompCode + " ";
 
                     int ID_Receipt = db.Database.SqlQuery<int>(Receipt).FirstOrDefault();
                       

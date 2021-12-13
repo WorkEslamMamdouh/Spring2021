@@ -70,6 +70,11 @@ namespace Income_expenses {
         btnPrintTrPDF = document.getElementById("btnPrintTrPDF") as HTMLButtonElement;
         btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL") as HTMLButtonElement;
 
+
+        txtFromDate.value = SysSession.CurrentEnvironment.StartDate;
+        txtToDate.value = ConvertToDateDash(GetDate()) <= ConvertToDateDash(SysSession.CurrentEnvironment.EndDate) ? GetDate() : SysSession.CurrentEnvironment.EndDate;
+
+
     }
     function IntializeEvents() {
 
@@ -131,8 +136,8 @@ namespace Income_expenses {
             _Stock.ID_Button_Print = 'ACCstament2'; 
         }
                                                       
-        _Stock.Parameter_1 = DateFormatDataBes(txtFromDate.value);
-        _Stock.Parameter_2 = DateFormatDataBes(txtToDate.value);
+        _Stock.Parameter_1 =  txtFromDate.value;
+        _Stock.Parameter_2 =  txtToDate.value;
         _Stock.Parameter_3 = UserVal;
         _Stock.Parameter_4 = DType;
         //_Stock.Parameter_5 = "";
