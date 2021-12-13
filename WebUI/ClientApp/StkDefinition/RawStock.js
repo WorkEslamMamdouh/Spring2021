@@ -186,6 +186,7 @@ var RawStock;
         else if (drpType.value == "1") {
             $('#Trans').removeClass('display_none');
             $('#Stock').addClass('display_none');
+            InitializeGrid();
         }
         else {
             $('#Trans').addClass('display_none');
