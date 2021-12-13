@@ -90,6 +90,11 @@ var CustomerOrder;
     //------------------------------------------------------ Main Region------------------------
     function InitalizeComponent() {
         // VatPrc                                           
+        debugger;
+        CustomerId = Number(SysSession.CurrentEnvironment.CustomerId);
+        if (isNaN(CustomerId)) {
+            window.open(Url.Action("LogCust", "Home"), "_self");
+        }
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         Finyear = Number(SysSession.CurrentEnvironment.CurrentYear);
@@ -354,10 +359,8 @@ var CustomerOrder;
             var Storeid = 1;
             sys.FindKey(Modules.CUSTOMERS, "btnCustomerOrder", " STATUS = 1 and CUSTOMER_ID = " + CustomerId, function () {
                 var id = SearchGrid.SearchDataGrid.SelectedKey;
-                alert(id);
-                debugger;
                 var ListCustItem = I_Item_Cust.filter(function (x) { return x.Id == id; });
-                if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val())))
+                if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val())))
                     return;
                 //$("#txt_ItemID" + NumCnt + "").val(id);
                 var ItemCode = '';
@@ -405,6 +408,7 @@ var CustomerOrder;
                     }
                 });
             });
+            setTimeout(function () { $("#SearchDataTable_wrapper").attr("class", ""); }, 200);
         });
         $("#txtServiceCode" + cnt).on('change', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
@@ -484,11 +488,11 @@ var CustomerOrder;
             var txtQuantityValue = $("#txtQuantity" + cnt).val();
             var Typeuom = $("#ddlTypeuom" + cnt);
             var OnhandQty = $('option:selected', Typeuom).attr('data-OnhandQty');
-            if (Number(txtQuantityValue) > Number(OnhandQty)) {
-                DisplayMassage(" لا يمكن تجاوز الكميه المتاحه  " + OnhandQty + " ", "Please select a customer", MessageType.Worning);
-                $("#txtQuantity" + cnt).val(OnhandQty);
-                Errorinput($("#txtQuantity" + cnt));
-            }
+            //if (Number(txtQuantityValue) > Number(OnhandQty)) {
+            //    DisplayMassage(" لا يمكن تجاوز الكميه المتاحه  " + OnhandQty + " ", "Please select a customer", MessageType.Worning);
+            //    $("#txtQuantity" + cnt).val(OnhandQty);
+            //    Errorinput($("#txtQuantity" + cnt));
+            //}
             totalRow(cnt);
         });
         $("#txtPrice" + cnt).on('keyup', function () {
@@ -658,29 +662,29 @@ var CustomerOrder;
         //    Errorinput(btnCustomerSrch);
         //    return false
         //}
-        var CanAdd = true;
-        if (CountGrid > 0) {
-            for (var i = 0; i < CountGrid; i++) {
-                CanAdd = Validation_Grid(i);
-                if (CanAdd == false) {
-                    break;
-                }
-            }
-        }
-        if (CanAdd) {
-            CountItems = CountItems + 1;
-            txtItemCount.value = CountItems.toString();
-            BuildControls(CountGrid);
-            $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode 
-            $("#ddlFamily" + CountGrid).removeAttr("disabled");
-            $("#ddlItem" + CountGrid).removeAttr("disabled");
-            $("#txtQuantity" + CountGrid).removeAttr("disabled");
-            $("#txtReturnQuantity" + CountGrid).attr("disabled", "disabled");
-            $("#btn_minus" + CountGrid).removeClass("display_none");
-            $("#btn_minus" + CountGrid).removeAttr("disabled");
-            CountGrid++;
-            Insert_Serial();
-        }
+        //var CanAdd: boolean = true;
+        //if (CountGrid > 0) {
+        //    for (var i = 0; i < CountGrid; i++) {
+        //        CanAdd = Validation_Grid(i);
+        //        if (CanAdd == false) {
+        //            break;
+        //        }
+        //    }
+        //}
+        //if (CanAdd) {
+        CountItems = CountItems + 1;
+        txtItemCount.value = CountItems.toString();
+        BuildControls(CountGrid);
+        $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode 
+        $("#ddlFamily" + CountGrid).removeAttr("disabled");
+        $("#ddlItem" + CountGrid).removeAttr("disabled");
+        $("#txtQuantity" + CountGrid).removeAttr("disabled");
+        $("#txtReturnQuantity" + CountGrid).attr("disabled", "disabled");
+        $("#btn_minus" + CountGrid).removeClass("display_none");
+        $("#btn_minus" + CountGrid).removeAttr("disabled");
+        CountGrid++;
+        Insert_Serial();
+        //}
     }
     function ComputeTotals() {
         PackageCount = 0;
@@ -857,7 +861,7 @@ var CustomerOrder;
         InvoiceModel.ItemTotal = Number(txtTotalbefore.value);
         InvoiceModel.CashBoxID = null;
         InvoiceModel.IsCash = true;
-        InvoiceModel.Status = 1;
+        InvoiceModel.Status = 0;
         // Details
         for (var i = 0; i < CountGrid; i++) {
             invoiceItemSingleModel = new I_Sls_TR_InvoiceItems();

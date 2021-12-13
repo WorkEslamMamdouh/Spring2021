@@ -4,6 +4,8 @@ $(document).ready(function () {
 var AccDefVendor;
 (function (AccDefVendor) {
     // Arrays
+    var compcode;
+    var BranchCode;
     var AccountType = 2;
     var MSG_ID;
     var Details = new Array();
@@ -27,7 +29,6 @@ var AccDefVendor;
     var btnEdit;
     var btnsave;
     var searchbutmemreport;
-    var compcode; //SharedSession.CurrentEnvironment.CompCode;
     var IsNew = false;
     var index;
     var Selecteditem;
@@ -40,6 +41,9 @@ var AccDefVendor;
     var Update_claenData = 0;
     var txt_ID_APP_Category;
     function InitalizeComponent() {
+        debugger;
+        compcode = Number(SysSession.CurrentEnvironment.CompCode);
+        BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         //debugger;
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
             document.getElementById('Screen_name').innerHTML = "الموردين";
@@ -80,7 +84,7 @@ var AccDefVendor;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Supplier", "GetAll"),
-            data: { CompCode: compcode },
+            data: { CompCode: compcode, BranchCode: BranchCode },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -368,6 +372,8 @@ var AccDefVendor;
         Model.IS_Active = $('#txt_IS_Active').val() == '1' ? true : false;
         Model.phone = $('#txt_phone').val();
         Model.Notes = $('#txt_Notes').val();
+        Model.CompCode = compcode;
+        Model.BranchCode = BranchCode;
     }
     function Insert() {
         Assign();

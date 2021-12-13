@@ -20,5 +20,7 @@ namespace Inv.DAL.Domain
         public string Type_Supplier { get; set; }
         public string Notes { get; set; }
         public Nullable<bool> IS_Active { get; set; }
+        public Nullable<int> BranchCode { get; set; }
+        public Nullable<int> CompCode { get; set; }
     }
 }

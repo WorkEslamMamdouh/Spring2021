@@ -7,7 +7,6 @@
       <Diagram DiagramId="61aabdb08bd949f3a1433823d07402fe" Name="Diagram1" ZoomLevel="77">
         <EntityTypeShape EntityType="POS2021Model.CATEGRE" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.EMPLOYEE" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="POS2021Model.Enter_Money" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.familly_Cat" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.G_AlertControl" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.G_AlertLog" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
@@ -37,7 +36,6 @@
         <EntityTypeShape EntityType="POS2021Model.G_USER_COMPANY" Width="1.5" PointX="16.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.G_USER_LOG" Width="1.5" PointX="16.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.ORDER_DELIVERY" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="POS2021Model.Outlet" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.PRODUCT" Width="1.5" PointX="18.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.Purchases_Details" Width="1.5" PointX="8.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.Report_Parameters" Width="1.5" PointX="18.75" PointY="12.75" IsExpanded="true" />
@@ -56,7 +54,7 @@
         <EntityTypeShape EntityType="POS2021Model.GQ_ReportWebSetting" Width="1.5" PointX="8.75" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.I_VW_GetCompStatus" Width="1.5" PointX="22.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.IQ_Outlet" Width="1.5" PointX="10.75" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_Purchases_Details" Width="1.5" PointX="22.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_Purchases_Details" Width="2.125" PointX="22.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.ReviewSalesItemInfo" Width="1.5" PointX="22.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.ReviewSalesMaster" Width="1.5" PointX="22.75" PointY="21.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.CUSTOMER" Width="1.5" PointX="19.375" PointY="23.75" />
@@ -103,11 +101,17 @@
         <EntityTypeShape EntityType="POS2021Model.I_Pur_TR_ReceiveItems" Width="1.5" PointX="25.75" PointY="35.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_GetPurReceiveItem" Width="1.5" PointX="35.75" PointY="26.75" />
         <EntityTypeShape EntityType="POS2021Model.Purchases_Master" Width="1.5" PointX="30.375" PointY="35.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_Purchases_Master" Width="1.5" PointX="35.375" PointY="35.75" />
         <EntityTypeShape EntityType="POS2021Model.G_STORE" Width="1.5" PointX="32.375" PointY="8.75" />
         <EntityTypeShape EntityType="POS2021Model.GQ_GetStore" Width="1.5" PointX="32.375" PointY="14.75" />
         <EntityTypeShape EntityType="POS2021Model.I_Item_Customer" Width="1.5" PointX="13.375" PointY="36.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_GetItemStore" Width="1.5" PointX="32.375" PointY="36.75" />
+        <EntityTypeShape EntityType="POS2021Model.Enter_Money" Width="1.5" PointX="32.375" PointY="0.75" />
+        <EntityTypeShape EntityType="POS2021Model.Outlet" Width="1.5" PointX="32.375" PointY="4.75" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_Purchases_Master" Width="1.5" PointX="35.375" PointY="35.75" />
+        <EntityTypeShape EntityType="POS2021Model.I_Stk_TR_Transfer" Width="1.5" PointX="37.375" PointY="0.75" />
+        <EntityTypeShape EntityType="POS2021Model.I_Stk_TR_TransferDetails" Width="1.5" PointX="37.375" PointY="8.75" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_GetTransfer" Width="1.5" PointX="37.375" PointY="35.75" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_GetTransferDetail" Width="1.5" PointX="37.375" PointY="14.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

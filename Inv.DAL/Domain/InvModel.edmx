@@ -142,6 +142,9 @@
           <Property Name="ShootMoney" Type="money" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Data" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="InvoiceID" Type="int" />
         </EntityType>
         <EntityType Name="CATEGRES">
           <Key>
@@ -202,6 +205,9 @@
           <Property Name="EMPLOYEE_ID" Type="int" />
           <Property Name="Time" Type="nvarchar" MaxLength="50" />
           <Property Name="Tr_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="CustomerID" Type="int" />
         </EntityType>
         <EntityType Name="familly_Cat">
           <Key>
@@ -1313,7 +1319,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="VatType" Type="int" />
           <Property Name="DiscountAmount" Type="numeric" Precision="18" Scale="2" />
           <Property Name="DiscountPrc" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="NetAfterVat" Type="numeric" Precision="23" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="NetAfterVat" Type="numeric" Precision="22" Scale="2" StoreGeneratedPattern="Computed" />
           <Property Name="CommitionAmount" Type="numeric" Precision="18" Scale="2" />
           <Property Name="CashAmount" Type="numeric" Precision="18" Scale="2" />
           <Property Name="CardAmount" Type="numeric" Precision="18" Scale="2" />
@@ -1423,6 +1429,64 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="UnitpriceWithVat" Type="numeric" Precision="18" Scale="5" />
           <Property Name="NetUnitPriceWithVat" Type="numeric" Precision="18" Scale="5" />
         </EntityType>
+        <EntityType Name="I_Stk_TR_Transfer">
+          <Key>
+            <PropertyRef Name="TransfareID" />
+          </Key>
+          <Property Name="TransfareID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tr_No" Type="int" />
+          <Property Name="RefNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrType" Type="int" />
+          <Property Name="TFType" Type="int" />
+          <Property Name="TrDate" Type="smalldatetime" />
+          <Property Name="TrDateH" Type="nvarchar" MaxLength="20" />
+          <Property Name="SenderBranchCode" Type="int" />
+          <Property Name="ReceiverBranchCode" Type="int" />
+          <Property Name="SenderStoreID" Type="int" />
+          <Property Name="ReceiverStoreID" Type="int" />
+          <Property Name="RequestTransferID" Type="int" />
+          <Property Name="SendTransferID" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+          <Property Name="RequestedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="SendBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReceivedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="VerfiedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="Total" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="IsPosted" Type="bit" />
+          <Property Name="VoucherNo" Type="int" />
+          <Property Name="VoucherType" Type="tinyint" />
+          <Property Name="CreatedAt" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="25" />
+          <Property Name="UpdatedAt" Type="smalldatetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="25" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="IsSent" Type="bit" />
+          <Property Name="IsReceived" Type="bit" />
+          <Property Name="IsRequested" Type="bit" />
+        </EntityType>
+        <EntityType Name="I_Stk_TR_TransferDetails">
+          <Key>
+            <PropertyRef Name="TransfareDetailID" />
+          </Key>
+          <Property Name="TransfareDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransfareID" Type="int" />
+          <Property Name="Serial" Type="int" />
+          <Property Name="BarCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="ItemID" Type="int" />
+          <Property Name="SourceItemStoreBatchid" Type="int" />
+          <Property Name="DestItemStoreBatchid" Type="int" />
+          <Property Name="UnitCost" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="ReqQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="SendQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="RecQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="StockReqQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="StockSendQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="StockRecQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="SrcOhnandQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="RecOnhandQty" Type="numeric" Precision="19" Scale="2" />
+        </EntityType>
         <EntityType Name="ORDER_DELIVERY">
           <Key>
             <PropertyRef Name="ID_ORDER_Delivery" />
@@ -1450,6 +1514,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="EMPLOYEE_ID" Type="int" />
           <Property Name="Time" Type="nvarchar" MaxLength="50" />
           <Property Name="Tr_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="ID_Supplier" Type="int" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -1541,6 +1608,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="Type_Supplier" Type="nvarchar" MaxLength="50" />
           <Property Name="Notes" Type="nvarchar" MaxLength="200" />
           <Property Name="IS_Active" Type="bit" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="CompCode" Type="int" />
         </EntityType>
         <EntityType Name="Table_two_days">
           <Key>
@@ -2547,6 +2616,87 @@ warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetSlsInvoiceStatistic' d
           <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetTransfer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IQ_GetTransfer">
+          <Key>
+            <PropertyRef Name="TransfareID" />
+          </Key>
+          <Property Name="TransfareID" Type="int" Nullable="false" />
+          <Property Name="Tr_No" Type="int" />
+          <Property Name="RefNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrType" Type="int" />
+          <Property Name="TFType" Type="int" />
+          <Property Name="TrDate" Type="smalldatetime" />
+          <Property Name="TrDateH" Type="nvarchar" MaxLength="20" />
+          <Property Name="SenderBranchCode" Type="int" />
+          <Property Name="ReceiverBranchCode" Type="int" />
+          <Property Name="SenderStoreID" Type="int" />
+          <Property Name="ReceiverStoreID" Type="int" />
+          <Property Name="RequestTransferID" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+          <Property Name="SendTransferID" Type="int" />
+          <Property Name="RequestedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="SendBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReceivedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="VerfiedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="Total" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="IsPosted" Type="bit" />
+          <Property Name="VoucherNo" Type="int" />
+          <Property Name="VoucherType" Type="tinyint" />
+          <Property Name="CreatedAt" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="25" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="25" />
+          <Property Name="UpdatedAt" Type="smalldatetime" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="BranchCode" Type="int" />
+          <Property Name="IsSent" Type="bit" />
+          <Property Name="IsReceived" Type="bit" />
+          <Property Name="IsRequested" Type="bit" />
+          <Property Name="SBr_DescA" Type="nvarchar" MaxLength="50" />
+          <Property Name="SBr_DescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="SSt_DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="SSt_DescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="SSt_Store_Code" Type="int" />
+          <Property Name="RBr_DescA" Type="nvarchar" MaxLength="50" />
+          <Property Name="RBr_DescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="RSt_DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="RSt_StoreCode" Type="int" />
+          <Property Name="RSt_DescE" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'StoresProcess2021.dbo.IQ_GetTransferDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IQ_GetTransferDetail">
+          <Key>
+            <PropertyRef Name="TransfareDetailID" />
+          </Key>
+          <Property Name="TransfareDetailID" Type="int" Nullable="false" />
+          <Property Name="TransfareID" Type="int" />
+          <Property Name="Serial" Type="int" />
+          <Property Name="BarCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="ItemID" Type="int" />
+          <Property Name="SourceItemStoreBatchid" Type="int" />
+          <Property Name="DestItemStoreBatchid" Type="int" />
+          <Property Name="UnitCost" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="ReqQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="SendQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="RecQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="StockReqQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="StockSendQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="StockRecQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="Itm_DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="Itm_DescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="FamilyCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="ITFamly_DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ITFamly_DescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="SrcOhnandQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="RecOnhandQty" Type="numeric" Precision="19" Scale="2" />
+          <Property Name="uom_DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="uom_DescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="UomCode" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Outlet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="IQ_Outlet">
           <Key>
@@ -2604,6 +2754,10 @@ warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Purchases_Master' does no
           <Property Name="To_be_Paid" Type="money" />
           <Property Name="REMARKS" Type="nvarchar" MaxLength="1000" />
           <Property Name="ReceiveID" Type="int" />
+          <Property Name="StoreID" Type="int" />
+          <Property Name="IsCash" Type="bit" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="BranchCode" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2986,11 +3140,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             </CollectionType>
           </ReturnType>
         </Function>
-        <Function Name="Insert_Enter_Money" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Dasc_Name" Type="nvarchar" Mode="In" />
-          <Parameter Name="pirce" Type="money" Mode="In" />
-          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
-          <Parameter Name="Tr_Type" Type="nvarchar" Mode="In" />
+        <Function Name="insert_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPLOYEE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="USER_CODE" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="insert_ORDER_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
@@ -3007,6 +3159,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Parameter Name="pirce" Type="money" Mode="In" />
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
           <Parameter Name="Tr_Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="BranchCode" Type="int" Mode="In" />
+          <Parameter Name="CompCode" Type="int" Mode="In" />
+          <Parameter Name="ID_Supplier" Type="int" Mode="In" />
         </Function>
         <Function Name="insert_Purchases_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Tr_Date" Type="nvarchar" Mode="In" />
@@ -3190,6 +3345,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="I_Sls_D_Salesman" EntityType="Self.I_Sls_D_Salesman" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="I_Sls_TR_Invoice" EntityType="Self.I_Sls_TR_Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="I_Sls_TR_InvoiceItems" EntityType="Self.I_Sls_TR_InvoiceItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="I_Stk_TR_Transfer" EntityType="Self.I_Stk_TR_Transfer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="I_Stk_TR_TransferDetails" EntityType="Self.I_Stk_TR_TransferDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORDER_DELIVERY" EntityType="Self.ORDER_DELIVERY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Outlet" EntityType="Self.Outlet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
@@ -4068,6 +4225,81 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
     [IQ_GetSlsInvoiceStatistic].[CUSTOMER_NAME] AS [CUSTOMER_NAME]
     FROM [dbo].[IQ_GetSlsInvoiceStatistic] AS [IQ_GetSlsInvoiceStatistic]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="IQ_GetTransfer" EntityType="Self.IQ_GetTransfer" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [IQ_GetTransfer].[TransfareID] AS [TransfareID], 
+    [IQ_GetTransfer].[Tr_No] AS [Tr_No], 
+    [IQ_GetTransfer].[RefNO] AS [RefNO], 
+    [IQ_GetTransfer].[TrType] AS [TrType], 
+    [IQ_GetTransfer].[TFType] AS [TFType], 
+    [IQ_GetTransfer].[TrDate] AS [TrDate], 
+    [IQ_GetTransfer].[TrDateH] AS [TrDateH], 
+    [IQ_GetTransfer].[SenderBranchCode] AS [SenderBranchCode], 
+    [IQ_GetTransfer].[ReceiverBranchCode] AS [ReceiverBranchCode], 
+    [IQ_GetTransfer].[SenderStoreID] AS [SenderStoreID], 
+    [IQ_GetTransfer].[ReceiverStoreID] AS [ReceiverStoreID], 
+    [IQ_GetTransfer].[RequestTransferID] AS [RequestTransferID], 
+    [IQ_GetTransfer].[Remark] AS [Remark], 
+    [IQ_GetTransfer].[SendTransferID] AS [SendTransferID], 
+    [IQ_GetTransfer].[RequestedBy] AS [RequestedBy], 
+    [IQ_GetTransfer].[SendBy] AS [SendBy], 
+    [IQ_GetTransfer].[ReceivedBy] AS [ReceivedBy], 
+    [IQ_GetTransfer].[VerfiedBy] AS [VerfiedBy], 
+    [IQ_GetTransfer].[Total] AS [Total], 
+    [IQ_GetTransfer].[IsPosted] AS [IsPosted], 
+    [IQ_GetTransfer].[VoucherNo] AS [VoucherNo], 
+    [IQ_GetTransfer].[VoucherType] AS [VoucherType], 
+    [IQ_GetTransfer].[CreatedAt] AS [CreatedAt], 
+    [IQ_GetTransfer].[CreatedBy] AS [CreatedBy], 
+    [IQ_GetTransfer].[UpdatedBy] AS [UpdatedBy], 
+    [IQ_GetTransfer].[UpdatedAt] AS [UpdatedAt], 
+    [IQ_GetTransfer].[CompCode] AS [CompCode], 
+    [IQ_GetTransfer].[BranchCode] AS [BranchCode], 
+    [IQ_GetTransfer].[IsSent] AS [IsSent], 
+    [IQ_GetTransfer].[IsReceived] AS [IsReceived], 
+    [IQ_GetTransfer].[IsRequested] AS [IsRequested], 
+    [IQ_GetTransfer].[SBr_DescA] AS [SBr_DescA], 
+    [IQ_GetTransfer].[SBr_DescE] AS [SBr_DescE], 
+    [IQ_GetTransfer].[SSt_DescA] AS [SSt_DescA], 
+    [IQ_GetTransfer].[SSt_DescE] AS [SSt_DescE], 
+    [IQ_GetTransfer].[SSt_Store_Code] AS [SSt_Store_Code], 
+    [IQ_GetTransfer].[RBr_DescA] AS [RBr_DescA], 
+    [IQ_GetTransfer].[RBr_DescE] AS [RBr_DescE], 
+    [IQ_GetTransfer].[RSt_DescA] AS [RSt_DescA], 
+    [IQ_GetTransfer].[RSt_StoreCode] AS [RSt_StoreCode], 
+    [IQ_GetTransfer].[RSt_DescE] AS [RSt_DescE]
+    FROM [dbo].[IQ_GetTransfer] AS [IQ_GetTransfer]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="IQ_GetTransferDetail" EntityType="Self.IQ_GetTransferDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [IQ_GetTransferDetail].[TransfareDetailID] AS [TransfareDetailID], 
+    [IQ_GetTransferDetail].[TransfareID] AS [TransfareID], 
+    [IQ_GetTransferDetail].[Serial] AS [Serial], 
+    [IQ_GetTransferDetail].[BarCode] AS [BarCode], 
+    [IQ_GetTransferDetail].[ItemID] AS [ItemID], 
+    [IQ_GetTransferDetail].[SourceItemStoreBatchid] AS [SourceItemStoreBatchid], 
+    [IQ_GetTransferDetail].[DestItemStoreBatchid] AS [DestItemStoreBatchid], 
+    [IQ_GetTransferDetail].[UnitCost] AS [UnitCost], 
+    [IQ_GetTransferDetail].[UnitID] AS [UnitID], 
+    [IQ_GetTransferDetail].[ReqQty] AS [ReqQty], 
+    [IQ_GetTransferDetail].[SendQty] AS [SendQty], 
+    [IQ_GetTransferDetail].[RecQty] AS [RecQty], 
+    [IQ_GetTransferDetail].[StockReqQty] AS [StockReqQty], 
+    [IQ_GetTransferDetail].[StockSendQty] AS [StockSendQty], 
+    [IQ_GetTransferDetail].[StockRecQty] AS [StockRecQty], 
+    [IQ_GetTransferDetail].[ItemCode] AS [ItemCode], 
+    [IQ_GetTransferDetail].[Itm_DescA] AS [Itm_DescA], 
+    [IQ_GetTransferDetail].[Itm_DescE] AS [Itm_DescE], 
+    [IQ_GetTransferDetail].[FamilyCode] AS [FamilyCode], 
+    [IQ_GetTransferDetail].[ITFamly_DescA] AS [ITFamly_DescA], 
+    [IQ_GetTransferDetail].[ITFamly_DescE] AS [ITFamly_DescE], 
+    [IQ_GetTransferDetail].[SrcOhnandQty] AS [SrcOhnandQty], 
+    [IQ_GetTransferDetail].[RecOnhandQty] AS [RecOnhandQty], 
+    [IQ_GetTransferDetail].[uom_DescA] AS [uom_DescA], 
+    [IQ_GetTransferDetail].[uom_DescE] AS [uom_DescE], 
+    [IQ_GetTransferDetail].[UomCode] AS [UomCode]
+    FROM [dbo].[IQ_GetTransferDetail] AS [IQ_GetTransferDetail]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="IQ_Outlet" EntityType="Self.IQ_Outlet" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [IQ_Outlet].[id] AS [id], 
@@ -4113,7 +4345,11 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
     [IQ_Purchases_Master].[Paid_Up] AS [Paid_Up], 
     [IQ_Purchases_Master].[To_be_Paid] AS [To_be_Paid], 
     [IQ_Purchases_Master].[REMARKS] AS [REMARKS], 
-    [IQ_Purchases_Master].[ReceiveID] AS [ReceiveID]
+    [IQ_Purchases_Master].[ReceiveID] AS [ReceiveID], 
+    [IQ_Purchases_Master].[StoreID] AS [StoreID], 
+    [IQ_Purchases_Master].[IsCash] AS [IsCash], 
+    [IQ_Purchases_Master].[CompCode] AS [CompCode], 
+    [IQ_Purchases_Master].[BranchCode] AS [BranchCode]
     FROM [dbo].[IQ_Purchases_Master] AS [IQ_Purchases_Master]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ReviewSalesItemInfo" EntityType="Self.ReviewSalesItemInfo" store:Type="Views" store:Schema="dbo">
@@ -4281,18 +4517,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Enter_Money">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Num_Day" Type="Int32" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="familly_Cat">
           <Key>
@@ -4797,18 +5021,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Confirmation" Type="Boolean" />
           <Property Name="Num_Day" Type="Int32" />
         </EntityType>
-        <EntityType Name="Outlet">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Num_Day" Type="Int32" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
             <PropertyRef Name="PRODUCT_ID" />
@@ -4884,6 +5096,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
         </EntityType>
         <EntityType Name="Table_two_days">
           <Key>
@@ -5224,7 +5438,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CATEGRES" EntityType="Self.CATEGRE" />
           <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
-          <EntitySet Name="Enter_Money" EntityType="Self.Enter_Money" />
           <EntitySet Name="familly_Cat" EntityType="Self.familly_Cat" />
           <EntitySet Name="G_AlertControl" EntityType="Self.G_AlertControl" />
           <EntitySet Name="G_AlertLog" EntityType="Self.G_AlertLog" />
@@ -5254,7 +5467,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="G_USER_COMPANY" EntityType="Self.G_USER_COMPANY" />
           <EntitySet Name="G_USER_LOG" EntityType="Self.G_USER_LOG" />
           <EntitySet Name="ORDER_DELIVERY" EntityType="Self.ORDER_DELIVERY" />
-          <EntitySet Name="Outlets" EntityType="Self.Outlet" />
           <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
           <EntitySet Name="Purchases_Details" EntityType="Self.Purchases_Details" />
           <EntitySet Name="Report_Parameters" EntityType="Self.Report_Parameters" />
@@ -5376,12 +5588,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             <Parameter Name="User" Mode="In" Type="String" />
             <Parameter Name="Comp" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Insert_Enter_Money" ReturnType="Collection(Decimal)">
-            <Parameter Name="Dasc_Name" Mode="In" Type="String" />
-            <Parameter Name="pirce" Mode="In" Type="Decimal" />
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Tr_Type" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="insert_ORDER_DELIVERY" ReturnType="Collection(Int32)">
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="Namber_Order_Delivery" Mode="In" Type="Int32" />
@@ -5391,12 +5597,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             <Parameter Name="CUSTOMER_ID" Mode="In" Type="Int32" />
             <Parameter Name="type_order" Mode="In" Type="String" />
             <Parameter Name="Confirmation" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="insert_Outlet" ReturnType="Collection(Decimal)">
-            <Parameter Name="Dasc_Name" Mode="In" Type="String" />
-            <Parameter Name="pirce" Mode="In" Type="Decimal" />
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Tr_Type" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="insert_Purchases_Master" ReturnType="Collection(Int32)">
             <Parameter Name="Tr_Date" Mode="In" Type="String" />
@@ -5580,7 +5780,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="I_Pur_TR_ReceiveItems" EntityType="POS2021Model.I_Pur_TR_ReceiveItems" />
           <EntitySet Name="IQ_GetPurReceiveItem" EntityType="POS2021Model.IQ_GetPurReceiveItem" />
           <EntitySet Name="Purchases_Master" EntityType="POS2021Model.Purchases_Master" />
-          <EntitySet Name="IQ_Purchases_Master" EntityType="POS2021Model.IQ_Purchases_Master" />
           <EntitySet Name="G_STORE" EntityType="POS2021Model.G_STORE" />
           <FunctionImport Name="IProc_Prnt_SlsInvoice" ReturnType="Collection(POS2021Model.IProc_Prnt_SlsInvoice_Result)">
             <Parameter Name="comp" Mode="In" Type="Int32" />
@@ -5596,6 +5795,26 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="GQ_GetStore" EntityType="POS2021Model.GQ_GetStore" />
           <EntitySet Name="I_Item_Customer" EntityType="POS2021Model.I_Item_Customer" />
           <EntitySet Name="IQ_GetItemStore" EntityType="POS2021Model.IQ_GetItemStore" />
+          <EntitySet Name="Enter_Money" EntityType="POS2021Model.Enter_Money" />
+          <EntitySet Name="Outlet" EntityType="POS2021Model.Outlet" />
+          <FunctionImport Name="insert_EMPLOYEE">
+            <Parameter Name="EMPLOYEE_NAME" Mode="In" Type="String" />
+            <Parameter Name="USER_CODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insert_Outlet" ReturnType="Collection(Decimal)">
+            <Parameter Name="Dasc_Name" Mode="In" Type="String" />
+            <Parameter Name="pirce" Mode="In" Type="Decimal" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Tr_Type" Mode="In" Type="String" />
+            <Parameter Name="BranchCode" Mode="In" Type="Int32" />
+            <Parameter Name="CompCode" Mode="In" Type="Int32" />
+            <Parameter Name="ID_Supplier" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="IQ_Purchases_Master" EntityType="POS2021Model.IQ_Purchases_Master" />
+          <EntitySet Name="I_Stk_TR_Transfer" EntityType="POS2021Model.I_Stk_TR_Transfer" />
+          <EntitySet Name="I_Stk_TR_TransferDetails" EntityType="POS2021Model.I_Stk_TR_TransferDetails" />
+          <EntitySet Name="IQ_GetTransfer" EntityType="POS2021Model.IQ_GetTransfer" />
+          <EntitySet Name="IQ_GetTransferDetail" EntityType="POS2021Model.IQ_GetTransferDetail" />
         </EntityContainer>
         <ComplexType Name="Get_Settings_Report_Result">
           <Property Type="Int32" Name="ID_Report" Nullable="false" />
@@ -5674,6 +5893,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="ShootMoney" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Data" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="InvoiceID" Type="Int32" />
         </EntityType>
         <EntityType Name="IQ_Catch_Receipt">
           <Key>
@@ -6765,7 +6987,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="VatType" Type="Int32" />
           <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="DiscountPrc" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NetAfterVat" Type="Decimal" Precision="23" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="NetAfterVat" Type="Decimal" Precision="22" Scale="2" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="CommitionAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CashAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CardAmount" Type="Decimal" Precision="18" Scale="2" />
@@ -7360,25 +7582,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Num_Day" Type="Int32" />
           <Property Name="ReceiveID" Type="Int32" />
         </EntityType>
-        <EntityType Name="IQ_Purchases_Master">
-          <Key>
-            <PropertyRef Name="TrNo" />
-          </Key>
-          <Property Name="TrNo" Type="Int32" Nullable="false" />
-          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Supplier" Type="Int32" />
-          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Debit" Type="Boolean" />
-          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IS_Active" Type="Boolean" />
-          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiveID" Type="Int32" />
-        </EntityType>
         <EntityType Name="G_STORE">
           <Key>
             <PropertyRef Name="StoreId" />
@@ -7580,6 +7783,194 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="CategoryDescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ItemCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Enter_Money">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Num_Day" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outlet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Num_Day" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="ID_Supplier" Type="Int32" />
+        </EntityType>
+        <EntityType Name="IQ_Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveID" Type="Int32" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="IsCash" Type="Boolean" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="BranchCode" Type="Int32" />
+        </EntityType>
+        <EntityType Name="I_Stk_TR_Transfer">
+          <Key>
+            <PropertyRef Name="TransfareID" />
+          </Key>
+          <Property Name="TransfareID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tr_No" Type="Int32" />
+          <Property Name="RefNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrType" Type="Int32" />
+          <Property Name="TFType" Type="Int32" />
+          <Property Name="TrDate" Type="DateTime" Precision="0" />
+          <Property Name="TrDateH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SenderBranchCode" Type="Int32" />
+          <Property Name="ReceiverBranchCode" Type="Int32" />
+          <Property Name="SenderStoreID" Type="Int32" />
+          <Property Name="ReceiverStoreID" Type="Int32" />
+          <Property Name="RequestTransferID" Type="Int32" />
+          <Property Name="SendTransferID" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RequestedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SendBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="VerfiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="IsPosted" Type="Boolean" />
+          <Property Name="VoucherNo" Type="Int32" />
+          <Property Name="VoucherType" Type="Byte" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="IsSent" Type="Boolean" />
+          <Property Name="IsReceived" Type="Boolean" />
+          <Property Name="IsRequested" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="I_Stk_TR_TransferDetails">
+          <Key>
+            <PropertyRef Name="TransfareDetailID" />
+          </Key>
+          <Property Name="TransfareDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransfareID" Type="Int32" />
+          <Property Name="Serial" Type="Int32" />
+          <Property Name="BarCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ItemID" Type="Int32" />
+          <Property Name="SourceItemStoreBatchid" Type="Int32" />
+          <Property Name="DestItemStoreBatchid" Type="Int32" />
+          <Property Name="UnitCost" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="UnitID" Type="Int32" />
+          <Property Name="ReqQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="SendQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="RecQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StockReqQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StockSendQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StockRecQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="SrcOhnandQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="RecOnhandQty" Type="Decimal" Precision="19" Scale="2" />
+        </EntityType>
+        <EntityType Name="IQ_GetTransfer">
+          <Key>
+            <PropertyRef Name="TransfareID" />
+          </Key>
+          <Property Name="TransfareID" Type="Int32" Nullable="false" />
+          <Property Name="Tr_No" Type="Int32" />
+          <Property Name="RefNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrType" Type="Int32" />
+          <Property Name="TFType" Type="Int32" />
+          <Property Name="TrDate" Type="DateTime" Precision="0" />
+          <Property Name="TrDateH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SenderBranchCode" Type="Int32" />
+          <Property Name="ReceiverBranchCode" Type="Int32" />
+          <Property Name="SenderStoreID" Type="Int32" />
+          <Property Name="ReceiverStoreID" Type="Int32" />
+          <Property Name="RequestTransferID" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SendTransferID" Type="Int32" />
+          <Property Name="RequestedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SendBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="VerfiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="IsPosted" Type="Boolean" />
+          <Property Name="VoucherNo" Type="Int32" />
+          <Property Name="VoucherType" Type="Byte" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="IsSent" Type="Boolean" />
+          <Property Name="IsReceived" Type="Boolean" />
+          <Property Name="IsRequested" Type="Boolean" />
+          <Property Name="SBr_DescA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SBr_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SSt_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SSt_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SSt_Store_Code" Type="Int32" />
+          <Property Name="RBr_DescA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RBr_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RSt_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RSt_StoreCode" Type="Int32" />
+          <Property Name="RSt_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="IQ_GetTransferDetail">
+          <Key>
+            <PropertyRef Name="TransfareDetailID" />
+          </Key>
+          <Property Name="TransfareDetailID" Type="Int32" Nullable="false" />
+          <Property Name="TransfareID" Type="Int32" />
+          <Property Name="Serial" Type="Int32" />
+          <Property Name="BarCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ItemID" Type="Int32" />
+          <Property Name="SourceItemStoreBatchid" Type="Int32" />
+          <Property Name="DestItemStoreBatchid" Type="Int32" />
+          <Property Name="UnitCost" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="UnitID" Type="Int32" />
+          <Property Name="ReqQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="SendQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="RecQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StockReqQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StockSendQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="StockRecQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="ItemCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Itm_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Itm_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ITFamly_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ITFamly_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SrcOhnandQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="RecOnhandQty" Type="Decimal" Precision="19" Scale="2" />
+          <Property Name="uom_DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="uom_DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UomCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7601,19 +7992,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
                 <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
                 <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Enter_Money">
-            <EntityTypeMapping TypeName="POS2021Model.Enter_Money">
-              <MappingFragment StoreEntitySet="Enter_Money">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
-                <ScalarProperty Name="pirce" ColumnName="pirce" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8113,19 +8491,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Outlets">
-            <EntityTypeMapping TypeName="POS2021Model.Outlet">
-              <MappingFragment StoreEntitySet="Outlet">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
-                <ScalarProperty Name="pirce" ColumnName="pirce" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PRODUCTs">
             <EntityTypeMapping TypeName="POS2021Model.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCT">
@@ -8199,6 +8564,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="POS2021Model.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
                 <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
                 <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
@@ -8688,9 +9055,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <FunctionImportMapping FunctionImportName="GProc_CreateStore" FunctionName="POS2021Model.Store.GProc_CreateStore" />
           <FunctionImportMapping FunctionImportName="GProc_CreateUser" FunctionName="POS2021Model.Store.GProc_CreateUser" />
           <FunctionImportMapping FunctionImportName="GProc_SecCreateUser" FunctionName="POS2021Model.Store.GProc_SecCreateUser" />
-          <FunctionImportMapping FunctionImportName="Insert_Enter_Money" FunctionName="POS2021Model.Store.Insert_Enter_Money" />
           <FunctionImportMapping FunctionImportName="insert_ORDER_DELIVERY" FunctionName="POS2021Model.Store.insert_ORDER_DELIVERY" />
-          <FunctionImportMapping FunctionImportName="insert_Outlet" FunctionName="POS2021Model.Store.insert_Outlet" />
           <FunctionImportMapping FunctionImportName="insert_Purchases_Master" FunctionName="POS2021Model.Store.insert_Purchases_Master" />
           <FunctionImportMapping FunctionImportName="insert_Table_two_days" FunctionName="POS2021Model.Store.insert_Table_two_days" />
           <FunctionImportMapping FunctionImportName="IProc_CreateCompany" FunctionName="POS2021Model.Store.IProc_CreateCompany" />
@@ -8749,6 +9114,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySetMapping Name="Catch_Receipt">
             <EntityTypeMapping TypeName="POS2021Model.Catch_Receipt">
               <MappingFragment StoreEntitySet="Catch_Receipt">
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ShootMoney" ColumnName="ShootMoney" />
@@ -10511,26 +10879,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IQ_Purchases_Master">
-            <EntityTypeMapping TypeName="POS2021Model.IQ_Purchases_Master">
-              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
-                <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
-                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
-                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
-                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
-                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="G_STORE">
             <EntityTypeMapping TypeName="POS2021Model.G_STORE">
               <MappingFragment StoreEntitySet="G_STORE">
@@ -10735,6 +11083,203 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <ScalarProperty Name="ItemStoreID" ColumnName="ItemStoreID" />
                 <ScalarProperty Name="DescL" ColumnName="DescL" />
                 <ScalarProperty Name="DescA" ColumnName="DescA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enter_Money">
+            <EntityTypeMapping TypeName="POS2021Model.Enter_Money">
+              <MappingFragment StoreEntitySet="Enter_Money">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outlet">
+            <EntityTypeMapping TypeName="POS2021Model.Outlet">
+              <MappingFragment StoreEntitySet="Outlet">
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insert_EMPLOYEE" FunctionName="POS2021Model.Store.insert_EMPLOYEE" />
+          <FunctionImportMapping FunctionImportName="insert_Outlet" FunctionName="POS2021Model.Store.insert_Outlet" />
+          <EntitySetMapping Name="IQ_Purchases_Master">
+            <EntityTypeMapping TypeName="POS2021Model.IQ_Purchases_Master">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="IsCash" ColumnName="IsCash" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="I_Stk_TR_Transfer">
+            <EntityTypeMapping TypeName="POS2021Model.I_Stk_TR_Transfer">
+              <MappingFragment StoreEntitySet="I_Stk_TR_Transfer">
+                <ScalarProperty Name="IsRequested" ColumnName="IsRequested" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="VoucherType" ColumnName="VoucherType" />
+                <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="VerfiedBy" ColumnName="VerfiedBy" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="SendBy" ColumnName="SendBy" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="SendTransferID" ColumnName="SendTransferID" />
+                <ScalarProperty Name="RequestTransferID" ColumnName="RequestTransferID" />
+                <ScalarProperty Name="ReceiverStoreID" ColumnName="ReceiverStoreID" />
+                <ScalarProperty Name="SenderStoreID" ColumnName="SenderStoreID" />
+                <ScalarProperty Name="ReceiverBranchCode" ColumnName="ReceiverBranchCode" />
+                <ScalarProperty Name="SenderBranchCode" ColumnName="SenderBranchCode" />
+                <ScalarProperty Name="TrDateH" ColumnName="TrDateH" />
+                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+                <ScalarProperty Name="TFType" ColumnName="TFType" />
+                <ScalarProperty Name="TrType" ColumnName="TrType" />
+                <ScalarProperty Name="RefNO" ColumnName="RefNO" />
+                <ScalarProperty Name="Tr_No" ColumnName="Tr_No" />
+                <ScalarProperty Name="TransfareID" ColumnName="TransfareID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="I_Stk_TR_TransferDetails">
+            <EntityTypeMapping TypeName="POS2021Model.I_Stk_TR_TransferDetails">
+              <MappingFragment StoreEntitySet="I_Stk_TR_TransferDetails">
+                <ScalarProperty Name="RecOnhandQty" ColumnName="RecOnhandQty" />
+                <ScalarProperty Name="SrcOhnandQty" ColumnName="SrcOhnandQty" />
+                <ScalarProperty Name="StockRecQty" ColumnName="StockRecQty" />
+                <ScalarProperty Name="StockSendQty" ColumnName="StockSendQty" />
+                <ScalarProperty Name="StockReqQty" ColumnName="StockReqQty" />
+                <ScalarProperty Name="RecQty" ColumnName="RecQty" />
+                <ScalarProperty Name="SendQty" ColumnName="SendQty" />
+                <ScalarProperty Name="ReqQty" ColumnName="ReqQty" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="DestItemStoreBatchid" ColumnName="DestItemStoreBatchid" />
+                <ScalarProperty Name="SourceItemStoreBatchid" ColumnName="SourceItemStoreBatchid" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="TransfareID" ColumnName="TransfareID" />
+                <ScalarProperty Name="TransfareDetailID" ColumnName="TransfareDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_GetTransfer">
+            <EntityTypeMapping TypeName="POS2021Model.IQ_GetTransfer">
+              <MappingFragment StoreEntitySet="IQ_GetTransfer">
+                <ScalarProperty Name="RSt_DescE" ColumnName="RSt_DescE" />
+                <ScalarProperty Name="RSt_StoreCode" ColumnName="RSt_StoreCode" />
+                <ScalarProperty Name="RSt_DescA" ColumnName="RSt_DescA" />
+                <ScalarProperty Name="RBr_DescE" ColumnName="RBr_DescE" />
+                <ScalarProperty Name="RBr_DescA" ColumnName="RBr_DescA" />
+                <ScalarProperty Name="SSt_Store_Code" ColumnName="SSt_Store_Code" />
+                <ScalarProperty Name="SSt_DescE" ColumnName="SSt_DescE" />
+                <ScalarProperty Name="SSt_DescA" ColumnName="SSt_DescA" />
+                <ScalarProperty Name="SBr_DescE" ColumnName="SBr_DescE" />
+                <ScalarProperty Name="SBr_DescA" ColumnName="SBr_DescA" />
+                <ScalarProperty Name="IsRequested" ColumnName="IsRequested" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="VoucherType" ColumnName="VoucherType" />
+                <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="VerfiedBy" ColumnName="VerfiedBy" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="SendBy" ColumnName="SendBy" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="SendTransferID" ColumnName="SendTransferID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="RequestTransferID" ColumnName="RequestTransferID" />
+                <ScalarProperty Name="ReceiverStoreID" ColumnName="ReceiverStoreID" />
+                <ScalarProperty Name="SenderStoreID" ColumnName="SenderStoreID" />
+                <ScalarProperty Name="ReceiverBranchCode" ColumnName="ReceiverBranchCode" />
+                <ScalarProperty Name="SenderBranchCode" ColumnName="SenderBranchCode" />
+                <ScalarProperty Name="TrDateH" ColumnName="TrDateH" />
+                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+                <ScalarProperty Name="TFType" ColumnName="TFType" />
+                <ScalarProperty Name="TrType" ColumnName="TrType" />
+                <ScalarProperty Name="RefNO" ColumnName="RefNO" />
+                <ScalarProperty Name="Tr_No" ColumnName="Tr_No" />
+                <ScalarProperty Name="TransfareID" ColumnName="TransfareID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_GetTransferDetail">
+            <EntityTypeMapping TypeName="POS2021Model.IQ_GetTransferDetail">
+              <MappingFragment StoreEntitySet="IQ_GetTransferDetail">
+                <ScalarProperty Name="UomCode" ColumnName="UomCode" />
+                <ScalarProperty Name="uom_DescE" ColumnName="uom_DescE" />
+                <ScalarProperty Name="uom_DescA" ColumnName="uom_DescA" />
+                <ScalarProperty Name="RecOnhandQty" ColumnName="RecOnhandQty" />
+                <ScalarProperty Name="SrcOhnandQty" ColumnName="SrcOhnandQty" />
+                <ScalarProperty Name="ITFamly_DescE" ColumnName="ITFamly_DescE" />
+                <ScalarProperty Name="ITFamly_DescA" ColumnName="ITFamly_DescA" />
+                <ScalarProperty Name="FamilyCode" ColumnName="FamilyCode" />
+                <ScalarProperty Name="Itm_DescE" ColumnName="Itm_DescE" />
+                <ScalarProperty Name="Itm_DescA" ColumnName="Itm_DescA" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="StockRecQty" ColumnName="StockRecQty" />
+                <ScalarProperty Name="StockSendQty" ColumnName="StockSendQty" />
+                <ScalarProperty Name="StockReqQty" ColumnName="StockReqQty" />
+                <ScalarProperty Name="RecQty" ColumnName="RecQty" />
+                <ScalarProperty Name="SendQty" ColumnName="SendQty" />
+                <ScalarProperty Name="ReqQty" ColumnName="ReqQty" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="DestItemStoreBatchid" ColumnName="DestItemStoreBatchid" />
+                <ScalarProperty Name="SourceItemStoreBatchid" ColumnName="SourceItemStoreBatchid" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="TransfareID" ColumnName="TransfareID" />
+                <ScalarProperty Name="TransfareDetailID" ColumnName="TransfareDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -251,6 +251,7 @@
     <Compile Include="Controllers\AccDefSalesMenController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Close_Day.cs" />
+    <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\familly_CatController.cs" />
     <Compile Include="Controllers\GAlertControlController.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Models\CustomEntities\SystemParameters.cs" />
     <Compile Include="Models\CustomEntities\UserPrivilege.cs" />
     <Compile Include="Models\CustomModel\CompanyLoginStatus.cs" />
+    <Compile Include="Models\CustomModel\I_Stk_TR_TransferMasterDetails.cs" />
     <Compile Include="Models\CustomModel\I_Item_YearMasterDetails.cs" />
     <Compile Include="Models\CustomModel\MasterDetailsUnitGroup.cs" />
     <Compile Include="Models\CustomModel\MasterDetailsUserRoles.cs" />

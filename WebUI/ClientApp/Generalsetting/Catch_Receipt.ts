@@ -162,7 +162,7 @@ namespace CatchReceipt {
 
     function btnCustomerSearch_onclick() {
         let sys: SystemTools = new SystemTools();
-        sys.FindKey(Modules.Catch_Receipt, "btnCustomerSearch", " Debit > 0", () => {
+        sys.FindKey(Modules.Catch_Receipt, "btnCustomerSearch", " Debit > 0 and CompCode =" + compcode + "", () => {
             let CUST_ID = SearchGrid.SearchDataGrid.SelectedKey;
             CUSTOMER_ID = CUST_ID; 
 
@@ -376,7 +376,7 @@ namespace CatchReceipt {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Customer", "Insert"),
-            data: { CUSTOMER_ID: Model.CUSTOMER_ID, USER_CODE: Model.USER_CODE, ID_ORDER_Delivery: Model.ID_ORDER_Delivery, AmountRequired: Model.AmountRequired, Amount: Model.Amount, ShootMoney: Model.ShootMoney, Remarks: Model.Remarks, Data: Model.Data  },
+            data: { CUSTOMER_ID: Model.CUSTOMER_ID, USER_CODE: Model.USER_CODE, ID_ORDER_Delivery: Model.ID_ORDER_Delivery, AmountRequired: Model.AmountRequired, Amount: Model.Amount, ShootMoney: Model.ShootMoney, Remarks: Model.Remarks, Data: Model.Data, CompCode: compcode, BranchCode: BranchCode, InvoiceID : 0},
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {

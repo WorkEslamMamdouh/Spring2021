@@ -56,6 +56,26 @@ namespace Inv.API.Tools
             return entityBuilder.ConnectionString;
         }
 
+
+        public static string GetConnectionStringReport()
+        {
+
+            SqlConnectionStringBuilder sqlBuilder = new SqlConnectionStringBuilder(); 
+
+            // Set the properties for the data source.
+
+            //string cs = "Data Source= . ; database = ERP ; user id = sa ; Password= 619619 ;";
+
+            sqlBuilder.DataSource = WebConfigurationManager.AppSettings["ServerName"];  
+            sqlBuilder.InitialCatalog = WebConfigurationManager.AppSettings["AbsoluteSysDbName"];
+            sqlBuilder.UserID = WebConfigurationManager.AppSettings["DbUserName"];
+            sqlBuilder.Password = WebConfigurationManager.AppSettings["DbPassword"];
+              
+             
+
+            return sqlBuilder.ConnectionString;
+        }
+
         protected IEnumerable<T> Get<T>(string SqlStatement)
         {
 

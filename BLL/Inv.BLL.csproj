@@ -50,6 +50,8 @@
     <Compile Include="Services\AccDefSalesMen\IAccDefSalesMenService.cs" />
     <Compile Include="Services\Category\CategoryServices.cs" />
     <Compile Include="Services\Category\ICategoryServices.cs" />
+    <Compile Include="Services\Transfer\TransferServices.cs" />
+    <Compile Include="Services\Transfer\ITransferServices.cs" />
     <Compile Include="Services\Customer\CustomerServices.cs" />
     <Compile Include="Services\Customer\ICustomerServices.cs" />
     <Compile Include="Services\familly_Cate\familly_CatServices.cs" />

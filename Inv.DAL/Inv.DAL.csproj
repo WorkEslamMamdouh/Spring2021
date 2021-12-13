@@ -312,6 +312,12 @@
     <Compile Include="Domain\IQ_GetSlsInvoiceStatistic.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\IQ_GetTransfer.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\IQ_GetTransferDetail.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\IQ_Outlet.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
@@ -385,6 +391,12 @@
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\I_Sls_TR_InvoiceItems.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\I_Stk_TR_Transfer.cs">
+      <DependentUpon>InvModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\I_Stk_TR_TransferDetails.cs">
       <DependentUpon>InvModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\I_VW_GetCompStatus.cs">

@@ -4238,6 +4238,7 @@ class IQ_GetSlsInvoiceList extends SecurityClass {
         this.CustomerCODE = "";
         this.CUSTOMER_NAME = "";
         this.NAMEE = "";
+        this.StatusNAME = "";
     }
     public InvoiceID: number;
     public TrNo: number;
@@ -4329,6 +4330,7 @@ class IQ_GetSlsInvoiceList extends SecurityClass {
     public CustomerCODE: string;
     public CUSTOMER_NAME: string;
     public NAMEE: string;
+    public StatusNAME: string;
 }
 class I_TR_OperationItems extends SecurityClass {
     constructor() {
@@ -6554,6 +6556,7 @@ class I_Stk_TR_Transfer extends SecurityClass {
         this.IsSent = false;
         this.IsReceived = false;
         this.IsRequested = false;
+        this.IsPostdesc = "";
     }
     public TransfareID: number;
     public Tr_No: number;
@@ -6586,6 +6589,8 @@ class I_Stk_TR_Transfer extends SecurityClass {
     public IsSent: boolean;
     public IsReceived: boolean;
     public IsRequested: boolean;
+    public IsPostdesc: string;
+    
 }
 
 class I_Stk_TR_TransferDetails extends SecurityClass {
@@ -10035,6 +10040,9 @@ class IQ_Purchases_Master extends SecurityClass {
         this.To_be_Paid = 0;
         this.CashPaidAmount = 0;
         this.ReceiveID = 0;
+        this.StoreID = 0;
+        this.IsCash = false;
+        
     }
     public TrNo: number;
     public Tr_Date: string;
@@ -10052,6 +10060,8 @@ class IQ_Purchases_Master extends SecurityClass {
     public To_be_Paid: any;
     public CashPaidAmount: any;
     public ReceiveID: number;
+    public StoreID: number;
+    public IsCash: boolean; 
 
 }
 
@@ -10191,6 +10201,8 @@ class The_Gard extends SecurityClass {
 class Supplier extends SecurityClass {
     constructor() {
         super();
+        this.BranchCode = 0;
+        this.CompCode = 0;
         this.ID_Supplier = 0;
         this.Name_Supplier = "";
         this.phone = "";
@@ -10199,6 +10211,8 @@ class Supplier extends SecurityClass {
         this.IS_Active = false;
         this.IS_Active_Name = "";
     }
+    public BranchCode: number;
+    public CompCode: number;
     public ID_Supplier: number;
     public Name_Supplier: string;
     public phone: string;

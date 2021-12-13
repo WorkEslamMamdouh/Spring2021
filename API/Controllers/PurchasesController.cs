@@ -51,11 +51,11 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll_IQ_PurchasesMaster(string startDate, string endDate, int? ID_Supplier, int Type_Debit)
+        public IHttpActionResult GetAll_IQ_PurchasesMaster(int CompCode, int BranchCode , string startDate, string endDate, int? ID_Supplier, int Type_Debit)
         {
             if (ModelState.IsValid)
             {
-                string s = "select * from IQ_Purchases_Master where Tr_Date >='" + startDate + "' and Tr_Date <='" + endDate + "'";
+                string s = "select * from IQ_Purchases_Master where CompCode ="+ CompCode + " and BranchCode =" + BranchCode + " and  Tr_Date >='" + startDate + "' and Tr_Date <='" + endDate + "'";
 
                 string condition = "";
 
