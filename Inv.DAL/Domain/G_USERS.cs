@@ -14,8 +14,8 @@ namespace Inv.DAL.Domain
     
     public partial class G_USERS
     {
+        public int ID_Code { get; set; }
         public string USER_CODE { get; set; }
-        public Nullable<int> ID_Code { get; set; }
         public string USER_PASSWORD { get; set; }
         public bool USER_ACTIVE { get; set; }
         public string USER_NAME { get; set; }

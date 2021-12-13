@@ -23,5 +23,8 @@ namespace Inv.DAL.Domain
         public Nullable<decimal> ShootMoney { get; set; }
         public string Remarks { get; set; }
         public string Data { get; set; }
+        public Nullable<int> BranchCode { get; set; }
+        public Nullable<int> CompCode { get; set; }
+        public Nullable<int> InvoiceID { get; set; }
     }
 }

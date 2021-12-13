@@ -770,6 +770,7 @@ namespace HomeComponent {
         $("#btnInventorymove").click(() => { OpenPage(Modules.Inventorymove); })//
         $("#btnInventoryvalue").click(() => { OpenPage(Modules.Inventoryvalue); })//
         $("#btnIncomeoperations").click(() => { OpenPage(Modules.Incomeoperations); })// 
+        $("#btnPaymentNote").click(() => { OpenPage(Modules.PaymentNote); })//
 
     }
 

@@ -44,6 +44,7 @@ var Modules = {
     Inventorymove: "Inventorymove",
     Inventoryvalue: "Inventoryvalue",
     Incomeoperations: "Incomeoperations",
+    PaymentNote: "PaymentNote",
 
     
 

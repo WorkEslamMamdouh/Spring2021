@@ -75,7 +75,6 @@ namespace Inv.DAL.Domain
         public virtual DbSet<GQ_Notifications> GQ_Notifications { get; set; }
         public virtual DbSet<GQ_ReportWebSetting> GQ_ReportWebSetting { get; set; }
         public virtual DbSet<I_VW_GetCompStatus> I_VW_GetCompStatus { get; set; }
-        public virtual DbSet<IQ_Outlet> IQ_Outlet { get; set; }
         public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
         public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
         public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
@@ -88,7 +87,6 @@ namespace Inv.DAL.Domain
         public virtual DbSet<AQVAT_GetSlsInvoiceItem> AQVAT_GetSlsInvoiceItem { get; set; }
         public virtual DbSet<AQVAT_GetSrvCategory> AQVAT_GetSrvCategory { get; set; }
         public virtual DbSet<AQVat_Srch_VatPurchaseHeader> AQVat_Srch_VatPurchaseHeader { get; set; }
-        public virtual DbSet<G_USERS> G_USERS { get; set; }
         public virtual DbSet<G_BRANCH> G_BRANCH { get; set; }
         public virtual DbSet<I_Control> I_Control { get; set; }
         public virtual DbSet<I_D_Category> I_D_Category { get; set; }
@@ -127,9 +125,11 @@ namespace Inv.DAL.Domain
         public virtual DbSet<GQ_GetStore> GQ_GetStore { get; set; }
         public virtual DbSet<I_Item_Customer> I_Item_Customer { get; set; }
         public virtual DbSet<IQ_GetItemStore> IQ_GetItemStore { get; set; }
-        public virtual DbSet<Enter_Money> Enter_Money { get; set; }
-        public virtual DbSet<Outlet> Outlet { get; set; }
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
+        public virtual DbSet<G_USERS> G_USERS { get; set; }
+        public virtual DbSet<Outlet> Outlet { get; set; }
+        public virtual DbSet<IQ_Outlet> IQ_Outlet { get; set; }
+        public virtual DbSet<Enter_Money> Enter_Money { get; set; }
     
         [DbFunction("InvEntities", "GFun_Companies")]
         public virtual IQueryable<GFun_Companies_Result> GFun_Companies(string userCode)
@@ -564,27 +564,6 @@ namespace Inv.DAL.Domain
         public virtual int New_Data_Bes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("New_Data_Bes");
-        }
-    
-        public virtual ObjectResult<Stord_Get_Outlet_Result> Stord_Get_Outlet(string fromDate, string toDate, string uSER_CODE, Nullable<int> type)
-        {
-            var fromDateParameter = fromDate != null ?
-                new ObjectParameter("FromDate", fromDate) :
-                new ObjectParameter("FromDate", typeof(string));
-    
-            var toDateParameter = toDate != null ?
-                new ObjectParameter("ToDate", toDate) :
-                new ObjectParameter("ToDate", typeof(string));
-    
-            var uSER_CODEParameter = uSER_CODE != null ?
-                new ObjectParameter("USER_CODE", uSER_CODE) :
-                new ObjectParameter("USER_CODE", typeof(string));
-    
-            var typeParameter = type.HasValue ?
-                new ObjectParameter("Type", type) :
-                new ObjectParameter("Type", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Stord_Get_Outlet_Result>("Stord_Get_Outlet", fromDateParameter, toDateParameter, uSER_CODEParameter, typeParameter);
         }
     
         public virtual int update_SalesReturn(Nullable<int> pRODUCT_ID, Nullable<int> quantity_sell, Nullable<decimal> total_Price_One_Part, Nullable<int> iD_ORDER, string statusFlag)
@@ -1111,6 +1090,47 @@ namespace Inv.DAL.Domain
                 new ObjectParameter("ID_Supplier", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("insert_Outlet", dasc_NameParameter, pirceParameter, userNameParameter, tr_TypeParameter, branchCodeParameter, compCodeParameter, iD_SupplierParameter);
+        }
+    
+        public virtual ObjectResult<Stord_Get_Outlet_Result> Stord_Get_Outlet(string fromDate, string toDate, string uSER_CODE, Nullable<int> type, Nullable<int> compCode, Nullable<int> branchCode, Nullable<int> iD_Supplier, Nullable<int> salesmanId, Nullable<int> cUSTOMER_ID)
+        {
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            var uSER_CODEParameter = uSER_CODE != null ?
+                new ObjectParameter("USER_CODE", uSER_CODE) :
+                new ObjectParameter("USER_CODE", typeof(string));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var compCodeParameter = compCode.HasValue ?
+                new ObjectParameter("CompCode", compCode) :
+                new ObjectParameter("CompCode", typeof(int));
+    
+            var branchCodeParameter = branchCode.HasValue ?
+                new ObjectParameter("BranchCode", branchCode) :
+                new ObjectParameter("BranchCode", typeof(int));
+    
+            var iD_SupplierParameter = iD_Supplier.HasValue ?
+                new ObjectParameter("ID_Supplier", iD_Supplier) :
+                new ObjectParameter("ID_Supplier", typeof(int));
+    
+            var salesmanIdParameter = salesmanId.HasValue ?
+                new ObjectParameter("SalesmanId", salesmanId) :
+                new ObjectParameter("SalesmanId", typeof(int));
+    
+            var cUSTOMER_IDParameter = cUSTOMER_ID.HasValue ?
+                new ObjectParameter("CUSTOMER_ID", cUSTOMER_ID) :
+                new ObjectParameter("CUSTOMER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Stord_Get_Outlet_Result>("Stord_Get_Outlet", fromDateParameter, toDateParameter, uSER_CODEParameter, typeParameter, compCodeParameter, branchCodeParameter, iD_SupplierParameter, salesmanIdParameter, cUSTOMER_IDParameter);
         }
     }
 }
