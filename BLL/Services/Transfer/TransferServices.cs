@@ -52,6 +52,18 @@ namespace Inv.BLL.Services.Transfer
             var memb = unitOfWork.Repository<I_Stk_TR_Transfer>().Update(entity);
             unitOfWork.Save();
             return memb;
+        } 
+        public void UpdateDetail(I_Stk_TR_TransferDetails entity)
+        { 
+            unitOfWork.Repository<I_Stk_TR_TransferDetails>().Update(entity);
+            unitOfWork.Save();
+
+        }
+        public void InsertDetail(I_Stk_TR_TransferDetails entity)
+        { 
+            unitOfWork.Repository<I_Stk_TR_TransferDetails>().Insert(entity);
+            unitOfWork.Save();
+
         }
 
         public void Delete(int id)
@@ -82,7 +94,7 @@ namespace Inv.BLL.Services.Transfer
 
             unitOfWork.Save();
 
-        }
+        } 
         
         #endregion
     }

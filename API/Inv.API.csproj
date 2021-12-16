@@ -295,6 +295,7 @@
     <Compile Include="Models\CustomEntities\SystemParameters.cs" />
     <Compile Include="Models\CustomEntities\UserPrivilege.cs" />
     <Compile Include="Models\CustomModel\CompanyLoginStatus.cs" />
+    <Compile Include="Models\CustomModel\DirectTransferMasterDetails.cs" />
     <Compile Include="Models\CustomModel\I_Stk_TR_TransferMasterDetails.cs" />
     <Compile Include="Models\CustomModel\I_Item_YearMasterDetails.cs" />
     <Compile Include="Models\CustomModel\MasterDetailsUnitGroup.cs" />

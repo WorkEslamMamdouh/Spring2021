@@ -15,7 +15,8 @@ using System.Data.Entity;
 using Inv.DAL.Repository;
 using Newtonsoft.Json;
 using Inv.API.Models;
-using API.Models.CustomModel; 
+using API.Models.CustomModel;
+using Inv.API.Models.CustomModel;
 
 namespace API.Controllers
 {
@@ -36,7 +37,7 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Query = "SELECT * FROM[dbo].[I_Stk_TR_Transfer]  where TrType = 1 and TFType = 1 and TrDate >= '"+ fromdate + "' and TrDate <= '"+ todate + "' and IsPosted = "+IsPosted+"";
+                var Query = "SELECT * FROM[dbo].[I_Stk_TR_Transfer]  where TrType = 1 and TFType = 1 and TrDate >= '"+ fromdate + "' and TrDate <= '"+ todate + "' ";
                 var Cust = db.Database.SqlQuery<I_Stk_TR_Transfer>(Query).ToList();
 
                 return Ok(new BaseResponse(Cust)); 
@@ -109,9 +110,177 @@ namespace API.Controllers
 
         }
 
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult UpdateDirectTransferDetail([FromBody] DirectTransferMasterDetails obj)
+        {
+             
+                using (var dbTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var jouranalHeader = TransferServices.Update(obj.I_Stk_TR_Transfer);
 
+                        //update Details
+                        var insertedObjects = obj.I_Stk_TR_TransferDetails.Where(x => x.StatusFlag == 'i').ToList();
+                        var updatedObjects = obj.I_Stk_TR_TransferDetails.Where(x => x.StatusFlag == 'u').ToList();
+                        var deletedObjects = obj.I_Stk_TR_TransferDetails.Where(x => x.StatusFlag == 'd').ToList();
 
+                        foreach (var item in insertedObjects)
+                        {
+                            item.TransfareID = obj.I_Stk_TR_Transfer.TransfareID;
+                        TransferServices.InsertDetail(item);
+                        }
+                        foreach (var item in updatedObjects)
+                        {
+                            item.TransfareID = obj.I_Stk_TR_Transfer.TransfareID;
+                        TransferServices.UpdateDetail(item);
+                        }
+                        foreach (var item in deletedObjects)
+                        {
+                            TransferServices.Delete(item.TransfareDetailID);
+                        }
 
+                        //// call process trans 
+                        if (obj.I_Stk_TR_Transfer.TrType == 0 && obj.I_Stk_TR_Transfer.TFType == 1)
+                        {
+
+                            ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.I_Stk_TR_Transfer.CompCode), Convert.ToInt32(obj.I_Stk_TR_Transfer.BranchCode), jouranalHeader.TransfareID, "DirctTrans", "Update", db);
+                            if (res.ResponseState == true)
+                            {
+                                dbTransaction.Commit();
+                                return Ok(new BaseResponse(obj.I_Stk_TR_Transfer));
+                            }
+                            else
+                            {
+                                dbTransaction.Rollback();
+                                return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                            }
+                        }
+                        else if (obj.I_Stk_TR_Transfer.TrType == 1 && obj.I_Stk_TR_Transfer.TFType == 1)
+                        {
+
+                            ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.I_Stk_TR_Transfer.CompCode), Convert.ToInt32(obj.I_Stk_TR_Transfer.BranchCode), jouranalHeader.TransfareID, "sendTrans", "Update", db);
+                            if (res.ResponseState == true)
+                            {
+                                dbTransaction.Commit();
+                                return Ok(new BaseResponse(obj.I_Stk_TR_Transfer));
+                            }
+                            else
+                            {
+                                dbTransaction.Rollback();
+                                return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                            }
+                        }
+                        else if (obj.I_Stk_TR_Transfer.TrType == 1 && obj.I_Stk_TR_Transfer.TFType == 2)
+                        {
+
+                            ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.I_Stk_TR_Transfer.CompCode), Convert.ToInt32(obj.I_Stk_TR_Transfer.BranchCode), jouranalHeader.TransfareID, "RecvTrans", "Update", db);
+                            if (res.ResponseState == true)
+                            {
+                                dbTransaction.Commit();
+                                return Ok(new BaseResponse(obj.I_Stk_TR_Transfer));
+                            }
+                            else
+                            {
+                                dbTransaction.Rollback();
+                                return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                    }
+                }
+            return Ok(new BaseResponse(100));
+        }
+       
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult InsertDirectTransferMasterDetail([FromBody] DirectTransferMasterDetails obj)
+        {
+
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                
+                    var TransferHeader = TransferServices.Insert(obj.I_Stk_TR_Transfer);
+
+                //update Details
+                var insertedObjects = obj.I_Stk_TR_TransferDetails.Where(x => x.StatusFlag == 'i').ToList();
+                var updatedObjects = obj.I_Stk_TR_TransferDetails.Where(x => x.StatusFlag == 'u').ToList();
+                var deletedObjects = obj.I_Stk_TR_TransferDetails.Where(x => x.StatusFlag == 'd').ToList();
+
+                foreach (var item in insertedObjects)
+                {
+                    item.TransfareID = obj.I_Stk_TR_Transfer.TransfareID;
+                    TransferServices.InsertDetail(item);
+                }
+                foreach (var item in updatedObjects)
+                {
+                    item.TransfareID = obj.I_Stk_TR_Transfer.TransfareID;
+                    TransferServices.UpdateDetail(item);
+                }
+                foreach (var item in deletedObjects)
+                {
+                    TransferServices.Delete(item.TransfareDetailID);
+                } 
+                    if (obj.I_Stk_TR_Transfer.TrType == 0 && obj.I_Stk_TR_Transfer.TFType == 1)
+                    {
+                        //// call process trans 
+
+                        ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.I_Stk_TR_Transfer.CompCode), Convert.ToInt32(obj.I_Stk_TR_Transfer.BranchCode), TransferHeader.TransfareID, "DirctTrans", "Add", db);
+                        if (res.ResponseState == true)
+                        {
+                            obj.I_Stk_TR_Transfer.Tr_No = int.Parse(res.ResponseData.ToString());
+                            dbTransaction.Commit();
+                            return Ok(new BaseResponse(obj.I_Stk_TR_Transfer));
+                        }
+                        else
+                        {
+                            dbTransaction.Rollback();
+                            return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                        }
+                        ////////
+                    }
+                    else if (obj.I_Stk_TR_Transfer.TrType == 1 && obj.I_Stk_TR_Transfer.TFType == 1)
+                    {
+                        //// call process trans 
+
+                        ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.I_Stk_TR_Transfer.CompCode), Convert.ToInt32(obj.I_Stk_TR_Transfer.BranchCode), TransferHeader.TransfareID, "sendTrans", "Add", db);
+                        if (res.ResponseState == true)
+                        {
+                            obj.I_Stk_TR_Transfer.Tr_No = int.Parse(res.ResponseData.ToString());
+                            dbTransaction.Commit();
+                            return Ok(new BaseResponse(obj.I_Stk_TR_Transfer));
+                        }
+                        else
+                        {
+                            dbTransaction.Rollback();
+                            return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                        }
+
+                    }
+                    else if (obj.I_Stk_TR_Transfer.TrType == 1 && obj.I_Stk_TR_Transfer.TFType == 2)
+                    {
+                        //// call process trans 
+
+                        ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(obj.I_Stk_TR_Transfer.CompCode), Convert.ToInt32(obj.I_Stk_TR_Transfer.BranchCode), TransferHeader.TransfareID, "RecvTrans", "Add", db);
+                        if (res.ResponseState == true)
+                        {
+                            obj.I_Stk_TR_Transfer.Tr_No = int.Parse(res.ResponseData.ToString());
+                            dbTransaction.Commit();
+                            return Ok(new BaseResponse(obj.I_Stk_TR_Transfer));
+                        }
+                        else
+                        {
+                            dbTransaction.Rollback();
+                            return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                        }
+                        ////////
+                    }
+                return Ok(new BaseResponse(100));
+
+            }
+        }
         [HttpPost, AllowAnonymous]
         public IHttpActionResult Insert([FromBody]I_Stk_TR_Transfer Nation)
         {

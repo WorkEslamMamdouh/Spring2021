@@ -24,6 +24,8 @@ var RawStock;
     var Grid = new JsGrid();
     var TransGrid = new JsGrid();
     var ModeItmes = 3;
+    var OpenUOM = false;
+    var counter = 0;
     //Arrays
     var BranchDetails = new Array();
     var StatesFilterDetailsAr = new Array();
@@ -33,13 +35,14 @@ var RawStock;
     var HeaderWithDetail = new IQ_DirectTransferWithDetail();
     var Selecteditem = new Array();
     var IQ_DirectTransferDetail = new Array();
-    var GetTransferDetail = new Array();
-    var GetTransferDetail = new Array();
     var SearchDetails = new Array();
+    var GetTransferDetail = new Array();
+    var GetTransferDetail = new Array();
     var ItemsListDetails = new Array();
     var ItemsSourceListDetails = new Array();
     var ItemsToListDetails = new Array();
     var GetItemInfo = new Array();
+    var Display_D_UOM = new Array();
     //Models
     var MasterDetailModel = new DirectTransferMasterDetails();
     var TranferHeaderModel = new I_Stk_TR_Transfer();
@@ -56,7 +59,6 @@ var RawStock;
     var txtTrNo;
     var txtRefNumber;
     var txtApprovedBy;
-    var txtVoucherNo;
     var txtCreatedBy;
     var txtCreatedAt;
     var txtUpdatedBy;
@@ -94,6 +96,7 @@ var RawStock;
     var ItemID = 0;
     var compcode;
     var drpType;
+    var Isnew = false;
     var lang = (SysSession.CurrentEnvironment.ScreenLanguage);
     function InitalizeComponent() {
         if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
@@ -115,10 +118,10 @@ var RawStock;
         txtTransferDate = document.getElementById("txtTransferDate");
         txtRefNumber = document.getElementById("txtRefNumber");
         txtRemarks = document.getElementById("txtRemarks");
-        txtVoucherNo = document.getElementById("txtVoucherNo");
         txtApprovedBy = document.getElementById("txtApprovedBy");
         btnShow = document.getElementById("btnShow");
         btnEdit = document.getElementById("btnEdit");
+        btnAdd = document.getElementById("btnAdd");
         btnAddDetails = document.getElementById("btnAddDetails");
         btnSave = document.getElementById("btnSave");
         btnBack = document.getElementById("btnBack");
@@ -126,6 +129,8 @@ var RawStock;
         txtCreatedBy = document.getElementById("txtCreatedBy");
         txtUpdatedAt = document.getElementById("txtUpdatedAt");
         txtUpdatedBy = document.getElementById("txtUpdatedBy");
+        txtSearch = document.getElementById("txtSearch");
+        chkApproved = document.getElementById("chkApproved");
     }
     function InitalizeEvents() {
         drpType.onchange = drpType_onchange;
@@ -229,14 +234,21 @@ var RawStock;
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         Finyear = Number(SysSession.CurrentEnvironment.CurrentYear);
+        displayUOM();
     }
     function InitalizeEventstrans() {
         btnAddDetails.onclick = AddNewRow;
         btnEdit.onclick = btnEdit_onclick;
         btnBack.onclick = btnBack_onclick;
         btnSave.onclick = btnSave_onclick;
+        txtSearch.onkeyup = txtSearch_onKeyup;
+        btnAdd.onclick = btnAdd_onclick;
     }
     function btnShow_onclick() {
+        $("#divTransferDetails").addClass("display_none");
+        $("#div_Approve").addClass("display_none");
+        $("#btnBack").addClass("display_none");
+        $("#btnSave").addClass("display_none");
         InitializeGridTrans();
     }
     function InitializeGridTrans() {
@@ -257,7 +269,7 @@ var RawStock;
             { title: res.transfer, name: "Tr_No", type: "text", width: "8.5%" },
             { title: res.Trns_RefNum, name: "RefNO", type: "text", width: "8.5%" },
             { title: res.App_date, name: "TrDate", type: "text", width: "11%" },
-            { title: "المرسل", name: "CreatedBy", type: "text", width: "15%" },
+            { title: "المرسل", name: "SendBy", type: "text", width: "15%" },
             { title: "التنفيذ", name: "IsPostdesc", type: "text", width: "4.5%" },
             { title: "المستلم", name: "ReceivedBy", type: "text", width: "15%" },
         ];
@@ -280,7 +292,7 @@ var RawStock;
                     IQ_DirectTransferDetail = result.Response;
                     for (var i = 0; i < IQ_DirectTransferDetail.length; i++) {
                         IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
-                        IQ_DirectTransferDetail[i].IsPosted == true ? IQ_DirectTransferDetail[i].IsPostdesc = (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "غير منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Not Authrized");
+                        IQ_DirectTransferDetail[i].IsSent == true ? IQ_DirectTransferDetail[i].IsPostdesc = (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "غير منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Not Authrized");
                         ;
                         if (IQ_DirectTransferDetail[i].TrType == 1)
                             IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
@@ -292,24 +304,30 @@ var RawStock;
         });
     }
     function GridRowDoubleClick() {
+        debugger;
+        Clear();
+        $("#btnPrintTransaction").removeClass("display_none");
+        $("#divbuttons").removeClass("display_none");
         $("#divTransferDetails").removeClass("display_none");
         $("#btnEdit").removeClass("display_none");
         $("#btnPrintTransaction").removeClass("display_none");
         $("#div_Approve").removeClass("display_none");
-        $("#div_Data").append("");
+        $("#div_Data").html("");
+        $("#btnBack").addClass("display_none");
+        $("#btnSave").addClass("display_none");
         Selecteditem = IQ_DirectTransferDetail.filter(function (x) { return x.TransfareID == Number(TransGrid.SelectedKey); });
         console.log(Selecteditem);
         TransferID = Number(TransGrid.SelectedKey);
         txtSenderTrNO.value = Selecteditem[0].Tr_No.toString();
         txtTransferDate.value = Selecteditem[0].TrDate;
         txtRefNumber.value = Selecteditem[0].RefNO;
-        txtVoucherNo.value = Selecteditem[0].VoucherNo.toString();
         txtApprovedBy.value = Selecteditem[0].VerfiedBy;
         txtRemarks.value = Selecteditem[0].Remark;
         txtCreatedBy.value = Selecteditem[0].CreatedBy;
         txtCreatedAt.value = Selecteditem[0].CreatedAt;
         txtUpdatedBy.value = Selecteditem[0].UpdatedBy;
         txtUpdatedAt.value = Selecteditem[0].UpdatedAt;
+        chkApproved.checked = Selecteditem[0].IsSent;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Transfer", "GetDetail"),
@@ -319,9 +337,9 @@ var RawStock;
                 if (result.IsSuccess) {
                     GetTransferDetail = new Array();
                     GetTransferDetail = result.Response;
-                    debugger;
                     CountGrid = 0;
                     for (var i = 0; i < GetTransferDetail.length; i++) {
+                        debugger;
                         BuildControls(i);
                         Bindingdata(i, GetTransferDetail);
                         CountGrid++;
@@ -331,30 +349,6 @@ var RawStock;
         });
     }
     function Bindingdata(Num, list) {
-        var Storeid = 1;
-        var ItemCode = '';
-        var ItemID = list[Num].ItemID;
-        var Mode = ModeItmes;
-        var GetItemInfo = new Array();
-        Ajax.Callsync({
-            type: "Get",
-            url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
-            data: {
-                CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-            },
-            success: function (d) {
-                var result = d;
-                if (result.IsSuccess) {
-                    GetItemInfo = result.Response;
-                    if (GetItemInfo.length > 0) {
-                        $('#dllUom' + Num + '').html('');
-                        for (var i = 0; i < GetItemInfo.length; i++) {
-                            $('#dllUom' + Num + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].OnhandQty + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
-                        }
-                    }
-                }
-            }
-        });
         debugger;
         $('#txtItemCode' + Num).val(list[Num].ItemCode);
         $('#txtItemName' + Num).val(lang == "ar" ? list[Num].ITFamly_DescA : list[Num].ITFamly_DescA);
@@ -362,6 +356,21 @@ var RawStock;
         $('#txtConvertedQnty' + Num).val(list[Num].SendQty);
         $('#txtRecQty' + Num).val(list[Num].RecQty);
         $('#txt_ItemID' + Num).val(list[Num].ItemID);
+    }
+    function displayUOM() {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("StkDefUnit", "GetAll"),
+            data: {
+                CompCode: compcode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+            },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    Display_D_UOM = result.Response;
+                }
+            }
+        });
     }
     function AddNewRow() {
         if (!SysSession.CurrentPrivileges.AddNew)
@@ -390,12 +399,10 @@ var RawStock;
             $("#txtConvertedQnty" + CountGrid).removeAttr("disabled");
             $("#dllUom" + CountGrid).attr("disabled", "disabled");
             $("#txtItemCode" + CountGrid).removeAttr("disabled");
-            $("#txtSrcQty" + CountGrid).attr("disabled", "disabled");
-            $("#txtToQty" + CountGrid).attr("disabled", "disabled");
             // can delete new inserted record  without need for delete privilage
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
-            var counter = 0;
+            counter = 0;
             for (var i = 0; i <= CountGrid; i++) {
                 var flagvalue = $("#txt_StatusFlag" + i).val();
                 if (flagvalue != "d" && flagvalue != "") {
@@ -415,7 +422,9 @@ var RawStock;
             '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" style="width:1.5%!important">' +
             '<span id="btn_minus' + cnt + '" disabled class=" glyphicon glyphicon-minus-sign fontitm3sendTransfer "></span>' +
             '</div>' +
-            '<input id="txtSerial' + cnt + '" name="FromDate" disabled type="hidden" value="' + (CountGrid + 1) + '" class="form-control  text_Display" />' +
+            '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" style="width:3%!important">' +
+            '<input id="txtSerial' + cnt + '" name="FromDate" disabled type="text" value="' + (CountGrid + 1) + '" class="form-control  text_Display" />' +
+            '</div>' +
             '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0" style="width:3%!important;">' +
             '<button type="button" class="col-xs-12 src-btn btn btn-warning input-sm" disabled id="btnSearchItems' + cnt + '" name="ColSearch">   ' +
             '<i class="fa fa-search"></i></button>' +
@@ -434,18 +443,21 @@ var RawStock;
             '<input  id="txt_ItemID' + cnt + '" name = " " type ="hidden"  />' +
             '</div>';
         $("#div_Data").append(html);
-        $('#dllUom' + NumCnt + '').html('');
-        for (var i = 0; i < GetItemInfo.length; i++) {
-            $('#dllUom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+        $('#dllUom' + cnt + '').html('');
+        for (var i = 0; i < Display_D_UOM.length; i++) {
+            $('#dllUom' + cnt + '').append('<option  value="' + Display_D_UOM[i].UomID + '">' + (lang == "ar" ? Display_D_UOM[i].DescA : Display_D_UOM[i].DescE) + '</option>');
         }
-        //// Items Search
+        // Items Search
         $('#btnSearchItems' + cnt).click(function (e) {
+            if ($("#txt_StatusFlag" + cnt).val() != "i") {
+                $("#txt_StatusFlag" + cnt).val("u");
+            }
             var sys = new SystemTools();
             var GetItemInfo = new Array();
             NumCnt = cnt;
             //var Storeid = Number($("#ddlStore").val());
             var Storeid = 1;
-            sys.ShowItems(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), ModeItmes, function () {
+            sys.ShowItems(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtItemName' + cnt).val(), $('#txtItemCode' + cnt).val(), ModeItmes, function () {
                 var id = sysInternal_Comm.Itemid;
                 if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val())))
                     return;
@@ -468,24 +480,16 @@ var RawStock;
                                 for (var i = 0; i < GetItemInfo.length; i++) {
                                     $('#dllUom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
                                 }
-                                $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
-                                $('#txtServiceCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
-                                //$('#txtPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
-                                $('#txtQuantity' + NumCnt + '').val('1');
-                                $('#txtPrice' + NumCnt + '').val("0");
-                                //$('#txtNetUnitPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
-                                $('#txtServiceName' + NumCnt + '').attr('disabled', 'disabled');
-                                $('#txtServiceCode' + NumCnt + '').attr('disabled', 'disabled');
+                                $('#txtItemName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
+                                $('#txtItemCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
+                                $('#txtItemName' + NumCnt + '').attr('disabled', 'disabled');
                             }
                             else {
                                 $('#dllUom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
-                                $('#txtServiceName' + NumCnt + '').val('');
-                                $('#txtServiceCode' + NumCnt + '').val('');
-                                $('#txtPrice' + NumCnt + '').val('0');
-                                $('#txtNetUnitPrice' + NumCnt + '').val('0');
-                                $('#txtQuantity' + NumCnt + '').val('1');
-                                $('#txtServiceName' + NumCnt + '').removeAttr('disabled');
-                                $('#txtServiceCode' + NumCnt + '').removeAttr('disabled');
+                                $('#txtItemName' + NumCnt + '').val('');
+                                $('#txtItemCode' + NumCnt + '').val('');
+                                $('#txtItemName' + NumCnt + '').removeAttr('disabled');
+                                $('#txtItemCode' + NumCnt + '').removeAttr('disabled');
                             }
                         }
                     }
@@ -497,70 +501,36 @@ var RawStock;
                 $("#txt_StatusFlag" + cnt).val("u");
             var GetItemInfo1 = new Array();
             numcnt = cnt;
-            var Storeid = Number($("#ddlSourceStoreAdd").val());
-            var ItemCode = $('#txtItemCode' + cnt).val();
-            var ItemID = 0;
-            var Mode = 3;
+            var ItemCode = '';
+            var ItemID = id;
+            var Mode = ModeItmes;
+            var Storeid = 1;
             Ajax.Callsync({
                 type: "Get",
                 url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
                 data: {
-                    CompCode: compcode, FinYear: FinYear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+                    CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
                 },
                 success: function (d) {
                     var result = d;
                     if (result.IsSuccess) {
-                        GetItemInfo1 = result.Response;
-                        if (GetItemInfo1.length > 0) {
-                            //alert(NumCnt);                    btnEdit
-                            $("#txt_ItemID" + numcnt + "").val(GetItemInfo1[0].ItemID);
-                            if (!validationitem(GetItemInfo1[0].ItemID, numcnt))
-                                return;
-                            $('#dllUom' + numcnt + '').html('');
-                            for (var i = 0; i < GetItemInfo1.length; i++) {
-                                $('#dllUom' + numcnt + '').append('<option  data-OnhandQty="' + GetItemInfo1[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo1[i].UnitPrice + '" data-MinPrice="' + GetItemInfo1[i].MinPrice + '" data-Rate="' + GetItemInfo1[i].OnhandQty + '" value="' + GetItemInfo1[i].uomid + '">' + (lang == "ar" ? GetItemInfo1[i].u_DescA : GetItemInfo1[i].u_DescE) + '</option>');
+                        GetItemInfo = result.Response;
+                        if (GetItemInfo.length > 0) {
+                            $('#dllUom' + NumCnt + '').html('');
+                            for (var i = 0; i < GetItemInfo.length; i++) {
+                                $('#dllUom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
                             }
-                            $('#txtItemName' + numcnt + '').val((lang == "ar" ? GetItemInfo1[0].It_DescA : GetItemInfo1[0].it_DescE));
-                            $('#txtItemCode' + numcnt + '').val(GetItemInfo1[0].ItemCode);
-                            $('#dllUom' + numcnt + '').val(GetItemInfo1[0].uomid);
-                            $('#txtSrcQty' + numcnt + '').val(GetItemInfo1[0].OnhandQty);
-                            $('#dllUom' + numcnt + '').removeAttr('disabled');
-                            $('#txtItemName' + numcnt + '').attr('disabled', 'disabled');
+                            $('#txtItemName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
+                            $('#txtItemCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
+                            $('#txtItemName' + NumCnt + '').attr('disabled', 'disabled');
                         }
                         else {
-                            DisplayMassage("الكود غير صحيح", "The code is incorrect", MessageType.Error);
-                            Errorinput($("#txtItemCode" + i + ""));
-                            $('#dllUom' + numcnt + '').append('<option value="null">اختر الوحده</option>');
-                            $('#txtItemCode' + numcnt + '').val('');
-                            $('#txtItemName' + numcnt + '').val('');
-                            $('#txtSrcQty' + numcnt + '').val('');
-                            $('#txtItemName' + numcnt + '').attr('disabled', 'disabled');
-                            $('#txtSrcQty' + numcnt + '').attr('disabled', 'disabled');
-                            $('#dllUom' + numcnt + '').attr('disabled', 'disabled');
-                            $('#dllUom' + numcnt + '').attr('disabled', 'disabled');
-                            $('#txtItemCode' + numcnt + '').removeAttr('disabled');
-                            $('#txt_ItemID' + numcnt + '').val('');
-                            $('#txtItemCode' + numcnt + '').focus();
+                            $('#dllUom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
+                            $('#txtItemName' + NumCnt + '').val('');
+                            $('#txtItemCode' + NumCnt + '').val('');
+                            $('#txtItemName' + NumCnt + '').removeAttr('disabled');
+                            $('#txtItemCode' + NumCnt + '').removeAttr('disabled');
                         }
-                    }
-                }
-            });
-            var GetItemInfo2 = new Array();
-            Storeid = Number($("#ddlToStoreAdd").val());
-            ItemCode = TransferDetailModelFiltered[cnt].ItemCode;
-            ItemID = TransferDetailModelFiltered[cnt].ItemID;
-            Mode = 3;
-            Ajax.Callsync({
-                type: "Get",
-                url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
-                data: {
-                    CompCode: compcode, FinYear: FinYear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-                },
-                success: function (d) {
-                    var result = d;
-                    if (result.IsSuccess) {
-                        GetItemInfo2 = result.Response;
-                        $('#txtToQty' + numcnt + '').val(GetItemInfo2[0].OnhandQty);
                     }
                 }
             });
@@ -666,7 +636,7 @@ var RawStock;
             $("#txtToQty" + RecNo).val("1");
             $("#dllUom" + RecNo).val("1");
             $("#No_Row" + RecNo).attr("hidden", "true");
-            var counter = 0;
+            counter = 0;
             for (var i = 0; i < CountGrid; i++) {
                 var flagvalue = $("#txt_StatusFlag" + i).val();
                 if (flagvalue != "d" && flagvalue != "") {
@@ -691,23 +661,51 @@ var RawStock;
         }
         return true;
     }
+    function btnAdd_onclick() {
+        debugger;
+        OpenUOM = true;
+        Isnew = true;
+        Clear();
+        EnableControls();
+        HideButtons();
+        counter = 0;
+        $("#divTransferDetails").removeClass("display_none");
+        $("#btnPrintTransaction").addClass("display_none");
+        $("#divbuttons").removeClass("display_none");
+    }
     function btnEdit_onclick() {
+        Isnew = false;
+        OpenUOM = false;
         EnableControls();
         $("#btnEdit").addClass("display_none");
         $("#btnBack").removeClass("display_none");
         $("#btnSave").removeClass("display_none");
+        $("#div_hedr").addClass("disabledDiv");
     }
     function btnBack_onclick() {
-        DisableControls();
-        $("#btnEdit").removeClass("display_none");
-        $("#btnBack").addClass("display_none");
-        $("#btnSave").addClass("display_none");
+        if (Isnew == true) {
+            $("#div_hedr").removeClass("disabledDiv");
+            $("#divTransferDetails").addClass("display_none");
+            $("#btnPrintTransaction").addClass("display_none");
+            $("#divbuttons").addClass("display_none");
+            Isnew = false;
+        }
+        else {
+            $("#div_hedr").removeClass("disabledDiv");
+            $("#btnPrintTransaction").removeClass("display_none");
+            $("#divbuttons").removeClass("display_none");
+            OpenUOM = false;
+            ShowButons();
+        }
     }
     function btnSave_onclick() {
-        DisableControls(); //--------------------------- هيتحط ف ال Success لما يتعمل الinsert
-        $("#btnEdit").removeClass("display_none");
-        $("#btnBack").addClass("display_none");
-        $("#btnSave").addClass("display_none");
+        OpenUOM = false;
+        if (Isnew == true) {
+            Insert();
+        }
+        else {
+            Update();
+        }
     }
     function Validation_Grid(rowcount) {
         var Qty = Number($("#txtConvertedQnty" + rowcount).val());
@@ -728,23 +726,6 @@ var RawStock;
             return true;
         }
     }
-    function checkRepeatedItems(itemValue, NumberRowid) {
-        var items = Number(CountGrid);
-        var flag = false;
-        for (var i = 0; i < items - 1; i++) {
-            if (NumberRowid != 0) {
-                if (Number($("#txt_ItemID" + i).val()) == itemValue && Number($("#TransfareDetailID" + i).val()) != NumberRowid) {
-                    flag = true;
-                }
-            }
-            else {
-                if (Number($("#txt_ItemID" + i).val()) == itemValue) {
-                    flag = true;
-                }
-            }
-        }
-        return flag;
-    }
     //------------------------------------------------------ Clear && Search && Enable && Disabled Region -----------------------------------
     function GetDate() {
         var today = new Date();
@@ -761,44 +742,23 @@ var RawStock;
         ReturnedDate = yyyy + '-' + mm + '-' + dd;
         return ReturnedDate;
     }
-    function Clear() {
-        $("#div_Data").html("");
-        txtTransferDate.value = GetDate();
-        txtUpdatedBy.value = "";
-        txtUpdatedAt.value = "";
-        txtCreatedBy.value = "";
-        txtCreatedAt.value = "";
-        txtRefNumber.value = "";
-        txtTrNo.value = "";
-        txtApprovedBy.value = "";
-        txtRemarks.value = "";
-        ddlSourceBranchAdd.value = 'null';
-        ddlSourceStoreAdd.value = 'null';
-        ddlToBranchAdd.value = 'null';
-        ddlToStoreAdd.value = 'null';
-        chkApproved.checked = false;
-    }
     function txtSearch_onKeyup() {
-        //if (txtSearch.value != "") {
-        //    let search: string = txtSearch.value.toLowerCase();
-        //    SearchDetails = IQ_DirectTransferDetail.filter(x => x.RBr_DescA.toString().toLowerCase().search(search) >= 0 || x.RBr_DescE.toString().toLowerCase().search(search) >= 0
-        //        || x.SBr_DescA.toLowerCase().search(search) >= 0 || x.SBr_DescE.toLowerCase().search(search) >= 0
-        //        || x.RSt_DescA.toLowerCase().search(search) >= 0 || x.RSt_DescE.toLowerCase().search(search) >= 0
-        //        || x.SSt_DescA.toString().search(search) >= 0 || x.SSt_DescE.toString().search(search) >= 0
-        //        || x.Tr_No.toString().search(search) >= 0 || x.RefNO.toString().search(search) >= 0);
-        //    Grid.DataSource = SearchDetails;
-        //    Grid.Bind();
-        //} else {
-        //    Grid.DataSource = IQ_DirectTransferDetail;
-        //    Grid.Bind();
-        //}
+        if (txtSearch.value != "") {
+            var search_1 = txtSearch.value.toLowerCase();
+            SearchDetails = IQ_DirectTransferDetail.filter(function (x) { return x.TrDate.toLowerCase().search(search_1) >= 0
+                || x.Tr_No.toString().search(search_1) >= 0 || x.RefNO.toString().search(search_1) >= 0 || x.SendBy.search(search_1) >= 0 || x.ReceivedBy.search(search_1) >= 0; });
+            Grid.DataSource = SearchDetails;
+            Grid.Bind();
+        }
+        else {
+            Grid.DataSource = IQ_DirectTransferDetail;
+            Grid.Bind();
+        }
     }
     function EnableControls() {
-        debugger;
         //$("#divTransferDetails :input").removeAttr("disabled");
         $("#btnAddDetails").removeClass("display_none");
         $("#txtRefNumber").removeAttr("disabled");
-        $("#txtVoucherNo").removeAttr("disabled");
         $("#txtApprovedBy").removeAttr("disabled");
         $("#txtRemarks").removeAttr("disabled");
         $("#chkApproved").removeAttr("disabled");
@@ -808,17 +768,14 @@ var RawStock;
             $("#txtItemCode" + i).removeAttr("disabled");
             $("#dllUom" + i).removeAttr("disabled");
             $("#txtConvertedQnty" + i).removeAttr("disabled");
+            if (OpenUOM == true) {
+                $("#dllUom" + i).removeAttr("disabled");
+            }
         }
-        //txtTrNo.disabled = true;
-        //txtCreatedAt.disabled = true;
-        //txtCreatedBy.disabled = true;
-        //txtUpdatedAt.disabled = true;
-        //txtUpdatedBy.disabled = true;
     }
     function DisableControls() {
         $("#btnAddDetails").addClass("display_none");
         $("#txtRefNumber").attr("disabled", "disabled");
-        $("#txtVoucherNo").attr("disabled", "disabled");
         $("#txtApprovedBy").attr("disabled", "disabled");
         $("#txtRemarks").attr("disabled", "disabled");
         $("#chkApproved").attr("disabled", "disabled");
@@ -836,14 +793,178 @@ var RawStock;
         $("#btnBack").removeClass("display_none");
     }
     function ShowButons() {
+        DisableControls();
         $("#btnEdit").removeClass("display_none");
-        $("#btnSave").addClass("display_none");
         $("#btnBack").addClass("display_none");
+        $("#btnSave").addClass("display_none");
     }
     function DisableDiv() {
         $("#div_hedr").addClass("disabledDiv");
         $("#divTransferDetails").removeClass("disabledDiv");
         $("#divTransferDetails").removeClass("display_none");
+    }
+    function Clear() {
+        txtTransferDate.value = GetDate();
+        txtUpdatedBy.value = "";
+        txtUpdatedAt.value = "";
+        txtCreatedBy.value = "";
+        txtCreatedAt.value = "";
+        txtRefNumber.value = "";
+        txtSenderTrNO.value = "";
+        txtApprovedBy.value = "";
+        txtRemarks.value = "";
+        chkApproved.checked = false;
+        $("#divTransferDetails").removeClass("display_none");
+        $("#btnEdit").removeClass("display_none");
+        $("#btnPrintTransaction").removeClass("display_none");
+        $("#div_Approve").removeClass("display_none");
+        $("#div_Data").html("");
+    }
+    //--------------------------------------------------------------Assign & Isert - Update---------------------------------------------------
+    function Assign() {
+        debugger;
+        MasterDetailModel = new DirectTransferMasterDetails();
+        TranferHeaderModel = new I_Stk_TR_Transfer();
+        TransferDetailModel = new Array();
+        // Header Data
+        TranferHeaderModel.Tr_No = Number(txtSenderTrNO.value);
+        TranferHeaderModel.CompCode = Number(SysSession.CurrentEnvironment.CompCode);
+        TranferHeaderModel.BranchCode = Number(BranchCode);
+        TranferHeaderModel.TrDate = txtTransferDate.value;
+        TranferHeaderModel.RefNO = txtRefNumber.value;
+        TranferHeaderModel.VoucherNo = 1;
+        TranferHeaderModel.TrType = 1;
+        TranferHeaderModel.TFType = 1;
+        if (chkApproved.checked == true) {
+            TranferHeaderModel.IsSent = true;
+        }
+        else {
+            TranferHeaderModel.IsSent = false;
+        }
+        TranferHeaderModel.SenderBranchCode = 1;
+        TranferHeaderModel.ReceiverBranchCode = 1;
+        TranferHeaderModel.SenderStoreID = 1;
+        TranferHeaderModel.ReceiverStoreID = 1;
+        TranferHeaderModel.VerfiedBy = txtApprovedBy.value;
+        TranferHeaderModel.Remark = txtRemarks.value;
+        var StatusFlag = "";
+        // Details
+        for (var i = 0; i < CountGrid; i++) {
+            TransferDetailSingleModel = new I_Stk_TR_TransferDetails();
+            StatusFlag = $("#txt_StatusFlag" + i).val();
+            $("#txt_StatusFlag" + i).val("");
+            TransferDetailSingleModel.StatusFlag = StatusFlag;
+            if (StatusFlag == "i") {
+                TransferDetailSingleModel.TransfareDetailID = 0;
+                TransferDetailSingleModel.Serial = $("#txtSerial" + i).val();
+                TransferDetailSingleModel.ItemID = Number($("#txt_ItemID" + i).val());
+                TransferDetailSingleModel.SendQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.UnitID = Number($("#dllUom" + i).val());
+                TransferDetailSingleModel.RecOnhandQty = Number($("#txtToQty" + i).val());
+                TransferDetailSingleModel.SrcOhnandQty = Number($("#txtSrcQty" + i).val());
+                TransferDetailSingleModel.StockSendQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.StockRecQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.UserCode = sys.SysSession.CurrentEnvironment.UserCode;
+                TransferDetailSingleModel.Token = sys.SysSession.CurrentEnvironment.Token;
+                TransferDetailModel.push(TransferDetailSingleModel);
+            }
+            else if (StatusFlag == "u") {
+                TransferDetailSingleModel.TransfareDetailID = Number($("#TransfareDetailID" + i).val());
+                TransferDetailSingleModel.Serial = $("#txtSerial" + i).val();
+                TransferDetailSingleModel.ItemID = Number($("#txt_ItemID" + i).val());
+                TransferDetailSingleModel.SendQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.UnitID = Number($("#dllUom" + i).val());
+                TransferDetailSingleModel.RecOnhandQty = Number($("#txtToQty" + i).val());
+                TransferDetailSingleModel.SrcOhnandQty = Number($("#txtSrcQty" + i).val());
+                TransferDetailSingleModel.StockSendQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.StockRecQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.UserCode = sys.SysSession.CurrentEnvironment.UserCode;
+                TransferDetailSingleModel.Token = sys.SysSession.CurrentEnvironment.Token;
+                TransferDetailModel.push(TransferDetailSingleModel);
+            }
+            else if (StatusFlag == "d") {
+                if (FlagAddOrEdit == 2) {
+                    if ($("#TransfareDetailID" + i).val() != "") {
+                        var deletedID = $("#TransfareDetailID" + i).val();
+                        TransferDetailSingleModel.TransfareDetailID = deletedID;
+                        TransferDetailModel.push(TransferDetailSingleModel);
+                    }
+                }
+            }
+        }
+        MasterDetailModel.I_Stk_TR_Transfer = TranferHeaderModel;
+        MasterDetailModel.I_Stk_TR_TransferDetails = TransferDetailModel;
+        MasterDetailModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
+        MasterDetailModel.UserCode = SysSession.CurrentEnvironment.UserCode;
+    }
+    function Insert() {
+        Assign();
+        MasterDetailModel.I_Stk_TR_Transfer.CreatedBy = SysSession.CurrentEnvironment.UserCode;
+        MasterDetailModel.I_Stk_TR_Transfer.SendBy = SysSession.CurrentEnvironment.UserCode;
+        MasterDetailModel.I_Stk_TR_Transfer.CreatedAt = DateTimeFormat(Date().toString());
+        MasterDetailModel.I_Stk_TR_Transfer.TransfareID = 0;
+        Ajax.Callsync({
+            type: "POST",
+            url: sys.apiUrl("Transfer", "InsertDirectTransferMasterDetail"),
+            data: JSON.stringify(MasterDetailModel),
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess == true) {
+                    var res = result.Response;
+                    debugger;
+                    DisplayMassage("تم اصدار  تحويل رقم " + res.Tr_No, 'Transfer number ' + res.Tr_No + 'has been issued', MessageType.Succeed);
+                    txtSenderTrNO.value = res.Tr_No.toString();
+                    GlobalTransferID = res.TransfareID;
+                    Save();
+                    AfterInsertOrUpdateFlag = true;
+                    GridRowDoubleClick();
+                }
+                else {
+                    DisplayMassage("هناك خطــأ ", '(Error)', MessageType.Error);
+                }
+            }
+        });
+    }
+    function Update() {
+        Assign();
+        MasterDetailModel.I_Stk_TR_Transfer.SendBy = SysSession.CurrentEnvironment.UserCode;
+        MasterDetailModel.I_Stk_TR_Transfer.UpdatedBy = SysSession.CurrentEnvironment.UserCode;
+        MasterDetailModel.I_Stk_TR_Transfer.UpdatedAt = DateTimeFormat(Date().toString());
+        MasterDetailModel.I_Stk_TR_Transfer.TransfareID = GlobalTransferID;
+        // creation
+        if (SelectedTransferModel.length > 0) {
+            MasterDetailModel.I_Stk_TR_Transfer.CreatedBy = SelectedTransferModel[0].CreatedBy;
+            MasterDetailModel.I_Stk_TR_Transfer.CreatedAt = SelectedTransferModel[0].CreatedAt;
+        }
+        else {
+            MasterDetailModel.I_Stk_TR_Transfer.CreatedBy = SysSession.CurrentEnvironment.UserCode;
+            MasterDetailModel.I_Stk_TR_Transfer.CreatedAt = DateTimeFormat(Date().toString());
+        }
+        Ajax.Callsync({
+            type: "POST",
+            url: sys.apiUrl("Transfer", "UpdateDirectTransferDetail"),
+            data: JSON.stringify(MasterDetailModel),
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess == true) {
+                    var res = result.Response;
+                    DisplayMassage("تم التعديل بنجاح " + res.Tr_No, 'Editied successfully' + res.Tr_No, MessageType.Succeed);
+                    GlobalTransferID = res.TransfareID;
+                    Save();
+                    AfterInsertOrUpdateFlag = true;
+                    GridRowDoubleClick();
+                }
+                else {
+                    DisplayMassage("هناك خطــأ ", '(Error)', MessageType.Error);
+                }
+            }
+        });
+    }
+    function Save() {
+        InitializeGridTrans();
+        $("#div_hedr").removeClass("disabledDiv");
+        $("#divGridShoow").removeClass("disabledDiv");
+        ShowButons();
     }
 })(RawStock || (RawStock = {}));
 //# sourceMappingURL=RawStock.js.map
