@@ -49,7 +49,7 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Query = "SELECT * FROM[dbo].[IQ_GetTransferDetail]  where TransferID = "+ TransferID + "";
+                var Query = "SELECT * FROM[dbo].[IQ_GetTransferDetail]  where TransfareID = " + TransferID + "";
                 var Cust = db.Database.SqlQuery<IQ_GetTransferDetail>(Query).ToList();
 
                 return Ok(new BaseResponse(Cust)); 

@@ -18,11 +18,23 @@ namespace Inv.DAL.Domain
         public string EMPLOYEE_NAME { get; set; }
         public string Dasc_Name { get; set; }
         public Nullable<decimal> pirce { get; set; }
+        public string Remark { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Time { get; set; }
         public string Tr_Type { get; set; }
         public Nullable<int> EMPLOYEE_ID { get; set; }
         public string USER_CODE { get; set; }
         public Nullable<int> Num_Day { get; set; }
+        public Nullable<int> ID_Supplier { get; set; }
+        public Nullable<int> CompCode { get; set; }
+        public Nullable<int> BranchCode { get; set; }
+        public Nullable<int> SalesmanId { get; set; }
+        public Nullable<int> CUSTOMER_ID { get; set; }
+        public Nullable<int> ID_Code { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedAt { get; set; }
+        public string UpdatedBy { get; set; }
+        public Nullable<int> Code_Type { get; set; }
     }
 }
