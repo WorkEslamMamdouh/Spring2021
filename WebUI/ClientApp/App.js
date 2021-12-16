@@ -45,6 +45,7 @@ var Modules = {
     Inventorymove: "Inventorymove",
     Inventoryvalue: "Inventoryvalue",
     Incomeoperations: "Incomeoperations",
+    PaymentNote: "PaymentNote",
 };
 var MessageType = {
     Error: '2',

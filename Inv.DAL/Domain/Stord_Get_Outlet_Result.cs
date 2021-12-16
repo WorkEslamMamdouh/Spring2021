@@ -17,6 +17,7 @@ namespace Inv.DAL.Domain
         public string EMPLOYEE_NAME { get; set; }
         public string Dasc_Name { get; set; }
         public Nullable<decimal> pirce { get; set; }
+        public string Remark { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Time { get; set; }
         public string Tr_Type { get; set; }

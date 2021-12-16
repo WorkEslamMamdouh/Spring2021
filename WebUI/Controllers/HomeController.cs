@@ -282,6 +282,10 @@ namespace Inv.WebUI.Controllers
         public ActionResult IncomeoperationsIndex()
         {
             return View("~/Views/CollectionReports/IncomeoperationsIndex.cshtml");
+        } 
+        public ActionResult PaymentNoteIndex()
+        {
+            return View("~/Views/Generalsetting/PaymentNoteIndex.cshtml");
         }
         public ActionResult FullStockIndex()
         {

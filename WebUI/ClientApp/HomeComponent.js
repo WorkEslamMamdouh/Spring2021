@@ -639,6 +639,7 @@ var HomeComponent;
         $("#btnInventorymove").click(function () { OpenPage(Modules.Inventorymove); }); //
         $("#btnInventoryvalue").click(function () { OpenPage(Modules.Inventoryvalue); }); //
         $("#btnIncomeoperations").click(function () { OpenPage(Modules.Incomeoperations); }); // 
+        $("#btnPaymentNote").click(function () { OpenPage(Modules.PaymentNote); }); //
     }
     function Notifications_Message() {
         var comCode = SysSession.CurrentEnvironment.CompCode;
