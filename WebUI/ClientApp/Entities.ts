@@ -6556,6 +6556,7 @@ class I_Stk_TR_Transfer extends SecurityClass {
         this.IsSent = false;
         this.IsReceived = false;
         this.IsRequested = false;
+        this.IsPostdesc = "";
     }
     public TransfareID: number;
     public Tr_No: number;
@@ -6588,6 +6589,8 @@ class I_Stk_TR_Transfer extends SecurityClass {
     public IsSent: boolean;
     public IsReceived: boolean;
     public IsRequested: boolean;
+    public IsPostdesc: string;
+    
 }
 
 class I_Stk_TR_TransferDetails extends SecurityClass {

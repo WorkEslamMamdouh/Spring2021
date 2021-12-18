@@ -3885,6 +3885,7 @@ var I_Stk_TR_Transfer = /** @class */ (function (_super) {
         _this.IsSent = false;
         _this.IsReceived = false;
         _this.IsRequested = false;
+        _this.IsPostdesc = "";
         return _this;
     }
     return I_Stk_TR_Transfer;

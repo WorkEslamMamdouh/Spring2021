@@ -60,6 +60,14 @@ namespace Inv.DAL.Domain
     {
 
     }
+    public partial class I_Stk_TR_TransferDetails : SecurityandUpdateFlagClass
+    {
+
+    }
+    public partial class I_Stk_TR_Transfer : SecurityandUpdateFlagClass
+    {
+
+    }
     
     public partial class G_Nationality : SecurityandUpdateFlagClass
     {

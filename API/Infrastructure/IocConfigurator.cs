@@ -48,6 +48,7 @@ using Inv.BLL.Services.PurInvoiceItems;
 using Inv.BLL.Services.PurTrReceive;
 using Inv.BLL.Services.PurTRCharges;
 using Inv.BLL.Services.I_Item_Cust;
+using Inv.BLL.Services.Transfer;
 
 namespace Inv.API.Infrastructure
 {
@@ -104,6 +105,7 @@ namespace Inv.API.Infrastructure
             container.RegisterType<IPurTrReceiveService, PurTrReceiveService>();
             container.RegisterType<IPurTRChargesService, PurTRChargesService>();
             container.RegisterType<II_Item_CustService, I_Item_CustService>();
+            container.RegisterType<ITransferServices, TransferServices>();
         }
     }
 }
