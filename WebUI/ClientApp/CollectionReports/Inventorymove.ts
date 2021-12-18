@@ -21,11 +21,8 @@ namespace Inventorymove {
     var reptp2: HTMLInputElement;
     var btnReset;
   
-    //--- Print Buttons
-    var btnPrint: HTMLButtonElement;
-    var btnPrintTrview: HTMLButtonElement;
-    var btnPrintTrPDF: HTMLButtonElement;
-    var btnPrintTrEXEL: HTMLButtonElement;
+    //--- Print Buttons 
+    var btnPrintTrview: HTMLButtonElement;  
     var drpitem_family: HTMLSelectElement;
     var txt_ID_APP_Type: HTMLSelectElement;
     var drpPaymentType: HTMLSelectElement;
@@ -60,11 +57,8 @@ namespace Inventorymove {
 
     function InitalizeControls() {
 
-
-        btnPrint = document.getElementById("btnPrint") as HTMLButtonElement;
-        btnPrintTrview = document.getElementById("btnPrintTrview") as HTMLButtonElement;
-        btnPrintTrPDF = document.getElementById("btnPrintTrPDF") as HTMLButtonElement;
-        btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL") as HTMLButtonElement;
+ 
+        btnPrintTrview = document.getElementById("btnPrintTrview") as HTMLInputElement;
         txtDateFrom = document.getElementById("txtFromDate") as HTMLInputElement;
         txtDateTo = document.getElementById("txtToDate") as HTMLInputElement;
         drpitem_family = document.getElementById("drpitem_family") as HTMLSelectElement;
@@ -81,9 +75,7 @@ namespace Inventorymove {
     function InitalizeEvents() {
         // Print Buttons
         btnPrintTrview.onclick = () => { PrintReport(1); }
-        btnPrintTrPDF.onclick = () => { PrintReport(2); }
-        btnPrintTrEXEL.onclick = () => { PrintReport(3); }
-        btnPrint.onclick = () => { PrintReport(4); }
+      
         drpPaymentType.onchange = drpPaymentType_onchange;
         btnReset.onclick = btnReset_onclick;
         drpitem_family.onchange = itemDisplay;

@@ -19,7 +19,6 @@ namespace Inv.DAL.Domain
         public string Dasc_Name { get; set; }
         public Nullable<decimal> pirce { get; set; }
         public string Remark { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
         public string Time { get; set; }
         public string Tr_Type { get; set; }
         public Nullable<int> EMPLOYEE_ID { get; set; }
@@ -37,5 +36,6 @@ namespace Inv.DAL.Domain
         public string UpdatedBy { get; set; }
         public Nullable<int> Code_Type { get; set; }
         public Nullable<int> ID_Peneficiary { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     }
 }

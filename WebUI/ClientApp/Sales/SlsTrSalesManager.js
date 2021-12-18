@@ -2093,19 +2093,25 @@ var SlsTrSalesManager;
     }
     function ValidationHeader() {
         debugger;
-        if (InvoiceType == 1) { //Retail  
-            if ((CustomerId == 0 && txtCustomerCode.value.trim() == "") && SysSession.CurrentEnvironment.RetailInvoiceTransCode == 1) {
-                DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
-                Errorinput(btnCustomerSrch);
-                return false;
-            }
-        }
-        if (InvoiceType == 2) { //Wholesale   
-            if (CustomerId == 0 && SysSession.CurrentEnvironment.WholeInvoiceTransCode == 1) {
-                DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
-                Errorinput(btnCustomerSrch);
-                return false;
-            }
+        //if (InvoiceType == 1) {       //Retail  
+        //    if ((CustomerId == 0 && txtCustomerCode.value.trim() == "") && SysSession.CurrentEnvironment.RetailInvoiceTransCode == 1) {
+        //        DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
+        //        Errorinput(btnCustomerSrch);
+        //        return false
+        //    }
+        //}
+        //if (InvoiceType == 2) {  //Wholesale   
+        //    if (CustomerId == 0 && SysSession.CurrentEnvironment.WholeInvoiceTransCode == 1) {
+        //        DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
+        //        Errorinput(btnCustomerSrch);
+        //        return false
+        //    }
+        //}
+        if (ddlType.value == "0" && (CustomerId == 0 && txtCustomerCode.value.trim() == "")) {
+            DisplayMassage(" برجاء اختيار العميل", "Please select a Salesman", MessageType.Error);
+            Errorinput(txtCustomerCode);
+            Errorinput(btnCustomerSrch);
+            return false;
         }
         if (ddlSalesman.value == "null") {
             DisplayMassage(" برجاء اختيار المندوب", "Please select a Salesman", MessageType.Error);

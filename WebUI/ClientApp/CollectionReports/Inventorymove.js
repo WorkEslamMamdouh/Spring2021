@@ -17,11 +17,8 @@ var Inventorymove;
     var reptp1;
     var reptp2;
     var btnReset;
-    //--- Print Buttons
-    var btnPrint;
+    //--- Print Buttons 
     var btnPrintTrview;
-    var btnPrintTrPDF;
-    var btnPrintTrEXEL;
     var drpitem_family;
     var txt_ID_APP_Type;
     var drpPaymentType;
@@ -46,10 +43,7 @@ var Inventorymove;
     }
     Inventorymove.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
-        btnPrint = document.getElementById("btnPrint");
         btnPrintTrview = document.getElementById("btnPrintTrview");
-        btnPrintTrPDF = document.getElementById("btnPrintTrPDF");
-        btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
         txtDateFrom = document.getElementById("txtFromDate");
         txtDateTo = document.getElementById("txtToDate");
         drpitem_family = document.getElementById("drpitem_family");
@@ -62,9 +56,6 @@ var Inventorymove;
     function InitalizeEvents() {
         // Print Buttons
         btnPrintTrview.onclick = function () { PrintReport(1); };
-        btnPrintTrPDF.onclick = function () { PrintReport(2); };
-        btnPrintTrEXEL.onclick = function () { PrintReport(3); };
-        btnPrint.onclick = function () { PrintReport(4); };
         drpPaymentType.onchange = drpPaymentType_onchange;
         btnReset.onclick = btnReset_onclick;
         drpitem_family.onchange = itemDisplay;

@@ -90,6 +90,12 @@ var AccTrPaymentNote;
     function txt_PayTypeNew_onchange() {
         $("#txt_BenCode").val('');
         $('#txt_BenName').val('');
+        if (txt_PayTypeNew.value == '5') {
+            $("#txt_ReceiptDesc").removeAttr("disabled");
+        }
+        else {
+            $('#txt_ReceiptDesc').attr('disabled', 'disabled');
+        }
     }
     function FillddlUserMaster() {
         debugger;
@@ -451,9 +457,14 @@ var AccTrPaymentNote;
             Errorinput(txt_PayTypeNew);
             return false;
         }
-        if ($("#txt_BenCode").val().trim() == "") {
+        if ($("#txt_BenCode").val().trim() == "" && txt_PayTypeNew.value != '5') {
             DisplayMassage(" برجاء اختيار المستفيد", "Please select a Date", MessageType.Error);
             Errorinput($("#txt_BenCode"));
+            return false;
+        }
+        if (txt_PayTypeNew.value == '5' && $("#txt_ReceiptDesc").val().trim() == '') {
+            DisplayMassage(" برجاء ادخال وصف الصرف", "Please select a Date", MessageType.Error);
+            Errorinput($("#txt_ReceiptDesc"));
             return false;
         }
         if (Number($("#txt_Amount").val()) <= 0) {

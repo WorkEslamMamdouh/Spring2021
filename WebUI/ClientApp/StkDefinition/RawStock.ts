@@ -549,6 +549,7 @@ namespace RawStock {
                         let result = d as BaseResponse;
                         if (result.IsSuccess) {
                             GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
+                            
                             if (GetItemInfo.length > 0) {
 
                                 $('#dllUom' + NumCnt + '').html('');
