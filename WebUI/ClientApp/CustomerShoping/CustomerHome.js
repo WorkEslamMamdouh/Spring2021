@@ -30,9 +30,12 @@ var CustomerHome;
     var Grid = new JsGrid();
     var CustomerId = 0;
     function InitalizeComponent() {
-        CustomerId = Number(SysSession.CurrentEnvironment.CustomerId);
-        if (isNaN(CustomerId)) {
-            window.open(Url.Action("LogCust", "Home"), "_self");
+        debugger;
+        if ($('#ChackEnter').val() == '1') {
+            CustomerId = Number(SysSession.CurrentEnvironment.CustomerId);
+            if (isNaN(CustomerId)) {
+                window.open(Url.Action("LogCust", "Home"), "_self");
+            }
         }
     }
     CustomerHome.InitalizeComponent = InitalizeComponent;

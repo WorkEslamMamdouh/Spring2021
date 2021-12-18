@@ -7,9 +7,9 @@ var LoginComponent;
     var sys = new SystemTools();
     var sysPar = new SystemParameters();
     var Model_Cust: CUSTOMER = new CUSTOMER();
-    var CUSTOMERdETAIL: Array <CUSTOMER >= new Array <CUSTOMER>();
+    var CUSTOMERdETAIL: Array<CUSTOMER> = new Array<CUSTOMER>();
     var CUSTSingl: CUSTOMER = new CUSTOMER();
-    var CUSTOMERdETAILnew: Array <CUSTOMER >= new Array <CUSTOMER>();
+    var CUSTOMERdETAILnew: Array<CUSTOMER> = new Array<CUSTOMER>();
 
     var cmbLanguage;
     var OnLoggedUrl = "";
@@ -43,7 +43,7 @@ var LoginComponent;
     var G_BRANCHService: Array<G_BRANCH> = new Array<G_BRANCH>();
 
 
-    function InitalizeComponent() {           
+    function InitalizeComponent() {
         txtUserName = document.getElementById("txtUserName");
         txtUserPassword = document.getElementById("txtUserPassword");
         txtUserNameS = document.getElementById("txtUserNameS");
@@ -88,7 +88,7 @@ var LoginComponent;
 
         }
     }
-    
+
     LoginComponent.InitalizeComponent = InitalizeComponent;
     function checkBrowser() {
         // Get the user-agent string
@@ -258,7 +258,7 @@ var LoginComponent;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Customer", "GetAll"),
-            data: { CompCode:1, BranchCode:1},
+            data: { CompCode: 1, BranchCode: 1 },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
@@ -276,76 +276,74 @@ var LoginComponent;
     function SignUp() {
         $('#tblSignUp').removeAttr('Style');
         $('#tblLogin').attr('Style', 'display:none');
-        getcustomer();
-        ClearInputs();    
+        //getcustomer();
+        //ClearInputs();
+        $('#ChackEnter').val('2');
     }
     function OkS() {
+        txtNameEnS.value = txtNameArS.value;
         if (txtNameArS.value == "") {
             Errorinput(txtNameArS);
             DisplayMassage("يجب ادخال الاسم بالعربي", "The delegate number must be entered", MessageType.Worning);
         } else {
-            if (txtNameEnS.value == "") {
-                Errorinput(txtNameEnS);
-                txtNameEnS.value = txtNameArS.value;
-            } else {
 
-                if (txtPhoneS.value == "") {
-                    Errorinput(txtPhoneS);
-                    DisplayMassage("يجب ادخال الهاتف  ", "The Phone number must be entered", MessageType.Worning);
-                }
-                else {
-                    if (txtEmailS.value == "") {
-                        Errorinput(txtEmailS);
-                        DisplayMassage("يجب ادخال البريد الالكتروني  ", "The Email must be entered", MessageType.Worning);
+            if (txtPhoneS.value == "") {
+                Errorinput(txtPhoneS);
+                DisplayMassage("يجب ادخال الهاتف  ", "The Phone number must be entered", MessageType.Worning);
+            }
+            else {
+                if (txtEmailS.value == "") {
+                    Errorinput(txtEmailS);
+                    DisplayMassage("يجب ادخال البريد الالكتروني  ", "The Email must be entered", MessageType.Worning);
+                } else {
+                    if (txtAddressS.value == "") {
+                        Errorinput(txtAddressS);
+                        DisplayMassage("يجب ادخال العنوان    ", "The Address must be entered", MessageType.Worning);
                     } else {
-                        if (txtAddressS.value == "") {
-                            Errorinput(txtAddressS);
-                            DisplayMassage("يجب ادخال العنوان    ", "The Address must be entered", MessageType.Worning);
+
+                        if (txtUserNameS.value == "") {
+                            Errorinput(txtUserNameS);
+                            DisplayMassage("يجب ادخال اسم المستخدم", "Username must be entered", MessageType.Worning);
                         } else {
-
-                            if (txtUserNameS.value == "") {
-                                Errorinput(txtUserNameS);
-                                DisplayMassage("يجب ادخال اسم المستخدم", "Username must be entered", MessageType.Worning);
+                            if (txtUserPasswordS.value == "") {
+                                Errorinput(txtUserPasswordS);
+                                DisplayMassage("يجب ادخال كلمة السر", "Password must be entered", MessageType.Worning);
                             } else {
-                                if (txtUserPasswordS.value == "") {
+                                if (txtUserPasswordS.value.length < 5) {
                                     Errorinput(txtUserPasswordS);
-                                    DisplayMassage("يجب ادخال كلمة السر", "Password must be entered", MessageType.Worning);
-                                } else {
-                                    if (txtUserPasswordS.value.length < 5) {
-                                        Errorinput(txtUserPasswordS);
-                                        DisplayMassage("  يجب الا تقل كلمة السر عن 5 ارقام", "Password must be entered", MessageType.Worning);                     
-                                    }
-                                    else {
+                                    DisplayMassage("  يجب الا تقل كلمة السر عن 5 ارقام", "Password must be entered", MessageType.Worning);
+                                }
+                                else {
 
-                                        if (txtConfirmpasswordS.value == "") {
+                                    if (txtConfirmpasswordS.value == "") {
+                                        Errorinput(txtConfirmpasswordS);
+                                        DisplayMassage("يجب ادخال تاكيد كلمة السر", "Confirm password must be entered", MessageType.Worning);
+                                    } else {
+                                        debugger
+                                        if (txtUserPasswordS.value != txtConfirmpasswordS.value) {
+                                            Errorinput(txtUserPasswordS);
                                             Errorinput(txtConfirmpasswordS);
-                                            DisplayMassage("يجب ادخال تاكيد كلمة السر", "Confirm password must be entered", MessageType.Worning);
+                                            DisplayMassage("كلمتا المرور غير متطابقتان", "Passwords do not match", MessageType.Worning);
                                         } else {
-                                            debugger
-                                            if (txtUserPasswordS.value != txtConfirmpasswordS.value) {
+                                            CUSTOMERdETAILnew = CUSTOMERdETAIL.filter(x => x.CustomerCODE == txtUserPasswordS.value)
+                                            if (CUSTOMERdETAILnew.length > 0) {
                                                 Errorinput(txtUserPasswordS);
-                                                Errorinput(txtConfirmpasswordS);
-                                                DisplayMassage("كلمتا المرور غير متطابقتان", "Passwords do not match", MessageType.Worning);
+                                                DisplayMassage("كلمة السر ضعيفة", "Password must be entered", MessageType.Worning);
                                             } else {
-                                                CUSTOMERdETAILnew = CUSTOMERdETAIL.filter(x => x.CustomerCODE == txtUserPasswordS.value)
-                                                if (CUSTOMERdETAILnew.length > 0) {
-                                                    Errorinput(txtUserPasswordS);
-                                                    DisplayMassage("كلمة السر ضعيفة", "Password must be entered", MessageType.Worning);
-                                                } else {
 
-                                                    successSignUp();
-                                                }
+                                                successSignUp();
                                             }
                                         }
                                     }
                                 }
                             }
-
                         }
 
                     }
+
                 }
             }
+
         }
 
 
@@ -400,7 +398,7 @@ var LoginComponent;
         txtUserPasswordS.value = "";
         txtConfirmpasswordS.value = "";
     }
-         
+
     function Registration() {
 
     }
@@ -419,6 +417,7 @@ var LoginComponent;
 
                 var obj = result.result;
                 window.location.href = obj.url;
+                $('#ChackEnter').val('1');
             }
         });
 
