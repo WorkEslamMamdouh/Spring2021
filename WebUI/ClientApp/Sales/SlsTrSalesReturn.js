@@ -1141,6 +1141,7 @@ var SlsTrSalesReturn;
             else {
                 $("#txtReturnQuantity" + cnt).val(txtQuantityValue);
                 DisplayMassage('( يجب ان تكون الكميه المرتجعه اقل من الكمية المباعة)', 'Return Quantity must be less than sold Quantity', MessageType.Error);
+                var txtReturnQuantityValue = $("#txtReturnQuantity" + cnt).val();
                 var total = Number(txtReturnQuantityValue) * Number(txtPriceValue);
                 $("#txtTotal" + cnt).val(total.toFixed(2));
                 VatPrc = Number($("#txtTax_Rate" + cnt).val());
