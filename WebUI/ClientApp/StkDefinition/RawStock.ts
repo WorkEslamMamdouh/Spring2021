@@ -534,7 +534,7 @@ namespace RawStock {
                     $("#txt_ItemID" + NumCnt + "").val(Itemid);
                     let ItemCode = '';
                     let ItemID = Itemid;
-                    let Mode = 3;
+                    let Mode = ModeItmes;
                     Ajax.Callsync({
                         type: "Get",
                         url: sys.apiUrl("StkDefItemType", "GetItemByCode"),

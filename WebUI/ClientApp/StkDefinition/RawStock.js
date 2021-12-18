@@ -457,7 +457,7 @@ var RawStock;
                 $("#txt_ItemID" + NumCnt + "").val(Itemid);
                 var ItemCode = '';
                 var ItemID = Itemid;
-                var Mode = 3;
+                var Mode = ModeItmes;
                 Ajax.Callsync({
                     type: "Get",
                     url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
