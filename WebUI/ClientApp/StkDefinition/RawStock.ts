@@ -1,8 +1,8 @@
-﻿ 
+﻿
 $(document).ready(() => {
 
     RawStock.InitalizeComponent();
-})            
+})
 namespace RawStock {
     var TypeStock: string = "0";
     var TypeTrans: string = "1";
@@ -24,8 +24,7 @@ namespace RawStock {
     //GridView
     var Grid: JsGrid = new JsGrid();
     var TransGrid: JsGrid = new JsGrid();
-    var ModeItmes = 3;
-    var OpenUOM = false;
+    var ModeItmes = 3;         
     var counter = 0;
     //Arrays
     var BranchDetails: Array<G_BRANCH> = new Array<G_BRANCH>();
@@ -38,12 +37,12 @@ namespace RawStock {
     var IQ_DirectTransferDetail: Array<I_Stk_TR_Transfer> = new Array<I_Stk_TR_Transfer>();
     var SearchDetails: Array<I_Stk_TR_Transfer> = new Array<I_Stk_TR_Transfer>();
     var GetTransferDetail: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
-    var GetTransferDetail: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();   
+    var GetTransferDetail: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
     var ItemsListDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
     var ItemsSourceListDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
     var ItemsToListDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
     var GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
-    var Display_D_UOM: Array<I_D_UOM> = new Array<I_D_UOM>();                
+    var Display_D_UOM: Array<I_D_UOM> = new Array<I_D_UOM>();
     //Models
     var MasterDetailModel: DirectTransferMasterDetails = new DirectTransferMasterDetails();
     var TranferHeaderModel: I_Stk_TR_Transfer = new I_Stk_TR_Transfer();
@@ -52,14 +51,14 @@ namespace RawStock {
     var TransferDetailModelFiltered: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
     var IQTransferDetailModel: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
     var IQTransferDetailSingleModel: IQ_GetTransferDetail = new IQ_GetTransferDetail();
-    var SelectedTransferModel: Array<IQ_GetTransfer> = new Array<IQ_GetTransfer>();   
+    var SelectedTransferModel: Array<IQ_GetTransfer> = new Array<IQ_GetTransfer>();
     //textboxs
     var txtFromDate: HTMLInputElement;
     var txtToDate: HTMLInputElement;
     var txtTransferDate: HTMLInputElement;
     var txtTrNo: HTMLInputElement;
     var txtRefNumber: HTMLInputElement;
-    var txtApprovedBy: HTMLInputElement;    
+    var txtApprovedBy: HTMLInputElement;
     var txtCreatedBy: HTMLInputElement;
     var txtCreatedAt: HTMLInputElement;
     var txtUpdatedBy: HTMLInputElement;
@@ -67,24 +66,24 @@ namespace RawStock {
     var txtSearch: HTMLInputElement;
     var txtApprovedBy: HTMLInputElement;
     var txtSenderTrNO: HTMLInputElement;
-    var txtRemarks: HTMLInputElement;         
+    var txtRemarks: HTMLInputElement;
     //DropdownLists
     var ddlStatusFilter: HTMLSelectElement;
     var ddlSourceBranch: HTMLSelectElement;
     var ddlSourceStore: HTMLSelectElement;
     var ddlToBranch: HTMLSelectElement;
-    var ddlToStore: HTMLSelectElement;       
+    var ddlToStore: HTMLSelectElement;
     var ddlSourceBranchAdd: HTMLSelectElement;
     var ddlSourceStoreAdd: HTMLSelectElement;
     var ddlToBranchAdd: HTMLSelectElement;
-    var ddlToStoreAdd: HTMLSelectElement;       
+    var ddlToStoreAdd: HTMLSelectElement;
     //buttons
     var btnShow: HTMLButtonElement;
     var btnAdd: HTMLButtonElement;
-    var btnEdit: HTMLButtonElement;       
+    var btnEdit: HTMLButtonElement;
     var btnSave: HTMLButtonElement;
     var btnBack: HTMLButtonElement;
-    var btnAddDetails: HTMLButtonElement;    
+    var btnAddDetails: HTMLButtonElement;
     //check box
     var chkApproved: HTMLInputElement;
 
@@ -96,7 +95,7 @@ namespace RawStock {
     var CountGrid: number = 0;
     var GlobalTransferID: number = 0;
     var ItemID: number = 0;
-    var compcode: Number; 
+    var compcode: Number;
     var drpType: HTMLSelectElement;
     var Isnew = false;
     var lang = (SysSession.CurrentEnvironment.ScreenLanguage);
@@ -108,22 +107,22 @@ namespace RawStock {
         } else {
             document.getElementById('Screen_name').innerHTML = "Raw Stock";
 
-        } 
+        }
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         InitalizeControls();
         InitalizeEvents();
-   
+
 
     }
     function InitalizeControls() {
- 
+
         drpType = document.getElementById("drpType") as HTMLSelectElement;
         txtFromDate = document.getElementById("txtFromDate") as HTMLInputElement;
         txtToDate = document.getElementById("txtToDate") as HTMLInputElement;
         txtSenderTrNO = document.getElementById("txtSenderTrNO") as HTMLInputElement;
         txtTransferDate = document.getElementById("txtTransferDate") as HTMLInputElement;
         txtRefNumber = document.getElementById("txtRefNumber") as HTMLInputElement;
-        txtRemarks = document.getElementById("txtRemarks") as HTMLInputElement;          
+        txtRemarks = document.getElementById("txtRemarks") as HTMLInputElement;
         txtApprovedBy = document.getElementById("txtApprovedBy") as HTMLInputElement;
         btnShow = document.getElementById("btnShow") as HTMLButtonElement;
         btnEdit = document.getElementById("btnEdit") as HTMLButtonElement;
@@ -143,7 +142,7 @@ namespace RawStock {
 
     }
     function InitalizeEvents() {
-        
+
         drpType.onchange = drpType_onchange;
         btnShow.onclick = btnShow_onclick;
     }
@@ -205,18 +204,18 @@ namespace RawStock {
             { title: 'الفئة', name: (lang == "ar" ? "CategoryDescA" : "CategoryDescL"), type: "text", width: "12%" },
             { title: 'الصنف الرئيسي', name: (lang == "ar" ? "ItemFamilyDescA" : "ItemFamilyDescE"), type: "text", width: "14%" },
             { title: 'الوحدة الرئيسية', name: (lang == "ar" ? "UOMDescA" : "UOMDescE"), type: "text", width: "16%" },
-            { title: 'كمية المخزون', name: "OnhandQty", type: "text", width: "13%" },          
+            { title: 'كمية المخزون', name: "OnhandQty", type: "text", width: "13%" },
         ];
 
         ReportGrid.Bind();
     }
     function MasterGridDoubleClick() {
 
-        
 
-         Selected_Data = detailstock.filter(x => x.ItemID == Number(ReportGrid.SelectedKey));
-         
-         ItemID = Selected_Data[0].ItemID;
+
+        Selected_Data = detailstock.filter(x => x.ItemID == Number(ReportGrid.SelectedKey));
+
+        ItemID = Selected_Data[0].ItemID;
         $("#div_Master_Hedr").removeClass("display_none");
 
         DisplayData(Selected_Data);
@@ -229,11 +228,7 @@ namespace RawStock {
         }
 
         $('#txtFamily').html('');
-        //Display_ItemFamilynew1 = Display_ItemFamily.filter(x => x.CatID == Number(txtCat_Type.value))
-        //for (var i = 0; i < Display_ItemFamilynew1.length; i++) {
-        //    $('#txtFamily').append('<option value="' + Display_ItemFamilynew1[i].ItemFamilyID + '">' + (lang == "ar" ? Display_ItemFamilynew1[i].DescA : Display_ItemFamilynew1[i].DescL) + '</option>');
-
-        //}
+       
 
     }
     function DisplayData(Selected_Data: Array<IQ_GetItemStore>) {
@@ -244,18 +239,18 @@ namespace RawStock {
         $('#Div_Show_Quantity').addClass('display_none');
 
 
-        
+
     }
     function drpType_onchange() {
-         
+
         if (drpType.value == "0") {
             $('#Stock').removeClass('display_none');
             $('#Trans').addClass('display_none');
             Displaystore();
-        } else if(drpType.value == "1"){
+        } else if (drpType.value == "1") {
             $('#Trans').removeClass('display_none');
-            $('#Stock').addClass('display_none');   
-           
+            $('#Stock').addClass('display_none');
+
             InitalizeComponentTrans()
         }
         else {
@@ -263,8 +258,8 @@ namespace RawStock {
             $('#Stock').addClass('display_none');
         }
     }
-                                       
-    //------------------------------------------------------ * T R A N S * -----------------------------------
+
+    //------------------------------------------------------ * T R A N S * ---------------------------------------
 
     function InitalizeComponentTrans() {
 
@@ -291,7 +286,7 @@ namespace RawStock {
         $("#btnBack").addClass("display_none");
         $("#btnSave").addClass("display_none");
         InitializeGridTrans();
-    }   
+    }
     function InitializeGridTrans() {
         let res: any = GetResourceList("");
 
@@ -323,26 +318,26 @@ namespace RawStock {
 
         var FromDate = DateFormat(txtFromDate.value).toString();
         var toDate = DateFormat(txtToDate.value).toString();
-        var status = 0;    
-        status = Number($('#ddlStatusFilter').val());      
+        var status = 0;
+        status = Number($('#ddlStatusFilter').val());
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Transfer", "GetAll"),
-            data: { compcode: compcode, TrType: 1, TFType: 1, fromdate: FromDate, todate: toDate, IsPosted: status,UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
+            data: { compcode: compcode, TrType: 1, TFType: 1, fromdate: FromDate, todate: toDate, IsPosted: status, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     IQ_DirectTransferDetail = new Array<I_Stk_TR_Transfer>();
                     IQ_DirectTransferDetail = result.Response as Array<I_Stk_TR_Transfer>;
-                     for (let i = 0; i < IQ_DirectTransferDetail.length; i++) {
-                         IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
-                         IQ_DirectTransferDetail[i].IsSent == true ? IQ_DirectTransferDetail[i].IsPostdesc = (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "غير منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Not Authrized");;
-                         
-                     
-                         if (IQ_DirectTransferDetail[i].TrType == 1)  
-                         IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
-                     
-                     }
+                    for (let i = 0; i < IQ_DirectTransferDetail.length; i++) {
+                        IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
+                        IQ_DirectTransferDetail[i].IsSent == true ? IQ_DirectTransferDetail[i].IsPostdesc = (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "غير منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Not Authrized");;
+
+
+                        if (IQ_DirectTransferDetail[i].TrType == 1)
+                            IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
+
+                    }
                     TransGrid.DataSource = IQ_DirectTransferDetail;
                     TransGrid.Bind();
                 }
@@ -351,7 +346,7 @@ namespace RawStock {
 
     }
     function GridRowDoubleClick() {
-        debugger
+         
         Clear();
         $("#btnPrintTransaction").removeClass("display_none");
         $("#divbuttons").removeClass("display_none");
@@ -366,9 +361,9 @@ namespace RawStock {
         console.log(Selecteditem);
         TransferID = Number(TransGrid.SelectedKey);
 
-        txtSenderTrNO.value = Selecteditem[0].Tr_No.toString();         
+        txtSenderTrNO.value = Selecteditem[0].Tr_No.toString();
         txtTransferDate.value = Selecteditem[0].TrDate;
-        txtRefNumber.value = Selecteditem[0].RefNO;             
+        txtRefNumber.value = Selecteditem[0].RefNO;
         txtApprovedBy.value = Selecteditem[0].VerfiedBy;
         txtRemarks.value = Selecteditem[0].Remark;
         txtCreatedBy.value = Selecteditem[0].CreatedBy;
@@ -380,20 +375,20 @@ namespace RawStock {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Transfer", "GetDetail"),
-            data: { TransferID: TransferID , UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
+            data: { TransferID: TransferID, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     GetTransferDetail = new Array<IQ_GetTransferDetail>();
                     GetTransferDetail = result.Response as Array<IQ_GetTransferDetail>;
-                     
+
                     CountGrid = 0;
                     for (var i = 0; i < GetTransferDetail.length; i++) {
-                        debugger
+                         
                         BuildControls(i);
                         Bindingdata(i, GetTransferDetail);
                         CountGrid++
-                    }                 
+                    }
                 }
             }
         });
@@ -403,31 +398,32 @@ namespace RawStock {
 
     }
     function Bindingdata(Num: number, list: Array<IQ_GetTransferDetail>) {
-        
-        debugger
+
+         
         $('#txtItemCode' + Num).val(list[Num].ItemCode);
-        $('#txtItemName' + Num).val(lang == "ar" ? list[Num].ITFamly_DescA : list[Num].ITFamly_DescA );
+        $('#txtItemName' + Num).val(lang == "ar" ? list[Num].ITFamly_DescA : list[Num].ITFamly_DescA);
         $('#dllUom' + Num).val(list[Num].UnitID);
         $('#txtConvertedQnty' + Num).val(list[Num].SendQty);
         $('#txtRecQty' + Num).val(list[Num].RecQty);
+        $('#txtstockQnty' + Num).val(list[Num].StockReqQty);
         $('#txt_ItemID' + Num).val(list[Num].ItemID);
     }
-    function displayUOM() {    
-            Ajax.Callsync({
-                type: "Get",
-                url: sys.apiUrl("StkDefUnit", "GetAll"),
-                data: {
-                    CompCode: compcode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-                },
-                success: (d) => {
-                    let result = d as BaseResponse;
-                    if (result.IsSuccess) {
-                        Display_D_UOM = result.Response as Array<I_D_UOM>;          
+    function displayUOM() {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("StkDefUnit", "GetAll"),
+            data: {
+                CompCode: compcode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+            },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    Display_D_UOM = result.Response as Array<I_D_UOM>;
 
-                    }
                 }
-            });
-       
+            }
+        });
+
 
 
 
@@ -460,12 +456,12 @@ namespace RawStock {
             $("#txtItemName" + CountGrid).attr("disabled", "disabled");
             $("#txtConvertedQnty" + CountGrid).removeAttr("disabled");
             $("#dllUom" + CountGrid).attr("disabled", "disabled");
-            $("#txtItemCode" + CountGrid).removeAttr("disabled");      
+            $("#txtItemCode" + CountGrid).removeAttr("disabled");
             // can delete new inserted record  without need for delete privilage
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
 
-              counter = 0;
+            counter = 0;
             for (let i = 0; i <= CountGrid; i++) {
                 var flagvalue = $("#txt_StatusFlag" + i).val();
                 if (flagvalue != "d" && flagvalue != "") {
@@ -488,7 +484,7 @@ namespace RawStock {
             '<span id="btn_minus' + cnt + '" disabled class=" glyphicon glyphicon-minus-sign fontitm3sendTransfer "></span>' +
             '</div>' +
             '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" style="width:3%!important">' +
-            '<input id="txtSerial' + cnt + '" name="FromDate" disabled type="text" value="' + (CountGrid + 1) + '" class="form-control  text_Display" />' +
+            '<input id="txtSerial' + cnt + '" name="FromDate" disabled type="hidden" value="' + (CountGrid + 1) + '" class="form-control  text_Display" />' +
             '</div>' +
             '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0" style="width:3%!important;">' +
             '<button type="button" class="col-xs-12 src-btn btn btn-warning input-sm" disabled id="btnSearchItems' + cnt + '" name="ColSearch">   ' +
@@ -504,7 +500,10 @@ namespace RawStock {
 
             '<div class="col-xs-1"style="width: 10 % !important;">' +
             '<select id="dllUom' + cnt + '"  disabled class="form-control right2"><option value="0"> ' + (lang == "ar" ? "اختر " : "Choose ") + '</option></select></div>' +
-                       
+
+            '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" >' +
+            '<input id="txtstockQnty' + cnt + '" name="" disabled type="number" value="0"  min="0" class="form-control  text_Display" /></div>' +
+
             '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" >' +
             '<input id="txtConvertedQnty' + cnt + '" name="" disabled type="number" value="0"  min="0" class="form-control  text_Display" /></div>' +
 
@@ -524,65 +523,60 @@ namespace RawStock {
         }
         // Items Search
         $('#btnSearchItems' + cnt).click(function (e) {
-            if ($("#txt_StatusFlag" + cnt).val() != "i") {$("#txt_StatusFlag" + cnt).val("u");}
-            let sys: SystemTools = new SystemTools();
-            let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
-            NumCnt = cnt;
-            //var Storeid = Number($("#ddlStore").val());
-            var Storeid = 1;
-            sys.ShowItems(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtItemName' + cnt).val(), $('#txtItemCode' + cnt).val(), ModeItmes, () => {
-                let id = sysInternal_Comm.Itemid;
-                 
-                if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+            if ($("#txt_StatusFlag" + cnt).val() != "i") { $("#txt_StatusFlag" + cnt).val("u"); }
+                NumCnt = cnt;
+                let TypeStockr = Number(TypeStock);
+                sys.FindKey(Modules.RawStock, "btnSearchItems", " CompCode = " + compcode + " and LOCATION2 = '" + TypeStockr + "' ", () => {
+                    let Itemid = SearchGrid.SearchDataGrid.SelectedKey;
+                    if (!validationitem(Itemid, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+                     
+                    let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
+                    $("#txt_ItemID" + NumCnt + "").val(Itemid);
+                    let ItemCode = '';
+                    let ItemID = Itemid;
+                    let Mode = ModeItmes;
+                    Ajax.Callsync({
+                        type: "Get",
+                        url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
+                        data: {
+                            CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: 1, Mode: Mode,
+                            UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+                        },
+                        success: (d) => {
+                            let result = d as BaseResponse;
+                            if (result.IsSuccess) {
+                                GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
+                                if (GetItemInfo.length > 0) {
 
-                $("#txt_ItemID" + NumCnt + "").val(id);
-                let ItemCode = '';
-                let ItemID = id;
-                let Mode = ModeItmes;
-                Ajax.Callsync({
-                    type: "Get",
-                    url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
-                    data: {
-                        CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-                    },
-                    success: (d) => {
-                        let result = d as BaseResponse;
-                        if (result.IsSuccess) {
-                            GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
-                            
-                            if (GetItemInfo.length > 0) {
+                                    $('#dllUom' + NumCnt + '').html('');
+                                    for (var i = 0; i < GetItemInfo.length; i++) {
+                                        $('#dllUom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+                                    }
 
-                                $('#dllUom' + NumCnt + '').html('');
-                                for (var i = 0; i < GetItemInfo.length; i++) {
-                                    $('#dllUom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+                                    $('#txtItemName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
+                                    $('#txtItemCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
+                                    $('#txtstockQnty' + NumCnt + '').val(GetItemInfo[0].OnhandQty);
+                                    $('#txtstockQnty' + NumCnt + '').attr('disabled', 'disabled');
+                                    $('#txtItemName' + NumCnt + '').attr('disabled', 'disabled');
+
+
+                                }
+                                else {
+                                    $('#dllUom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
+                                    $('#txtItemName' + NumCnt + '').val('');
+                                    $('#txtstockQnty' + NumCnt + '').val('');
+                                    $('#txtItemCode' + NumCnt + '').val('');
+                                    $('#txtItemName' + NumCnt + '').removeAttr('disabled');
+                                    $('#txtItemCode' + NumCnt + '').removeAttr('disabled');
                                 }
 
-                                $('#txtItemName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
-                                $('#txtItemCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);         
-                                $('#txtItemName' + NumCnt + '').attr('disabled', 'disabled');       
-                         
-
                             }
-                            else {
-                                $('#dllUom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
-                                $('#txtItemName' + NumCnt + '').val('');
-                                $('#txtItemCode' + NumCnt + '').val('');    
-                                $('#txtItemName' + NumCnt + '').removeAttr('disabled');
-                                $('#txtItemCode' + NumCnt + '').removeAttr('disabled');
-                            }
-
                         }
-                    }
+                    });
+
                 });
-
-
-            });
-
-
+          
         });
-
-
-
         $("#txtItemCode" + cnt).on('change', function () {
 
             if ($("#txt_StatusFlag" + cnt).val() != "i")
@@ -630,11 +624,9 @@ namespace RawStock {
 
                     }
                 }
-            });  
+            });
 
         });
-        //Quintity on change
-
 
         $("#dllUom" + cnt).on('change', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
@@ -648,28 +640,24 @@ namespace RawStock {
             $('#txtConvertedQnty' + cnt + '').val('0');
 
         });
-        //Item Code Onchange
 
-        $("#txtConvertedQnty" + cnt).on('change', function () {
+        $("#txtConvertedQnty" + cnt).on('keyup', function () {
 
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
+            if (Number($("#txtConvertedQnty" + cnt).val()) > Number($("#txtstockQnty" + cnt).val())) {
 
+                DisplayMassage("لايمكن ان تكون الكمية المحوله اكبر من اكمية المتاحه", "The number of converters cannot be greater than the available quantity", MessageType.Error);
+                $("#txtConvertedQnty" + cnt).val($("#txtstockQnty" + cnt).val());
+                Errorinput($("#txtConvertedQnty" + cnt));
 
-            
-            let Typeuom = $("#dllUom" + cnt);
-            let onhandqty = Number($('option:selected', Typeuom).attr('data-onhandqty'));
-            if (Number($('#txtSrcQty' + cnt + '').val()) < Number($("#txtConvertedQnty" + cnt).val())) {
-                DisplayMassage("(" + onhandqty + ")لا يمكن تحويل كمية اكبر من الكمية المتاحه ", 'It is not possible to transfer an amount greater than the available quantity(' + onhandqty + ')', MessageType.Error);
-                Errorinput($('#txtConvertedQnty' + cnt + ''));
-                $('#txtConvertedQnty' + cnt + '').val(onhandqty);
-            }
+            } 
+                
         });
 
         $("#btn_minus" + cnt).on('click', function () {
             DeleteRow(cnt);
         });
-
 
         if (showFlag == true) {
             let GetItemInfo1: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
@@ -700,7 +688,7 @@ namespace RawStock {
                     }
                 }
             });
-             
+
             let GetItemInfo2: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
             Storeid = Number($("#ddlToStoreAdd").val());
             ItemCode = TransferDetailModelFiltered[cnt].ItemCode;
@@ -791,8 +779,8 @@ namespace RawStock {
         return true;
     }
     function btnAdd_onclick() {
-        debugger
-        OpenUOM = true;
+         
+    
         Isnew = true;
         Clear();
         EnableControls();
@@ -803,16 +791,15 @@ namespace RawStock {
         $("#divbuttons").removeClass("display_none");
     }
     function btnEdit_onclick() {
-        Isnew = false;
-        OpenUOM = false;
-        EnableControls();     
+        Isnew = false;       
+        EnableControls();
         $("#btnEdit").addClass("display_none");
         $("#btnBack").removeClass("display_none");
-        $("#btnSave").removeClass("display_none");      
+        $("#btnSave").removeClass("display_none");
         $("#div_hedr").addClass("disabledDiv");
-         
 
-    }    
+
+    }
     function btnBack_onclick() {
         if (Isnew == true) {
 
@@ -820,30 +807,26 @@ namespace RawStock {
             $("#divTransferDetails").addClass("display_none");
             $("#btnPrintTransaction").addClass("display_none");
             $("#divbuttons").addClass("display_none");
-            Isnew = false;    
+            DisableControls();
+            Isnew = false;
         } else {
-            $("#div_hedr").removeClass("disabledDiv"); 
+            $("#div_hedr").removeClass("disabledDiv");
             $("#btnPrintTransaction").removeClass("display_none");
-            $("#divbuttons").removeClass("display_none");     
-
-        OpenUOM = false;
+            $("#divbuttons").removeClass("display_none");    
             ShowButons();
         }
     }
-    function btnSave_onclick() {
-        OpenUOM = false;
-        if (Isnew == true ) {
+    function btnSave_onclick() {    
+        if (Isnew == true) {
             Insert();
         }
         else {
-            Update(); 
+            Update();
         }
-       
+
 
 
     }
-
-
     function Validation_Grid(rowcount: number): boolean {
         var Qty = Number($("#txtConvertedQnty" + rowcount).val());
         if ($("#txt_StatusFlag" + rowcount).val() == "d" || $("#txt_StatusFlag" + rowcount).val() == "") {
@@ -863,10 +846,10 @@ namespace RawStock {
             }
             return true;
         }
-    }                      
+    }
     //------------------------------------------------------ Clear && Search && Enable && Disabled Region -----------------------------------
     function GetDate() {
-         
+
         var today: Date = new Date();
         var dd: string = today.getDate().toString();
         var ReturnedDate: string;
@@ -879,14 +862,14 @@ namespace RawStock {
             mm = ('0' + mm);
         }
         ReturnedDate = yyyy + '-' + mm + '-' + dd;
-        return ReturnedDate;  
-    }    
+        return ReturnedDate;
+    }
     function txtSearch_onKeyup() {
 
         if (txtSearch.value != "") {
             let search: string = txtSearch.value.toLowerCase();
             SearchDetails = IQ_DirectTransferDetail.filter(x => x.TrDate.toLowerCase().search(search) >= 0
-                || x.Tr_No.toString().search(search) >= 0 || x.RefNO.toString().search(search) >= 0|| x.SendBy.search(search) >= 0|| x.ReceivedBy.search(search) >= 0);
+                || x.Tr_No.toString().search(search) >= 0 || x.RefNO.toString().search(search) >= 0 || x.SendBy.search(search) >= 0 || x.ReceivedBy.search(search) >= 0);
             Grid.DataSource = SearchDetails;
             Grid.Bind();
         } else {
@@ -895,38 +878,36 @@ namespace RawStock {
         }
     }
     function EnableControls() {
-         
+
         //$("#divTransferDetails :input").removeAttr("disabled");
         $("#btnAddDetails").removeClass("display_none");
-        $("#txtRefNumber").removeAttr("disabled");      
+        $("#txtRefNumber").removeAttr("disabled");
         $("#txtApprovedBy").removeAttr("disabled");
         $("#txtRemarks").removeAttr("disabled");
         $("#chkApproved").removeAttr("disabled");
-        for (let i = 0; i < CountGrid; i++) {    
+        for (let i = 0; i < CountGrid; i++) {
             $("#btn_minus" + i).removeAttr("disabled");
             $("#btnSearchItems" + i).removeAttr("disabled");
             $("#txtItemCode" + i).removeAttr("disabled");
-            $("#dllUom" + i).removeAttr("disabled");
+            //$("#dllUom" + i).removeAttr("disabled");
             $("#txtConvertedQnty" + i).removeAttr("disabled");
-            if (OpenUOM == true) {        
-                $("#dllUom" + i).removeAttr("disabled");
-            }
-        }    
+           
+        }
     }
     function DisableControls() {
         $("#btnAddDetails").addClass("display_none");
-        $("#txtRefNumber").attr("disabled","disabled");   
-        $("#txtApprovedBy").attr("disabled","disabled");
-        $("#txtRemarks").attr("disabled","disabled");
-        $("#chkApproved").attr("disabled","disabled");
+        $("#txtRefNumber").attr("disabled", "disabled");
+        $("#txtApprovedBy").attr("disabled", "disabled");
+        $("#txtRemarks").attr("disabled", "disabled");
+        $("#chkApproved").attr("disabled", "disabled");
 
         for (let i = 0; i < CountGrid; i++) {
-            $("#btn_minus" + i).attr("disabled","disabled");
-            $("#btnSearchItems" + i).attr("disabled","disabled");
-            $("#txtItemCode" + i).attr("disabled","disabled");
-            $("#dllUom" + i).attr("disabled","disabled");
+            $("#btn_minus" + i).attr("disabled", "disabled");
+            $("#btnSearchItems" + i).attr("disabled", "disabled");
+            $("#txtItemCode" + i).attr("disabled", "disabled");
+            //$("#dllUom" + i).attr("disabled", "disabled");
             $("#txtConvertedQnty" + i).attr("disabled", "disabled");
-        }             
+        }
     }
     function HideButtons() {
         $("#btnEdit").addClass("display_none");
@@ -944,28 +925,28 @@ namespace RawStock {
         $("#div_hedr").addClass("disabledDiv");
         $("#divTransferDetails").removeClass("disabledDiv");
         $("#divTransferDetails").removeClass("display_none");
-    }                              
-    function Clear() {      
-        txtTransferDate.value = GetDate();  
+    }
+    function Clear() {
+        txtTransferDate.value = GetDate();
         txtUpdatedBy.value = "";
         txtUpdatedAt.value = "";
         txtCreatedBy.value = "";
-        txtCreatedAt.value = "";     
+        txtCreatedAt.value = "";
         txtRefNumber.value = "";
         txtSenderTrNO.value = "";
         txtApprovedBy.value = "";
-        txtRemarks.value = "";               
+        txtRemarks.value = "";
         chkApproved.checked = false;
         $("#divTransferDetails").removeClass("display_none");
         $("#btnEdit").removeClass("display_none");
         $("#btnPrintTransaction").removeClass("display_none");
         $("#div_Approve").removeClass("display_none");
-        $("#div_Data").html("");     
+        $("#div_Data").html("");
     }
 
     //--------------------------------------------------------------Assign & Isert - Update---------------------------------------------------
     function Assign() {
-        debugger
+         
         MasterDetailModel = new DirectTransferMasterDetails();
         TranferHeaderModel = new I_Stk_TR_Transfer();
         TransferDetailModel = new Array<I_Stk_TR_TransferDetails>();
@@ -976,26 +957,25 @@ namespace RawStock {
         TranferHeaderModel.BranchCode = Number(BranchCode);
         TranferHeaderModel.TrDate = txtTransferDate.value;
         TranferHeaderModel.RefNO = txtRefNumber.value;
-        TranferHeaderModel.VoucherNo =1;
+        TranferHeaderModel.VoucherNo = 1;
         TranferHeaderModel.TrType = 1;
-        TranferHeaderModel.TFType = 1;     
-        if (chkApproved.checked == true) { TranferHeaderModel.IsSent = true; } else { TranferHeaderModel.IsSent = false; }   
+        TranferHeaderModel.TFType = 1;
+        if (chkApproved.checked == true) { TranferHeaderModel.IsSent = true; } else { TranferHeaderModel.IsSent = false; }
         TranferHeaderModel.SenderBranchCode = 1;
-        TranferHeaderModel.ReceiverBranchCode = 1;   
+        TranferHeaderModel.ReceiverBranchCode = 1;
         TranferHeaderModel.SenderStoreID = 1;
         TranferHeaderModel.ReceiverStoreID = 1;
         TranferHeaderModel.VerfiedBy = txtApprovedBy.value;
-        TranferHeaderModel.Remark = txtRemarks.value;     
+        TranferHeaderModel.Remark = txtRemarks.value;
         var StatusFlag: string = "";
-        // Details
+
         for (var i = 0; i < CountGrid; i++) {
             TransferDetailSingleModel = new I_Stk_TR_TransferDetails();
             StatusFlag = $("#txt_StatusFlag" + i).val();
-
             $("#txt_StatusFlag" + i).val("");
             TransferDetailSingleModel.StatusFlag = StatusFlag;
 
-            if (StatusFlag == "i") {        
+            if (StatusFlag == "i") {
                 TransferDetailSingleModel.TransfareDetailID = 0;
                 TransferDetailSingleModel.Serial = $("#txtSerial" + i).val();
                 TransferDetailSingleModel.ItemID = Number($("#txt_ItemID" + i).val());
@@ -1005,11 +985,12 @@ namespace RawStock {
                 TransferDetailSingleModel.SrcOhnandQty = Number($("#txtSrcQty" + i).val());
                 TransferDetailSingleModel.StockSendQty = Number($("#txtConvertedQnty" + i).val());
                 TransferDetailSingleModel.StockRecQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.StockReqQty = Number($("#txtstockQnty" + i).val());
                 TransferDetailSingleModel.UserCode = sys.SysSession.CurrentEnvironment.UserCode;
                 TransferDetailSingleModel.Token = sys.SysSession.CurrentEnvironment.Token;
 
-                TransferDetailModel.push(TransferDetailSingleModel);         
-            } else if (StatusFlag == "u") {                                           
+                TransferDetailModel.push(TransferDetailSingleModel);
+            } else if (StatusFlag == "u") {
                 TransferDetailSingleModel.TransfareDetailID = Number($("#TransfareDetailID" + i).val());
                 TransferDetailSingleModel.Serial = $("#txtSerial" + i).val();
                 TransferDetailSingleModel.ItemID = Number($("#txt_ItemID" + i).val());
@@ -1019,11 +1000,12 @@ namespace RawStock {
                 TransferDetailSingleModel.SrcOhnandQty = Number($("#txtSrcQty" + i).val());
                 TransferDetailSingleModel.StockSendQty = Number($("#txtConvertedQnty" + i).val());
                 TransferDetailSingleModel.StockRecQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.StockReqQty = Number($("#txtstockQnty" + i).val());
                 TransferDetailSingleModel.UserCode = sys.SysSession.CurrentEnvironment.UserCode;
                 TransferDetailSingleModel.Token = sys.SysSession.CurrentEnvironment.Token;
 
                 TransferDetailModel.push(TransferDetailSingleModel);
-                                                           
+
             }
             else if (StatusFlag == "d") {
                 if (FlagAddOrEdit == 2) {
@@ -1059,7 +1041,7 @@ namespace RawStock {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     let res = result.Response as I_Stk_TR_Transfer;
-                    debugger
+                     
                     DisplayMassage("تم اصدار  تحويل رقم " + res.Tr_No, 'Transfer number ' + res.Tr_No + 'has been issued', MessageType.Succeed);
                     txtSenderTrNO.value = res.Tr_No.toString();
                     GlobalTransferID = res.TransfareID;
@@ -1107,14 +1089,14 @@ namespace RawStock {
             }
         });
 
-    }    
+    }
     function Save() {
 
         InitializeGridTrans();
         $("#div_hedr").removeClass("disabledDiv");
         $("#divGridShoow").removeClass("disabledDiv");
-        ShowButons();        
-    }   
+        ShowButons();
+    }
 }
 
 
