@@ -1822,7 +1822,7 @@ namespace PurchasesNew {
     function btnSave_onclick() {
         //alert('ok');
 
-        if ($("#ddlType").val() == "1" && txtPaid_Up.value != txtTo_be_Paid.value) {
+        if ($("#ddlType").val() == "1" && txtPaid_Up.value != $("#txtTotal").val()) {
 
             DisplayMassage("يجب ان يكون المبلغ المدفوع مساوي الإجمالي ", "Error", MessageType.Error);
             Errorinput($("#ddlType"))
