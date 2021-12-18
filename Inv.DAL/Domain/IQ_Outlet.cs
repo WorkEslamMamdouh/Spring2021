@@ -36,5 +36,6 @@ namespace Inv.DAL.Domain
         public Nullable<System.DateTime> UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<int> Code_Type { get; set; }
+        public Nullable<int> ID_Peneficiary { get; set; }
     }
 }

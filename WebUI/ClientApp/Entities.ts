@@ -10038,6 +10038,7 @@ class IQ_Purchases_Master extends SecurityClass {
         this.CashPaidAmount = 0;
         this.ReceiveID = 0;
         this.StoreID = 0;
+        this.TotalFC = 0;
         this.IsCash = false;
         
     }
@@ -10058,6 +10059,7 @@ class IQ_Purchases_Master extends SecurityClass {
     public CashPaidAmount: any;
     public ReceiveID: number;
     public StoreID: number;
+    public TotalFC: number;
     public IsCash: boolean; 
 
 }
@@ -10724,3 +10726,105 @@ class CustomerMasterDetails extends SecurityClass {
 
 
 }
+
+
+class IQ_Outlet extends SecurityClass {
+    constructor() {
+        super();
+        this.id = 0;
+        this.EMPLOYEE_NAME = "";
+        this.Dasc_Name = "";
+        this.pirce
+        this.Remark = "";
+        this.Date = "";
+        this.Time = "";
+        this.Tr_Type = "";
+        this.EMPLOYEE_ID = 0;
+        this.USER_CODE = "";
+        this.Num_Day = 0;
+        this.ID_Supplier = 0;
+        this.CompCode = 0;
+        this.BranchCode = 0;
+        this.SalesmanId = 0;
+        this.CUSTOMER_ID = 0;
+        this.ID_Code = 0;
+        this.CreatedAt = "";
+        this.CreatedBy = "";
+        this.UpdatedAt = "";
+        this.UpdatedBy = "";
+        this.PayTypeDescA = "";
+        this.Code_Type = 0;
+        this.ID_Peneficiary = 0;
+    }
+    public id: number;
+    public EMPLOYEE_NAME: string;
+    public Dasc_Name: string;
+    public pirce: any;
+    public Remark: string;
+    public Date: string;
+    public Time: string;
+    public Tr_Type: string;
+    public EMPLOYEE_ID: number;
+    public USER_CODE: string;
+    public Num_Day: number;
+    public ID_Supplier: number;
+    public CompCode: number;
+    public BranchCode: number;
+    public SalesmanId: number;
+    public CUSTOMER_ID: number;
+    public ID_Code: number;
+    public CreatedAt: string;
+    public CreatedBy: string;
+    public UpdatedAt: string;
+    public UpdatedBy: string;
+    public PayTypeDescA: string;
+    public Code_Type: number;
+    public ID_Peneficiary: number;
+}
+
+class Outlet extends SecurityClass {
+    constructor() {
+        super();
+        this.id = 0;
+        this.Dasc_Name = "";
+        this.pirce
+        this.Num_Day = 0;
+        this.EMPLOYEE_ID = 0;
+        this.Time = "";
+        this.Tr_Type = "";
+        this.Code_Type = 0;
+        this.Remark = "";
+        this.BranchCode = 0;
+        this.CompCode = 0;
+        this.ID_Supplier = 0;
+        this.SalesmanId = 0;
+        this.CUSTOMER_ID = 0;
+        this.ID_Code = 0;
+        this.CreatedAt = "";
+        this.CreatedBy = "";
+        this.UpdatedAt = "";
+        this.UpdatedBy = "";
+        this.ID_Peneficiary = 0;
+    }
+    public id: number;
+    public Dasc_Name: string;
+    public pirce: any;
+    public Num_Day: number;
+    public EMPLOYEE_ID: number;
+    public Time: string;
+    public Tr_Type: string;
+    public Code_Type: number;
+    public Remark: string;
+    public BranchCode: number;
+    public CompCode: number;
+    public ID_Supplier: number;
+    public SalesmanId: number;
+    public CUSTOMER_ID: number;
+    public ID_Code: number;
+    public CreatedAt: string;
+    public CreatedBy: string;
+    public UpdatedAt: string;
+    public UpdatedBy: string;
+    public ID_Peneficiary: number;
+}
+

@@ -24,5 +24,6 @@ namespace Inv.DAL.Domain
         public Nullable<int> EMPLOYEE_ID { get; set; }
         public string USER_CODE { get; set; }
         public Nullable<int> Num_Day { get; set; }
+        public Nullable<int> BranchCode { get; set; }
     }
 }

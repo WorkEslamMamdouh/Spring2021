@@ -2645,7 +2645,7 @@ input[type="button"].btn-block {
   z-index: 1000;
   display: none;
   float: left;
-  min-width: 10rem;
+  min-width: 18rem;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
@@ -2787,7 +2787,7 @@ input[type="button"].btn-block {
   clear: both;
   font-weight: 400;
   color: #212529;
-  text-align: inherit;
+  text-align: center;
   white-space: nowrap;
   background-color: transparent;
   border: 0; }
@@ -8420,7 +8420,7 @@ h1, h2, h3, h4, h5,
     border-radius: 18px;
 }
     .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item {
-        font-size: 14px;
+        font-size: 18px;
         color: #000;
         font-weight: bold; 
         background-color: #ffd400;

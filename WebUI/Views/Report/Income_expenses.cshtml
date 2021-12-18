@@ -1,4 +1,4 @@
-﻿
+﻿@using Inv.WebUI.Resources
 @{
     ViewBag.Title = "جرد المبيعات";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -54,7 +54,7 @@
             <div class="col-lg-12">
                 <label class="col-lg-1 col-xs-4   pading_2  ">المستخدم</label>
                 <div class="col-lg-3 col-xs-8">
-                    <select id="ddlUserMaster" name="" class="form-control" style='width: 100%;border-radius: 30px;'></select>
+                    <select id="ddlUserMaster" disabled name="" class="form-control" style='width: 100%;border-radius: 30px;'></select>
                 </div>
 
 
@@ -72,8 +72,8 @@
 
                 <div class="col-md-2 col-sm-5 col-xs-10" style="width: 10%;">
                     <div class="btn-group">
-                        <label type="button" class="btn btn-warning" >طباعة</label>
-                        <button type="button" class="btn btn-warning dropdown-toggle"  data-toggle="dropdown">
+                        <label type="button" class="btn btn-warning">طباعة</label>
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-hand-down"></span>
                         </button>
                         <div class="dropdown-menu" role="menu" style="border-radius:15px">
@@ -107,8 +107,27 @@
                 <div class="col-lg-3 col-xs-8">
                     <select id="ddlType" name="" class="form-control" style='width: 100%;border-radius: 30px;'>
                         <option value="1">مصروفات</option>
-                        <option value="2">ضخ نقدية</option>
+                        <option value="2">المقبوضات</option>
                     </select>
+
+                </div>
+                <div id="Div_Pay">
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  marginstenig pading_lep  pading_2 textcentr_pading"> @SystemResource.App_Drainage_Type  </label>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                        <select id="txt_PayTypeNew" name="ID_Peneficiary" class="form-control  text_Display">
+                            <option value="Null">  @SystemResource.App_Drainage_Type    </option>
+                        </select>
+                    </div>
+
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 marginstenig pading_lep  pading_2 textcentr_pading"> @SystemResource.App_beneficiary </label>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3 ">
+
+                        <button type="button" class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2 src-btn btn btn-warning input-sm" id="btnBen" name="ColSearch">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <input id="txt_BenCode" name=" " disabled type="text" class="display_none col-lg-10 col-md-10 col-sm-10 col-xl-10 col-xs-10 pl-0  form-control input-sm  text_Display">
+                        <input id="txt_BenName" name=" " disabled="disabled" type="text" class="col-lg-10 col-md-10 col-sm-10 col-xl-10 col-xs-10 pl-0  form-control input-sm  text_Display">
+                    </div>
 
                 </div>
             </div>

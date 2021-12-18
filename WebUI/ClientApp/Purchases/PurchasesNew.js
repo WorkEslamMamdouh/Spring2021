@@ -80,6 +80,7 @@ var PurchasesNew;
     var btnAddDetailsCharge;
     var btnAddDetailslebel;
     var searchbutmemreport;
+    var txtTotalFC;
     var txtPaid_Up;
     var txtTo_be_Paid;
     var btnPrint;
@@ -135,6 +136,7 @@ var PurchasesNew;
         ddlStore = document.getElementById("ddlStore");
         ddlStateType = document.getElementById("ddlStateType");
         searchbutmemreport = document.getElementById("searchbutmemreport");
+        txtTotalFC = document.getElementById("txtTotalFC");
         txtPaid_Up = document.getElementById("txtPaid_Up");
         txtTo_be_Paid = document.getElementById("txtTo_be_Paid");
         btnadd = document.getElementById("btnadd");
@@ -162,6 +164,7 @@ var PurchasesNew;
         btnAddDetails.onclick = AddNewRow;
         btnSupplierSearch.onclick = Search;
         txtPaid_Up.onkeyup = txtPaid_Up_onchange;
+        txtTotalFC.onkeyup = txtTotalFC_onchange;
         btnPaid_Up.onclick = btnExecute_onclick;
         btnPrint.onclick = function () { printreport(4); };
         btnPrintTrview.onclick = function () { printreport(1); };
@@ -177,6 +180,9 @@ var PurchasesNew;
             txtTo_be_Paid.value = '0';
             txtPaid_Up.value = $('#txtTotal').val();
         }
+    }
+    function txtTotalFC_onchange() {
+        ComputeTotals();
     }
     function GetDate() {
         debugger;
@@ -426,6 +432,7 @@ var PurchasesNew;
         ID_Supp = Selected_Data[0].ID_Supplier;
         $("#ddlStore").attr("disabled", "disabled");
         $("#ddlType").attr("disabled", "disabled");
+        $("#txtTotalFC").attr("disabled", "disabled");
         $("#ddlStore").val(Selected_Data[0].StoreID);
         if (Selected_Data[0].IsCash) {
             $("#ddlType").val("1");
@@ -462,6 +469,7 @@ var PurchasesNew;
                         Disbly_BuildControls(i, AllGetStokMasterDetail);
                         CountGrid += 1;
                     }
+                    ComputeTotals();
                     $("#txtItemCount").val(CountGrid);
                 }
             }
@@ -554,7 +562,10 @@ var PurchasesNew;
             '<select disabled id="ddlTypeuom' + cnt + '" class="form-control input-sm"   style="width: 100%;border-radius: 30px;"><option value="null">الوحده</option></select> </div>' +
             '<div class=" col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"><input type="number" disabled id="txtQuantity' + cnt + '" name="quant[1]" class="form-control input-sm   font1" value="1" min="1" max="1000" step="1"></div>' +
             '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number" disabled id="txtPrice' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="1" min="0" max="1000" step="0.5"></div>' +
-            '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"><input type="text"  disabled class="form-control input-sm" id="txtReturnQuantity' + cnt + '" name="quant[3]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="1"></div>' +
+            /*    '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"><input type="text"  disabled class="form-control input-sm" id="txtReturnQuantity' + cnt + '" name="quant[3]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="1"></div>' +*/
+            '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number"  disabled id="txtNetUnitCost' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="0.5"></div>' +
+            '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number" disabled id="txtNewCost' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="0.5"></div>' +
+            '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number" disabled id="txtNewCostRate' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="0.5"></div>' +
             '<div class="  col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0"  ><input type="number" disabled id="txtTotal' + cnt + '" name="quant[2]" class="form-control input-sm   font1" value="0" min="0" max="1000" step="0.5"></div>' +
             '</div>' +
             '<input id="txt_StatusFlag' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ItemID' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ID' + cnt + '" name = " " type = "hidden" class="form-control" />';
@@ -696,6 +707,37 @@ var PurchasesNew;
             if ($("#txt_StatusFlag" + cnt).val() != "i") {
                 $("#txt_StatusFlag" + cnt).val("u");
             }
+            //let txtTotalFC = Number($("#txtTotalFC").val());
+            //let cost = 0;
+            //let AllQuantity = 0;
+            //for (let i = 0; i < CountGrid; i++) {
+            //    var flagvalue = $("#txt_StatusFlag" + i).val();
+            //    if (flagvalue != "d" && flagvalue != "m") {
+            //        AllQuantity += Number($("#txtQuantity" + i).val());
+            //    }
+            //}
+            //cost = txtTotalFC / AllQuantity;
+            //$("#txtNetUnitCost" + cnt).val(cost);
+            //let total = Number($("#txtQuantity" + cnt).val()) * Number($("#txtPrice" + cnt).val());
+            //let allcost = Number($("#txtNetUnitCost" + cnt).val()) * Number($("#txtQuantity" + cnt).val());
+            //$("#txtTotal" + cnt).val((allcost + total).toFixed(2));
+            //let vatAmount = (Number(total) * Number($("#txtTax_Rate" + cnt).val())) / 100;
+            //let totalAfterVat = Number(vatAmount.toFixed(2)) + Number(total.toFixed(2));
+            //$('#txtTax_Rate' + cnt).val(Tax_Rate);
+            //VatPrc = $("#txtTax_Rate" + cnt).val();
+            //$("#txtTax" + cnt).val(vatAmount.toFixed(2));
+            //$("#txtTotAfterTax" + cnt).val(totalAfterVat.toFixed(2));
+            //$("#txtDiscountAmount" + cnt).val(((Number($("#txtDiscountPrc" + cnt).val()) * Number($("#txtPrice" + cnt).val())) / 100).toFixed(2));
+            //$("#txtNetUnitPrice" + cnt).val((Number($("#txtPrice" + cnt).val()) - ((Number($("#txtDiscountPrc" + cnt).val()) * Number($("#txtPrice" + cnt).val())) / 100)));
+            //totalRow(cnt);
+            ComputeTotals();
+        });
+        $("#txtNetUnitCost" + cnt).on('keyup', function () {
+            if ($("#txt_StatusFlag" + cnt).val() != "i")
+                $("#txt_StatusFlag" + cnt).val("u");
+            if ($("#txt_StatusFlag" + cnt).val() != "i") {
+                $("#txt_StatusFlag" + cnt).val("u");
+            }
             var total = Number($("#txtQuantity" + cnt).val()) * Number($("#txtPrice" + cnt).val());
             var vatAmount = (Number(total) * Number($("#txtTax_Rate" + cnt).val())) / 100;
             var totalAfterVat = Number(vatAmount.toFixed(2)) + Number(total.toFixed(2));
@@ -713,17 +755,20 @@ var PurchasesNew;
             if ($("#txt_StatusFlag" + cnt).val() != "i") {
                 $("#txt_StatusFlag" + cnt).val("u");
             }
-            var total = Number($("#txtQuantity" + cnt).val()) * Number($("#txtPrice" + cnt).val());
-            var vatAmount = (Number(total) * Number($("#txtTax_Rate" + cnt).val())) / 100;
-            var totalAfterVat = Number(vatAmount.toFixed(2)) + Number(total.toFixed(2));
-            $('#txtTax_Rate' + cnt).val(Tax_Rate);
-            VatPrc = $("#txtTax_Rate" + cnt).val();
-            $("#txtTax" + cnt).val(vatAmount.toFixed(2));
-            $("#txtTotal" + cnt).val(total.toFixed(2));
-            $("#txtTotAfterTax" + cnt).val(totalAfterVat.toFixed(2));
-            $("#txtDiscountAmount" + cnt).val(((Number($("#txtDiscountPrc" + cnt).val()) * Number($("#txtPrice" + cnt).val())) / 100).toFixed(2));
-            $("#txtNetUnitPrice" + cnt).val((Number($("#txtPrice" + cnt).val()) - ((Number($("#txtDiscountPrc" + cnt).val()) * Number($("#txtPrice" + cnt).val())) / 100)));
-            //totalRow(cnt);
+            //let txtTotalFC = Number($("#txtTotalFC").val());
+            //let cost = 0;
+            //let AllQuantity = 0;
+            //for (let i = 0; i < CountGrid; i++) {
+            //    var flagvalue = $("#txt_StatusFlag" + i).val();
+            //    if (flagvalue != "d" && flagvalue != "m") {
+            //        AllQuantity += Number($("#txtQuantity" + i).val());
+            //    }
+            //}
+            //cost = txtTotalFC / AllQuantity;
+            //$("#txtNetUnitCost" + cnt).val(cost);
+            //let total = Number($("#txtQuantity" + cnt).val()) * Number($("#txtPrice" + cnt).val());
+            //let allcost = Number($("#txtNetUnitCost" + cnt).val()) * Number($("#txtQuantity" + cnt).val());
+            //$("#txtTotal" + cnt).val((allcost + total).toFixed(2));
             ComputeTotals();
         });
         $("#txtDiscountPrc" + cnt).on('keyup', function () {
@@ -776,7 +821,8 @@ var PurchasesNew;
         $("#txtReturnQuantity" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].TotRetQty);
         $("#txtTax" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].VatAmount == null ? 0 : SlsInvoiceItemsDetails[cnt].VatAmount.toFixed(2));
         $("#txt_ItemID" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].ItemID);
-        $("#txtTotal" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].NetUnitCost);
+        $("#txtNewCostRate" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].NetUnitCost);
+        //$("#txtTotal" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].NetUnitCost);
         filldlltypeuom(cnt, SlsInvoiceItemsDetails);
     }
     function filldlltypeuom(cnt, SlsInvoiceItemsDetails) {
@@ -798,7 +844,7 @@ var PurchasesNew;
                     if (GetItemInfo.length > 0) {
                         $('#ddlTypeuom' + cnt + '').html('');
                         for (var i = 0; i < GetItemInfo.length; i++) {
-                            $('#ddlTypeuom' + cnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].OnhandQty + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+                            $('#ddlTypeuom' + cnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
                         }
                     }
                 }
@@ -864,9 +910,42 @@ var PurchasesNew;
     function ComputeTotals() {
         var CountTotal = 0;
         var ItemCount = 0;
+        var txtTotalFC = Number($("#txtTotalFC").val());
+        var cost = 0;
+        var AllQuantity = 0;
+        for (var i_2 = 0; i_2 < CountGrid; i_2++) {
+            var flagvalue = $("#txt_StatusFlag" + i_2).val();
+            if (flagvalue != "d" && flagvalue != "m") {
+                AllQuantity += Number($("#txtQuantity" + i_2).val());
+            }
+        }
+        //alert(AllQuantity);
         for (var i = 0; i < CountGrid; i++) {
             var flagvalue = $("#txt_StatusFlag" + i).val();
             if (flagvalue != "d" && flagvalue != "m") {
+                cost = txtTotalFC / AllQuantity;
+                $("#txtNetUnitCost" + i).val(cost.toFixed(2));
+                var qet = Number($("#txtQuantity" + i).val());
+                var total = qet * Number($("#txtPrice" + i).val());
+                var allcost = Number($("#txtNetUnitCost" + i).val()) * Number($("#txtQuantity" + i).val());
+                $("#txtTotal" + i).val((allcost + total).toFixed(2));
+                $("#txtNewCost" + i).val((cost + Number($("#txtPrice" + i).val())).toFixed(2));
+                var rate = Number($('option:selected', $("#ddlTypeuom" + i)).attr('data-rate'));
+                //if (rate == 1) {
+                //    $("#txtNewCostRate" + i).val((Number($("#txtNewCost" + i).val())).toFixed(2));
+                //}
+                //else {
+                //}
+                $("#txtNewCostRate" + i).val((Number($("#txtNewCost" + i).val()) / rate).toFixed(2));
+                //let rate = Number($('option:selected', $("#ddlTypeuom" + i)).attr('data-rate'));
+                //let NewCost = qet * rate;
+                //let TotalCost = Number($("#txtTotal" + i).val());
+                //if (NewCost > TotalCost) {
+                //    $("#txtNewCostRate" + i).val((NewCost / TotalCost).toFixed(2));
+                //}
+                //else {
+                //    $("#txtNewCostRate" + i).val((TotalCost / NewCost).toFixed(2));
+                //}
                 CountTotal += Number($("#txtTotal" + i).val());
                 CountTotal = Number(CountTotal.toFixed(2).toString());
                 ItemCount += 1;
@@ -988,7 +1067,7 @@ var PurchasesNew;
         ReceiveModel.VATType = 1;
         ReceiveModel.CurrencyID = 1;
         ReceiveModel.CurrencyRate = 1;
-        ReceiveModel.TotalFC = 1;
+        ReceiveModel.TotalFC = $('#txtTotalFC').val();
         ReceiveModel.Remarks = "";
         ReceiveModel.NetAdditionVat = 0;
         ReceiveModel.NetAdditionCost = 0;
@@ -1010,14 +1089,15 @@ var PurchasesNew;
                 var Rate_data = Number($('option:selected', $("#ddlTypeuom" + i)).attr('data-rate'));
                 var stockqty = (Number($('#txtQuantity' + i).val()) * Number(Rate_data));
                 ReceiveItemSingleModel.Serial = $("#txtSerial" + i).val();
-                ReceiveItemSingleModel.RecStockQty = stockqty; //
+                ReceiveItemSingleModel.RecStockQty = stockqty; // 
                 ReceiveItemSingleModel.StockUnitCost = $("#txtPrice" + i).val(); //
                 ReceiveItemSingleModel.TotRetQty = $("#txtQuantityReturnValue" + i).val();
                 ReceiveItemSingleModel.ReceiveRecQty = Number($('#txtQuantity' + i).val());
                 ReceiveItemSingleModel.RecUnitPrice = $("#txtPrice" + i).val();
                 ReceiveItemSingleModel.VatPrc = VatPrc; //$("#txtTax" + i).val();txtTotal
                 ReceiveItemSingleModel.VatAmount = $("#txtTax" + i).val();
-                ReceiveItemSingleModel.NetUnitCost = $("#txtTotal" + i).val();
+                ReceiveItemSingleModel.NetUnitCost = $("#txtNewCostRate" + i).val();
+                ReceiveItemSingleModel.NewUnitCost = $("#txtNewCostRate" + i).val();
                 ReceiveItemSingleModel.RecUnitPriceFC = $("#txtPrice" + i).val();
                 ReceiveItemSingleModel.UnitAddCost = 1;
                 ReceiveItemsDetailsModel.push(ReceiveItemSingleModel);
@@ -1039,7 +1119,8 @@ var PurchasesNew;
                 ReceiveItemSingleModel.RecUnitPrice = $("#txtPrice" + i).val();
                 ReceiveItemSingleModel.VatPrc = VatPrc; //$("#txtTax" + i).val();txtTotal
                 ReceiveItemSingleModel.VatAmount = $("#txtTax" + i).val();
-                ReceiveItemSingleModel.NetUnitCost = $("#txtTotal" + i).val();
+                ReceiveItemSingleModel.NetUnitCost = $("#txtNewCostRate" + i).val();
+                ReceiveItemSingleModel.NewUnitCost = $("#txtNewCostRate" + i).val();
                 ReceiveItemSingleModel.RecUnitPriceFC = $("#txtPrice" + i).val();
                 ReceiveItemSingleModel.UnitAddCost = 1;
                 ReceiveItemsDetailsModel.push(ReceiveItemSingleModel);
@@ -1247,6 +1328,7 @@ var PurchasesNew;
         //remove_disabled_Grid_Controls();
         $("#ddlStore").removeClass("display_none");
         $("#ddlType").removeClass("display_none");
+        $("#txtTotalFC").removeAttr("disabled");
         $("#txtDate").removeAttr("disabled");
         $("#ddlStore").removeAttr("disabled");
         $("#ddlType").removeAttr("disabled");
@@ -1314,6 +1396,7 @@ var PurchasesNew;
         }
         $("#ddlStore").attr("disabled", "disabled");
         $("#ddlType").attr("disabled", "disabled");
+        $("#txtTotalFC").attr("disabled", "disabled");
         ComputeTotals();
     }
     function btnSave_onclick() {

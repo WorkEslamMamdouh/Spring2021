@@ -1468,6 +1468,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="25" />
           <Property Name="UpdatedAt" Type="smalldatetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="25" />
+          <Property Name="ID_Peneficiary" Type="int" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -2594,6 +2595,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Outlet' does not have a p
           <Property Name="UpdatedAt" Type="smalldatetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="25" />
           <Property Name="Code_Type" Type="int" />
+          <Property Name="ID_Peneficiary" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Purchases_Details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2640,6 +2642,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.IQ_Purchases_Master' does no
           <Property Name="IsCash" Type="bit" />
           <Property Name="CompCode" Type="int" />
           <Property Name="BranchCode" Type="int" />
+          <Property Name="TotalFC" Type="numeric" Precision="19" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3151,10 +3154,10 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Parameter Name="USER_CODE" Type="nvarchar" Mode="In" />
           <Parameter Name="Type" Type="int" Mode="In" />
           <Parameter Name="CompCode" Type="int" Mode="In" />
-          <Parameter Name="BranchCode" Type="int" Mode="In" />
           <Parameter Name="ID_Supplier" Type="int" Mode="In" />
           <Parameter Name="SalesmanId" Type="int" Mode="In" />
           <Parameter Name="CUSTOMER_ID" Type="int" Mode="In" />
+          <Parameter Name="ID_Peneficiary" Type="int" Mode="In" />
         </Function>
         <Function Name="update_Sales_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Total_All" Type="money" Mode="In" />
@@ -4133,7 +4136,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
     [IQ_Outlet].[CreatedBy] AS [CreatedBy], 
     [IQ_Outlet].[UpdatedAt] AS [UpdatedAt], 
     [IQ_Outlet].[UpdatedBy] AS [UpdatedBy], 
-    [IQ_Outlet].[Code_Type] AS [Code_Type]
+    [IQ_Outlet].[Code_Type] AS [Code_Type], 
+    [IQ_Outlet].[ID_Peneficiary] AS [ID_Peneficiary]
     FROM [dbo].[IQ_Outlet] AS [IQ_Outlet]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="IQ_Purchases_Details" EntityType="Self.IQ_Purchases_Details" store:Type="Views" store:Schema="dbo">
@@ -4171,7 +4175,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
     [IQ_Purchases_Master].[StoreID] AS [StoreID], 
     [IQ_Purchases_Master].[IsCash] AS [IsCash], 
     [IQ_Purchases_Master].[CompCode] AS [CompCode], 
-    [IQ_Purchases_Master].[BranchCode] AS [BranchCode]
+    [IQ_Purchases_Master].[BranchCode] AS [BranchCode], 
+    [IQ_Purchases_Master].[TotalFC] AS [TotalFC]
     FROM [dbo].[IQ_Purchases_Master] AS [IQ_Purchases_Master]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ReviewSalesItemInfo" EntityType="Self.ReviewSalesItemInfo" store:Type="Views" store:Schema="dbo">
@@ -5522,41 +5527,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="IQ_GetSalesMan" EntityType="POS2021Model.IQ_GetSalesMan" />
           <EntitySet Name="IQ_GetSlsInvoiceList" EntityType="POS2021Model.IQ_GetSlsInvoiceList" />
           <EntitySet Name="IQ_GetSlsInvoiceStatistic" EntityType="POS2021Model.IQ_GetSlsInvoiceStatistic" />
-          <FunctionImport Name="IProc_Rpt_ItemStockIncome" ReturnType="Collection(POS2021Model.IProc_Rpt_ItemStockIncome_Result)">
-            <Parameter Name="comp" Mode="In" Type="Int32" />
-            <Parameter Name="bra" Mode="In" Type="Int32" />
-            <Parameter Name="CompNameA" Mode="In" Type="String" />
-            <Parameter Name="CompNameE" Mode="In" Type="String" />
-            <Parameter Name="BraNameA" Mode="In" Type="String" />
-            <Parameter Name="BraNameE" Mode="In" Type="String" />
-            <Parameter Name="LoginUser" Mode="In" Type="String" />
-            <Parameter Name="RepType" Mode="In" Type="Int32" />
-            <Parameter Name="CatID" Mode="In" Type="Int32" />
-            <Parameter Name="ItemFamId" Mode="In" Type="Int32" />
-            <Parameter Name="ItemID" Mode="In" Type="Int32" />
-            <Parameter Name="type" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-            <Parameter Name="FromDate" Mode="In" Type="String" />
-            <Parameter Name="Todate" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="IProc_Rpt_ItemStockSummary" ReturnType="Collection(POS2021Model.IProc_Rpt_ItemStockSummary_Result)">
-            <Parameter Name="comp" Mode="In" Type="Int32" />
-            <Parameter Name="bra" Mode="In" Type="Int32" />
-            <Parameter Name="CompNameA" Mode="In" Type="String" />
-            <Parameter Name="CompNameE" Mode="In" Type="String" />
-            <Parameter Name="BraNameA" Mode="In" Type="String" />
-            <Parameter Name="BraNameE" Mode="In" Type="String" />
-            <Parameter Name="LoginUser" Mode="In" Type="String" />
-            <Parameter Name="RepType" Mode="In" Type="Int32" />
-            <Parameter Name="CatID" Mode="In" Type="Int32" />
-            <Parameter Name="ItemFamId" Mode="In" Type="Int32" />
-            <Parameter Name="ItemID" Mode="In" Type="Int32" />
-            <Parameter Name="type" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-            <Parameter Name="BalType" Mode="In" Type="Int32" />
-            <Parameter Name="FromDate" Mode="In" Type="String" />
-            <Parameter Name="Todate" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="IProc_Rpt_ItemStockValue" ReturnType="Collection(POS2021Model.IProc_Rpt_ItemStockValue_Result)">
             <Parameter Name="comp" Mode="In" Type="Int32" />
             <Parameter Name="bra" Mode="In" Type="Int32" />
@@ -5607,8 +5577,8 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             <Parameter Name="CompCode" Mode="In" Type="Int32" />
             <Parameter Name="ID_Supplier" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="IQ_Purchases_Master" EntityType="POS2021Model.IQ_Purchases_Master" />
           <EntitySet Name="G_USERS" EntityType="POS2021Model.G_USERS" />
+          <EntitySet Name="Enter_Money" EntityType="POS2021Model.Enter_Money" />
           <EntitySet Name="Outlet" EntityType="POS2021Model.Outlet" />
           <EntitySet Name="IQ_Outlet" EntityType="POS2021Model.IQ_Outlet" />
           <FunctionImport Name="Stord_Get_Outlet" ReturnType="Collection(POS2021Model.Stord_Get_Outlet_Result)">
@@ -5617,12 +5587,47 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             <Parameter Name="USER_CODE" Mode="In" Type="String" />
             <Parameter Name="Type" Mode="In" Type="Int32" />
             <Parameter Name="CompCode" Mode="In" Type="Int32" />
-            <Parameter Name="BranchCode" Mode="In" Type="Int32" />
             <Parameter Name="ID_Supplier" Mode="In" Type="Int32" />
             <Parameter Name="SalesmanId" Mode="In" Type="Int32" />
             <Parameter Name="CUSTOMER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID_Peneficiary" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Enter_Money" EntityType="POS2021Model.Enter_Money" />
+          <EntitySet Name="IQ_Purchases_Master" EntityType="POS2021Model.IQ_Purchases_Master" />
+          <FunctionImport Name="IProc_Rpt_ItemStockSummary" ReturnType="Collection(POS2021Model.IProc_Rpt_ItemStockSummary_Result)">
+            <Parameter Name="comp" Mode="In" Type="Int32" />
+            <Parameter Name="bra" Mode="In" Type="Int32" />
+            <Parameter Name="CompNameA" Mode="In" Type="String" />
+            <Parameter Name="CompNameE" Mode="In" Type="String" />
+            <Parameter Name="BraNameA" Mode="In" Type="String" />
+            <Parameter Name="BraNameE" Mode="In" Type="String" />
+            <Parameter Name="LoginUser" Mode="In" Type="String" />
+            <Parameter Name="RepType" Mode="In" Type="Int32" />
+            <Parameter Name="CatID" Mode="In" Type="Int32" />
+            <Parameter Name="ItemFamId" Mode="In" Type="Int32" />
+            <Parameter Name="ItemID" Mode="In" Type="Int32" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="BalType" Mode="In" Type="Int32" />
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="Todate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="IProc_Rpt_ItemStockIncome" ReturnType="Collection(POS2021Model.IProc_Rpt_ItemStockIncome_Result)">
+            <Parameter Name="comp" Mode="In" Type="Int32" />
+            <Parameter Name="bra" Mode="In" Type="Int32" />
+            <Parameter Name="CompNameA" Mode="In" Type="String" />
+            <Parameter Name="CompNameE" Mode="In" Type="String" />
+            <Parameter Name="BraNameA" Mode="In" Type="String" />
+            <Parameter Name="BraNameE" Mode="In" Type="String" />
+            <Parameter Name="LoginUser" Mode="In" Type="String" />
+            <Parameter Name="RepType" Mode="In" Type="Int32" />
+            <Parameter Name="CatID" Mode="In" Type="Int32" />
+            <Parameter Name="ItemFamId" Mode="In" Type="Int32" />
+            <Parameter Name="ItemID" Mode="In" Type="Int32" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="Todate" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Get_Settings_Report_Result">
           <Property Type="Int32" Name="ID_Report" Nullable="false" />
@@ -7082,76 +7087,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="NAMEE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <ComplexType Name="IProc_Rpt_ItemStockIncome_Result">
-          <Property Type="Int32" Name="Comp" Nullable="true" />
-          <Property Type="Int32" Name="Bra" Nullable="true" />
-          <Property Type="String" Name="CompNameA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="CompNameE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="BraNameA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="BraNameE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="LoginUser" Nullable="true" MaxLength="25" />
-          <Property Type="DateTime" Name="PrintDate" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="Par_RepType" Nullable="true" />
-          <Property Type="String" Name="Par_StatusDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_StatusDSE" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="Par_Type" Nullable="true" />
-          <Property Type="String" Name="Par_CatDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_CatDSE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_FamilyDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_FamilyDSE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_ItemDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_ItemDSE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_FromDate" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Par_Todate" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Code" Nullable="true" MaxLength="25" />
-          <Property Type="String" Name="DescA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="DescE" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="TotSoldCreditQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotSoldCashQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotSoldCreditCost" Nullable="true" Precision="38" Scale="10" />
-          <Property Type="Decimal" Name="TotSoldCashCost" Nullable="true" Precision="38" Scale="10" />
-          <Property Type="Decimal" Name="TotSoldCreditIncome" Nullable="true" Precision="38" Scale="10" />
-          <Property Type="Decimal" Name="TotSoldCashIncome" Nullable="true" Precision="38" Scale="10" />
-          <Property Type="Decimal" Name="TotSoldCreditVal" Nullable="true" Precision="38" Scale="10" />
-          <Property Type="Decimal" Name="TotSoldCashVal" Nullable="true" Precision="38" Scale="10" />
-        </ComplexType>
-        <ComplexType Name="IProc_Rpt_ItemStockSummary_Result">
-          <Property Type="Int32" Name="Comp" Nullable="true" />
-          <Property Type="Int32" Name="Bra" Nullable="true" />
-          <Property Type="String" Name="CompNameA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="CompNameE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="BraNameA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="BraNameE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="LoginUser" Nullable="true" MaxLength="25" />
-          <Property Type="DateTime" Name="PrintDate" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="Par_RepType" Nullable="true" />
-          <Property Type="String" Name="Par_StatusDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_StatusDSE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_BalTypeDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_BalTypeDSE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_CatDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_CatDSE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_FamilyDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_FamilyDSE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_ItemDSA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Par_ItemDSE" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="Par_Type" Nullable="true" />
-          <Property Type="String" Name="Par_FromDate" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Par_Todate" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Code" Nullable="true" MaxLength="25" />
-          <Property Type="String" Name="DescA" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="DescE" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="OpenBal" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotRecCashQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotRecCreditQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotSlsRetCashQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotSlsRetCreditQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotSlsCashQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotSlsCreditQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotRecRetQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="TotRetCreditQty" Nullable="true" Precision="38" Scale="5" />
-          <Property Type="Decimal" Name="EndBal" Nullable="true" Precision="38" Scale="5" />
-        </ComplexType>
         <ComplexType Name="IProc_Rpt_ItemStockValue_Result">
           <Property Type="Int32" Name="Comp" Nullable="true" />
           <Property Type="Int32" Name="Bra" Nullable="true" />
@@ -7535,29 +7470,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="CategoryDescL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ItemCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="IQ_Purchases_Master">
-          <Key>
-            <PropertyRef Name="TrNo" />
-          </Key>
-          <Property Name="TrNo" Type="Int32" Nullable="false" />
-          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Supplier" Type="Int32" />
-          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Debit" Type="Boolean" />
-          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IS_Active" Type="Boolean" />
-          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiveID" Type="Int32" />
-          <Property Name="StoreID" Type="Int32" />
-          <Property Name="IsCash" Type="Boolean" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="BranchCode" Type="Int32" />
-        </EntityType>
         <EntityType Name="G_USERS">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -7602,6 +7514,21 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Start_Data" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Day_Off" Type="Int32" />
         </EntityType>
+        <EntityType Name="Enter_Money">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Num_Day" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+        </EntityType>
         <EntityType Name="Outlet">
           <Key>
             <PropertyRef Name="id" />
@@ -7625,6 +7552,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
           <Property Name="UpdatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Peneficiary" Type="Int32" />
         </EntityType>
         <EntityType Name="IQ_Outlet">
           <Key>
@@ -7652,6 +7580,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
           <Property Name="UpdatedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Code_Type" Type="Int32" />
+          <Property Name="ID_Peneficiary" Type="Int32" />
         </EntityType>
         <ComplexType Name="Stord_Get_Outlet_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -7665,22 +7594,104 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Type="Int32" Name="EMPLOYEE_ID" Nullable="true" />
           <Property Type="String" Name="USER_CODE" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Num_Day" Nullable="true" />
+          <Property Type="Int32" Name="BranchCode" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Enter_Money">
+        <EntityType Name="IQ_Purchases_Master">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="TrNo" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Num_Day" Type="Int32" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveID" Type="Int32" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="IsCash" Type="Boolean" />
           <Property Name="CompCode" Type="Int32" />
-          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="TotalFC" Type="Decimal" Precision="19" Scale="2" />
         </EntityType>
+        <ComplexType Name="IProc_Rpt_ItemStockSummary_Result">
+          <Property Type="Int32" Name="Comp" Nullable="true" />
+          <Property Type="Int32" Name="Bra" Nullable="true" />
+          <Property Type="String" Name="CompNameA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CompNameE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BraNameA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BraNameE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LoginUser" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="PrintDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Par_RepType" Nullable="true" />
+          <Property Type="String" Name="Par_StatusDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_StatusDSE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_BalTypeDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_BalTypeDSE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_CatDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_CatDSE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_FamilyDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_FamilyDSE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_ItemDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_ItemDSE" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Par_Type" Nullable="true" />
+          <Property Type="String" Name="Par_FromDate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Par_Todate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="DescA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DescE" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="OpenBal" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotRecCashQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotRecCreditQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotSlsRetCashQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotSlsRetCreditQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotSlsCashQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotSlsCreditQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotRecRetQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotRetCreditQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="EndBal" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotalOut" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="IProc_Rpt_ItemStockIncome_Result">
+          <Property Type="Int32" Name="Comp" Nullable="true" />
+          <Property Type="Int32" Name="Bra" Nullable="true" />
+          <Property Type="String" Name="CompNameA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CompNameE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BraNameA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BraNameE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LoginUser" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="PrintDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Par_RepType" Nullable="true" />
+          <Property Type="String" Name="Par_StatusDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_StatusDSE" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Par_Type" Nullable="true" />
+          <Property Type="String" Name="Par_CatDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_CatDSE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_FamilyDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_FamilyDSE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_ItemDSA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_ItemDSE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Par_FromDate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Par_Todate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="DescA" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DescE" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="TotSoldCreditQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotSoldCashQty" Nullable="true" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="TotSoldCreditCost" Nullable="true" Precision="38" Scale="10" />
+          <Property Type="Decimal" Name="TotSoldCashCost" Nullable="true" Precision="38" Scale="10" />
+          <Property Type="Decimal" Name="TotSoldCreditIncome" Nullable="true" Precision="38" Scale="10" />
+          <Property Type="Decimal" Name="TotSoldCashIncome" Nullable="true" Precision="38" Scale="10" />
+          <Property Type="Decimal" Name="TotSoldCreditVal" Nullable="true" Precision="38" Scale="10" />
+          <Property Type="Decimal" Name="TotSoldCashVal" Nullable="true" Precision="38" Scale="10" />
+          <Property Type="Decimal" Name="TotalOut" Nullable="true" Precision="19" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10244,84 +10255,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="IProc_Rpt_ItemStockIncome" FunctionName="POS2021Model.Store.IProc_Rpt_ItemStockIncome">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="POS2021Model.IProc_Rpt_ItemStockIncome_Result">
-                <ScalarProperty Name="Comp" ColumnName="Comp" />
-                <ScalarProperty Name="Bra" ColumnName="Bra" />
-                <ScalarProperty Name="CompNameA" ColumnName="CompNameA" />
-                <ScalarProperty Name="CompNameE" ColumnName="CompNameE" />
-                <ScalarProperty Name="BraNameA" ColumnName="BraNameA" />
-                <ScalarProperty Name="BraNameE" ColumnName="BraNameE" />
-                <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
-                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
-                <ScalarProperty Name="Par_RepType" ColumnName="Par_RepType" />
-                <ScalarProperty Name="Par_StatusDSA" ColumnName="Par_StatusDSA" />
-                <ScalarProperty Name="Par_StatusDSE" ColumnName="Par_StatusDSE" />
-                <ScalarProperty Name="Par_Type" ColumnName="Par_Type" />
-                <ScalarProperty Name="Par_CatDSA" ColumnName="Par_CatDSA" />
-                <ScalarProperty Name="Par_CatDSE" ColumnName="Par_CatDSE" />
-                <ScalarProperty Name="Par_FamilyDSA" ColumnName="Par_FamilyDSA" />
-                <ScalarProperty Name="Par_FamilyDSE" ColumnName="Par_FamilyDSE" />
-                <ScalarProperty Name="Par_ItemDSA" ColumnName="Par_ItemDSA" />
-                <ScalarProperty Name="Par_ItemDSE" ColumnName="Par_ItemDSE" />
-                <ScalarProperty Name="Par_FromDate" ColumnName="Par_FromDate" />
-                <ScalarProperty Name="Par_Todate" ColumnName="Par_Todate" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="DescA" ColumnName="DescA" />
-                <ScalarProperty Name="DescE" ColumnName="DescE" />
-                <ScalarProperty Name="TotSoldCreditQty" ColumnName="TotSoldCreditQty" />
-                <ScalarProperty Name="TotSoldCashQty" ColumnName="TotSoldCashQty" />
-                <ScalarProperty Name="TotSoldCreditCost" ColumnName="TotSoldCreditCost" />
-                <ScalarProperty Name="TotSoldCashCost" ColumnName="TotSoldCashCost" />
-                <ScalarProperty Name="TotSoldCreditIncome" ColumnName="TotSoldCreditIncome" />
-                <ScalarProperty Name="TotSoldCashIncome" ColumnName="TotSoldCashIncome" />
-                <ScalarProperty Name="TotSoldCreditVal" ColumnName="TotSoldCreditVal" />
-                <ScalarProperty Name="TotSoldCashVal" ColumnName="TotSoldCashVal" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="IProc_Rpt_ItemStockSummary" FunctionName="POS2021Model.Store.IProc_Rpt_ItemStockSummary">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="POS2021Model.IProc_Rpt_ItemStockSummary_Result">
-                <ScalarProperty Name="Comp" ColumnName="Comp" />
-                <ScalarProperty Name="Bra" ColumnName="Bra" />
-                <ScalarProperty Name="CompNameA" ColumnName="CompNameA" />
-                <ScalarProperty Name="CompNameE" ColumnName="CompNameE" />
-                <ScalarProperty Name="BraNameA" ColumnName="BraNameA" />
-                <ScalarProperty Name="BraNameE" ColumnName="BraNameE" />
-                <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
-                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
-                <ScalarProperty Name="Par_RepType" ColumnName="Par_RepType" />
-                <ScalarProperty Name="Par_StatusDSA" ColumnName="Par_StatusDSA" />
-                <ScalarProperty Name="Par_StatusDSE" ColumnName="Par_StatusDSE" />
-                <ScalarProperty Name="Par_BalTypeDSA" ColumnName="Par_BalTypeDSA" />
-                <ScalarProperty Name="Par_BalTypeDSE" ColumnName="Par_BalTypeDSE" />
-                <ScalarProperty Name="Par_CatDSA" ColumnName="Par_CatDSA" />
-                <ScalarProperty Name="Par_CatDSE" ColumnName="Par_CatDSE" />
-                <ScalarProperty Name="Par_FamilyDSA" ColumnName="Par_FamilyDSA" />
-                <ScalarProperty Name="Par_FamilyDSE" ColumnName="Par_FamilyDSE" />
-                <ScalarProperty Name="Par_ItemDSA" ColumnName="Par_ItemDSA" />
-                <ScalarProperty Name="Par_ItemDSE" ColumnName="Par_ItemDSE" />
-                <ScalarProperty Name="Par_Type" ColumnName="Par_Type" />
-                <ScalarProperty Name="Par_FromDate" ColumnName="Par_FromDate" />
-                <ScalarProperty Name="Par_Todate" ColumnName="Par_Todate" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="DescA" ColumnName="DescA" />
-                <ScalarProperty Name="DescE" ColumnName="DescE" />
-                <ScalarProperty Name="OpenBal" ColumnName="OpenBal" />
-                <ScalarProperty Name="TotRecCashQty" ColumnName="TotRecCashQty" />
-                <ScalarProperty Name="TotRecCreditQty" ColumnName="TotRecCreditQty" />
-                <ScalarProperty Name="TotSlsRetCashQty" ColumnName="TotSlsRetCashQty" />
-                <ScalarProperty Name="TotSlsRetCreditQty" ColumnName="TotSlsRetCreditQty" />
-                <ScalarProperty Name="TotSlsCashQty" ColumnName="TotSlsCashQty" />
-                <ScalarProperty Name="TotSlsCreditQty" ColumnName="TotSlsCreditQty" />
-                <ScalarProperty Name="TotRecRetQty" ColumnName="TotRecRetQty" />
-                <ScalarProperty Name="TotRetCreditQty" ColumnName="TotRetCreditQty" />
-                <ScalarProperty Name="EndBal" ColumnName="EndBal" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="IProc_Rpt_ItemStockValue" FunctionName="POS2021Model.Store.IProc_Rpt_ItemStockValue">
             <ResultMapping>
               <ComplexTypeMapping TypeName="POS2021Model.IProc_Rpt_ItemStockValue_Result">
@@ -10722,30 +10655,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="insert_EMPLOYEE" FunctionName="POS2021Model.Store.insert_EMPLOYEE" />
           <FunctionImportMapping FunctionImportName="insert_Outlet" FunctionName="POS2021Model.Store.insert_Outlet" />
-          <EntitySetMapping Name="IQ_Purchases_Master">
-            <EntityTypeMapping TypeName="POS2021Model.IQ_Purchases_Master">
-              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="IsCash" ColumnName="IsCash" />
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
-                <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
-                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
-                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
-                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
-                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="G_USERS">
             <EntityTypeMapping TypeName="POS2021Model.G_USERS">
               <MappingFragment StoreEntitySet="G_USERS">
@@ -10790,9 +10699,26 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Enter_Money">
+            <EntityTypeMapping TypeName="POS2021Model.Enter_Money">
+              <MappingFragment StoreEntitySet="Enter_Money">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Outlet">
             <EntityTypeMapping TypeName="POS2021Model.Outlet">
               <MappingFragment StoreEntitySet="Outlet">
+                <ScalarProperty Name="ID_Peneficiary" ColumnName="ID_Peneficiary" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -10818,6 +10744,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySetMapping Name="IQ_Outlet">
             <EntityTypeMapping TypeName="POS2021Model.IQ_Outlet">
               <MappingFragment StoreEntitySet="IQ_Outlet">
+                <ScalarProperty Name="ID_Peneficiary" ColumnName="ID_Peneficiary" />
                 <ScalarProperty Name="Code_Type" ColumnName="Code_Type" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
@@ -10857,25 +10784,115 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
                 <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
                 <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Enter_Money">
-            <EntityTypeMapping TypeName="POS2021Model.Enter_Money">
-              <MappingFragment StoreEntitySet="Enter_Money">
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+          <EntitySetMapping Name="IQ_Purchases_Master">
+            <EntityTypeMapping TypeName="POS2021Model.IQ_Purchases_Master">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
+                <ScalarProperty Name="TotalFC" ColumnName="TotalFC" />
                 <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="pirce" ColumnName="pirce" />
-                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="IsCash" ColumnName="IsCash" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="IProc_Rpt_ItemStockSummary" FunctionName="POS2021Model.Store.IProc_Rpt_ItemStockSummary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POS2021Model.IProc_Rpt_ItemStockSummary_Result">
+                <ScalarProperty Name="Comp" ColumnName="Comp" />
+                <ScalarProperty Name="Bra" ColumnName="Bra" />
+                <ScalarProperty Name="CompNameA" ColumnName="CompNameA" />
+                <ScalarProperty Name="CompNameE" ColumnName="CompNameE" />
+                <ScalarProperty Name="BraNameA" ColumnName="BraNameA" />
+                <ScalarProperty Name="BraNameE" ColumnName="BraNameE" />
+                <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
+                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
+                <ScalarProperty Name="Par_RepType" ColumnName="Par_RepType" />
+                <ScalarProperty Name="Par_StatusDSA" ColumnName="Par_StatusDSA" />
+                <ScalarProperty Name="Par_StatusDSE" ColumnName="Par_StatusDSE" />
+                <ScalarProperty Name="Par_BalTypeDSA" ColumnName="Par_BalTypeDSA" />
+                <ScalarProperty Name="Par_BalTypeDSE" ColumnName="Par_BalTypeDSE" />
+                <ScalarProperty Name="Par_CatDSA" ColumnName="Par_CatDSA" />
+                <ScalarProperty Name="Par_CatDSE" ColumnName="Par_CatDSE" />
+                <ScalarProperty Name="Par_FamilyDSA" ColumnName="Par_FamilyDSA" />
+                <ScalarProperty Name="Par_FamilyDSE" ColumnName="Par_FamilyDSE" />
+                <ScalarProperty Name="Par_ItemDSA" ColumnName="Par_ItemDSA" />
+                <ScalarProperty Name="Par_ItemDSE" ColumnName="Par_ItemDSE" />
+                <ScalarProperty Name="Par_Type" ColumnName="Par_Type" />
+                <ScalarProperty Name="Par_FromDate" ColumnName="Par_FromDate" />
+                <ScalarProperty Name="Par_Todate" ColumnName="Par_Todate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="DescE" ColumnName="DescE" />
+                <ScalarProperty Name="OpenBal" ColumnName="OpenBal" />
+                <ScalarProperty Name="TotRecCashQty" ColumnName="TotRecCashQty" />
+                <ScalarProperty Name="TotRecCreditQty" ColumnName="TotRecCreditQty" />
+                <ScalarProperty Name="TotSlsRetCashQty" ColumnName="TotSlsRetCashQty" />
+                <ScalarProperty Name="TotSlsRetCreditQty" ColumnName="TotSlsRetCreditQty" />
+                <ScalarProperty Name="TotSlsCashQty" ColumnName="TotSlsCashQty" />
+                <ScalarProperty Name="TotSlsCreditQty" ColumnName="TotSlsCreditQty" />
+                <ScalarProperty Name="TotRecRetQty" ColumnName="TotRecRetQty" />
+                <ScalarProperty Name="TotRetCreditQty" ColumnName="TotRetCreditQty" />
+                <ScalarProperty Name="EndBal" ColumnName="EndBal" />
+                <ScalarProperty Name="TotalOut" ColumnName="TotalOut" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="IProc_Rpt_ItemStockIncome" FunctionName="POS2021Model.Store.IProc_Rpt_ItemStockIncome">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POS2021Model.IProc_Rpt_ItemStockIncome_Result">
+                <ScalarProperty Name="Comp" ColumnName="Comp" />
+                <ScalarProperty Name="Bra" ColumnName="Bra" />
+                <ScalarProperty Name="CompNameA" ColumnName="CompNameA" />
+                <ScalarProperty Name="CompNameE" ColumnName="CompNameE" />
+                <ScalarProperty Name="BraNameA" ColumnName="BraNameA" />
+                <ScalarProperty Name="BraNameE" ColumnName="BraNameE" />
+                <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
+                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
+                <ScalarProperty Name="Par_RepType" ColumnName="Par_RepType" />
+                <ScalarProperty Name="Par_StatusDSA" ColumnName="Par_StatusDSA" />
+                <ScalarProperty Name="Par_StatusDSE" ColumnName="Par_StatusDSE" />
+                <ScalarProperty Name="Par_Type" ColumnName="Par_Type" />
+                <ScalarProperty Name="Par_CatDSA" ColumnName="Par_CatDSA" />
+                <ScalarProperty Name="Par_CatDSE" ColumnName="Par_CatDSE" />
+                <ScalarProperty Name="Par_FamilyDSA" ColumnName="Par_FamilyDSA" />
+                <ScalarProperty Name="Par_FamilyDSE" ColumnName="Par_FamilyDSE" />
+                <ScalarProperty Name="Par_ItemDSA" ColumnName="Par_ItemDSA" />
+                <ScalarProperty Name="Par_ItemDSE" ColumnName="Par_ItemDSE" />
+                <ScalarProperty Name="Par_FromDate" ColumnName="Par_FromDate" />
+                <ScalarProperty Name="Par_Todate" ColumnName="Par_Todate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="DescE" ColumnName="DescE" />
+                <ScalarProperty Name="TotSoldCreditQty" ColumnName="TotSoldCreditQty" />
+                <ScalarProperty Name="TotSoldCashQty" ColumnName="TotSoldCashQty" />
+                <ScalarProperty Name="TotSoldCreditCost" ColumnName="TotSoldCreditCost" />
+                <ScalarProperty Name="TotSoldCashCost" ColumnName="TotSoldCashCost" />
+                <ScalarProperty Name="TotSoldCreditIncome" ColumnName="TotSoldCreditIncome" />
+                <ScalarProperty Name="TotSoldCashIncome" ColumnName="TotSoldCashIncome" />
+                <ScalarProperty Name="TotSoldCreditVal" ColumnName="TotSoldCreditVal" />
+                <ScalarProperty Name="TotSoldCashVal" ColumnName="TotSoldCashVal" />
+                <ScalarProperty Name="TotalOut" ColumnName="TotalOut" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

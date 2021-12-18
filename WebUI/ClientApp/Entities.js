@@ -5960,6 +5960,7 @@ var IQ_Purchases_Master = /** @class */ (function (_super) {
         _this.CashPaidAmount = 0;
         _this.ReceiveID = 0;
         _this.StoreID = 0;
+        _this.TotalFC = 0;
         _this.IsCash = false;
         return _this;
     }
@@ -6355,5 +6356,65 @@ var CustomerMasterDetails = /** @class */ (function (_super) {
         return _this;
     }
     return CustomerMasterDetails;
+}(SecurityClass));
+var IQ_Outlet = /** @class */ (function (_super) {
+    __extends(IQ_Outlet, _super);
+    function IQ_Outlet() {
+        var _this = _super.call(this) || this;
+        _this.id = 0;
+        _this.EMPLOYEE_NAME = "";
+        _this.Dasc_Name = "";
+        _this.pirce;
+        _this.Remark = "";
+        _this.Date = "";
+        _this.Time = "";
+        _this.Tr_Type = "";
+        _this.EMPLOYEE_ID = 0;
+        _this.USER_CODE = "";
+        _this.Num_Day = 0;
+        _this.ID_Supplier = 0;
+        _this.CompCode = 0;
+        _this.BranchCode = 0;
+        _this.SalesmanId = 0;
+        _this.CUSTOMER_ID = 0;
+        _this.ID_Code = 0;
+        _this.CreatedAt = "";
+        _this.CreatedBy = "";
+        _this.UpdatedAt = "";
+        _this.UpdatedBy = "";
+        _this.PayTypeDescA = "";
+        _this.Code_Type = 0;
+        _this.ID_Peneficiary = 0;
+        return _this;
+    }
+    return IQ_Outlet;
+}(SecurityClass));
+var Outlet = /** @class */ (function (_super) {
+    __extends(Outlet, _super);
+    function Outlet() {
+        var _this = _super.call(this) || this;
+        _this.id = 0;
+        _this.Dasc_Name = "";
+        _this.pirce;
+        _this.Num_Day = 0;
+        _this.EMPLOYEE_ID = 0;
+        _this.Time = "";
+        _this.Tr_Type = "";
+        _this.Code_Type = 0;
+        _this.Remark = "";
+        _this.BranchCode = 0;
+        _this.CompCode = 0;
+        _this.ID_Supplier = 0;
+        _this.SalesmanId = 0;
+        _this.CUSTOMER_ID = 0;
+        _this.ID_Code = 0;
+        _this.CreatedAt = "";
+        _this.CreatedBy = "";
+        _this.UpdatedAt = "";
+        _this.UpdatedBy = "";
+        _this.ID_Peneficiary = 0;
+        return _this;
+    }
+    return Outlet;
 }(SecurityClass));
 //# sourceMappingURL=Entities.js.map

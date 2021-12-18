@@ -44,5 +44,6 @@ namespace Inv.DAL.Domain
         public Nullable<decimal> TotSoldCashIncome { get; set; }
         public Nullable<decimal> TotSoldCreditVal { get; set; }
         public Nullable<decimal> TotSoldCashVal { get; set; }
+        public Nullable<decimal> TotalOut { get; set; }
     }
 }
