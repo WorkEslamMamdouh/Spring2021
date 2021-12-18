@@ -125,15 +125,11 @@ namespace Inv.DAL.Domain
         public virtual DbSet<GQ_GetStore> GQ_GetStore { get; set; }
         public virtual DbSet<I_Item_Customer> I_Item_Customer { get; set; }
         public virtual DbSet<IQ_GetItemStore> IQ_GetItemStore { get; set; }
-        public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
         public virtual DbSet<G_USERS> G_USERS { get; set; }
+        public virtual DbSet<Enter_Money> Enter_Money { get; set; }
         public virtual DbSet<Outlet> Outlet { get; set; }
         public virtual DbSet<IQ_Outlet> IQ_Outlet { get; set; }
-        public virtual DbSet<Enter_Money> Enter_Money { get; set; }
-        public virtual DbSet<I_Stk_TR_Transfer> I_Stk_TR_Transfer { get; set; }
-        public virtual DbSet<I_Stk_TR_TransferDetails> I_Stk_TR_TransferDetails { get; set; }
-        public virtual DbSet<IQ_GetTransfer> IQ_GetTransfer { get; set; }
-        public virtual DbSet<IQ_GetTransferDetail> IQ_GetTransferDetail { get; set; }
+        public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
     
         [DbFunction("InvEntities", "GFun_Companies")]
         public virtual IQueryable<GFun_Companies_Result> GFun_Companies(string userCode)
@@ -810,140 +806,6 @@ namespace Inv.DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IProc_GetItemQtyList_Result>("IProc_GetItemQtyList", compParameter, yrParameter, braParameter, storeidParameter, catidParameter, fmidParameter, uomgrpidParameter, qtytypeParameter, likeDescParameter, likeCodeParameter);
         }
     
-        public virtual ObjectResult<IProc_Rpt_ItemStockIncome_Result> IProc_Rpt_ItemStockIncome(Nullable<int> comp, Nullable<int> bra, string compNameA, string compNameE, string braNameA, string braNameE, string loginUser, Nullable<int> repType, Nullable<int> catID, Nullable<int> itemFamId, Nullable<int> itemID, Nullable<int> type, Nullable<int> status, string fromDate, string todate)
-        {
-            var compParameter = comp.HasValue ?
-                new ObjectParameter("comp", comp) :
-                new ObjectParameter("comp", typeof(int));
-    
-            var braParameter = bra.HasValue ?
-                new ObjectParameter("bra", bra) :
-                new ObjectParameter("bra", typeof(int));
-    
-            var compNameAParameter = compNameA != null ?
-                new ObjectParameter("CompNameA", compNameA) :
-                new ObjectParameter("CompNameA", typeof(string));
-    
-            var compNameEParameter = compNameE != null ?
-                new ObjectParameter("CompNameE", compNameE) :
-                new ObjectParameter("CompNameE", typeof(string));
-    
-            var braNameAParameter = braNameA != null ?
-                new ObjectParameter("BraNameA", braNameA) :
-                new ObjectParameter("BraNameA", typeof(string));
-    
-            var braNameEParameter = braNameE != null ?
-                new ObjectParameter("BraNameE", braNameE) :
-                new ObjectParameter("BraNameE", typeof(string));
-    
-            var loginUserParameter = loginUser != null ?
-                new ObjectParameter("LoginUser", loginUser) :
-                new ObjectParameter("LoginUser", typeof(string));
-    
-            var repTypeParameter = repType.HasValue ?
-                new ObjectParameter("RepType", repType) :
-                new ObjectParameter("RepType", typeof(int));
-    
-            var catIDParameter = catID.HasValue ?
-                new ObjectParameter("CatID", catID) :
-                new ObjectParameter("CatID", typeof(int));
-    
-            var itemFamIdParameter = itemFamId.HasValue ?
-                new ObjectParameter("ItemFamId", itemFamId) :
-                new ObjectParameter("ItemFamId", typeof(int));
-    
-            var itemIDParameter = itemID.HasValue ?
-                new ObjectParameter("ItemID", itemID) :
-                new ObjectParameter("ItemID", typeof(int));
-    
-            var typeParameter = type.HasValue ?
-                new ObjectParameter("type", type) :
-                new ObjectParameter("type", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            var fromDateParameter = fromDate != null ?
-                new ObjectParameter("FromDate", fromDate) :
-                new ObjectParameter("FromDate", typeof(string));
-    
-            var todateParameter = todate != null ?
-                new ObjectParameter("Todate", todate) :
-                new ObjectParameter("Todate", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IProc_Rpt_ItemStockIncome_Result>("IProc_Rpt_ItemStockIncome", compParameter, braParameter, compNameAParameter, compNameEParameter, braNameAParameter, braNameEParameter, loginUserParameter, repTypeParameter, catIDParameter, itemFamIdParameter, itemIDParameter, typeParameter, statusParameter, fromDateParameter, todateParameter);
-        }
-    
-        public virtual ObjectResult<IProc_Rpt_ItemStockSummary_Result> IProc_Rpt_ItemStockSummary(Nullable<int> comp, Nullable<int> bra, string compNameA, string compNameE, string braNameA, string braNameE, string loginUser, Nullable<int> repType, Nullable<int> catID, Nullable<int> itemFamId, Nullable<int> itemID, Nullable<int> type, Nullable<int> status, Nullable<int> balType, string fromDate, string todate)
-        {
-            var compParameter = comp.HasValue ?
-                new ObjectParameter("comp", comp) :
-                new ObjectParameter("comp", typeof(int));
-    
-            var braParameter = bra.HasValue ?
-                new ObjectParameter("bra", bra) :
-                new ObjectParameter("bra", typeof(int));
-    
-            var compNameAParameter = compNameA != null ?
-                new ObjectParameter("CompNameA", compNameA) :
-                new ObjectParameter("CompNameA", typeof(string));
-    
-            var compNameEParameter = compNameE != null ?
-                new ObjectParameter("CompNameE", compNameE) :
-                new ObjectParameter("CompNameE", typeof(string));
-    
-            var braNameAParameter = braNameA != null ?
-                new ObjectParameter("BraNameA", braNameA) :
-                new ObjectParameter("BraNameA", typeof(string));
-    
-            var braNameEParameter = braNameE != null ?
-                new ObjectParameter("BraNameE", braNameE) :
-                new ObjectParameter("BraNameE", typeof(string));
-    
-            var loginUserParameter = loginUser != null ?
-                new ObjectParameter("LoginUser", loginUser) :
-                new ObjectParameter("LoginUser", typeof(string));
-    
-            var repTypeParameter = repType.HasValue ?
-                new ObjectParameter("RepType", repType) :
-                new ObjectParameter("RepType", typeof(int));
-    
-            var catIDParameter = catID.HasValue ?
-                new ObjectParameter("CatID", catID) :
-                new ObjectParameter("CatID", typeof(int));
-    
-            var itemFamIdParameter = itemFamId.HasValue ?
-                new ObjectParameter("ItemFamId", itemFamId) :
-                new ObjectParameter("ItemFamId", typeof(int));
-    
-            var itemIDParameter = itemID.HasValue ?
-                new ObjectParameter("ItemID", itemID) :
-                new ObjectParameter("ItemID", typeof(int));
-    
-            var typeParameter = type.HasValue ?
-                new ObjectParameter("type", type) :
-                new ObjectParameter("type", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            var balTypeParameter = balType.HasValue ?
-                new ObjectParameter("BalType", balType) :
-                new ObjectParameter("BalType", typeof(int));
-    
-            var fromDateParameter = fromDate != null ?
-                new ObjectParameter("FromDate", fromDate) :
-                new ObjectParameter("FromDate", typeof(string));
-    
-            var todateParameter = todate != null ?
-                new ObjectParameter("Todate", todate) :
-                new ObjectParameter("Todate", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IProc_Rpt_ItemStockSummary_Result>("IProc_Rpt_ItemStockSummary", compParameter, braParameter, compNameAParameter, compNameEParameter, braNameAParameter, braNameEParameter, loginUserParameter, repTypeParameter, catIDParameter, itemFamIdParameter, itemIDParameter, typeParameter, statusParameter, balTypeParameter, fromDateParameter, todateParameter);
-        }
-    
         public virtual ObjectResult<IProc_Rpt_ItemStockValue_Result> IProc_Rpt_ItemStockValue(Nullable<int> comp, Nullable<int> bra, string compNameA, string compNameE, string braNameA, string braNameE, string loginUser, Nullable<int> repType, Nullable<int> catID, Nullable<int> itemFamId, Nullable<int> itemID, Nullable<int> type, Nullable<int> status, string fromDate, string todate)
         {
             var compParameter = comp.HasValue ?
@@ -1096,7 +958,7 @@ namespace Inv.DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("insert_Outlet", dasc_NameParameter, pirceParameter, userNameParameter, tr_TypeParameter, branchCodeParameter, compCodeParameter, iD_SupplierParameter);
         }
     
-        public virtual ObjectResult<Stord_Get_Outlet_Result> Stord_Get_Outlet(string fromDate, string toDate, string uSER_CODE, Nullable<int> type, Nullable<int> compCode, Nullable<int> branchCode, Nullable<int> iD_Supplier, Nullable<int> salesmanId, Nullable<int> cUSTOMER_ID)
+        public virtual ObjectResult<Stord_Get_Outlet_Result> Stord_Get_Outlet(string fromDate, string toDate, string uSER_CODE, Nullable<int> type, Nullable<int> compCode, Nullable<int> iD_Supplier, Nullable<int> salesmanId, Nullable<int> cUSTOMER_ID, Nullable<int> iD_Peneficiary)
         {
             var fromDateParameter = fromDate != null ?
                 new ObjectParameter("FromDate", fromDate) :
@@ -1118,10 +980,6 @@ namespace Inv.DAL.Domain
                 new ObjectParameter("CompCode", compCode) :
                 new ObjectParameter("CompCode", typeof(int));
     
-            var branchCodeParameter = branchCode.HasValue ?
-                new ObjectParameter("BranchCode", branchCode) :
-                new ObjectParameter("BranchCode", typeof(int));
-    
             var iD_SupplierParameter = iD_Supplier.HasValue ?
                 new ObjectParameter("ID_Supplier", iD_Supplier) :
                 new ObjectParameter("ID_Supplier", typeof(int));
@@ -1134,7 +992,145 @@ namespace Inv.DAL.Domain
                 new ObjectParameter("CUSTOMER_ID", cUSTOMER_ID) :
                 new ObjectParameter("CUSTOMER_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Stord_Get_Outlet_Result>("Stord_Get_Outlet", fromDateParameter, toDateParameter, uSER_CODEParameter, typeParameter, compCodeParameter, branchCodeParameter, iD_SupplierParameter, salesmanIdParameter, cUSTOMER_IDParameter);
+            var iD_PeneficiaryParameter = iD_Peneficiary.HasValue ?
+                new ObjectParameter("ID_Peneficiary", iD_Peneficiary) :
+                new ObjectParameter("ID_Peneficiary", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Stord_Get_Outlet_Result>("Stord_Get_Outlet", fromDateParameter, toDateParameter, uSER_CODEParameter, typeParameter, compCodeParameter, iD_SupplierParameter, salesmanIdParameter, cUSTOMER_IDParameter, iD_PeneficiaryParameter);
+        }
+    
+        public virtual ObjectResult<IProc_Rpt_ItemStockSummary_Result> IProc_Rpt_ItemStockSummary(Nullable<int> comp, Nullable<int> bra, string compNameA, string compNameE, string braNameA, string braNameE, string loginUser, Nullable<int> repType, Nullable<int> catID, Nullable<int> itemFamId, Nullable<int> itemID, Nullable<int> type, Nullable<int> status, Nullable<int> balType, string fromDate, string todate)
+        {
+            var compParameter = comp.HasValue ?
+                new ObjectParameter("comp", comp) :
+                new ObjectParameter("comp", typeof(int));
+    
+            var braParameter = bra.HasValue ?
+                new ObjectParameter("bra", bra) :
+                new ObjectParameter("bra", typeof(int));
+    
+            var compNameAParameter = compNameA != null ?
+                new ObjectParameter("CompNameA", compNameA) :
+                new ObjectParameter("CompNameA", typeof(string));
+    
+            var compNameEParameter = compNameE != null ?
+                new ObjectParameter("CompNameE", compNameE) :
+                new ObjectParameter("CompNameE", typeof(string));
+    
+            var braNameAParameter = braNameA != null ?
+                new ObjectParameter("BraNameA", braNameA) :
+                new ObjectParameter("BraNameA", typeof(string));
+    
+            var braNameEParameter = braNameE != null ?
+                new ObjectParameter("BraNameE", braNameE) :
+                new ObjectParameter("BraNameE", typeof(string));
+    
+            var loginUserParameter = loginUser != null ?
+                new ObjectParameter("LoginUser", loginUser) :
+                new ObjectParameter("LoginUser", typeof(string));
+    
+            var repTypeParameter = repType.HasValue ?
+                new ObjectParameter("RepType", repType) :
+                new ObjectParameter("RepType", typeof(int));
+    
+            var catIDParameter = catID.HasValue ?
+                new ObjectParameter("CatID", catID) :
+                new ObjectParameter("CatID", typeof(int));
+    
+            var itemFamIdParameter = itemFamId.HasValue ?
+                new ObjectParameter("ItemFamId", itemFamId) :
+                new ObjectParameter("ItemFamId", typeof(int));
+    
+            var itemIDParameter = itemID.HasValue ?
+                new ObjectParameter("ItemID", itemID) :
+                new ObjectParameter("ItemID", typeof(int));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var balTypeParameter = balType.HasValue ?
+                new ObjectParameter("BalType", balType) :
+                new ObjectParameter("BalType", typeof(int));
+    
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var todateParameter = todate != null ?
+                new ObjectParameter("Todate", todate) :
+                new ObjectParameter("Todate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IProc_Rpt_ItemStockSummary_Result>("IProc_Rpt_ItemStockSummary", compParameter, braParameter, compNameAParameter, compNameEParameter, braNameAParameter, braNameEParameter, loginUserParameter, repTypeParameter, catIDParameter, itemFamIdParameter, itemIDParameter, typeParameter, statusParameter, balTypeParameter, fromDateParameter, todateParameter);
+        }
+    
+        public virtual ObjectResult<IProc_Rpt_ItemStockIncome_Result> IProc_Rpt_ItemStockIncome(Nullable<int> comp, Nullable<int> bra, string compNameA, string compNameE, string braNameA, string braNameE, string loginUser, Nullable<int> repType, Nullable<int> catID, Nullable<int> itemFamId, Nullable<int> itemID, Nullable<int> type, Nullable<int> status, string fromDate, string todate)
+        {
+            var compParameter = comp.HasValue ?
+                new ObjectParameter("comp", comp) :
+                new ObjectParameter("comp", typeof(int));
+    
+            var braParameter = bra.HasValue ?
+                new ObjectParameter("bra", bra) :
+                new ObjectParameter("bra", typeof(int));
+    
+            var compNameAParameter = compNameA != null ?
+                new ObjectParameter("CompNameA", compNameA) :
+                new ObjectParameter("CompNameA", typeof(string));
+    
+            var compNameEParameter = compNameE != null ?
+                new ObjectParameter("CompNameE", compNameE) :
+                new ObjectParameter("CompNameE", typeof(string));
+    
+            var braNameAParameter = braNameA != null ?
+                new ObjectParameter("BraNameA", braNameA) :
+                new ObjectParameter("BraNameA", typeof(string));
+    
+            var braNameEParameter = braNameE != null ?
+                new ObjectParameter("BraNameE", braNameE) :
+                new ObjectParameter("BraNameE", typeof(string));
+    
+            var loginUserParameter = loginUser != null ?
+                new ObjectParameter("LoginUser", loginUser) :
+                new ObjectParameter("LoginUser", typeof(string));
+    
+            var repTypeParameter = repType.HasValue ?
+                new ObjectParameter("RepType", repType) :
+                new ObjectParameter("RepType", typeof(int));
+    
+            var catIDParameter = catID.HasValue ?
+                new ObjectParameter("CatID", catID) :
+                new ObjectParameter("CatID", typeof(int));
+    
+            var itemFamIdParameter = itemFamId.HasValue ?
+                new ObjectParameter("ItemFamId", itemFamId) :
+                new ObjectParameter("ItemFamId", typeof(int));
+    
+            var itemIDParameter = itemID.HasValue ?
+                new ObjectParameter("ItemID", itemID) :
+                new ObjectParameter("ItemID", typeof(int));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var todateParameter = todate != null ?
+                new ObjectParameter("Todate", todate) :
+                new ObjectParameter("Todate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IProc_Rpt_ItemStockIncome_Result>("IProc_Rpt_ItemStockIncome", compParameter, braParameter, compNameAParameter, compNameEParameter, braNameAParameter, braNameEParameter, loginUserParameter, repTypeParameter, catIDParameter, itemFamIdParameter, itemIDParameter, typeParameter, statusParameter, fromDateParameter, todateParameter);
         }
     }
 }

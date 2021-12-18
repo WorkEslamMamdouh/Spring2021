@@ -117,15 +117,12 @@ namespace Inv.API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetById(int id, string UserCode, string Token)
+        public IHttpActionResult GetById(int id)
         {
-            if (ModelState.IsValid && UserControl.CheckUser(Token, UserCode))
-            {
+            
                 var AccDefSalesMan = AccDefSalesMenService.GetById(id);
 
-                return Ok(new BaseResponse(AccDefSalesMan));
-            }
-            return BadRequest(ModelState);
+                return Ok(new BaseResponse(AccDefSalesMan)); 
         }
 
         [HttpPost, AllowAnonymous]

@@ -103,18 +103,11 @@
         <EntityTypeShape EntityType="POS2021Model.GQ_GetStore" Width="1.5" PointX="32.375" PointY="14.75" />
         <EntityTypeShape EntityType="POS2021Model.I_Item_Customer" Width="1.5" PointX="13.375" PointY="36.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_GetItemStore" Width="1.5" PointX="32.375" PointY="36.75" />
-        <EntityTypeShape EntityType="POS2021Model.Enter_Money" Width="1.5" PointX="32.375" PointY="0.75" />
-        <EntityTypeShape EntityType="POS2021Model.Outlet" Width="1.5" PointX="32.375" PointY="4.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_Purchases_Master" Width="1.5" PointX="35.375" PointY="35.75" />
-        <EntityTypeShape EntityType="POS2021Model.I_Stk_TR_Transfer" Width="1.5" PointX="37.375" PointY="0.75" />
-        <EntityTypeShape EntityType="POS2021Model.I_Stk_TR_TransferDetails" Width="1.5" PointX="37.375" PointY="8.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_GetTransfer" Width="1.5" PointX="37.375" PointY="35.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_GetTransferDetail" Width="1.5" PointX="37.375" PointY="14.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_Purchases_Master" Width="2.375" PointX="34.75" PointY="35.625" />
         <EntityTypeShape EntityType="POS2021Model.G_USERS" Width="1.5" PointX="37.375" PointY="0.75" />
-        <EntityTypeShape EntityType="POS2021Model.Outlet" Width="1.5" PointX="37.375" PointY="10.75" />
-        <EntityTypeShape EntityType="POS2021Model.IQ_Outlet" Width="1.5" PointX="37.375" PointY="35.75" />
         <EntityTypeShape EntityType="POS2021Model.Enter_Money" Width="1.5" PointX="11.375" PointY="21.75" />
+        <EntityTypeShape EntityType="POS2021Model.Outlet" Width="1.5" PointX="32.375" PointY="0.75" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_Outlet" Width="1.5" PointX="37.375" PointY="10.75" />
+        <EntityTypeShape EntityType="POS2021Model.IQ_Purchases_Master" Width="1.5" PointX="35.375" PointY="35.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

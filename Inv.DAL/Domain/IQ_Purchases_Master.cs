@@ -32,5 +32,6 @@ namespace Inv.DAL.Domain
         public Nullable<bool> IsCash { get; set; }
         public Nullable<int> CompCode { get; set; }
         public Nullable<int> BranchCode { get; set; }
+        public Nullable<decimal> TotalFC { get; set; }
     }
 }

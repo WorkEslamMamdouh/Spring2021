@@ -1666,6 +1666,8 @@
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_ACCIncomeAr.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_GardDetailAr.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_GardSammuryAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_ItemStockIncomeAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_ItemStockIncomeEn.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_PurchasesAr.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_salessAr.rdlc" />
     <EmbeddedResource Include="Resources\SystemResource.ar.resx">

@@ -42,7 +42,7 @@ namespace API.Controllers
             {
                 string Qury_Close = "select [Date] from Table_two_days  where  Num_Day = (select max(Num_Day) from Table_two_days )";
                 db.Database.ExecuteSqlCommand(Qury_Close);
-                var Date = db.Database.SqlQuery<DateTime>(Qury_Close).FirstOrDefault();
+                var Date = db.Database.SqlQuery<string>(Qury_Close).FirstOrDefault();
                 return Ok(new BaseResponse(Date));
             }
             return BadRequest(ModelState);

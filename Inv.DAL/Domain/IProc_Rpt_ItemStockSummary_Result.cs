@@ -48,5 +48,6 @@ namespace Inv.DAL.Domain
         public Nullable<decimal> TotRecRetQty { get; set; }
         public Nullable<decimal> TotRetCreditQty { get; set; }
         public Nullable<decimal> EndBal { get; set; }
+        public Nullable<decimal> TotalOut { get; set; }
     }
 }

@@ -48,6 +48,19 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAllbyid(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var Cust = CustomerServices.GetAll(x => x.CUSTOMER_ID == id).ToList();
+
+                return Ok(new BaseResponse(Cust));
+
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult GetFiltered(int? CreditType, string BalType)
         {
 
