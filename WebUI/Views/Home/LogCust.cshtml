@@ -48,10 +48,10 @@
                         تسجيل الدخول
                     </button>
                 </div>
-                <div class="container-login100-form-btn">
-                    <button id="btnSignUp" class="login100-form-btn SignUp" style="background-color: #5b57cd !important;">
-                        اشتراك
-                    </button>
+                <div id="btnSignUp"  class="container-login100-form-btn" style="background-color: cadetblue;border-radius: 28px;"> 
+                    <a   class="txt2" href="#" style="font-size: 20px; font-weight: bold; color: white;">
+                        اشتراك جديد
+                    </a> 
                 </div>
 
                 <div class="text-center p-t-12">
@@ -78,21 +78,21 @@
             </div>
 
             <form class="login100-form validate-form">
-                <div id="DivMassage" class="col-lg-5  margingred  borderred display_none"style="background-color:#b552c3 !important">
+                <div id="DivMassage" class="col-lg-5  margingred  borderred display_none" style="background-color:#b552c3 !important">
                     <h4 id="Text_Massage" style=""> رساله </h4>
                 </div>
                 <span class="login100-form-title">
                     اشتراك جديد
                 </span>
 
-                <div class="wrap-input100 validate-input"data-validate="الاسم بالعربي مطلوب ">
+                <div class="wrap-input100 validate-input" data-validate="الاسم بالعربي مطلوب ">
                     <input id="txtNameArS" class="input100" type="text" name="NameAr" placeholder="الاسم بالعربي">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="wrap-input100 validate-input" data-validate=" الاسم بالانجليزي مطلوب" >
+                <div class="wrap-input100 validate-input" style="display: none;" data-validate=" الاسم بالانجليزي مطلوب">
                     <input id="txtNameEnS" class="input100" type="text" name="NameEn" placeholder="الاسم بالانجليزي">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
@@ -106,7 +106,7 @@
                         <i class="fa fa-phone" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="wrap-input100 validate-input"data-validate="يجب ادخال العنوان">
+                <div class="wrap-input100 validate-input" data-validate="يجب ادخال العنوان">
                     <input id="txtAddressS" class="input100" type="text" name="Address" placeholder="العنوان">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
@@ -146,11 +146,17 @@
 
 
 
-                <div class="container-login100-form-btn">
+                @*<div class="container-login100-form-btn">
                     <button id="btnOkS" class="login100-form-btn">
                         اشترك الان
                     </button>
 
+                </div>*@
+
+                <div id="btnOkS" class="container-login100-form-btn" style="background-color: #62bc45; border-radius: 28px;">
+                    <a class="txt2" href="#" style="font-size: 20px; font-weight: bold; color: white;">
+                        اشترك الان
+                    </a>
                 </div>
 
                 <div class="container-login100-form-btn">

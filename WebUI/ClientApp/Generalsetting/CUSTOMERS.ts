@@ -292,6 +292,10 @@ namespace CUSTOMERS {
 
         //}
 
+        if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
+            $('#DivShow').addClass('display_none'); 
+        }
+
     }
     function BindCustItemsGridData(CUSTOMERID: number) {
         debugger
@@ -404,7 +408,9 @@ namespace CUSTOMERS {
         status.checked = true;
         txt_Cust_Type.value = 'Null';
 
-
+        if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
+            $('#DivShow').addClass('display_none');
+        }
     }
     function btnsave_onClick() {
 

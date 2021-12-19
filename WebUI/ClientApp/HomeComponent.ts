@@ -551,9 +551,10 @@ namespace HomeComponent {
         }
         $('.MED').removeClass('display_none');
 
-        if (SysSession.CurrentEnvironment.I_Control[0].GL_VoucherCCDT_Type  != 1) {
-            $('#btnDtcostcenter').addClass('display_none');
-            $('#btnCcdtAccState').addClass('display_none');
+        if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
+            $('#btnRawStock').addClass('display_none');
+            $('#btnOperatingStock').addClass('display_none');
+            $('#btnFullStock').addClass('display_none');
         }
     }
 
