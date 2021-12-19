@@ -62,22 +62,22 @@ namespace CustomerOrder {
 
     var txtItemCount: HTMLInputElement;
     var txtPackageCount: HTMLInputElement;
-    var txtTotalbefore: HTMLInputElement; 
+    var txtTotalbefore: HTMLInputElement;
     var txt_Remarks: HTMLInputElement;
     var txtInvoiceDate: HTMLInputElement;
     var txtCustomerMobile: HTMLInputElement;
     var txtInvoiceCustomerName: HTMLInputElement;
- 
+
 
     var lblInvoiceNumber: HTMLInputElement;
     //checkbox
-   
- 
+
+
     var btnAddDetails: HTMLButtonElement;
     var btnBack: HTMLButtonElement;// btnBack btnSave
     var btnSave: HTMLButtonElement;
 
- 
+
 
     //print buttons     
 
@@ -134,9 +134,9 @@ namespace CustomerOrder {
         //vatType = SysSession.CurrentEnvironment.I_Control[0].DefSlsVatType;
 
         //GetVatPercentage();
- 
+
         txtItemCount.value = CountItems.toString();
-        txtPackageCount.value = PackageCount.toString();   
+        txtPackageCount.value = PackageCount.toString();
 
         btnAdd_onclick();
 
@@ -145,51 +145,51 @@ namespace CustomerOrder {
         // btnPrint = document.getElementById("btnPrint") as HTMLInputElement;
 
         // Drop down lists
-       
+
 
         //TextBoxes
- 
+
         txt_Tax_Discount = document.getElementById("txt_Tax_Discount") as HTMLInputElement;
         txt_Tax_total_Discount = document.getElementById("txt_Tax_total_Discount") as HTMLInputElement;
-        txt_Tax_total_AfterDiscount = document.getElementById("txt_Tax_total_AfterDiscount") as HTMLInputElement; 
+        txt_Tax_total_AfterDiscount = document.getElementById("txt_Tax_total_AfterDiscount") as HTMLInputElement;
         txtItemCount = document.getElementById("txtItemCount") as HTMLInputElement;
         txtPackageCount = document.getElementById("txtPackageCount") as HTMLInputElement;
-        txtTotalbefore = document.getElementById("txtTotalbefore") as HTMLInputElement; 
+        txtTotalbefore = document.getElementById("txtTotalbefore") as HTMLInputElement;
         txt_Remarks = document.getElementById("txt_Remarks") as HTMLInputElement;
         txtInvoiceDate = document.getElementById("txtInvoiceDate") as HTMLInputElement;
         txtCustomerMobile = document.getElementById("txtCustomerMobile") as HTMLInputElement;
         txtInvoiceCustomerName = document.getElementById("txtInvoiceCustomerName") as HTMLInputElement;
-    
+
 
 
         //labels
         lblInvoiceNumber = document.getElementById("lblInvoiceNumber") as HTMLInputElement;
 
         //checkbox
-   
+
         //button
-   
- 
+
+
 
         btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;// btnBack btnSave
         btnBack = document.getElementById("btnBack") as HTMLButtonElement;
         btnSave = document.getElementById("btnSave") as HTMLButtonElement;
 
- 
+
         //print 
-       
+
     }
     function InitializeEvents() {
-         
+
         btnAddDetails.onclick = AddNewRow;
         btnBack.onclick = btnBack_onclick;
         btnSave.onclick = btnSave_onclick;
- 
-      
-      
+
+
+
     }
-   
-     
+
+
     function Tax_Net_Total() {
 
         let Net_total_After = Number($("#Tax_TotalInvoice").text()) - Number($("#txt_Tax_total_AfterDiscount").val());
@@ -210,11 +210,11 @@ namespace CustomerOrder {
         $("#txtFraction_difference").text(difference_3.toFixed(4));
 
     }
-    
-   
+
+
     //------------------------------------------------------ Events Region------------------------
-  
-    
+
+
     //------------------------------------------------------ Buttons Region------------------------
     function btnSave_onclick() {
 
@@ -231,25 +231,25 @@ namespace CustomerOrder {
         }
         if (CanAdd) {
 
-            
+
             Validation_Insert = 0;
             MasterDetailsModel = new SlsInvoiceMasterDetails();
             Assign();
             MasterDetailsModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
             MasterDetailsModel.UserCode = SysSession.CurrentEnvironment.UserCode;
 
-            InvoiceModel.VatType = vatType; 
+            InvoiceModel.VatType = vatType;
             InvoiceModel.CommitionAmount = Number(txt_Remarks.value);
             InvoiceModel.CreatedAt = DateTimeFormat(Date().toString());
             InvoiceModel.CreatedBy = SysSession.CurrentEnvironment.UserCode;
 
             MasterDetailsModel.I_Sls_TR_Invoice = InvoiceModel;
             insert();
-         
+
         }
     }
     function btnBack_onclick() {
-       
+
         btnAdd_onclick();
     }
     function btnAdd_onclick() {
@@ -260,8 +260,8 @@ namespace CustomerOrder {
         else
             InvTransCode = SysSession.CurrentEnvironment.WholeInvoiceTransCode;
 
-       
-    
+
+
 
         lblInvoiceNumber.value = '';
         txtInvoiceDate.value = GetDate();
@@ -272,19 +272,19 @@ namespace CustomerOrder {
         $("#txtCUSTOMER_ADDRES").val(SysSession.CurrentEnvironment.CUSTOMER_ADDRES);
         $("#txtDebit").val(SysSession.CurrentEnvironment.Debit);
 
-           
+
         txtTotalbefore.value = '0';
-        txt_Remarks.value = ''; 
+        txt_Remarks.value = '';
         txtItemCount.value = '0'
         txtPackageCount.value = '0'
-       
-       
+
+
 
         TypeFlag = true;
 
 
-  
-        txt_Remarks.disabled = false; 
+
+        txt_Remarks.disabled = false;
 
 
         $("#btnAddDetails").removeClass("display_none");
@@ -304,14 +304,14 @@ namespace CustomerOrder {
         $("#cotrolDiv").addClass("disabledDiv");
 
         Show = false;
-        NewAdd = true; 
+        NewAdd = true;
         $('#txtCreatedBy').prop("value", SysSession.CurrentEnvironment.UserCode);
         $('#txtCreatedAt').prop("value", DateTimeFormat(Date().toString()));
 
         //SysSession.CurrentEnvironment.UserType == 2 || SysSession.CurrentEnvironment.UserType == 3 ? ($('#ddlCashBox').prop('selectedIndex', 1), $("#Div_Money").removeClass("display_none")) : $('#ddlCashBox').prop('selectedIndex', 0); $('#ddlCashBox').attr('disabled', 'disabled');
 
         SysSession.CurrentEnvironment.I_Control[0].IvoiceDateEditable == true ? $('#txtInvoiceDate').removeAttr("disabled") : $('#txtInvoiceDate').attr("disabled", "disabled");
-         
+
         $('#txt_Tax_Discount').val("0");
         $('#txt_Tax_total_Discount').val("0");
         $('#txt_Tax_total_AfterDiscount').val("0");
@@ -331,19 +331,19 @@ namespace CustomerOrder {
         $("#txtDate_of_supply").removeAttr("disabled");
         $("#txtSupply_end_Date").removeAttr("disabled");
         $("#txtTerms_of_Payment").removeAttr("disabled");
-    
 
 
-     
+
+
 
         AddNewRow();
- 
+
 
         GetCustItemsGridData(CustomerId)
-    } 
+    }
     //------------------------------------------------------ Drop Down Region------------------------
-    
-    
+
+
     //------------------------------------------------------ Controls Grid Region------------------------
     function GetCustItemsGridData(CUSTOMERID: number) {
         debugger
@@ -355,7 +355,7 @@ namespace CustomerOrder {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     I_Item_Cust = result.Response as Array<I_Item_Customer>;
-                     
+
 
                 }
             }
@@ -377,7 +377,7 @@ namespace CustomerOrder {
             '<input id="InvoiceItemID' + cnt + '" type="hidden" class="form-control input-sm right2 display_none"  />' +
 
             '<div class="display_none col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 p-0" style="width: 11%;">' +
-           
+
             '<input id="txtServiceCode' + cnt + '" name=""   type="text" class="  col-lg-9 form-control input-sm  text_Display  " />' +
             '</div>' +
 
@@ -385,7 +385,7 @@ namespace CustomerOrder {
             '<button type="button" class="col-lg-1 col-xs-1 src-btn btn btn-search input-sm " style="width:22%;" id="btnSearchService' + cnt + '" name="ColSearch">   ' +
             '<i class="fa fa-search  "></i></button>' +
 
-            '<input id="txtServiceName' + cnt + '" name="FromDate" disabled  style="width: 77%;" type="text" class=" col-lg-11 col-xs-8 form-control input-sm  text_Display" style="width:90%;" />'+
+            '<input id="txtServiceName' + cnt + '" name="FromDate" disabled  style="width: 77%;" type="text" class=" col-lg-11 col-xs-8 form-control input-sm  text_Display" style="width:90%;" />' +
 
             '</div>' +
 
@@ -437,6 +437,160 @@ namespace CustomerOrder {
 
 
 
+
+        if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
+            $('#btnSearchService' + cnt).click(function (e) {
+                debugger
+                let sys: SystemTools = new SystemTools();
+                let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
+                NumCnt = cnt;
+                var Storeid = 1
+
+                sys.FindKey(Modules.CUSTOMERS, "btnCustomerOrderNew", " OnhandQty > 0 and CompCode = " + compcode + " and BraCode = " + BranchCode + " and StoreCode =1", () => {
+                    let id = SearchGrid.SearchDataGrid.SelectedKey;
+
+                    //$("#txt_ItemID" + NumCnt + "").val(id);
+                    let ItemCode = '';
+                    let ItemID = id;
+                    let Mode = InvoiceType;
+                    Ajax.Callsync({
+                        type: "Get",
+                        url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
+                        data: {
+                            CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+                        },
+                        success: (d) => {
+                            let result = d as BaseResponse;
+                            if (result.IsSuccess) {
+                                debugger
+                                GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
+                                if (GetItemInfo.length > 0) {
+                                    debugger
+                                    $('#ddlTypeuom' + NumCnt + '').html('');
+                                    for (var i = 0; i < GetItemInfo.length; i++) {
+                                        $('#ddlTypeuom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+                                    }
+
+
+                                    $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
+                                    $('#txtServiceCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
+                                    $('#txtPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
+                                    $('#txtNetUnitPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
+                                    $('#txtQuantity' + NumCnt + '').val('1');
+
+
+
+
+                                    $('#txtServiceName' + NumCnt + '').attr('disabled', 'disabled');
+                                    $('#txtServiceCode' + NumCnt + '').attr('disabled', 'disabled');
+
+                                    totalRow(NumCnt);
+
+                                }
+                                else {
+                                    $('#ddlTypeuom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
+                                    $('#txtServiceName' + NumCnt + '').val('');
+                                    $('#txtServiceCode' + NumCnt + '').val('');
+                                    $('#txtPrice' + NumCnt + '').val('0');
+                                    $('#txtNetUnitPrice' + NumCnt + '').val('0');
+                                    $('#txtQuantity' + NumCnt + '').val('1');
+                                    $('#txtServiceName' + NumCnt + '').removeAttr('disabled');
+                                    $('#txtServiceCode' + NumCnt + '').removeAttr('disabled');
+                                }
+
+                            }
+                        }
+                    });
+
+
+                });
+
+
+                setTimeout(function () { $("#SearchDataTable_wrapper").attr("class", "") }, 200);
+            });
+        }
+        else {
+            $('#btnSearchService' + cnt).click(function (e) {
+                debugger
+                let sys: SystemTools = new SystemTools();
+                let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
+                NumCnt = cnt;
+                var Storeid = 1
+
+                sys.FindKey(Modules.CUSTOMERS, "btnCustomerOrder", " STATUS = 1 and CUSTOMER_ID = " + CustomerId, () => {
+                    let id = SearchGrid.SearchDataGrid.SelectedKey;
+                    var ListCustItem = I_Item_Cust.filter(x => x.Id == id);
+
+
+
+
+
+
+                    if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+
+
+                    //$("#txt_ItemID" + NumCnt + "").val(id);
+                    let ItemCode = '';
+                    let ItemID = ListCustItem[0].ItemID;
+                    let Mode = InvoiceType;
+                    Ajax.Callsync({
+                        type: "Get",
+                        url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
+                        data: {
+                            CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
+                        },
+                        success: (d) => {
+                            let result = d as BaseResponse;
+                            if (result.IsSuccess) {
+                                debugger
+                                GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
+                                if (GetItemInfo.length > 0) {
+                                    debugger
+                                    $('#ddlTypeuom' + NumCnt + '').html('');
+                                    for (var i = 0; i < GetItemInfo.length; i++) {
+                                        $('#ddlTypeuom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
+                                    }
+
+                                    $('#txtQuantity' + NumCnt + '').val('1');
+
+                                    $('#txt_ItemID' + NumCnt + '').val(ListCustItem[0].ItemID);
+                                    $('#txtServiceCode' + NumCnt + '').val(ListCustItem[0].ItemCode);
+                                    $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? ListCustItem[0].DescA : ListCustItem[0].DescL));
+                                    $('#ddlTypeuom' + NumCnt + '').val(ListCustItem[0].UomID);
+                                    $('#txtPrice' + NumCnt + '').val(ListCustItem[0].Unitprice);
+                                    $('#txtNetUnitPrice' + NumCnt + '').val(ListCustItem[0].Unitprice);
+
+
+                                    $('#txtServiceName' + NumCnt + '').attr('disabled', 'disabled');
+                                    $('#txtServiceCode' + NumCnt + '').attr('disabled', 'disabled');
+
+                                    totalRow(NumCnt);
+
+                                }
+                                else {
+                                    $('#ddlTypeuom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
+                                    $('#txtServiceName' + NumCnt + '').val('');
+                                    $('#txtServiceCode' + NumCnt + '').val('');
+                                    $('#txtPrice' + NumCnt + '').val('0');
+                                    $('#txtNetUnitPrice' + NumCnt + '').val('0');
+                                    $('#txtQuantity' + NumCnt + '').val('1');
+                                    $('#txtServiceName' + NumCnt + '').removeAttr('disabled');
+                                    $('#txtServiceCode' + NumCnt + '').removeAttr('disabled');
+                                }
+
+                            }
+                        }
+                    });
+
+
+                });
+
+
+                setTimeout(function () { $("#SearchDataTable_wrapper").attr("class", "") }, 200);
+            });
+        }
+
+
         //Search Region
         //// First Search
         //$('#btnSearchService' + cnt).click(function (e) {
@@ -476,7 +630,7 @@ namespace CustomerOrder {
         //                        $('#txtPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
         //                        $('#txtNetUnitPrice' + NumCnt + '').val(GetItemInfo[0].UnitPrice);
         //                        $('#txtQuantity' + NumCnt + '').val('1');
- 
+
         //                        $('#txtServiceName' + NumCnt + '').attr('disabled', 'disabled');
         //                        $('#txtServiceCode' + NumCnt + '').attr('disabled', 'disabled');
 
@@ -503,84 +657,7 @@ namespace CustomerOrder {
 
 
         //});
-        $('#btnSearchService' + cnt).click(function (e) {
-            debugger
-            let sys: SystemTools = new SystemTools();
-            let GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
-            NumCnt = cnt;
-            var Storeid = 1
 
-            sys.FindKey(Modules.CUSTOMERS, "btnCustomerOrder", " STATUS = 1 and CUSTOMER_ID = " + CustomerId, () => {
-                let id = SearchGrid.SearchDataGrid.SelectedKey;  
-                var ListCustItem = I_Item_Cust.filter(x => x.Id == id);
-
-
-               
-
-                
-
-                if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val()))) return
-
-
-                //$("#txt_ItemID" + NumCnt + "").val(id);
-                let ItemCode = '';
-                let ItemID = ListCustItem[0].ItemID;
-                let Mode = InvoiceType;
-                Ajax.Callsync({
-                    type: "Get",
-                    url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
-                    data: {
-                        CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: Storeid, Mode: Mode, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-                    },
-                    success: (d) => {
-                        let result = d as BaseResponse;
-                        if (result.IsSuccess) {
-                            debugger
-                            GetItemInfo = result.Response as Array<Iproc_GetItemInfo_Result>;
-                            if (GetItemInfo.length > 0) {
-                                debugger
-                                $('#ddlTypeuom' + NumCnt + '').html('');
-                                for (var i = 0; i < GetItemInfo.length; i++) {
-                                    $('#ddlTypeuom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo[i].UnitPrice + '" data-MinPrice="' + GetItemInfo[i].MinPrice + '" data-Rate="' + GetItemInfo[i].Rate + '" value="' + GetItemInfo[i].uomid + '">' + (lang == "ar" ? GetItemInfo[i].u_DescA : GetItemInfo[i].u_DescE) + '</option>');
-                                }
-
-                                $('#txtQuantity' + NumCnt + '').val('1');
-
-                                $('#txt_ItemID' + NumCnt + '').val(ListCustItem[0].ItemID);
-                                $('#txtServiceCode' + NumCnt + '').val(ListCustItem[0].ItemCode);
-                                $('#txtServiceName' + NumCnt + '').val((lang == "ar" ? ListCustItem[0].DescA : ListCustItem[0].DescL));
-                                $('#ddlTypeuom' + NumCnt + '').val(ListCustItem[0].UomID);
-                                $('#txtPrice' + NumCnt + '').val(ListCustItem[0].Unitprice);
-                                $('#txtNetUnitPrice' + NumCnt + '').val(ListCustItem[0].Unitprice);
-
- 
-                                $('#txtServiceName' + NumCnt + '').attr('disabled', 'disabled');
-                                $('#txtServiceCode' + NumCnt + '').attr('disabled', 'disabled');
-
-                                totalRow(NumCnt);
-
-                            }
-                            else {
-                                $('#ddlTypeuom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
-                                $('#txtServiceName' + NumCnt + '').val('');
-                                $('#txtServiceCode' + NumCnt + '').val('');
-                                $('#txtPrice' + NumCnt + '').val('0');
-                                $('#txtNetUnitPrice' + NumCnt + '').val('0');
-                                $('#txtQuantity' + NumCnt + '').val('1');
-                                $('#txtServiceName' + NumCnt + '').removeAttr('disabled');
-                                $('#txtServiceCode' + NumCnt + '').removeAttr('disabled');
-                            }
-
-                        }
-                    }
-                });
-
-
-            });
-
-
-            setTimeout(function () { $("#SearchDataTable_wrapper").attr("class", "") }, 200);
-        });
         $("#txtServiceCode" + cnt).on('change', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
@@ -895,7 +972,7 @@ namespace CustomerOrder {
         }
         return true;
     }
-    function DeleteRow(RecNo: number) { 
+    function DeleteRow(RecNo: number) {
         WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", () => {
             $("#txt_StatusFlag" + RecNo).val() == 'i' ? $("#txt_StatusFlag" + RecNo).val('m') : $("#txt_StatusFlag" + RecNo).val('d');
             CountItems = CountItems - 1;
@@ -920,7 +997,7 @@ namespace CustomerOrder {
         //    return false
         //}
 
-         
+
         //var CanAdd: boolean = true;
         //if (CountGrid > 0) {
         //    for (var i = 0; i < CountGrid; i++) {
@@ -931,20 +1008,20 @@ namespace CustomerOrder {
         //    }
         //}
         //if (CanAdd) {
-            CountItems = CountItems + 1;
-            txtItemCount.value = CountItems.toString();
-            BuildControls(CountGrid);
-            $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode 
-            $("#ddlFamily" + CountGrid).removeAttr("disabled");
-            $("#ddlItem" + CountGrid).removeAttr("disabled");
-            $("#txtQuantity" + CountGrid).removeAttr("disabled");
-           
-            $("#txtReturnQuantity" + CountGrid).attr("disabled", "disabled");
-            $("#btn_minus" + CountGrid).removeClass("display_none");
-            $("#btn_minus" + CountGrid).removeAttr("disabled");
-            CountGrid++;
-            Insert_Serial();
- 
+        CountItems = CountItems + 1;
+        txtItemCount.value = CountItems.toString();
+        BuildControls(CountGrid);
+        $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode 
+        $("#ddlFamily" + CountGrid).removeAttr("disabled");
+        $("#ddlItem" + CountGrid).removeAttr("disabled");
+        $("#txtQuantity" + CountGrid).removeAttr("disabled");
+
+        $("#txtReturnQuantity" + CountGrid).attr("disabled", "disabled");
+        $("#btn_minus" + CountGrid).removeClass("display_none");
+        $("#btn_minus" + CountGrid).removeAttr("disabled");
+        CountGrid++;
+        Insert_Serial();
+
         //}
     }
     function ComputeTotals() {
@@ -979,8 +1056,8 @@ namespace CustomerOrder {
             }
         }
         txtItemCount.value = CountItems.toString();
-        txtPackageCount.value = PackageCount.toString(); 
-        txtTotalbefore.value = Totalbefore.toString(); 
+        txtPackageCount.value = PackageCount.toString();
+        txtTotalbefore.value = Totalbefore.toString();
     }
     function Insert_Serial() {
 
@@ -995,12 +1072,12 @@ namespace CustomerOrder {
 
     }
     //------------------------------------------------------ Search && Clear &&Validation  Region ------------------------
-    
+
     function ValidationHeader() {
 
 
-    
-      
+
+
         if (txtInvoiceDate.value == "") {
             DisplayMassage(" برجاء ادخال التاريخ", "Please select a Date", MessageType.Error);
             Errorinput(txtInvoiceDate);
@@ -1017,7 +1094,7 @@ namespace CustomerOrder {
             Errorinput(btnAddDetails);
             return false
         }
-      
+
         return true;
     }
     function Validation_Grid(rowcount: number) {
@@ -1027,20 +1104,31 @@ namespace CustomerOrder {
         if ($("#txt_StatusFlag" + rowcount).val() == "d" || $("#txt_StatusFlag" + rowcount).val() == "m") {
             return true;
         } else {
+            if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
 
-            if ($("#txt_ItemID" + rowcount).val() == "" || $("#txt_ItemID" + rowcount).val() == "0" || $("#txt_ItemID" + rowcount).val() == null) {
-                DisplayMassage(" برجاء ادخال الصنف", "Please enter the type", MessageType.Error);
-                Errorinput($("#btnSearchService" + rowcount));
-                Errorinput($("#txtServiceName" + rowcount));
-                return false
+                if ($("#txtServiceName" + rowcount).val() == "" ) {
+                    DisplayMassage(" برجاء ادخال الصنف", "Please enter the type", MessageType.Error);
+                    Errorinput($("#btnSearchService" + rowcount));
+                    Errorinput($("#txtServiceName" + rowcount));
+                    return false
+                }
             }
+            else {
 
+
+                if ($("#txt_ItemID" + rowcount).val() == "" || $("#txt_ItemID" + rowcount).val() == "0" || $("#txt_ItemID" + rowcount).val() == null) {
+                    DisplayMassage(" برجاء ادخال الصنف", "Please enter the type", MessageType.Error);
+                    Errorinput($("#btnSearchService" + rowcount));
+                    Errorinput($("#txtServiceName" + rowcount));
+                    return false
+                }
+            }
             //else if ($("#txtServiceCode" + rowcount).val() == "") {
             //    DisplayMassage(" برجاء ادخال الكود", "Please enter the type", MessageType.Error);
             //    Errorinput($("#txtServiceCode" + rowcount));
             //    return false
             //}
-            else if (Qty == 0) {
+             if (Qty == 0) {
                 DisplayMassage(" برجاء ادخال الكمية المباعة", "Please enter the Quantity sold", MessageType.Error);
                 Errorinput($("#txtQuantity" + rowcount));
                 return false
@@ -1052,7 +1140,7 @@ namespace CustomerOrder {
             //    return false
             //}
 
-            
+
             return true;
         }
     }
@@ -1076,7 +1164,7 @@ namespace CustomerOrder {
         $("#txtTerms_of_Payment").attr("disabled", "disabled");
     }
     //------------------------------------------------------ Get Functions  Region------------------------     
-   
+
     //------------------------------------------------------ main Functions  Region------------------------
     function Assign() {
         List_MinUnitPrice = new Array<I_Sls_TR_InvoiceItems>();
@@ -1120,20 +1208,20 @@ namespace CustomerOrder {
         InvoiceModel.TrType = 3//0 invoice 1 return
         InvoiceModel.SlsInvSrc = 1   // 1 from store 2 from van  
         InvoiceModel.StoreId = StoreID;//main store          
-        InvoiceModel.PaymentMeansTypeCode =   1; //  Cash or   Credit
+        InvoiceModel.PaymentMeansTypeCode = 1; //  Cash or   Credit
 
 
         InvoiceModel.RefTrID = null;
         ///////////////
         InvoiceModel.InvoiceID = GlobalinvoiceID;
         InvoiceModel.SalesmanId = null;
-        InvoiceModel.StoreId = 1;  
+        InvoiceModel.StoreId = 1;
         InvoiceModel.TrDate = txtInvoiceDate.value;
         InvoiceModel.CustomerName = txtInvoiceCustomerName.value;
         InvoiceModel.CustomerMobileNo = txtCustomerMobile.value;
         InvoiceModel.CommitionAmount = 0;
         InvoiceModel.Remark = txt_Remarks.value;
-        InvoiceModel.VatType = vatType; 
+        InvoiceModel.VatType = vatType;
         InvoiceModel.TaxCurrencyID = Number(SysSession.CurrentEnvironment.I_Control[0].Currencyid);
         InvoiceModel.InvoiceCurrenyID = Number(SysSession.CurrentEnvironment.I_Control[0].Currencyid);
         InvoiceModel.InvoiceTypeCode = Number(SysSession.CurrentEnvironment.InvoiceTypeCode);
@@ -1159,15 +1247,15 @@ namespace CustomerOrder {
         InvoiceModel.DeliveryDate = $('#txtDate_of_supply').val();
         InvoiceModel.DeliveryEndDate = $('#txtSupply_end_Date').val();
         InvoiceModel.TaxNotes = $('#txtTerms_of_Payment').val();
-        InvoiceModel.ItemTotal = Number(txtTotalbefore.value); 
+        InvoiceModel.ItemTotal = Number(txtTotalbefore.value);
 
         InvoiceModel.CashBoxID = null;
 
 
         InvoiceModel.IsCash = true;
         InvoiceModel.Status = 0;
-    
-     
+
+
         // Details
         for (var i = 0; i < CountGrid; i++) {
             invoiceItemSingleModel = new I_Sls_TR_InvoiceItems();
@@ -1259,10 +1347,10 @@ namespace CustomerOrder {
         }
         MasterDetailsModel.I_Sls_TR_Invoice = InvoiceModel;
         MasterDetailsModel.I_Sls_TR_InvoiceItems = InvoiceItemsDetailsModel;
-    } 
+    }
     function insert() {
         InvoiceModel.InvoiceID = 0;
-         
+
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("SlsTrSales", "InsertCustomerOrderDetail"),
@@ -1278,7 +1366,7 @@ namespace CustomerOrder {
                     btnAdd_onclick();
                     IsSuccess = true;
 
-                  
+
                 } else {
                     IsSuccess = false;
 
@@ -1289,7 +1377,7 @@ namespace CustomerOrder {
         });
 
     }
-    
-    
+
+
 
 }

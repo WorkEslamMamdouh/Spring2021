@@ -220,6 +220,9 @@ var CUSTOMERS;
         //    $('#txt_DebitFC').val((Credit));
         //    $('#txt_Debit').val(('0'));
         //}
+        if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
+            $('#DivShow').addClass('display_none');
+        }
     }
     function BindCustItemsGridData(CUSTOMERID) {
         debugger;
@@ -300,6 +303,9 @@ var CUSTOMERS;
         $('#Div_control').removeClass("display_none");
         status.checked = true;
         txt_Cust_Type.value = 'Null';
+        if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
+            $('#DivShow').addClass('display_none');
+        }
     }
     function btnsave_onClick() {
         if (!Validation())

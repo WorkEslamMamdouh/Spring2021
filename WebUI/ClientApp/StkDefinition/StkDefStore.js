@@ -47,6 +47,7 @@ var DefStore;
         InitalizeEvents();
         FilldrpinventoryAccount();
         fillddlBranch();
+        Displaystore();
     }
     DefStore.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {

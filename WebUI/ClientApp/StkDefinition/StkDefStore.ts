@@ -56,6 +56,7 @@ namespace DefStore {
         InitalizeEvents();
         FilldrpinventoryAccount();
         fillddlBranch();
+        Displaystore();
     }
     function InitalizeControls() {
 

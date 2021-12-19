@@ -20,7 +20,6 @@ var HomeComponent;
     var systemEnv = SysSession.CurrentEnvironment;
     function OpenPage(moduleCode) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
-        debugger;
         var compCode = SysSession.CurrentEnvironment.CompCode;
         var branchCode = SysSession.CurrentEnvironment.BranchCode;
         var UserCode = SysSession.CurrentEnvironment.UserCode;
@@ -205,7 +204,6 @@ var HomeComponent;
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
     function FillddlPilot() {
-        debugger;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("G_USERS", "GetAllUser"),
@@ -239,7 +237,6 @@ var HomeComponent;
         //});
     }
     function printreport(ID_ORDER_Print) {
-        debugger;
         var _StockList = new Array();
         var _Stock = new Settings_Report();
         _Stock.Type_Print = 4;
@@ -256,7 +253,6 @@ var HomeComponent;
         _StockList.push(_Stock);
         var rp = new ReportParameters();
         rp.Data_Report = JSON.stringify(_StockList); //output report as View
-        debugger;
         Ajax.Callsync({
             url: Url.Action("Data_Report_Open", "PrintReports"),
             data: rp,
@@ -302,7 +298,7 @@ var HomeComponent;
             type: "Get",
             url: sys.apiUrl("SlsTrSales", "GetAllNotification"),
             success: function (d) {
-                //debugger
+                // 
                 var result = d;
                 if (result.IsSuccess == true) {
                     Notification = result.Response;
@@ -350,7 +346,7 @@ var HomeComponent;
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Get_Balance"),
             success: function (d) {
-                //debugger
+                // 
                 var result = d;
                 if (result.IsSuccess == true) {
                     Balance = result.Response;
@@ -369,7 +365,7 @@ var HomeComponent;
             url: sys.apiUrl("G_USERS", "LogoutUser"),
             data: { user: userCode },
             success: function (d) {
-                // //debugger;
+                // // 
                 if (d !== undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -419,7 +415,7 @@ var HomeComponent;
             else {
                 li = document.getElementById("btn" + singleUserModule.MODULE_CODE);
             }
-            //debugger
+            // 
             if (li != null) {
                 if (singleUserModule != null) {
                     if (singleUserModule.Access === false)
@@ -438,9 +434,10 @@ var HomeComponent;
             }
         }
         $('.MED').removeClass('display_none');
-        if (SysSession.CurrentEnvironment.I_Control[0].GL_VoucherCCDT_Type != 1) {
-            $('#btnDtcostcenter').addClass('display_none');
-            $('#btnCcdtAccState').addClass('display_none');
+        if (SysSession.CurrentEnvironment.I_Control[0].SalesPriceWithVAT == false) {
+            $('#btnRawStock').addClass('display_none');
+            $('#btnOperatingStock').addClass('display_none');
+            $('#btnFullStock').addClass('display_none');
         }
     }
     //By Muhammad Rajab 
@@ -561,7 +558,7 @@ var HomeComponent;
     }
     HomeComponent.HomePrev = HomePrev;
     function OpenView(controllerName, moduleCode) {
-        //debugger;
+        // 
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         var compCode = SysSession.CurrentEnvironment.CompCode;
         var branchCode = SysSession.CurrentEnvironment.BranchCode;
@@ -575,7 +572,7 @@ var HomeComponent;
             url: sys.apiUrl("SystemTools", "GetAllUserPrivilage"),
             data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: SystemCode, SubSystemCode: SubSystemCode, Modulecode: Modulecode },
             success: function (d) {
-                //debugger;
+                // 
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -745,14 +742,14 @@ var HomeComponent;
     }
     function ScreenHelp() {
         var ModuleCode = SysSession.CurrentPrivileges.MODULE_CODE;
-        //debugger
+        // 
         $.ajax({
             type: "GET",
             url: sys.apiUrl("SystemTools", "GetHelp"),
             data: { ModuleCode: ModuleCode },
             async: false,
             success: function (d) {
-                //debugger;
+                // 
                 var result = d;
                 var res = result.Response;
                 if (res != null) {
@@ -779,7 +776,7 @@ var HomeComponent;
             url: sys.apiUrl("Outletpirce", "Insert"),
             data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
-                //debugger
+                // 
                 var result = d;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
@@ -814,7 +811,7 @@ var HomeComponent;
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
             data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
-                //debugger
+                // 
                 var result = d;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
@@ -837,7 +834,7 @@ var HomeComponent;
                     type: "Post",
                     url: sys.apiUrl("Close_Day", "Close"),
                     success: function (d) {
-                        //debugger
+                        // 
                         var result = d;
                         if (result.IsSuccess == true) {
                             $('#Close').attr('style', 'margin-top: -77%;background-color: #4df109;border-radius: 11px;');
@@ -857,7 +854,7 @@ var HomeComponent;
             type: "Get",
             url: sys.apiUrl("Close_Day", "Check_Close_Day"),
             success: function (d) {
-                //debugger
+                // 
                 var result = d;
                 if (result.IsSuccess == true) {
                     var res = result.Response;
