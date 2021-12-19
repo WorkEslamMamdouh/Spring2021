@@ -48,14 +48,36 @@
 </div>
 <div id="Receipt" class="row  margingred borderred display_none">
     <div class="col-lg-12">
-
-        <div class="col-lg-9">
+        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2  " style="width: 5% !important; margin-top: 0.5% ">@SystemResource.App_FromDate</label>
+        <div class="col-lg-2 ">
+            <input type="date" class="form-control input-sm addable editable" name="GosiJoinDate" id="txtFromDateRec">
         </div>
 
 
-    </div>
+        <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1 pading_2 textcentr_sendTransfer " style="width: 5% !important; margin-top: 0.5% ">@SystemResource.App_ToDate</label>
+        <div class="col-lg-2 ">
+            <input type="date" class="form-control input-sm addable editable" name="GosiJoinDate" id="txtToDateRec">
+        </div>
 
-    <div id="divMasterGridiv" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
+        <label class="col-lg-1 p-2" style="width: 3% !important; margin-top: 0.5% ">  @SystemResource.App_State	</label>
+        <div class="col-lg-1 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+            <select id="ddlStatusFilterRec" name="" class="form-control">
+                <option value="2">الجميع</option>
+                <option value="1">منفذ</option>
+                <option value="0">غير منفذ</option>
+            </select>
+        </div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1">
+            <button id="btnShowRec" type="button" class="btn btn-info">
+                @SystemResource.App_Show  <span class="glyphicon glyphicon-save "></span>
+            </button>
+        </div>
+
+    </div>
+    <div class="col-lg-2"></div>
+
+    <div id="divMasterGrid" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
         <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
             <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
         </div>
@@ -70,66 +92,15 @@
         <h4 id="Text_Massage"> @SystemResource.App_Message </h4>
 
     </div>
-
-    <div id="div_Master_Hedr" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred display_none">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
-            <div class="col-lg-9 col-md-9 col-sm-9 col-xl-9 col-xs-9" style="">
-                <div class="col-lg-5">
-
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
-
-                </div>
-            </div>
-        </div>
-        <br />
-        <div id="div_Master" class="">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">كود الصنف </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" name="ItemCode" disabled id="txtItemCode">
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
-
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  " style="padding-right:25px">وصف عربي</label>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtItm_DescA">
-                </div>
-
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes textcentrProcesses2 ">وصف بالانجليزي </label>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="DescL" id="txtItm_DescE">
-
-                </div>
-
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الفئة  </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="CategoryDescA" id="txtCat_Type">
-                </div>
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الصنف الرئيسي   </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="ItemFamilyDescA" id="txtFamily">
-
-                </div>
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
-
-                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
-                <div class="col-md-2 col-sm-5 col-xs-10">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="UOMDescA" id="txtUOM">
-                </div>
-
-                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الكمية المتاحه</label>
-                <div class="col-md-2 col-sm-5 col-xs-10">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="OnhandQty" id="txtQTY">
-                </div>
-            </div>
+    <div id="divGriddet" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
+        @*<div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+            <input id="searchbutmemreportdet" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
+        </div>*@
+        <div class="col-lg-12 "> 
+            <table id="divGrid1"></table>
         </div>
     </div>
+
 </div>
 <div id="Stock" class="row  margingred borderred display_none">
     <div class="col-lg-12">
@@ -146,7 +117,7 @@
         </div>
         <div class="col-lg-12 ">
 
-            <table id="divMasterGrid"></table>
+            <table id="divMasterGrid22"></table>
         </div>
     </div>
 

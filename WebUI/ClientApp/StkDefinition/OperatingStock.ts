@@ -1,6 +1,6 @@
 ﻿
 $(document).ready(() => {
-    //debugger;
+    // 
     OperatingStock.InitalizeComponent();
 })
 
@@ -27,23 +27,18 @@ namespace OperatingStock {
     var Grid: JsGrid = new JsGrid();
     var TransGrid: JsGrid = new JsGrid();
     var ReceiptGrid: JsGrid = new JsGrid();
+    var ReceiptGriddet: JsGrid = new JsGrid();
     var ModeItmes = 3;
     var counter = 0;
     //Arrays
-    var BranchDetails: Array<G_BRANCH> = new Array<G_BRANCH>();
-    var StatesFilterDetailsAr: Array<string> = new Array<string>();
-    var StatesFilterDetailsEn: Array<string> = new Array<string>();
-    var StoreSourceDetails: Array<G_STORE> = new Array<G_STORE>();
-    var StoreToDetails: Array<G_STORE> = new Array<G_STORE>();
-    var HeaderWithDetail: IQ_DirectTransferWithDetail = new IQ_DirectTransferWithDetail();
+    
     var Selecteditem: Array<I_Stk_TR_Transfer> = new Array<I_Stk_TR_Transfer>();
     var IQ_DirectTransferDetail: Array<I_Stk_TR_Transfer> = new Array<I_Stk_TR_Transfer>();
+    var IQ_Direct: Array<IQ_GetTransfer> = new Array<IQ_GetTransfer>();
+    var IQ_DirectDetail: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
     var SearchDetails: Array<I_Stk_TR_Transfer> = new Array<I_Stk_TR_Transfer>();
     var GetTransferDetail: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
-    var GetTransferDetail: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
-    var ItemsListDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
-    var ItemsSourceListDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
-    var ItemsToListDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
+    var GetTransferDetail: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();          
     var GetItemInfo: Array<Iproc_GetItemInfo_Result> = new Array<Iproc_GetItemInfo_Result>();
     var Display_D_UOM: Array<I_D_UOM> = new Array<I_D_UOM>();
     //Models
@@ -51,15 +46,14 @@ namespace OperatingStock {
     var TranferHeaderModel: I_Stk_TR_Transfer = new I_Stk_TR_Transfer();
     var TransferDetailModel: Array<I_Stk_TR_TransferDetails> = new Array<I_Stk_TR_TransferDetails>();
     var TransferDetailSingleModel: I_Stk_TR_TransferDetails = new I_Stk_TR_TransferDetails();
-    var TransferDetailModelFiltered: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
-    var IQTransferDetailModel: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();
-    var IQTransferDetailSingleModel: IQ_GetTransferDetail = new IQ_GetTransferDetail();
+    var TransferDetailModelFiltered: Array<IQ_GetTransferDetail> = new Array<IQ_GetTransferDetail>();  
     var SelectedTransferModel: Array<IQ_GetTransfer> = new Array<IQ_GetTransfer>();
     //textboxs
     var txtFromDate: HTMLInputElement;
+    var txtFromDateRec: HTMLInputElement;
     var txtToDate: HTMLInputElement;
-    var txtTransferDate: HTMLInputElement;
-    var txtTrNo: HTMLInputElement;
+    var txtToDateRec: HTMLInputElement;
+    var txtTransferDate: HTMLInputElement;    
     var txtRefNumber: HTMLInputElement;
     var txtApprovedBy: HTMLInputElement;
     var txtCreatedBy: HTMLInputElement;
@@ -69,17 +63,7 @@ namespace OperatingStock {
     var txtSearch: HTMLInputElement;
     var txtApprovedBy: HTMLInputElement;
     var txtSenderTrNO: HTMLInputElement;
-    var txtRemarks: HTMLInputElement;
-    //DropdownLists
-    var ddlStatusFilter: HTMLSelectElement;
-    var ddlSourceBranch: HTMLSelectElement;
-    var ddlSourceStore: HTMLSelectElement;
-    var ddlToBranch: HTMLSelectElement;
-    var ddlToStore: HTMLSelectElement;
-    var ddlSourceBranchAdd: HTMLSelectElement;
-    var ddlSourceStoreAdd: HTMLSelectElement;
-    var ddlToBranchAdd: HTMLSelectElement;
-    var ddlToStoreAdd: HTMLSelectElement;
+    var txtRemarks: HTMLInputElement;          
     //buttons
     var btnShow: HTMLButtonElement;
     var btnAdd: HTMLButtonElement;
@@ -87,6 +71,7 @@ namespace OperatingStock {
     var btnSave: HTMLButtonElement;
     var btnBack: HTMLButtonElement;
     var btnAddDetails: HTMLButtonElement;
+    var btnShowRec: HTMLButtonElement;
     //check box
     var chkApproved: HTMLInputElement;
 
@@ -122,6 +107,8 @@ namespace OperatingStock {
         drpType = document.getElementById("drpType") as HTMLSelectElement;
         txtFromDate = document.getElementById("txtFromDate") as HTMLInputElement;
         txtToDate = document.getElementById("txtToDate") as HTMLInputElement;
+        txtFromDateRec = document.getElementById("txtFromDateRec") as HTMLInputElement;
+        txtToDateRec = document.getElementById("txtToDateRec") as HTMLInputElement;
         txtSenderTrNO = document.getElementById("txtSenderTrNO") as HTMLInputElement;
         txtTransferDate = document.getElementById("txtTransferDate") as HTMLInputElement;
         txtRefNumber = document.getElementById("txtRefNumber") as HTMLInputElement;
@@ -131,6 +118,7 @@ namespace OperatingStock {
         btnEdit = document.getElementById("btnEdit") as HTMLButtonElement;
         btnAdd = document.getElementById("btnAdd") as HTMLButtonElement;
         btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
+        btnShowRec = document.getElementById("btnShowRec") as HTMLButtonElement;
         btnSave = document.getElementById("btnSave") as HTMLButtonElement;
         btnBack = document.getElementById("btnBack") as HTMLButtonElement;
         txtCreatedAt = document.getElementById("txtCreatedAt") as HTMLInputElement;
@@ -189,7 +177,7 @@ namespace OperatingStock {
 
         let res: any = GetResourceList("");
         $("#id_ReportGrid").attr("style", "");
-        ReportGrid.ElementName = "divMasterGrid";
+        ReportGrid.ElementName = "divMasterGrid22";
         ReportGrid.Paging = true;
         ReportGrid.PageSize = 15;
         ReportGrid.Sorting = true;
@@ -269,58 +257,51 @@ namespace OperatingStock {
             $('#Stock').addClass('display_none');
             $('#Receipt').addClass('display_none');
         }
-    }
-
-
-
+    }   
     //------------------------------------------------------ * R E C E I P T * ---------------------------------------
 
-    
-
     function InitalizeComponentReceipt() {
-                    
+        txtFromDateRec.value = SysSession.CurrentEnvironment.StartDate;
+        txtToDateRec.value = ConvertToDateDash(GetDate()) <= ConvertToDateDash(SysSession.CurrentEnvironment.EndDate) ? GetDate() : SysSession.CurrentEnvironment.EndDate;
+        btnShowRec.onclick = btnShowRec_onclick;
+    }  
+    function btnShowRec_onclick() {   
         DisplayReceipt();
     }
     function DisplayReceipt() {
-
-
-        $('#divMasterGridiv').removeClass('display_none');
-
+         
+        $('#divMasterGrid').removeClass('display_none');
         detailstock = new Array<IQ_GetItemStore>();
-        let BranchCode = Number($('#drpuserType').val());
 
-
+        let FromDateRec = DateFormat(txtFromDateRec.value);
+        let toDateRec = DateFormat(txtToDateRec.value);
+        let status = Number($('#ddlStatusFilterRec').val());
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("StkDefStore", "GetItemstore"),
-            data: {
-                CompCode: compcode, TypeStock: TypeStock, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-            },
+            url: sys.apiUrl("Transfer", "GetAlltransview"),
+            data: { compcode: compcode, TrType: 1, TFType: 1, fromdate: FromDateRec, todate: toDateRec, IsPosted: status},
             success: (d) => {
-
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
-
-                    detailstock = result.Response as Array<IQ_GetItemStore>;
-
-                    //for (var i = 0; i < detailstock.length; i++) {
-
-                    //    detailstock[i].NameIsActive = detailstock[i].IsActive == true ? (lang == "ar" ? "فعال" : "Active") : (lang == "ar" ? "غير فعال" : "Not Active");
-                    //}
+                    IQ_Direct = new Array<IQ_GetTransfer>();
+                    IQ_Direct = result.Response as Array<IQ_GetTransfer>;
+                    for (let i = 0; i < IQ_Direct.length; i++) {
+                        IQ_Direct[i].TrDate = DateFormat(IQ_Direct[i].TrDate.toString());
+                      
+                        IQ_Direct[i].IsSent == true ? IQ_Direct[i].IsPostdesc = (lang == "ar" ? IQ_Direct[i].IsPostdesc = "منفذ" : IQ_Direct[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_Direct[i].IsPostdesc = "غير منفذ" : IQ_Direct[i].IsPostdesc = "Not Authrized");
+                    }
                     InitializeGridReceipt();
-                    ReceiptGrid.DataSource = detailstock;
+                    ReceiptGrid.DataSource = IQ_Direct;
                     ReceiptGrid.Bind();
 
-
                 }
-
             }
         });
     }
     function InitializeGridReceipt() {
 
         let res: any = GetResourceList("");
-        $("#id_ReportGrid").attr("style", "");
+        $("#divGrid").attr("style", "");
         ReceiptGrid.ElementName = "divGrid";
         ReceiptGrid.Paging = true;
         ReceiptGrid.PageSize = 15;
@@ -330,47 +311,41 @@ namespace OperatingStock {
         ReceiptGrid.Inserting = false;
         ReceiptGrid.OnRowDoubleClicked = MasterDoubleClick;
         ReceiptGrid.SelectedIndex = 1;
-        ReceiptGrid.PrimaryKey = "ItemID";
+        ReceiptGrid.PrimaryKey = "TransfareID";
         ReceiptGrid.OnItemEditing = () => { };
         ReceiptGrid.Columns = [
-            { title: "ID", name: "ItemID", type: "text", width: "2%", visible: false },
-            { title: 'كود الصنف', name: "ItemCode", type: "text", width: "10%" },
-            { title: 'الوصف', name: (lang == "ar" ? "DescA" : "DescL"), type: "text", width: "35%" },
-            { title: 'الفئة', name: (lang == "ar" ? "CategoryDescA" : "CategoryDescL"), type: "text", width: "12%" },
-            { title: 'الصنف الرئيسي', name: (lang == "ar" ? "ItemFamilyDescA" : "ItemFamilyDescE"), type: "text", width: "14%" },          
-            { title: 'الكمية المحولة', name: "StockRecQty", type: "text", width: "13%" },
+            { title: "TransfareID", name: "TransfareID", type: "text", width: "32%", visible: false },
+            { title: 'رقم التحويل', name: "Tr_No", type: "text", width: "5%" },
+            { title: 'رقم المرجع', name:  "RefNO" , type: "text", width: "5%" },
+            { title: 'التاريخ', name: "TrDate", type: "text", width: "10%" },
+            { title: 'المرسل', name: "SendBy", type: "text", width: "20%" },
+            { title: 'المستلم', name: "ReceivedBy", type: "text", width: "20%" },          
+            { title: "التنفيذ", name: "IsPostdesc", type: "text", width: "4%" },     
             {
-                title: "استلام", css: "ColumPadding", name: "checkbox", width: "6%",
-                itemTemplate: (s: string, item: A_TmpVoucherProcess): HTMLInputElement => {
+                title: "استلام", css: "ColumPadding", name: "IsReceived", width: "4%",
+                itemTemplate: (s: string, item: I_Stk_TR_Transfer): HTMLInputElement => {
                     let txt: HTMLInputElement = CreateElement("checkbox", "form-control checkbox", " ", " ", "", " ");
-                    txt.id = "" + item.VOUCHER_CODE + "";
+                    txt.id = "" + item.TransfareID + "";
 
+                    if (item.IsReceived == true) {
+                        txt.checked = true;
+                        txt.disabled = true;
+                    }
+                    else if (item.IsReceived == false) {
+                        txt.checked = false;
+                    }
                     txt.style.height = "25px";
                     txt.style.width = "70px";
                     txt.onclick = (e) => {
-                         
 
-                        if (txt.checked == true) {
-                            //txt.value = 'true';
-                            //item.Selected = true;
-                            //changeCheckbox(item.VOUCHER_CODE, true);
-
+                        if (txt.checked == true) {     
+                            changeCheckbox(item.TransfareID, 1);
+                            //txt.disabled = true;
                         }
                         else if (txt.checked == false) {
-
-                            //changeCheckbox(item.VOUCHER_CODE, false);
-
-
+                            changeCheckbox(item.TransfareID, 0);
                         }
-
-
-                    };       
-                    //txt.disabled = StatusFlag;
-
-                    //let checked = TmpVoucherProcessDetails.filter(s => s.VOUCHER_CODE == item.VOUCHER_CODE);
-                    //txt.checked = checked[0].Selected == null ? false : checked[0].Selected;
-                    //txt.value = 'false';
-                    //item.Selected = false;       
+                    };
                     return txt;
                 }
             },
@@ -378,31 +353,66 @@ namespace OperatingStock {
 
         ReceiptGrid.Bind();
     }
-    function MasterDoubleClick() {
-
-
-
-        Selected_Data = detailstock.filter(x => x.ItemID == Number(ReceiptGrid.SelectedKey));
-
-        ItemID = Selected_Data[0].ItemID;
-        $("#div_Master_Hedr").removeClass("display_none");
-
-        DisplayData(Selected_Data);
-        $('#Div_Show_units').removeClass('display_none');
-        $('#Div_Show_Quantity').removeClass('display_none');
-        if (SysSession.CurrentPrivileges.CUSTOM2 == false) {
-            $('#costdiv').addClass('display_none');
-        } else {
-            $('#costdiv').removeClass('display_none');
-        }
-
-        $('#txtFamily').html('');
-
+    function changeCheckbox(TransfareID: number, IsReceived: number) {
+        debugger
+       let usercode = sys.SysSession.CurrentEnvironment.UserCode;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Transfer", "UpdateIsReceipt"),
+            data: { TransfareID: TransfareID, IsReceived: IsReceived, usercode: usercode},
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    DisplayReceipt();
+                }
+            }
+        });
 
     }
+    function MasterDoubleClick() {  
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Transfer", "GetAlldetail"),
+            data: { TransfareID: Number(ReceiptGrid.SelectedKey)},
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    IQ_DirectDetail = new Array<IQ_GetTransferDetail>();
+                    IQ_DirectDetail = result.Response as Array<IQ_GetTransferDetail>;
+                    
+                    $('#divGriddet').removeClass('display_none');
+                    Griddetail();
+                    ReceiptGriddet.DataSource = IQ_DirectDetail;
+                    ReceiptGriddet.Bind();
 
+                }
+            }
+        });      
 
-
+    }
+    function Griddetail() {
+        let res: any = GetResourceList("");
+        $("#divGriddet").attr("style", "");
+        ReceiptGriddet.ElementName = "divGrid1";
+        ReceiptGriddet.Paging = true;
+        ReceiptGriddet.PageSize = 15;
+        ReceiptGriddet.Sorting = true;
+        ReceiptGriddet.InsertionMode = JsGridInsertionMode.Binding;
+        ReceiptGriddet.Editing = false;
+        ReceiptGriddet.Inserting = false;
+        //ReceiptGriddet.OnRowDoubleClicked = MasterDoubleClick;
+        ReceiptGriddet.SelectedIndex = 1;
+        ReceiptGriddet.PrimaryKey = "TransfareDetailID";
+        ReceiptGriddet.OnItemEditing = () => { };
+        ReceiptGriddet.Columns = [
+            { title: "TransfareDetailID", name: "TransfareDetailID", type: "text", width: "45%", visible: false },
+            { title: 'الصنف الرئيسي', name: "ITFamly_DescA", type: "text", width: "10%" },
+            { title: "كود الصنف", name: "ItemCode", type: "text", width: "10%" },
+            { title: 'الصنف', name: "Itm_DescA", type: "text", width: "15%" },
+            { title: 'الوحدة الرئيسية', name: "uom_DescA", type: "text", width: "10%" },
+            { title: 'الكمية المحولة', name: "SendQty", type: "text", width: "10%" },     
+        ];
+    }
 
     //------------------------------------------------------ * T R A N S * ---------------------------------------
 
@@ -468,7 +478,7 @@ namespace OperatingStock {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Transfer", "GetAll"),
-            data: { compcode: compcode, TrType: 1, TFType: 1, fromdate: FromDate, todate: toDate, IsPosted: status, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
+            data: { compcode: compcode, TrType: 2, TFType: 2, fromdate: FromDate, todate: toDate, IsPosted: status, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -479,7 +489,7 @@ namespace OperatingStock {
                         IQ_DirectTransferDetail[i].IsSent == true ? IQ_DirectTransferDetail[i].IsPostdesc = (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "غير منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Not Authrized");;
 
 
-                        if (IQ_DirectTransferDetail[i].TrType == 1)
+                        if (IQ_DirectTransferDetail[i].TrType == 2)
                             IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
 
                     }
@@ -1087,8 +1097,7 @@ namespace OperatingStock {
         $("#btnPrintTransaction").removeClass("display_none");
         $("#div_Approve").removeClass("display_none");
         $("#div_Data").html("");
-    }
-
+    }         
     //--------------------------------------------------------------Assign & Isert - Update---------------------------------------------------
     function Assign() {
 
@@ -1103,8 +1112,8 @@ namespace OperatingStock {
         TranferHeaderModel.TrDate = txtTransferDate.value;
         TranferHeaderModel.RefNO = txtRefNumber.value;
         TranferHeaderModel.VoucherNo = 1;
-        TranferHeaderModel.TrType = 1;
-        TranferHeaderModel.TFType = 1;
+        TranferHeaderModel.TrType = 2;
+        TranferHeaderModel.TFType = 2;
         if (chkApproved.checked == true) { TranferHeaderModel.IsSent = true; } else { TranferHeaderModel.IsSent = false; }
         TranferHeaderModel.SenderBranchCode = 1;
         TranferHeaderModel.ReceiverBranchCode = 1;

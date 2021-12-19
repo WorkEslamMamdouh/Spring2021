@@ -99,7 +99,7 @@ var Login_;
     }
     Login_.checkBrowser = checkBrowser;
     function Login() {
-        debugger
+         
          var userName = txtUserName.value;
         var userPassword = txtUserPassword.value;
         var user = new G_USERS();
@@ -191,7 +191,7 @@ var Login_;
         }); 
      }
     function GoToCompanySelect() {
-        debugger
+         
         $("#tblLogin").css("display", "none");
         $("#tblCompany").css("display", "block");
         (document.getElementById("btnOk") as HTMLInputElement).addEventListener("click", () => { 
@@ -269,7 +269,7 @@ var Login_;
                                                      
                                 //                    var CompanyService = res.Response as I_Control;
                                 //                    if (CompanyService != null) { 
-                                //                        //debugger; 
+                                //                        //  
                                 //                        SystemEnv.I_Control = CompanyService;
                                 //                        SystemEnv.CompCode = compCode;
                                 //                        SystemEnv.BranchCode = braCode;

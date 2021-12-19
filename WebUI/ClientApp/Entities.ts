@@ -6416,6 +6416,7 @@ class IQ_GetTransfer extends SecurityClass {
         this.IsSent_Desc = "";
         this.IsReceived_Desc = "";
         this.TrType_Desc = "";
+        this.IsPostdesc = "";
     }
     public TransfareID: number;
     public Tr_No: number;
@@ -6461,6 +6462,7 @@ class IQ_GetTransfer extends SecurityClass {
     public IsSent_Desc: string;
     public IsReceived_Desc: string;
     public TrType_Desc: string;
+    public IsPostdesc: string;
 }
 
 class IQ_GetTransferDetail extends SecurityClass {

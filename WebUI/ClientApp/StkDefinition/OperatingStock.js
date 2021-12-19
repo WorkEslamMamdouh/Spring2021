@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //debugger;
+    // 
     OperatingStock.InitalizeComponent();
 });
 var OperatingStock;
@@ -26,23 +26,17 @@ var OperatingStock;
     var Grid = new JsGrid();
     var TransGrid = new JsGrid();
     var ReceiptGrid = new JsGrid();
+    var ReceiptGriddet = new JsGrid();
     var ModeItmes = 3;
     var counter = 0;
     //Arrays
-    var BranchDetails = new Array();
-    var StatesFilterDetailsAr = new Array();
-    var StatesFilterDetailsEn = new Array();
-    var StoreSourceDetails = new Array();
-    var StoreToDetails = new Array();
-    var HeaderWithDetail = new IQ_DirectTransferWithDetail();
     var Selecteditem = new Array();
     var IQ_DirectTransferDetail = new Array();
+    var IQ_Direct = new Array();
+    var IQ_DirectDetail = new Array();
     var SearchDetails = new Array();
     var GetTransferDetail = new Array();
     var GetTransferDetail = new Array();
-    var ItemsListDetails = new Array();
-    var ItemsSourceListDetails = new Array();
-    var ItemsToListDetails = new Array();
     var GetItemInfo = new Array();
     var Display_D_UOM = new Array();
     //Models
@@ -51,14 +45,13 @@ var OperatingStock;
     var TransferDetailModel = new Array();
     var TransferDetailSingleModel = new I_Stk_TR_TransferDetails();
     var TransferDetailModelFiltered = new Array();
-    var IQTransferDetailModel = new Array();
-    var IQTransferDetailSingleModel = new IQ_GetTransferDetail();
     var SelectedTransferModel = new Array();
     //textboxs
     var txtFromDate;
+    var txtFromDateRec;
     var txtToDate;
+    var txtToDateRec;
     var txtTransferDate;
-    var txtTrNo;
     var txtRefNumber;
     var txtApprovedBy;
     var txtCreatedBy;
@@ -69,16 +62,6 @@ var OperatingStock;
     var txtApprovedBy;
     var txtSenderTrNO;
     var txtRemarks;
-    //DropdownLists
-    var ddlStatusFilter;
-    var ddlSourceBranch;
-    var ddlSourceStore;
-    var ddlToBranch;
-    var ddlToStore;
-    var ddlSourceBranchAdd;
-    var ddlSourceStoreAdd;
-    var ddlToBranchAdd;
-    var ddlToStoreAdd;
     //buttons
     var btnShow;
     var btnAdd;
@@ -86,6 +69,7 @@ var OperatingStock;
     var btnSave;
     var btnBack;
     var btnAddDetails;
+    var btnShowRec;
     //check box
     var chkApproved;
     // Flages
@@ -116,6 +100,8 @@ var OperatingStock;
         drpType = document.getElementById("drpType");
         txtFromDate = document.getElementById("txtFromDate");
         txtToDate = document.getElementById("txtToDate");
+        txtFromDateRec = document.getElementById("txtFromDateRec");
+        txtToDateRec = document.getElementById("txtToDateRec");
         txtSenderTrNO = document.getElementById("txtSenderTrNO");
         txtTransferDate = document.getElementById("txtTransferDate");
         txtRefNumber = document.getElementById("txtRefNumber");
@@ -125,6 +111,7 @@ var OperatingStock;
         btnEdit = document.getElementById("btnEdit");
         btnAdd = document.getElementById("btnAdd");
         btnAddDetails = document.getElementById("btnAddDetails");
+        btnShowRec = document.getElementById("btnShowRec");
         btnSave = document.getElementById("btnSave");
         btnBack = document.getElementById("btnBack");
         txtCreatedAt = document.getElementById("txtCreatedAt");
@@ -165,7 +152,7 @@ var OperatingStock;
     function InitializeGridstock() {
         var res = GetResourceList("");
         $("#id_ReportGrid").attr("style", "");
-        ReportGrid.ElementName = "divMasterGrid";
+        ReportGrid.ElementName = "divMasterGrid22";
         ReportGrid.Paging = true;
         ReportGrid.PageSize = 15;
         ReportGrid.Sorting = true;
@@ -234,27 +221,34 @@ var OperatingStock;
     }
     //------------------------------------------------------ * R E C E I P T * ---------------------------------------
     function InitalizeComponentReceipt() {
+        txtFromDateRec.value = SysSession.CurrentEnvironment.StartDate;
+        txtToDateRec.value = ConvertToDateDash(GetDate()) <= ConvertToDateDash(SysSession.CurrentEnvironment.EndDate) ? GetDate() : SysSession.CurrentEnvironment.EndDate;
+        btnShowRec.onclick = btnShowRec_onclick;
+    }
+    function btnShowRec_onclick() {
         DisplayReceipt();
     }
     function DisplayReceipt() {
-        $('#divMasterGridiv').removeClass('display_none');
+        $('#divMasterGrid').removeClass('display_none');
         detailstock = new Array();
-        var BranchCode = Number($('#drpuserType').val());
+        var FromDateRec = DateFormat(txtFromDateRec.value);
+        var toDateRec = DateFormat(txtToDateRec.value);
+        var status = Number($('#ddlStatusFilterRec').val());
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("StkDefStore", "GetItemstore"),
-            data: {
-                CompCode: compcode, TypeStock: TypeStock, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-            },
+            url: sys.apiUrl("Transfer", "GetAlltransview"),
+            data: { compcode: compcode, TrType: 1, TFType: 1, fromdate: FromDateRec, todate: toDateRec, IsPosted: status },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
-                    detailstock = result.Response;
-                    //for (var i = 0; i < detailstock.length; i++) {
-                    //    detailstock[i].NameIsActive = detailstock[i].IsActive == true ? (lang == "ar" ? "فعال" : "Active") : (lang == "ar" ? "غير فعال" : "Not Active");
-                    //}
+                    IQ_Direct = new Array();
+                    IQ_Direct = result.Response;
+                    for (var i = 0; i < IQ_Direct.length; i++) {
+                        IQ_Direct[i].TrDate = DateFormat(IQ_Direct[i].TrDate.toString());
+                        IQ_Direct[i].IsSent == true ? IQ_Direct[i].IsPostdesc = (lang == "ar" ? IQ_Direct[i].IsPostdesc = "منفذ" : IQ_Direct[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_Direct[i].IsPostdesc = "غير منفذ" : IQ_Direct[i].IsPostdesc = "Not Authrized");
+                    }
                     InitializeGridReceipt();
-                    ReceiptGrid.DataSource = detailstock;
+                    ReceiptGrid.DataSource = IQ_Direct;
                     ReceiptGrid.Bind();
                 }
             }
@@ -262,7 +256,7 @@ var OperatingStock;
     }
     function InitializeGridReceipt() {
         var res = GetResourceList("");
-        $("#id_ReportGrid").attr("style", "");
+        $("#divGrid").attr("style", "");
         ReceiptGrid.ElementName = "divGrid";
         ReceiptGrid.Paging = true;
         ReceiptGrid.PageSize = 15;
@@ -272,57 +266,100 @@ var OperatingStock;
         ReceiptGrid.Inserting = false;
         ReceiptGrid.OnRowDoubleClicked = MasterDoubleClick;
         ReceiptGrid.SelectedIndex = 1;
-        ReceiptGrid.PrimaryKey = "ItemID";
+        ReceiptGrid.PrimaryKey = "TransfareID";
         ReceiptGrid.OnItemEditing = function () { };
         ReceiptGrid.Columns = [
-            { title: "ID", name: "ItemID", type: "text", width: "2%", visible: false },
-            { title: 'كود الصنف', name: "ItemCode", type: "text", width: "10%" },
-            { title: 'الوصف', name: (lang == "ar" ? "DescA" : "DescL"), type: "text", width: "35%" },
-            { title: 'الفئة', name: (lang == "ar" ? "CategoryDescA" : "CategoryDescL"), type: "text", width: "12%" },
-            { title: 'الصنف الرئيسي', name: (lang == "ar" ? "ItemFamilyDescA" : "ItemFamilyDescE"), type: "text", width: "14%" },
-            { title: 'الكمية المحولة', name: "StockRecQty", type: "text", width: "13%" },
+            { title: "TransfareID", name: "TransfareID", type: "text", width: "32%", visible: false },
+            { title: 'رقم التحويل', name: "Tr_No", type: "text", width: "5%" },
+            { title: 'رقم المرجع', name: "RefNO", type: "text", width: "5%" },
+            { title: 'التاريخ', name: "TrDate", type: "text", width: "10%" },
+            { title: 'المرسل', name: "SendBy", type: "text", width: "20%" },
+            { title: 'المستلم', name: "ReceivedBy", type: "text", width: "20%" },
+            { title: "التنفيذ", name: "IsPostdesc", type: "text", width: "4%" },
             {
-                title: "استلام", css: "ColumPadding", name: "checkbox", width: "6%",
+                title: "استلام", css: "ColumPadding", name: "IsReceived", width: "4%",
                 itemTemplate: function (s, item) {
                     var txt = CreateElement("checkbox", "form-control checkbox", " ", " ", "", " ");
-                    txt.id = "" + item.VOUCHER_CODE + "";
+                    txt.id = "" + item.TransfareID + "";
+                    if (item.IsReceived == true) {
+                        txt.checked = true;
+                        txt.disabled = true;
+                    }
+                    else if (item.IsReceived == false) {
+                        txt.checked = false;
+                    }
                     txt.style.height = "25px";
                     txt.style.width = "70px";
                     txt.onclick = function (e) {
                         if (txt.checked == true) {
-                            //txt.value = 'true';
-                            //item.Selected = true;
-                            //changeCheckbox(item.VOUCHER_CODE, true);
+                            changeCheckbox(item.TransfareID, 1);
+                            //txt.disabled = true;
                         }
                         else if (txt.checked == false) {
-                            //changeCheckbox(item.VOUCHER_CODE, false);
+                            changeCheckbox(item.TransfareID, 0);
                         }
                     };
-                    //txt.disabled = StatusFlag;
-                    //let checked = TmpVoucherProcessDetails.filter(s => s.VOUCHER_CODE == item.VOUCHER_CODE);
-                    //txt.checked = checked[0].Selected == null ? false : checked[0].Selected;
-                    //txt.value = 'false';
-                    //item.Selected = false;       
                     return txt;
                 }
             },
         ];
         ReceiptGrid.Bind();
     }
+    function changeCheckbox(TransfareID, IsReceived) {
+        debugger;
+        var usercode = sys.SysSession.CurrentEnvironment.UserCode;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Transfer", "UpdateIsReceipt"),
+            data: { TransfareID: TransfareID, IsReceived: IsReceived, usercode: usercode },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    DisplayReceipt();
+                }
+            }
+        });
+    }
     function MasterDoubleClick() {
-        Selected_Data = detailstock.filter(function (x) { return x.ItemID == Number(ReceiptGrid.SelectedKey); });
-        ItemID = Selected_Data[0].ItemID;
-        $("#div_Master_Hedr").removeClass("display_none");
-        DisplayData(Selected_Data);
-        $('#Div_Show_units').removeClass('display_none');
-        $('#Div_Show_Quantity').removeClass('display_none');
-        if (SysSession.CurrentPrivileges.CUSTOM2 == false) {
-            $('#costdiv').addClass('display_none');
-        }
-        else {
-            $('#costdiv').removeClass('display_none');
-        }
-        $('#txtFamily').html('');
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Transfer", "GetAlldetail"),
+            data: { TransfareID: Number(ReceiptGrid.SelectedKey) },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    IQ_DirectDetail = new Array();
+                    IQ_DirectDetail = result.Response;
+                    $('#divGriddet').removeClass('display_none');
+                    Griddetail();
+                    ReceiptGriddet.DataSource = IQ_DirectDetail;
+                    ReceiptGriddet.Bind();
+                }
+            }
+        });
+    }
+    function Griddetail() {
+        var res = GetResourceList("");
+        $("#divGriddet").attr("style", "");
+        ReceiptGriddet.ElementName = "divGrid1";
+        ReceiptGriddet.Paging = true;
+        ReceiptGriddet.PageSize = 15;
+        ReceiptGriddet.Sorting = true;
+        ReceiptGriddet.InsertionMode = JsGridInsertionMode.Binding;
+        ReceiptGriddet.Editing = false;
+        ReceiptGriddet.Inserting = false;
+        //ReceiptGriddet.OnRowDoubleClicked = MasterDoubleClick;
+        ReceiptGriddet.SelectedIndex = 1;
+        ReceiptGriddet.PrimaryKey = "TransfareDetailID";
+        ReceiptGriddet.OnItemEditing = function () { };
+        ReceiptGriddet.Columns = [
+            { title: "TransfareDetailID", name: "TransfareDetailID", type: "text", width: "45%", visible: false },
+            { title: 'الصنف الرئيسي', name: "ITFamly_DescA", type: "text", width: "10%" },
+            { title: "كود الصنف", name: "ItemCode", type: "text", width: "10%" },
+            { title: 'الصنف', name: "Itm_DescA", type: "text", width: "15%" },
+            { title: 'الوحدة الرئيسية', name: "uom_DescA", type: "text", width: "10%" },
+            { title: 'الكمية المحولة', name: "SendQty", type: "text", width: "10%" },
+        ];
     }
     //------------------------------------------------------ * T R A N S * ---------------------------------------
     function InitalizeComponentTrans() {
@@ -383,7 +420,7 @@ var OperatingStock;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Transfer", "GetAll"),
-            data: { compcode: compcode, TrType: 1, TFType: 1, fromdate: FromDate, todate: toDate, IsPosted: status, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
+            data: { compcode: compcode, TrType: 2, TFType: 2, fromdate: FromDate, todate: toDate, IsPosted: status, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -393,7 +430,7 @@ var OperatingStock;
                         IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
                         IQ_DirectTransferDetail[i].IsSent == true ? IQ_DirectTransferDetail[i].IsPostdesc = (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Authrized") : (lang == "ar" ? IQ_DirectTransferDetail[i].IsPostdesc = "غير منفذ" : IQ_DirectTransferDetail[i].IsPostdesc = "Not Authrized");
                         ;
-                        if (IQ_DirectTransferDetail[i].TrType == 1)
+                        if (IQ_DirectTransferDetail[i].TrType == 2)
                             IQ_DirectTransferDetail[i].TrDate = DateFormat(IQ_DirectTransferDetail[i].TrDate.toString());
                     }
                     TransGrid.DataSource = IQ_DirectTransferDetail;
@@ -922,8 +959,8 @@ var OperatingStock;
         TranferHeaderModel.TrDate = txtTransferDate.value;
         TranferHeaderModel.RefNO = txtRefNumber.value;
         TranferHeaderModel.VoucherNo = 1;
-        TranferHeaderModel.TrType = 1;
-        TranferHeaderModel.TFType = 1;
+        TranferHeaderModel.TrType = 2;
+        TranferHeaderModel.TFType = 2;
         if (chkApproved.checked == true) {
             TranferHeaderModel.IsSent = true;
         }

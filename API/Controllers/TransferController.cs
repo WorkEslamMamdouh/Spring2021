@@ -37,12 +37,44 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Query = "SELECT * FROM[dbo].[I_Stk_TR_Transfer]  where TrType = 1 and TFType = 1 and TrDate >= '"+ fromdate + "' and TrDate <= '"+ todate + "' ";
+                var Query = "SELECT * FROM[dbo].[I_Stk_TR_Transfer]  where TrType = "+ TrType + " and TFType = " + TFType + " and TrDate >= '" + fromdate + "' and TrDate <= '"+ todate + "' ";
                 var Cust = db.Database.SqlQuery<I_Stk_TR_Transfer>(Query).ToList();
 
                 return Ok(new BaseResponse(Cust)); 
             }
             return BadRequest(ModelState);
+        }
+         [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAlltransview(int CompCode ,int TrType , int TFType, string fromdate, string todate ,int IsPosted)
+        { 
+                var con = "";
+                if (IsPosted != 2)
+                {
+                    con = "and IsPosted = " + IsPosted + "";
+                }
+                var Query = "SELECT * FROM[dbo].[IQ_GetTransfer]  where TrType = 1 and TFType = 1 and TrDate >= '" + fromdate + "' and TrDate <= '"+ todate + ""+con+"' ";
+                var Cust = db.Database.SqlQuery<IQ_GetTransfer>(Query).ToList();
+
+                return Ok(new BaseResponse(Cust)); 
+            
+        } 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAlldetail(int TransfareID)
+        {  
+                var Query = "SELECT * FROM[dbo].[IQ_GetTransferDetail]  where TransfareID = "+ TransfareID + "";
+                var Cust = db.Database.SqlQuery<IQ_GetTransferDetail>(Query).ToList();
+
+                return Ok(new BaseResponse(Cust)); 
+            
+        }
+          [HttpGet, AllowAnonymous]
+        public IHttpActionResult UpdateIsReceipt (int TransfareID, int IsReceived , string usercode)
+        {
+                var Query = "UPDATE [dbo].[I_Stk_TR_Transfer] SET IsReceived = "+ IsReceived + " , ReceivedBy = '"+ usercode + "'  WHERE TransfareID = " + TransfareID+"";
+                 db.Database.ExecuteSqlCommand(Query);
+
+                return Ok(new BaseResponse(100)); 
+           
         }
         
         [HttpGet, AllowAnonymous]
@@ -259,7 +291,7 @@ namespace API.Controllers
                         }
 
                     }
-                    else if (obj.I_Stk_TR_Transfer.TrType == 1 && obj.I_Stk_TR_Transfer.TFType == 2)
+                    else if (obj.I_Stk_TR_Transfer.TrType == 2 && obj.I_Stk_TR_Transfer.TFType == 2)
                     {
                         //// call process trans 
 

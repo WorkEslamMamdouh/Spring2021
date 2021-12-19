@@ -3812,6 +3812,7 @@ var IQ_GetTransfer = /** @class */ (function (_super) {
         _this.IsSent_Desc = "";
         _this.IsReceived_Desc = "";
         _this.TrType_Desc = "";
+        _this.IsPostdesc = "";
         return _this;
     }
     return IQ_GetTransfer;
