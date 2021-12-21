@@ -107,6 +107,10 @@ var RawStock;
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         InitalizeControls();
         InitalizeEvents();
+        drpType.value = "0";
+        $('#Stock').removeClass('display_none');
+        $('#Trans').addClass('display_none');
+        Displaystore();
     }
     RawStock.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -449,10 +453,11 @@ var RawStock;
             }
             NumCnt = cnt;
             var TypeStockr = Number(TypeStock);
-            sys.FindKey(Modules.RawStock, "btnSearchItems", " CompCode = " + compcode + " and LOCATION2 = '" + TypeStockr + "' ", function () {
+            sys.FindKey(Modules.RawStock, "btnSearchItems", " CompCode = " + compcode + " and LOCATION2 = '" + TypeStockr + "' and StoreCode = 1", function () {
                 var Itemid = SearchGrid.SearchDataGrid.SelectedKey;
                 if (!validationitem(Itemid, Number($("#txt_ItemID" + NumCnt + "").val())))
                     return;
+                var NewItem = detailstock.filter(function (x) { return x.ItemID == Itemid; });
                 var GetItemInfo = new Array();
                 $("#txt_ItemID" + NumCnt + "").val(Itemid);
                 var ItemCode = '';
@@ -476,7 +481,7 @@ var RawStock;
                                 }
                                 $('#txtItemName' + NumCnt + '').val((lang == "ar" ? GetItemInfo[0].It_DescA : GetItemInfo[0].it_DescE));
                                 $('#txtItemCode' + NumCnt + '').val(GetItemInfo[0].ItemCode);
-                                $('#txtstockQnty' + NumCnt + '').val(GetItemInfo[0].OnhandQty);
+                                $('#txtstockQnty' + NumCnt + '').val(NewItem[0].OnhandQty);
                                 $('#txtstockQnty' + NumCnt + '').attr('disabled', 'disabled');
                                 $('#txtItemName' + NumCnt + '').attr('disabled', 'disabled');
                             }
@@ -902,7 +907,7 @@ var RawStock;
                     GlobalTransferID = res.TransfareID;
                     Save();
                     AfterInsertOrUpdateFlag = true;
-                    GridRowDoubleClick();
+                    //GridRowDoubleClick();
                 }
                 else {
                     DisplayMassage("هناك خطــأ ", '(Error)', MessageType.Error);
@@ -950,6 +955,47 @@ var RawStock;
         $("#div_hedr").removeClass("disabledDiv");
         $("#divGridShoow").removeClass("disabledDiv");
         ShowButons();
+        Clear();
+        $("#btnPrintTransaction").removeClass("display_none");
+        $("#divbuttons").removeClass("display_none");
+        $("#divTransferDetails").removeClass("display_none");
+        $("#btnEdit").removeClass("display_none");
+        $("#btnPrintTransaction").removeClass("display_none");
+        $("#div_Approve").removeClass("display_none");
+        $("#div_Data").html("");
+        $("#btnBack").addClass("display_none");
+        $("#btnSave").addClass("display_none");
+        Selecteditem = IQ_DirectTransferDetail.filter(function (x) { return x.TransfareID == Number(GlobalTransferID); });
+        console.log(Selecteditem);
+        TransferID = Number(GlobalTransferID);
+        txtSenderTrNO.value = Selecteditem[0].Tr_No.toString();
+        txtTransferDate.value = Selecteditem[0].TrDate;
+        txtRefNumber.value = Selecteditem[0].RefNO;
+        txtApprovedBy.value = Selecteditem[0].VerfiedBy;
+        txtRemarks.value = Selecteditem[0].Remark;
+        txtCreatedBy.value = Selecteditem[0].CreatedBy;
+        txtCreatedAt.value = Selecteditem[0].CreatedAt;
+        txtUpdatedBy.value = Selecteditem[0].UpdatedBy;
+        txtUpdatedAt.value = Selecteditem[0].UpdatedAt;
+        chkApproved.checked = Selecteditem[0].IsSent;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Transfer", "GetDetail"),
+            data: { TransferID: TransferID, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    GetTransferDetail = new Array();
+                    GetTransferDetail = result.Response;
+                    CountGrid = 0;
+                    for (var i = 0; i < GetTransferDetail.length; i++) {
+                        BuildControls(i);
+                        Bindingdata(i, GetTransferDetail);
+                        CountGrid++;
+                    }
+                }
+            }
+        });
     }
 })(RawStock || (RawStock = {}));
 //# sourceMappingURL=RawStock.js.map

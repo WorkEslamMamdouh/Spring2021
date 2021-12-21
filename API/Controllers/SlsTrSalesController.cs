@@ -213,7 +213,7 @@ namespace Inv.API.Controllers
         {
             if (ModelState.IsValid && UserControl.CheckUser(Token, UserCode))
             {
-                string s = "select * from IQ_GetSlsInvoiceStatistic where TrType = 0 and BranchCode = " + BranchCode + " and CompCode = " + CompCode + "and SlsInvSrc = 1 and TrDate >=' " + StartDate + "' and TrDate <= ' " + EndDate + " ' ";
+                string s = "select * from IQ_GetSlsInvoiceStatistic where TrType = 0  and BranchCode = " + BranchCode + " and CompCode = " + CompCode + "and SlsInvSrc = 1 and TrDate >=' " + StartDate + "' and TrDate <= ' " + EndDate + " ' ";
                 string condition = "";
                 if (CustId != 0 && CustId != null)
                     condition = condition + " and CustomerId =" + CustId;

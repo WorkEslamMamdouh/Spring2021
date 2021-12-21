@@ -79,7 +79,7 @@ namespace Inv.API.Controllers
         public IHttpActionResult GetIQ_GetItemStore(int Compcode, int BranchCode, int ItemID, string UserCode, string Token)
         {
 
-            var query = "select * from IQ_GetItemStore where CompCode = " + Compcode + " and ItemID = " + ItemID + "";
+            var query = "select * from IQ_GetItemStore where CompCode = " + Compcode + " and ItemID = " + ItemID + " and LOCATION2 = '3'";
             var itemqty = db.Database.SqlQuery<IQ_GetItemStore>(query).ToList();
             return Ok(new BaseResponse(itemqty));
 

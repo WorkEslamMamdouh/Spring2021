@@ -1113,9 +1113,7 @@ namespace CustomerOrder {
                     return false
                 }
             }
-            else {
-
-
+            else { 
                 if ($("#txt_ItemID" + rowcount).val() == "" || $("#txt_ItemID" + rowcount).val() == "0" || $("#txt_ItemID" + rowcount).val() == null) {
                     DisplayMassage(" برجاء ادخال الصنف", "Please enter the type", MessageType.Error);
                     Errorinput($("#btnSearchService" + rowcount));

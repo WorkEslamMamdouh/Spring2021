@@ -25,7 +25,7 @@ namespace FullSock {
 
     export function InitalizeComponent() {
         if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
-            document.getElementById('Screen_name').innerHTML = "المخزون الخام";
+            document.getElementById('Screen_name').innerHTML = "المخزون الهالك";
 
         } else {
             document.getElementById('Screen_name').innerHTML = "Raw Stock";

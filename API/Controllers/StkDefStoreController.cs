@@ -76,7 +76,7 @@ namespace Inv.API.Controllers
             if (ModelState.IsValid && UserControl.CheckUser(Token, UserCode))
             {
                
-                var ItemStockList = db.IQ_GetItemStore.Where(x=>x.CompCode == CompCode && x.LOCATION2 == TypeStock).ToList();
+                var ItemStockList = db.IQ_GetItemStore.Where(x=>x.CompCode == CompCode && x.LOCATION2 == TypeStock && x.StoreCode == 1).ToList();
 
                 return Ok(new BaseResponse(ItemStockList));
             }
