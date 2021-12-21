@@ -72,6 +72,8 @@ namespace OperatingStock {
     var btnBack: HTMLButtonElement;
     var btnAddDetails: HTMLButtonElement;
     var btnShowRec: HTMLButtonElement;
+    var btntrans: HTMLButtonElement;
+    var btnOk: HTMLButtonElement;
     //check box
     var chkApproved: HTMLInputElement;
 
@@ -131,6 +133,8 @@ namespace OperatingStock {
         txtUpdatedBy = document.getElementById("txtUpdatedBy") as HTMLInputElement;
         txtSearch = document.getElementById("txtSearch") as HTMLInputElement;
         chkApproved = document.getElementById("chkApproved") as HTMLInputElement;
+        btntrans = document.getElementById("btntrans") as HTMLButtonElement;
+        btnOk = document.getElementById("btnOk") as HTMLButtonElement;
 
 
 
@@ -140,7 +144,30 @@ namespace OperatingStock {
 
         drpType.onchange = drpType_onchange;
         btnShow.onclick = btnShow_onclick;
+        btntrans.onclick = btntrans_onclick;
+        btnOk.onclick = btnOk_onclick;
     }
+    function btntrans_onclick() {
+        $('#btntrans').addClass('display_none');
+        $('#divremoveqty').removeClass('display_none');  
+    }
+    function btnOk_onclick() {
+      
+        let Qty = Number($('#txtperishableQTY').val());
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("StkDefStore", "sendqty"),
+            data: { itemid: ItemID, Qty:Qty  },
+            success: (d) => {
+                $('#btntrans').removeClass('display_none');
+                $('#divremoveqty').addClass('display_none');    
+            }
+        });
+        Displaystore();
+
+
+    }
+
     function Displaystore() {
 
 
@@ -162,11 +189,7 @@ namespace OperatingStock {
                 if (result.IsSuccess) {
 
                     detailstock = result.Response as Array<IQ_GetItemStore>;
-
-                    //for (var i = 0; i < detailstock.length; i++) {
-
-                    //    detailstock[i].NameIsActive = detailstock[i].IsActive == true ? (lang == "ar" ? "فعال" : "Active") : (lang == "ar" ? "غير فعال" : "Not Active");
-                    //}
+                     
                     InitializeGridstock();
                     ReportGrid.DataSource = detailstock;
                     ReportGrid.Bind();
@@ -206,7 +229,7 @@ namespace OperatingStock {
     }
     function MasterGridDoubleClick() {
 
-
+       ItemID = Number(ReportGrid.SelectedKey)
 
         Selected_Data = detailstock.filter(x => x.ItemID == Number(ReportGrid.SelectedKey));
 

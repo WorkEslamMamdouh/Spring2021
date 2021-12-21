@@ -33,28 +33,7 @@
         pointer-events: none;
         opacity: 0.7;
     }
-</style>
-
-
-
-
-
-<div class="col-lg-12">
-    <select id="drpType" class="col-lg-3 form-control input-sm"style="text-align-last:center ;background-color: black;color: yellow;font-weight: bold;border: yellow;">
-        <option value="null">اختر النظام</option>
-        <option value="1">أستلام</option>
-        <option value="0">المخزون</option>
-    </select>
-</div>
-<div id="Stock" class="row  margingred borderred display_none">
-    <div class="col-lg-12">
-
-        <div class="col-lg-9">
-        </div>
-
-
-    </div>
-
+</style> 
     <div id="divMasterGridiv" class="col-lg-12  margingred  borderred   display_none " style="width: 99%;">
         <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
             <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="@SystemResource.search_warehouse ">
@@ -63,80 +42,5 @@
 
             <table id="divMasterGrid"></table>
         </div>
-    </div>
-
-    <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
-
-        <h4 id="Text_Massage"> @SystemResource.App_Message </h4>
-
-    </div>
-
-    <div id="div_Master_Hedr" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  margingred display_none">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
-            <div class="col-lg-9 col-md-9 col-sm-9 col-xl-9 col-xs-9" style="">
-                <div class="col-lg-5">
-
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 col-xs-4">
-
-                </div>
-            </div>
-        </div>
-        <br />
-        <div id="div_Master" class="">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">كود الصنف </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" name="ItemCode" disabled id="txtItemCode">
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
-
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  " style="padding-right:25px">وصف عربي</label>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtItm_DescA">
-                </div>
-
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes textcentrProcesses2 ">وصف بالانجليزي </label>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="DescL" id="txtItm_DescE">
-
-                </div>
-
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الفئة  </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="CategoryDescA" id="txtCat_Type">
-                </div>
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الصنف الرئيسي   </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="ItemFamilyDescA" id="txtFamily">
-
-                </div>
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
-
-                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
-                <div class="col-md-2 col-sm-5 col-xs-10">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="UOMDescA" id="txtUOM">
-                </div>
-
-                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الكمية المتاحه</label>
-                <div class="col-md-2 col-sm-5 col-xs-10">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="OnhandQty" id="txtQTY">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
+    </div>   
 <script src="~/ClientApp/StkDefinition/FullStock.js"></script>

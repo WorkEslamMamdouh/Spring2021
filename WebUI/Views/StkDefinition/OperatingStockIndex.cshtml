@@ -145,46 +145,62 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
                     <input type="text" class="form-control input-sm addable editable" name="ItemCode" disabled id="txtItemCode">
                 </div>
+                <div id="divremoveqty" class="col-lg-6 col-md-12 col-sm-12 col-xl-12 col-xs-12 display_none">
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">الكمية الهالكه</label>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                        <input type="text" class="form-control input-sm addable editable" id="txtperishableQTY">
+                    </div>
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                        <button  id="btnOk" type="button" class="btn btn-info f-sm"><span class="glyphicon glyphicon-transfer"></span>تحويل</button>
+                    </div>
+
+                </div>
+               
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xl-12 col-xs-12"  >
+                    <button id="btntrans" type="button" class="btn btn-info f-sm"><span class="glyphicon glyphicon-transfer"></span>تحويل كمية هالكه</button>
+                </div>
+
+
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
 
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  " style="padding-right:25px">وصف عربي</label>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtItm_DescA">
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  " style="padding-right:25px">وصف عربي</label>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                        <input type="text" class="form-control input-sm addable editable" disabled name="DescA" id="txtItm_DescA">
+                    </div>
+
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes textcentrProcesses2 ">وصف بالانجليزي </label>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
+                        <input type="text" class="form-control input-sm addable editable" disabled name="DescL" id="txtItm_DescE">
+
+                    </div>
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الفئة  </label>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                        <input type="text" class="form-control input-sm addable editable" disabled name="CategoryDescA" id="txtCat_Type">
+                    </div>
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الصنف الرئيسي   </label>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                        <input type="text" class="form-control input-sm addable editable" disabled name="ItemFamilyDescA" id="txtFamily">
+
+                    </div>
                 </div>
 
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes textcentrProcesses2 ">وصف بالانجليزي </label>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xl-3 col-xs-3">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="DescL" id="txtItm_DescE">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
 
+                    <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
+                    <div class="col-md-2 col-sm-5 col-xs-10">
+                        <input type="text" class="form-control input-sm addable editable" disabled name="UOMDescA" id="txtUOM">
+                    </div>
+
+                    <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الكمية المتاحه</label>
+                    <div class="col-md-2 col-sm-5 col-xs-10">
+                        <input type="text" class="form-control input-sm addable editable" disabled name="OnhandQty" id="txtQTY">
+                    </div>
                 </div>
-
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الفئة  </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="CategoryDescA" id="txtCat_Type">
-                </div>
-                <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">  الصنف الرئيسي   </label>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="ItemFamilyDescA" id="txtFamily">
-
-                </div>
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12  ">
-
-                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
-                <div class="col-md-2 col-sm-5 col-xs-10">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="UOMDescA" id="txtUOM">
-                </div>
-
-                <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الكمية المتاحه</label>
-                <div class="col-md-2 col-sm-5 col-xs-10">
-                    <input type="text" class="form-control input-sm addable editable" disabled name="OnhandQty" id="txtQTY">
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div id="Trans" class="row  margingred borderred display_none">

@@ -313,7 +313,36 @@
                         <label class="col-lg-1 col-xs-4   pading_2Processes text_cent " style="padding-right:12px">الوحدة الأساسية </label>
                         <div class="col-md-2 col-sm-5 col-xs-10">
                             <select id="txtPolice_num" name="UomID" class="form-control" disabled style='width: 100%;border-radius: 30px;'></select>
+                        </div> 
+
+                        <div id="divremoveqty" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 display_none">
+                            <label class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1  pading_2Processes  ">الكمية الهالكه</label>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                                <input type="text" class="form-control input-sm addable editable" id="txtperishableQTY"style="text-align-last: center;">
+                            </div>
+                            <div class="col-lg-3 col-md-2 col-sm-2 col-xl-2 col-xs-2">
+                                <select id="txtlocation" name="ItemFamilyID" class="form-control" style='width: 100%;border-radius: 30px;'>
+                                    <option value="0">الي المخزن الخام</option>
+                                    <option value="1">الي مخزن التشغيل</option>
+                                    <option value="2">الي المخزن الهالك</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xl-12 col-xs-12" style=" margin-top: 0.5%;">
+                                <button id="btnOk" type="button" class="btn btn-info f-sm"><span class="glyphicon glyphicon-transfer"></span>تحويل</button>
+                            </div>
+
                         </div>
+
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                            <button id="btntrans" type="button" class="btn btn-info f-sm"><span class="glyphicon glyphicon-transfer"></span>تحويل كمية هالكه</button>
+                        </div>
+
+
+
+
+
+
+
 
                     </div>
                     <div id="costdiv" class="col-lg-12 col-md-12 col-sm-12 col-xl-12 col-xs-12 ">

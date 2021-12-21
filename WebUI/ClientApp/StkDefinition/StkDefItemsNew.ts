@@ -49,6 +49,9 @@ namespace StkDefItemsNew {
     var txtCat_Type: HTMLSelectElement;     
     var drpPaymentType: HTMLSelectElement;  
     var searchbutmemreport: HTMLInputElement;
+
+    var btntrans: HTMLButtonElement;
+    var btnOk: HTMLButtonElement;
     var UOMID = 0;
 
     var flag = 'i';
@@ -117,6 +120,9 @@ namespace StkDefItemsNew {
         btnShow = document.getElementById("btnShow") as HTMLButtonElement;
         btnpriv = document.getElementById("btnpriv") as HTMLButtonElement;  
         btnAdd = document.getElementById("btnAdd") as HTMLButtonElement;
+        btntrans = document.getElementById("btntrans") as HTMLButtonElement;
+        btnOk = document.getElementById("btnOk") as HTMLButtonElement;
+
 
         //-------------------------------------------------------------------------------------( Selectors )
         drpPaymentType = document.getElementById("drpPaymentType") as HTMLSelectElement;
@@ -145,9 +151,9 @@ namespace StkDefItemsNew {
         btnUpdate.onclick = btnUpdate_onclick;
         btnShow.onclick = btnShow_onclick;
         btnpriv.onclick = btnpriv_onclick;
-        btnAdd.onclick = btnAdd_onclick;
-
-
+        btnAdd.onclick = btnAdd_onclick;      
+        btntrans.onclick = btntrans_onclick;
+        btnOk.onclick = btnOk_onclick;              
         $("#drpPaymentType").on('change', function () {
             if ($("#drpPaymentType").val() == "0") {
                 $("#div_Data").html('');                
@@ -175,6 +181,28 @@ namespace StkDefItemsNew {
         });
     }
 
+    //-----------------------------------------------------------------------
+    function btntrans_onclick() {
+        $('#btntrans').addClass('display_none');
+        $('#divremoveqty').removeClass('display_none');
+    }
+    function btnOk_onclick() {
+                   debugger
+        let Qty = Number($('#txtperishableQTY').val());
+        let location = Number($('#txtlocation').val());
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("StkDefStore", "sendqtyfromfull"),
+            data: { itemid: ItemID, Qty: Qty , location: location},
+            success: (d) => {
+                $('#btntrans').removeClass('display_none');
+                $('#divremoveqty').addClass('display_none');
+            }
+        });
+        Display();
+
+
+    }
 
     //----------------------------------------------------------------------( fill ddl )
     function Fillddl_G_store() {
@@ -566,8 +594,7 @@ namespace StkDefItemsNew {
        
         DisplayUnits();
         DisplayQty();
-    }
-
+    }        
     function btnAdd_onclick() {
         flag = 'i';
         Display_I_ItemFamily(); 
@@ -643,8 +670,7 @@ namespace StkDefItemsNew {
 
         adddisabled();
 
-    } 
-
+    }      
     function Assign() {
         if ($('#txtItm_DescA').val().trim() == "" && $('#txtItm_DescE').val() != "") {
             $('#txtItm_DescA').val($('#txtItm_DescE').val());
@@ -930,8 +956,7 @@ namespace StkDefItemsNew {
         ];
         //UOMID= Number(divGrid1.SelectedKey);
 
-    }
-
+    }     
     function btnUpdate2_onclick() {
          
         $('#btnBack_2').removeClass('display_none');
@@ -962,8 +987,7 @@ namespace StkDefItemsNew {
         $('#Div_Show_Quantity').removeClass('disabledDiv');
         $('#id_divGridDetails').removeClass('disabledDiv');
         DisplayUnits();
-    }
-
+    }     
     function Assign2() {
         debugger
         var data_Taple = Detailsunit.filter(x => x.Statusflag == "u");
@@ -1155,8 +1179,7 @@ namespace StkDefItemsNew {
 
         ];
 
-    }
-
+    }   
     function btnUpdate3_onclick() {
         $('#btnBack_3').removeClass('display_none');
         $('#btnSave_3').removeClass('display_none');
@@ -1191,8 +1214,7 @@ namespace StkDefItemsNew {
         $('#id_divGridDetails').removeClass('disabledDiv');
         $('#Div_Show_units').removeClass('disabledDiv');   
         $('#div_dis').removeClass('disabledDiv');
-    }
-
+    }     
     function Update3() {
         Assign3();
 
@@ -1269,8 +1291,7 @@ namespace StkDefItemsNew {
 
 
 
-    }
-   
+    }  
 }
 
 

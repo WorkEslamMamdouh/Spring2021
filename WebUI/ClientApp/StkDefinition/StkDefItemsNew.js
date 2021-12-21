@@ -46,6 +46,8 @@ var StkDefItemsNew;
     var txtCat_Type;
     var drpPaymentType;
     var searchbutmemreport;
+    var btntrans;
+    var btnOk;
     var UOMID = 0;
     var flag = 'i';
     var flagqty = 1;
@@ -102,6 +104,8 @@ var StkDefItemsNew;
         btnShow = document.getElementById("btnShow");
         btnpriv = document.getElementById("btnpriv");
         btnAdd = document.getElementById("btnAdd");
+        btntrans = document.getElementById("btntrans");
+        btnOk = document.getElementById("btnOk");
         //-------------------------------------------------------------------------------------( Selectors )
         drpPaymentType = document.getElementById("drpPaymentType");
         txtCat_Type = document.getElementById("txtCat_Type");
@@ -124,6 +128,8 @@ var StkDefItemsNew;
         btnShow.onclick = btnShow_onclick;
         btnpriv.onclick = btnpriv_onclick;
         btnAdd.onclick = btnAdd_onclick;
+        btntrans.onclick = btntrans_onclick;
+        btnOk.onclick = btnOk_onclick;
         $("#drpPaymentType").on('change', function () {
             if ($("#drpPaymentType").val() == "0") {
                 $("#div_Data").html('');
@@ -146,6 +152,26 @@ var StkDefItemsNew;
             $("#drpPaymentType").removeAttr("disabled");
             storeCode = $('#drp_G_Store').val();
         });
+    }
+    //-----------------------------------------------------------------------
+    function btntrans_onclick() {
+        $('#btntrans').addClass('display_none');
+        $('#divremoveqty').removeClass('display_none');
+    }
+    function btnOk_onclick() {
+        debugger;
+        var Qty = Number($('#txtperishableQTY').val());
+        var location = Number($('#txtlocation').val());
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("StkDefStore", "sendqtyfromfull"),
+            data: { itemid: ItemID, Qty: Qty, location: location },
+            success: function (d) {
+                $('#btntrans').removeClass('display_none');
+                $('#divremoveqty').addClass('display_none');
+            }
+        });
+        Display();
     }
     //----------------------------------------------------------------------( fill ddl )
     function Fillddl_G_store() {
