@@ -110,9 +110,6 @@ var CustomerView;
             { title: res.App_date, name: "TrDate", type: "text", width: "20%" },
             { title: res.App_Cutomer, name: "CustomerName", type: "text", width: "25%" },
             { title: 'الحاله', name: "StatusNAME", type: "text", width: "15%" },
-            //{ title: res.App_Tax, name: "VatAmount", type: "text", width: "12%" },
-            //{ title: res.App_Net, name: "NetAfterVat", type: "text", width: "13%" },            
-            //{ title: res.App_TobePaid, name: "RemainAmount", type: "text", width: "17%", css: "classfont" },  
         ];
         BindStatisticGridData();
     }

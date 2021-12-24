@@ -136,15 +136,6 @@ var CUSTOMERS;
                     for (var i = 0; i < CustomerDetails.length; i++) {
                         CustomerDetails[i].Name_STATUS = CustomerDetails[i].STATUS == false ? 'غير فعال' : 'فعال';
                         CustomerDetails[i].NameIsCreditCustomer = CustomerDetails[i].IsCreditCustomer == false ? 'أجل' : 'نقدي';
-                        //Credit = Number(CustomerDetails[i].Openbalance - CustomerDetails[i].CreditLimit);
-                        //if (Credit < 0) {
-                        //    CustomerDetails[i].Debit = (Credit * -1);
-                        //    CustomerDetails[i].DebitFC = 0;
-                        //}
-                        //else {
-                        //    CustomerDetails[i].DebitFC = Credit;
-                        //    CustomerDetails[i].Debit = 0;
-                        //}
                     }
                     InitializeGrid();
                     ReportGrid.DataSource = CustomerDetails;
@@ -1028,7 +1019,6 @@ var CUSTOMERS;
                 TaxCount = Number(TaxCount.toFixed(2).toString());
                 NetCount += Number($("#txtTotAfterTax" + i).val());
                 NetCount = Number(NetCount.toFixed(2).toString());
-                //NetCount = (Number(NetCount.toFixed(2)) - Number(txtDiscountValue.value));
             }
         }
         //txtItemCount.value = CountItems.toString();

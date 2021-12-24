@@ -323,7 +323,6 @@ var SlsTrShowPrice;
                     CanAdd = Validation_Grid(i);
                     if (CanAdd == false) {
                         return false;
-                        //break;
                     }
                 }
             }
@@ -379,7 +378,6 @@ var SlsTrShowPrice;
         if (Number(txt_Tax_Discount.value) > 100) {
             txt_Tax_Discount.value = '100';
             Errorinput(txt_Tax_Discount);
-            //return
         }
         Discount = Number(txt_Tax_Discount.value);
         var Disc = txt_Tax_Discount.value;
@@ -411,7 +409,7 @@ var SlsTrShowPrice;
         Tax_Net_Total();
     }
     function Check_on_user_type() {
-        if (SysSession.CurrentEnvironment.UserType == 1 || SysSession.CurrentEnvironment.UserType == 3) { //Salesman
+        if (SysSession.CurrentEnvironment.UserType == 1 || SysSession.CurrentEnvironment.UserType == 3) {
             var SalesId_1 = SysSession.CurrentEnvironment.SalesManID;
             SalesmanDetails = SalesmanDetails.filter(function (s) { return s.SalesmanId == SalesId_1; });
         }
@@ -436,12 +434,6 @@ var SlsTrShowPrice;
             txtCustomerCode.value = customer[0].CustomerCODE;
             txtInvoiceCustomerName.value = customer[0].CUSTOMER_NAME.toString();
             txtCustomerMobile.value = customer[0].PHONE;
-            //if (SysSession.CurrentEnvironment.UserType != 1 && SysSession.CurrentEnvironment.UserType != 3) {
-            //    ddlSalesman.value = customer[0].SalesmanId == null ? 'null' : customer[0].SalesmanId.toString();
-            //    if (ddlSalesman.value == '') {
-            //        ddlSalesman.value = 'null';
-            //    }
-            //}
         }
         //if (NewAdd == true) {
         //    if (CountItems > 0) {
@@ -460,7 +452,7 @@ var SlsTrShowPrice;
         //AddNewRow();
     }
     function ddlType_onchange() {
-        if (ddlType.value == "1") { //نقدي 
+        if (ddlType.value == "1") {
             //if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
             //    txtInvoiceCustomerName.value = "عميل نقدي عام";
             //    txtCustomerMobile.value = "";
@@ -479,7 +471,7 @@ var SlsTrShowPrice;
             //$("#Div_Money").removeClass("display_none")
             TypeFlag = true;
         }
-        else { //علي الحساب
+        else {
             //$('#ddlCashBox').prop('selectedIndex', 0);
             //$('#ddlCashBox').attr('disabled', 'disabled');
             //txtInvoiceCustomerName.value = "";
@@ -490,7 +482,6 @@ var SlsTrShowPrice;
             $("#txtCustomerMobile").removeAttr("disabled");
             TypeFlag = false;
             $("#Div_Money").addClass("display_none");
-            //fillddlCustomer();
         }
         $("#Div_Money").addClass("display_none");
         //if (CountItems > 0) {
@@ -631,7 +622,7 @@ var SlsTrShowPrice;
         }
     }
     function btnBack_onclick() {
-        if (NewAdd == true) { //add
+        if (NewAdd == true) {
             $("#DivInvoiceDetails").addClass("display_none");
             $("#cotrolDiv").removeClass("disabledDiv");
             $("#txtCustomerCode").attr("disabled", "disabled");
@@ -657,7 +648,7 @@ var SlsTrShowPrice;
             $("#btnSave").addClass("display_none");
             ddlStore.disabled = true;
         }
-        else { //Edit
+        else {
             Grid_RowDoubleClicked();
             $("#cotrolDiv").removeClass("disabledDiv");
             $("#txtCustomerCode").attr("disabled", "disabled");
@@ -780,8 +771,8 @@ var SlsTrShowPrice;
         $("#txtSupply_end_Date").removeAttr("disabled");
         $("#txtTerms_of_Payment").removeAttr("disabled");
         btnCustomerSrch.disabled = false;
-        if (InvoiceType == 1) { //Retail 
-            if (SysSession.CurrentEnvironment.RetailInvoicePayment == 0) { //Cash
+        if (InvoiceType == 1) {
+            if (SysSession.CurrentEnvironment.RetailInvoicePayment == 0) {
                 ddlType.value = '1';
                 ddlType.disabled = true;
                 //$("#Div_Money").removeClass("display_none");
@@ -791,7 +782,7 @@ var SlsTrShowPrice;
                 $("#txtInvoiceCustomerName").removeAttr("disabled");
                 $("#txtCustomerMobile").removeAttr("disabled");
             }
-            else if (SysSession.CurrentEnvironment.RetailInvoicePayment == 1) { //Credit
+            else if (SysSession.CurrentEnvironment.RetailInvoicePayment == 1) {
                 ddlType.value = '0';
                 ddlType.disabled = true;
                 $("#Div_Money").addClass("display_none");
@@ -800,7 +791,7 @@ var SlsTrShowPrice;
                 $("#txtInvoiceCustomerName").val("");
                 $('#ddlCashBox').prop('selectedIndex', 0);
             }
-            else { //Both
+            else {
                 ddlType.disabled = false;
                 //$("#Div_Money").removeClass("display_none");
                 $("#Div_Money").addClass("display_none");
@@ -810,8 +801,8 @@ var SlsTrShowPrice;
                 $("#txtCustomerMobile").removeAttr("disabled");
             }
         }
-        else if (InvoiceType == 2) { //Wholesale 
-            if (SysSession.CurrentEnvironment.WholeInvoicePayment == 0) { //Cash
+        else if (InvoiceType == 2) {
+            if (SysSession.CurrentEnvironment.WholeInvoicePayment == 0) {
                 ddlType.value = '1';
                 ddlType.disabled = true;
                 //$("#Div_Money").removeClass("display_none");
@@ -821,7 +812,7 @@ var SlsTrShowPrice;
                 $("#txtInvoiceCustomerName").removeAttr("disabled");
                 $("#txtCustomerMobile").removeAttr("disabled");
             }
-            else if (SysSession.CurrentEnvironment.WholeInvoicePayment == 1) { //Credit
+            else if (SysSession.CurrentEnvironment.WholeInvoicePayment == 1) {
                 ddlType.value = '0';
                 ddlType.disabled = true;
                 $("#Div_Money").addClass("display_none");
@@ -830,7 +821,7 @@ var SlsTrShowPrice;
                 $("#txtInvoiceCustomerName").val("");
                 $('#ddlCashBox').prop('selectedIndex', 0);
             }
-            else { //Both
+            else {
                 ddlType.disabled = false;
                 //$("#Div_Money").removeClass("display_none");
                 $("#Div_Money").addClass("display_none");
@@ -840,7 +831,7 @@ var SlsTrShowPrice;
                 $("#txtCustomerMobile").removeAttr("disabled");
             }
         }
-        else { //Both
+        else {
         }
         AddNewRow();
         $("#Div_Money").addClass("display_none");
@@ -906,29 +897,29 @@ var SlsTrShowPrice;
         $("#btnAddDetails").removeClass("display_none");
         checkValidation();
         NewAdd = false;
-        if (Selecteditem[0].SlsInvType == 1) { //Retail 
-            if (SysSession.CurrentEnvironment.RetailInvoicePayment == 0) { //Cash      
+        if (Selecteditem[0].SlsInvType == 1) {
+            if (SysSession.CurrentEnvironment.RetailInvoicePayment == 0) {
                 ddlType.disabled = true;
             }
-            else if (SysSession.CurrentEnvironment.RetailInvoicePayment == 1) { //Credit        
-                ddlType.disabled = true;
-            }
-            else {
-                ddlType.disabled = false;
-            }
-        }
-        else if (Selecteditem[0].SlsInvType == 2) { //Wholesale 
-            if (SysSession.CurrentEnvironment.WholeInvoicePayment == 0) { //Cash       
-                ddlType.disabled = true;
-            }
-            else if (SysSession.CurrentEnvironment.WholeInvoicePayment == 1) { //Credit         
+            else if (SysSession.CurrentEnvironment.RetailInvoicePayment == 1) {
                 ddlType.disabled = true;
             }
             else {
                 ddlType.disabled = false;
             }
         }
-        else { //Both
+        else if (Selecteditem[0].SlsInvType == 2) {
+            if (SysSession.CurrentEnvironment.WholeInvoicePayment == 0) {
+                ddlType.disabled = true;
+            }
+            else if (SysSession.CurrentEnvironment.WholeInvoicePayment == 1) {
+                ddlType.disabled = true;
+            }
+            else {
+                ddlType.disabled = false;
+            }
+        }
+        else {
         }
         SysSession.CurrentEnvironment.I_Control[0].IvoiceDateEditable == true ? $('#txtInvoiceDate').removeAttr("disabled") : $('#txtInvoiceDate').attr("disabled", "disabled");
     }
@@ -969,7 +960,7 @@ var SlsTrShowPrice;
                 var result = d;
                 if (result.IsSuccess) {
                     CustDetails = result.Response;
-                    if (SysSession.CurrentEnvironment.ScreenLanguage == "en") { //ddlInvoiceCustomer
+                    if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
                         DocumentActions.FillCombowithdefult(CustDetails, ddlCustomer, "CUSTOMER_ID", "NAMEE", "Select customer");
                     }
                     else {
@@ -1710,14 +1701,14 @@ var SlsTrShowPrice;
         //    Errorinput(btnCustomerSrch);
         //    return false
         //}
-        if (InvoiceType == 1) { //Retail  
+        if (InvoiceType == 1) {
             if (CustomerId == 0 && SysSession.CurrentEnvironment.RetailInvoiceTransCode == 1) {
                 DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
                 Errorinput(btnCustomerSrch);
                 return false;
             }
         }
-        if (InvoiceType == 2) { //Wholesale   
+        if (InvoiceType == 2) {
             if (CustomerId == 0 && SysSession.CurrentEnvironment.WholeInvoiceTransCode == 1) {
                 DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
                 Errorinput(btnCustomerSrch);
@@ -1785,7 +1776,6 @@ var SlsTrShowPrice;
                 TaxCount = Number(TaxCount.toFixed(2).toString());
                 NetCount += Number($("#txtTotAfterTax" + i).val());
                 NetCount = Number(NetCount.toFixed(2).toString());
-                //NetCount = (Number(NetCount.toFixed(2)) - Number(txtDiscountValue.value));
             }
         }
         txtItemCount.value = CountItems.toString();
@@ -1812,9 +1802,7 @@ var SlsTrShowPrice;
         if (searchbutmemreport.value != "") {
             var search_1 = searchbutmemreport.value.toLowerCase();
             SearchDetails = SlsInvoiceStatisticsDetails.filter(function (x) { return x.TrNo.toString().search(search_1) >= 0 || x.CustomerName.toLowerCase().search(search_1) >= 0
-                || x.Slsm_DescA.toLowerCase().search(search_1) >= 0 || x.Slsm_DescE.toLowerCase().search(search_1) >= 0; } /*|| x.PortName.toLowerCase().search(search) >= 0*/
-            /*  || x.CustomerCODE.toString().search(search) >= 0  || x.CreditLimit.toString().search(search) >= 0 || x.Emp_NameA.toString().search(search) >= 0
-              || x.ContactMobile.toString().search(search) >= 0 /*|| x.DueAmount.toString().search(search) >= 0 */ /*|| x.DaysDiff.toString().search(search) >= 0*/ );
+                || x.Slsm_DescA.toLowerCase().search(search_1) >= 0 || x.Slsm_DescE.toLowerCase().search(search_1) >= 0; } /*|| x.PortName.toLowerCase().search(search) >= 0*/);
             Grid.DataSource = SearchDetails;
             Grid.Bind();
         }
@@ -1824,14 +1812,14 @@ var SlsTrShowPrice;
         }
     }
     function ValidationHeader() {
-        if (InvoiceType == 1) { //Retail  
+        if (InvoiceType == 1) {
             if (CustomerId == 0 && SysSession.CurrentEnvironment.RetailInvoiceTransCode == 1) {
                 DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
                 Errorinput(btnCustomerSrch);
                 return false;
             }
         }
-        if (InvoiceType == 2) { //Wholesale   
+        if (InvoiceType == 2) {
             if (CustomerId == 0 && SysSession.CurrentEnvironment.WholeInvoiceTransCode == 1) {
                 DisplayMassage(" برجاء اختيار العميل", "Please select a customer", MessageType.Worning);
                 Errorinput(btnCustomerSrch);
@@ -1974,7 +1962,7 @@ var SlsTrShowPrice;
         InvoiceModel.BranchCode = Number(BranchCode);
         var InvoiceNumber = Number(lblInvoiceNumber.value);
         InvoiceModel.TrNo = InvoiceNumber;
-        if (NewAdd != true) { //update
+        if (NewAdd != true) {
             InvoiceModel.CreatedAt = InvoiceStatisticsModel[0].CreatedAt;
             InvoiceModel.CreatedBy = InvoiceStatisticsModel[0].CreatedBy;
             InvoiceModel.SlsInvType = InvoiceStatisticsModel[0].SlsInvType; //  retail      or WholeSale
@@ -1983,17 +1971,8 @@ var SlsTrShowPrice;
             InvoiceModel.TrTime = InvoiceStatisticsModel[0].TrTime;
             InvoiceModel.GlobalInvoiceCounter = InvoiceStatisticsModel[0].GlobalInvoiceCounter;
         }
-        else { //insert
+        else {
             InvoiceModel.SlsInvType = InvoiceType; //  retail  or WholeSale      
-            //if (InvoiceType == 1) {       //Retail  
-            //    InvoiceModel.PaymentMeansTypeCode = SysSession.CurrentEnvironment.RetailInvoicePayment//  retail 
-            //}
-            //else if (InvoiceType == 2) {  //Wholesale   
-            //    InvoiceModel.PaymentMeansTypeCode = SysSession.CurrentEnvironment.WholeInvoicePayment//  Wholesale   
-            //}
-            //else {                        //Both
-            //    InvoiceModel.PaymentMeansTypeCode = 3
-            //}
         }
         InvoiceModel.TrType = 2; //0 invoice 1 return
         InvoiceModel.SlsInvSrc = 1; // 1 from store 2 from van  

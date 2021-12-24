@@ -575,13 +575,15 @@ namespace OperatingStock {
             }
         });
 
-
+        $("#btnEdit").addClass("display_none");
+        $("#btnPrintTransaction").addClass("display_none");
 
 
     }
     function Bindingdata(Num: number, list: Array<IQ_GetTransferDetail>) {
 
 
+        $('#TransfareDetailID' + Num).val(list[Num].TransfareDetailID);
         $('#txtItemCode' + Num).val(list[Num].ItemCode);
         $('#txtItemName' + Num).val(lang == "ar" ? list[Num].ITFamly_DescA : list[Num].ITFamly_DescA);
         $('#dllUom' + Num).val(list[Num].UnitID);
@@ -683,8 +685,8 @@ namespace OperatingStock {
             '<div class="col-xs-1"style="width: 10 % !important;">' +
             '<select id="dllUom' + cnt + '"  disabled class="form-control right2"><option value="0"> ' + (lang == "ar" ? "اختر " : "Choose ") + '</option></select></div>' +
 
-            '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" >' +
-            '<input id="txtstockQnty' + cnt + '" name="" disabled type="number" value="0"  min="0" class="form-control  text_Display" /></div>' +
+            '<div class=" display_none col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" >' +
+            '<input id="txtstockQnty' + cnt + '" name="" disabled type="number" value="0"  min="0" class="   form-control  text_Display" /></div>' +
 
             '<div class="col-lg-1 col-md-1 col-sm-1 col-xl-1 col-xs-1" >' +
             '<input id="txtConvertedQnty' + cnt + '" name="" disabled type="number" value="0"  min="0" class="form-control  text_Display" /></div>' +
@@ -708,7 +710,7 @@ namespace OperatingStock {
             if ($("#txt_StatusFlag" + cnt).val() != "i") { $("#txt_StatusFlag" + cnt).val("u"); }
             NumCnt = cnt;
             let TypeStockr = Number(TypeStock);
-            sys.FindKey(Modules.RawStock, "btnSearchItems", " CompCode = " + compcode + " and LOCATION2 = '" + TypeStockr + "' and StoreCode = 1", () => {
+            sys.FindKey(Modules.RawStock, "btnSearchItems", " CompCode = " + compcode + " and LOCATION2 = '" + TypeStockr + "' and StoreCode = 1 and OnhandQty > 0", () => {
                 let Itemid = SearchGrid.SearchDataGrid.SelectedKey;
                 if (!validationitem(Itemid, Number($("#txt_ItemID" + NumCnt + "").val()))) return
                 let NewItem = detailstock.filter(x => x.ItemID == Itemid);
@@ -721,7 +723,7 @@ namespace OperatingStock {
                     type: "Get",
                     url: sys.apiUrl("StkDefItemType", "GetItemByCode"),
                     data: {
-                        CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: 1, Mode: Mode,
+                        CompCode: compcode, FinYear: Finyear, ItemCode: ItemCode, ItemID: ItemID, storeid: 1, Mode: 1,
                         UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
                     },
                     success: (d) => {
@@ -971,6 +973,9 @@ namespace OperatingStock {
         $("#divTransferDetails").removeClass("display_none");
         $("#btnPrintTransaction").addClass("display_none");
         $("#divbuttons").removeClass("display_none");
+
+        chkApproved.checked = true;
+        chkApproved.disabled = true;
     }
     function btnEdit_onclick() {
         Isnew = false;
@@ -1157,30 +1162,42 @@ namespace OperatingStock {
             TransferDetailSingleModel.StatusFlag = StatusFlag;
 
             if (StatusFlag == "i") {
+
+
+                let Rate_data = Number($('option:selected', $("#dllUom" + i)).attr('data-rate'));
+
+                let stockqty: number = (Number($('#txtConvertedQnty' + i).val()) * Number(Rate_data));
+
+
                 TransferDetailSingleModel.TransfareDetailID = 0;
                 TransferDetailSingleModel.Serial = $("#txtSerial" + i).val();
                 TransferDetailSingleModel.ItemID = Number($("#txt_ItemID" + i).val());
-                TransferDetailSingleModel.SendQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.SendQty = stockqty;
                 TransferDetailSingleModel.UnitID = Number($("#dllUom" + i).val());
                 TransferDetailSingleModel.RecOnhandQty = Number($("#txtToQty" + i).val());
                 TransferDetailSingleModel.SrcOhnandQty = Number($("#txtSrcQty" + i).val());
-                TransferDetailSingleModel.StockSendQty = Number($("#txtConvertedQnty" + i).val());
-                TransferDetailSingleModel.StockRecQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.StockSendQty = stockqty;
+                TransferDetailSingleModel.StockRecQty = stockqty;
                 TransferDetailSingleModel.StockReqQty = Number($("#txtstockQnty" + i).val());
                 TransferDetailSingleModel.UserCode = sys.SysSession.CurrentEnvironment.UserCode;
                 TransferDetailSingleModel.Token = sys.SysSession.CurrentEnvironment.Token;
 
                 TransferDetailModel.push(TransferDetailSingleModel);
             } else if (StatusFlag == "u") {
+
+                let Rate_data = Number($('option:selected', $("#dllUom" + i)).attr('data-rate'));
+
+                let stockqty: number = (Number($('#txtConvertedQnty' + i).val()) * Number(Rate_data));
+
                 TransferDetailSingleModel.TransfareDetailID = Number($("#TransfareDetailID" + i).val());
                 TransferDetailSingleModel.Serial = $("#txtSerial" + i).val();
                 TransferDetailSingleModel.ItemID = Number($("#txt_ItemID" + i).val());
-                TransferDetailSingleModel.SendQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.SendQty = stockqty;
                 TransferDetailSingleModel.UnitID = Number($("#dllUom" + i).val());
                 TransferDetailSingleModel.RecOnhandQty = Number($("#txtToQty" + i).val());
                 TransferDetailSingleModel.SrcOhnandQty = Number($("#txtSrcQty" + i).val());
-                TransferDetailSingleModel.StockSendQty = Number($("#txtConvertedQnty" + i).val());
-                TransferDetailSingleModel.StockRecQty = Number($("#txtConvertedQnty" + i).val());
+                TransferDetailSingleModel.StockSendQty = stockqty;
+                TransferDetailSingleModel.StockRecQty = stockqty;
                 TransferDetailSingleModel.StockReqQty = Number($("#txtstockQnty" + i).val());
                 TransferDetailSingleModel.UserCode = sys.SysSession.CurrentEnvironment.UserCode;
                 TransferDetailSingleModel.Token = sys.SysSession.CurrentEnvironment.Token;
@@ -1247,6 +1264,11 @@ namespace OperatingStock {
         if (SelectedTransferModel.length > 0) {
             MasterDetailModel.I_Stk_TR_Transfer.CreatedBy = SelectedTransferModel[0].CreatedBy;
             MasterDetailModel.I_Stk_TR_Transfer.CreatedAt = SelectedTransferModel[0].CreatedAt;
+            MasterDetailModel.I_Stk_TR_Transfer.ReceiverStoreID = SelectedTransferModel[0].ReceiverStoreID;
+            MasterDetailModel.I_Stk_TR_Transfer.RequestTransferID = SelectedTransferModel[0].RequestTransferID;
+            MasterDetailModel.I_Stk_TR_Transfer.SenderStoreID = SelectedTransferModel[0].SenderStoreID;
+            MasterDetailModel.I_Stk_TR_Transfer.SendTransferID = SelectedTransferModel[0].SendTransferID;
+            MasterDetailModel.I_Stk_TR_Transfer.TransfareID = SelectedTransferModel[0].TransfareID; 
         } else {
             MasterDetailModel.I_Stk_TR_Transfer.CreatedBy = SysSession.CurrentEnvironment.UserCode;
             MasterDetailModel.I_Stk_TR_Transfer.CreatedAt = DateTimeFormat(Date().toString());
@@ -1324,7 +1346,8 @@ namespace OperatingStock {
             }
         });
 
-
+        $("#btnEdit").addClass("display_none");
+        $("#btnPrintTransaction").addClass("display_none");
     }
 
 }

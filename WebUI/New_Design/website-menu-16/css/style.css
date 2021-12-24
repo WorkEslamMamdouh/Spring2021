@@ -173,7 +173,9 @@ svg {
   vertical-align: middle; }
 
 table {
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  color:black;
+}
 
 caption {
   padding-top: 0.75rem;
@@ -1252,7 +1254,9 @@ pre {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
-    max-width: 100%; }
+    max-width: 100%;
+    color : black;
+  }
   .order-xl-first {
     -webkit-box-ordinal-group: 0;
     -ms-flex-order: -1;

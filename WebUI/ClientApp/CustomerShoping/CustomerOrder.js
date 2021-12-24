@@ -765,7 +765,6 @@ var CustomerOrder;
                 TaxCount = Number(TaxCount.toFixed(2).toString());
                 NetCount += Number($("#txtTotAfterTax" + i).val());
                 NetCount = Number(NetCount.toFixed(2).toString());
-                //NetCount = (Number(NetCount.toFixed(2)) - Number(txtDiscountValue.value));
             }
         }
         txtItemCount.value = CountItems.toString();
@@ -872,7 +871,7 @@ var CustomerOrder;
         InvoiceModel.BranchCode = Number(BranchCode);
         var InvoiceNumber = Number(lblInvoiceNumber.value);
         InvoiceModel.TrNo = InvoiceNumber;
-        if (NewAdd != true) { //update
+        if (NewAdd != true) {
             InvoiceModel.CreatedAt = InvoiceStatisticsModel[0].CreatedAt;
             InvoiceModel.CreatedBy = InvoiceStatisticsModel[0].CreatedBy;
             InvoiceModel.SlsInvType = InvoiceStatisticsModel[0].SlsInvType; //  retail      or WholeSale
@@ -880,17 +879,8 @@ var CustomerOrder;
             InvoiceModel.DocUUID = InvoiceStatisticsModel[0].DocUUID;
             InvoiceModel.TrTime = InvoiceStatisticsModel[0].TrTime;
         }
-        else { //insert
+        else {
             InvoiceModel.SlsInvType = InvoiceType; //  retail  or WholeSale      
-            //if (InvoiceType == 1) {       //Retail  
-            //    InvoiceModel.PaymentMeansTypeCode = SysSession.CurrentEnvironment.RetailInvoicePayment//  retail 
-            //}
-            //else if (InvoiceType == 2) {  //Wholesale   
-            //    InvoiceModel.PaymentMeansTypeCode = SysSession.CurrentEnvironment.WholeInvoicePayment//  Wholesale   
-            //}
-            //else {                        //Both
-            //    InvoiceModel.PaymentMeansTypeCode = 3
-            //}
         }
         InvoiceModel.TrType = 3; //0 invoice 1 return
         InvoiceModel.SlsInvSrc = 1; // 1 from store 2 from van  

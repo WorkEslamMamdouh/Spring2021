@@ -232,19 +232,19 @@ var Inventoryvalue;
         rp.RepType = OutType; //output report as View
         rp.FromDate = DateFormatRep(txtFromDate.value);
         rp.ToDate = DateFormatRep(txtToDate.value);
-        if ($("#drpPaymentType").val() == "null") { //-------------جميع الفئات
+        if ($("#drpPaymentType").val() == "null") {
             rp.CatId = -1;
         }
         else {
             rp.CatId = Number($("#drpPaymentType").val());
         }
-        if ($("#drpitem_family").val() == "null") { //-------------جميع الانواع
+        if ($("#drpitem_family").val() == "null") {
             rp.ItemFamId = -1;
             rp.ItemID = -1;
         }
         else {
             rp.ItemFamId = Number($("#drpitem_family").val());
-            if ($("#txt_ID_APP_Type").val() == "null") { //-------------جميع الاصناف
+            if ($("#txt_ID_APP_Type").val() == "null") {
                 rp.ItemID = -1;
             }
             else {

@@ -485,7 +485,6 @@ var PurchasesNew;
                 if (result.IsSuccess) {
                     debugger;
                     Detailsfamilly_Cat = result.Response;
-                    //DocumentActions.FillCombowithdefult(Detailsfamilly_Cat, ddlVendor, "ID_Supplier", "Name_Supplier", "اختر المورد");
                 }
             }
         });
@@ -1282,11 +1281,6 @@ var PurchasesNew;
                 var result = d;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
-                    //if (Outlet == pirce) {
-                    //}
-                    //else {
-                    //    MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
-                    //}
                 }
                 else {
                     MessageBox.Show(result.ErrorMessage, "خطأ");
@@ -1419,11 +1413,6 @@ var PurchasesNew;
             Errorinput($("#btnAddDetails"));
             return false;
         }
-        //if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
-        //    MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
-        //    Errorinput($("#txtPaid_Up"));
-        //    return false
-        //}
         else {
             var CanAdd = true;
             if (CountGrid > 0) {
@@ -1434,7 +1423,7 @@ var PurchasesNew;
                     }
                 }
             }
-            if (CanAdd) { //add
+            if (CanAdd) {
                 debugger;
                 IsSuccess = false;
                 if ($('#txtNumber').val() == '') {
@@ -1452,7 +1441,7 @@ var PurchasesNew;
                         }
                     }
                 }
-                else { //Edit
+                else {
                     if (Number($("#txtTo_be_Paid").val()) < 0) {
                         var Paid_1 = Number($("#txtTo_be_Paid").val()) * -1;
                         WorningMessage(" برجاءاستلام (" + Paid_1 + ")ج من المورد ", "Do you want to delete?", "تحذير", "worning", function () {
@@ -1513,7 +1502,6 @@ var PurchasesNew;
             $("#Sales_Price" + i).removeAttr("disabled");
             $("#MinUnitPrice" + i).removeAttr("disabled");
             $("#txt_StatusFlag" + i).val("");
-            //$("#txtTotal" + i).removeAttr("disabled");
         }
     }
     function disabled_Grid_Controls() {
@@ -1532,7 +1520,6 @@ var PurchasesNew;
             $("#Sales_Price" + i).attr("disabled", "disabled");
             $("#txtMinPrice" + i).attr("disabled", "disabled");
             $("#txt_StatusFlag" + i).val("");
-            //$("#txtScrapQty" + i).attr("disabled", "disabled");
         }
     }
     function printreport(type) {

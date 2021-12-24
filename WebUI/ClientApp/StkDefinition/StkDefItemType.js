@@ -118,7 +118,6 @@ var StkDefItemType;
             //$(".minus_btn").addClass("display_none");
             $("#btnedite").removeClass("display_none");
             CountGrid++;
-            //$('#select_Type_Item' + CountGrid).prop("value", catId);
         }
         $("#btnedite").addClass("display_none");
     }
@@ -294,7 +293,6 @@ var StkDefItemType;
                     Model.DescL = $("#txtDescL" + i).val();
                 }
                 Detail_Model.push(Model);
-                //Model.CompCode = Number(compcode);
             }
             if (StatusFlag == "u") {
                 var UpdatedDetail = BilldDetail.filter(function (x) { return x.ItemFamilyID == $("#txt_ID" + i).val(); });

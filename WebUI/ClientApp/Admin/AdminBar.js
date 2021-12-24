@@ -538,7 +538,6 @@ var AdminBar;
         }
         else {
             Grid_RowDoubleClicked();
-            //$("#divcompinformtion").removeClass("display_none");
         }
     }
     function Disabled() {
@@ -860,7 +859,6 @@ var AdminBar;
         }
         else {
             InsertS();
-            //ClearStr();
         }
     }
     function btnBackS_onclick() {

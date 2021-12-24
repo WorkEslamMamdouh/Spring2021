@@ -147,19 +147,19 @@ var Boxaccstat;
         rp.RepType = OutType; //output report as View
         rp.FromDate = DateFormatRep(txtDateFrom.value);
         rp.ToDate = DateFormatRep(txtDateTo.value);
-        if ($("#ddlBox").val() == "null") { //-------------جميع الصناديق 
+        if ($("#ddlBox").val() == "null") {
             rp.BoxId = -1;
         }
         else {
             rp.BoxId = Number($("#ddlBox").val());
         }
-        if ($("#txt_ID_APP_Type").val() == 3) { //-------------الجميع
+        if ($("#txt_ID_APP_Type").val() == 3) {
             rp.Status = 3;
         }
-        if (Number($("#txt_ID_APP_Type").val()) == 1) { //-------------منفذ 
+        if (Number($("#txt_ID_APP_Type").val()) == 1) {
             rp.Status = 1;
         }
-        if (Rd_detail.checked == true) { //******  تقرير تفصيلي  
+        if (Rd_detail.checked == true) {
             rp.check = 1;
             Ajax.Callsync({
                 url: Url.Action("IProc_Rpt_AccBoxDetail", "GeneralReports"),
@@ -170,7 +170,7 @@ var Boxaccstat;
                 }
             });
         }
-        else { //******  تقرير ملخص   
+        else {
             rp.check = 2;
             Ajax.Callsync({
                 url: Url.Action("IProc_Rpt_AccBoxSummary", "GeneralReports"),

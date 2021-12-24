@@ -160,7 +160,19 @@ var StkDefItemsNew;
     }
     function btnOk_onclick() {
         debugger;
+        var stor = DetailsQtyfilter.filter(function (x) { return x.StoreId == 1; });
         var Qty = Number($('#txtperishableQTY').val());
+        if (Qty <= 0) {
+            DisplayMassage_Processes("برجاء أدخل الكميه المحوله  !", "Must Enter Code Of Item !", MessageType.Worning);
+            Errorinput($('#txtperishableQTY'));
+            return;
+        }
+        if (stor[0].OnhandQty < Qty) {
+            DisplayMassage_Processes(" الكميه المحوله اكبر من الكميه الموجوده ( " + stor[0].OnhandQty + " )  !", "Must Enter Code Of Item !", MessageType.Worning);
+            Errorinput($('#txtperishableQTY'));
+            $('#txtperishableQTY').val(stor[0].OnhandQty);
+            return;
+        }
         var location = Number($('#txtlocation').val());
         Ajax.Callsync({
             type: "Get",
@@ -918,33 +930,33 @@ var StkDefItemsNew;
                     return txt;
                 }
             },
+            //{
+            //    title: 'اقل كمية ', name: "MinQty", type: "number", width: "10%",
+            //    itemTemplate: (s: string, item: IQ_GetItemStore): HTMLInputElement => {
+            //        let txt: HTMLInputElement = document.createElement("input");
+            //        txt.type = "input";
+            //        txt.id = "MinQty" + item.ItemID;
+            //        txt.name = "MinQty";
+            //        txt.disabled = true;
+            //        txt.className = "form-control input-sm classDescQTY";
+            //        txt.value = item.MinQty.toString();
+            //        txt.setAttribute('val', item.MinQty.toString());
+            //        txt.onchange = (e) => {
+            //            item.Statusflag = "u";
+            //            let min: number = Number($("#MinQty" + item.ItemID + "").val());
+            //            let max: number = Number($("#MaxQty" + item.ItemID + "").val());
+            //            if (min >= max || $("#MinQty" + item.ItemID + "").val().trim() == "") {
+            //                DisplayMassage_Processes("لا يمكن ان تكون اقل كمية اكبر من او تساوى اكبر كمية", "The lowest retail price cannot be greater than or equal to the wholesale price", MessageType.Worning);
+            //                Errorinput($("#MinQty" + item.ItemID + ""));
+            //                $("#MinQty" + item.ItemID + "").val(max - 1);
+            //            }
+            //            item.MinQty = Number(txt.value);
+            //        }
+            //        return txt;
+            //    }
+            //},
             {
-                title: 'اقل كمية ', name: "MinQty", type: "number", width: "10%",
-                itemTemplate: function (s, item) {
-                    var txt = document.createElement("input");
-                    txt.type = "input";
-                    txt.id = "MinQty" + item.ItemID;
-                    txt.name = "MinQty";
-                    txt.disabled = true;
-                    txt.className = "form-control input-sm classDescQTY";
-                    txt.value = item.MinQty.toString();
-                    txt.setAttribute('val', item.MinQty.toString());
-                    txt.onchange = function (e) {
-                        item.Statusflag = "u";
-                        var min = Number($("#MinQty" + item.ItemID + "").val());
-                        var max = Number($("#MaxQty" + item.ItemID + "").val());
-                        if (min >= max || $("#MinQty" + item.ItemID + "").val().trim() == "") {
-                            DisplayMassage_Processes("لا يمكن ان تكون اقل كمية اكبر من او تساوى اكبر كمية", "The lowest retail price cannot be greater than or equal to the wholesale price", MessageType.Worning);
-                            Errorinput($("#MinQty" + item.ItemID + ""));
-                            $("#MinQty" + item.ItemID + "").val(max - 1);
-                        }
-                        item.MinQty = Number(txt.value);
-                    };
-                    return txt;
-                }
-            },
-            {
-                title: 'اكبر كمية', name: "MaxQty", type: "number", width: "10%",
+                title: '  الكمية', name: "MaxQty", type: "number", width: "10%",
                 itemTemplate: function (s, item) {
                     var txt = document.createElement("input");
                     txt.type = "input";
@@ -968,10 +980,8 @@ var StkDefItemsNew;
                     return txt;
                 }
             },
-            { title: 'الكمية الافتتاحية', name: "StartQty", type: "number", width: "10%" },
+            //{ title: 'الكمية الافتتاحية', name: "StartQty", type: "number", width: "10%" },
             { title: 'الكمية الحالية', name: "OnhandQty", type: "number", width: "10%" },
-            //{ title: 'محول اليه', name: "OnRoadQty", type: "number", width: "10%" },
-            //{ title: 'تحت الطلب ', name: "OnOrderQty", type: "number", width: "10%" },
         ];
     }
     function btnUpdate3_onclick() {

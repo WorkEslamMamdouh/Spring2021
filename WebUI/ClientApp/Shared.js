@@ -1,15 +1,15 @@
-var APiSession = /** @class */ (function () {
+var APiSession = (function () {
     function APiSession() {
     }
-    APiSession.Session = new APISessionRecord();
     return APiSession;
 }());
-var SearchGrid = /** @class */ (function () {
+APiSession.Session = new APISessionRecord();
+var SearchGrid = (function () {
     function SearchGrid() {
     }
     return SearchGrid;
 }());
-var SharedWork = /** @class */ (function () {
+var SharedWork = (function () {
     function SharedWork() {
     }
     Object.defineProperty(SharedWork, "PageIndex", {
@@ -21,7 +21,7 @@ var SharedWork = /** @class */ (function () {
             //this.SetClientSession("PageIndex", value);
             localStorage.setItem("PageIndex", value.toString());
         },
-        enumerable: false,
+        enumerable: true,
         configurable: true
     });
     Object.defineProperty(SharedWork, "ModelCount", {
@@ -46,7 +46,7 @@ var SharedWork = /** @class */ (function () {
         },
         set: function (value) {
         },
-        enumerable: false,
+        enumerable: true,
         configurable: true
     });
     SharedWork.Render = function () {
@@ -125,29 +125,29 @@ var SharedWork = /** @class */ (function () {
             SharedWork.OnSwitchModes();
         SharedWork.Render();
     };
-    SharedWork.UserFavorits = new Array();
-    SharedWork.OnNavigate = null;
-    SharedWork.OnSwitchModes = null;
     return SharedWork;
 }());
-var UserPrivilege = /** @class */ (function () {
+SharedWork.UserFavorits = new Array();
+SharedWork.OnNavigate = null;
+SharedWork.OnSwitchModes = null;
+var UserPrivilege = (function () {
     function UserPrivilege() {
     }
     return UserPrivilege;
 }());
-var SystemEnvironment = /** @class */ (function () {
+var SystemEnvironment = (function () {
     function SystemEnvironment() {
     }
     return SystemEnvironment;
 }());
-var sysInternal_Comm = /** @class */ (function () {
+var sysInternal_Comm = (function () {
     function sysInternal_Comm() {
     }
-    sysInternal_Comm.VatNatID = 0;
-    sysInternal_Comm.Itemid = 0;
     return sysInternal_Comm;
 }());
-var SystemSession = /** @class */ (function () {
+sysInternal_Comm.VatNatID = 0;
+sysInternal_Comm.Itemid = 0;
+var SystemSession = (function () {
     function SystemSession() {
         this.CurrentPrivileges = new UserPrivilege();
         this.CurrentEnvironment = new SystemEnvironment();
@@ -243,7 +243,7 @@ function GetSystemSession() {
 //        return Kids;
 //    }
 //}
-var PropertiesPage = /** @class */ (function () {
+var PropertiesPage = (function () {
     function PropertiesPage() {
     }
     PropertiesPage.Render = function () {
@@ -255,9 +255,9 @@ var PropertiesPage = /** @class */ (function () {
         }
         $("#txtNav").val(this.PageIndex.toString() + "/" + this.ModelCount.toString());
     };
-    PropertiesPage.OnNavigate = null;
     return PropertiesPage;
 }());
+PropertiesPage.OnNavigate = null;
 function GetCompanyName(compcode) {
     // 
     var sys = new SystemTools();

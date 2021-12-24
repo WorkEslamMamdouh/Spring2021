@@ -397,12 +397,14 @@ namespace RawStock {
         });
 
 
-
+        $("#btnEdit").addClass("display_none");
+        $("#btnPrintTransaction").addClass("display_none");
 
     }
     function Bindingdata(Num: number, list: Array<IQ_GetTransferDetail>) {
 
-
+         
+        $('#TransfareDetailID' + Num).val(list[Num].TransfareDetailID);
         $('#txtItemCode' + Num).val(list[Num].ItemCode);
         $('#txtItemName' + Num).val(lang == "ar" ? list[Num].ITFamly_DescA : list[Num].ITFamly_DescA);
         $('#dllUom' + Num).val(list[Num].UnitID);
@@ -529,7 +531,7 @@ namespace RawStock {
             if ($("#txt_StatusFlag" + cnt).val() != "i") { $("#txt_StatusFlag" + cnt).val("u"); }
             NumCnt = cnt;
             let TypeStockr = Number(TypeStock);
-            sys.FindKey(Modules.RawStock, "btnSearchItems", " CompCode = " + compcode + " and LOCATION2 = '" + TypeStockr + "' and StoreCode = 1", () => {
+            sys.FindKey(Modules.RawStock, "btnSearchItems", " CompCode = " + compcode + " and LOCATION2 = '" + TypeStockr + "' and StoreCode = 1 and OnhandQty > 0", () => {
                 let Itemid = SearchGrid.SearchDataGrid.SelectedKey;
                 if (!validationitem(Itemid, Number($("#txt_ItemID" + NumCnt + "").val()))) return
                 let NewItem = detailstock.filter(x => x.ItemID == Itemid);
@@ -792,6 +794,9 @@ namespace RawStock {
         $("#divTransferDetails").removeClass("display_none");
         $("#btnPrintTransaction").addClass("display_none");
         $("#divbuttons").removeClass("display_none");
+
+        chkApproved.checked = true;
+        chkApproved.disabled = true;
     }
     function btnEdit_onclick() {
         Isnew = false;
@@ -820,6 +825,7 @@ namespace RawStock {
         }
     }
     function btnSave_onclick() {
+        debugger
         if (Isnew == true) {
             Insert();
         }
@@ -1069,6 +1075,11 @@ namespace RawStock {
         if (SelectedTransferModel.length > 0) {
             MasterDetailModel.I_Stk_TR_Transfer.CreatedBy = SelectedTransferModel[0].CreatedBy;
             MasterDetailModel.I_Stk_TR_Transfer.CreatedAt = SelectedTransferModel[0].CreatedAt;
+            MasterDetailModel.I_Stk_TR_Transfer.ReceiverStoreID = SelectedTransferModel[0].ReceiverStoreID;
+            MasterDetailModel.I_Stk_TR_Transfer.RequestTransferID = SelectedTransferModel[0].RequestTransferID;
+            MasterDetailModel.I_Stk_TR_Transfer.SenderStoreID = SelectedTransferModel[0].SenderStoreID;
+            MasterDetailModel.I_Stk_TR_Transfer.SendTransferID = SelectedTransferModel[0].SendTransferID;
+            MasterDetailModel.I_Stk_TR_Transfer.TransfareID = SelectedTransferModel[0].TransfareID;
         } else {
             MasterDetailModel.I_Stk_TR_Transfer.CreatedBy = SysSession.CurrentEnvironment.UserCode;
             MasterDetailModel.I_Stk_TR_Transfer.CreatedAt = DateTimeFormat(Date().toString());
@@ -1111,6 +1122,7 @@ namespace RawStock {
         $("#div_Data").html("");
         $("#btnBack").addClass("display_none");
         $("#btnSave").addClass("display_none");
+
         Selecteditem = IQ_DirectTransferDetail.filter(x => x.TransfareID == Number(GlobalTransferID));
         console.log(Selecteditem);
         TransferID = Number(GlobalTransferID);
@@ -1147,7 +1159,8 @@ namespace RawStock {
             }
         });
 
-
+        $("#btnEdit").addClass("display_none");
+        $("#btnPrintTransaction").addClass("display_none");
 
     }
 }

@@ -1,4 +1,4 @@
-var DataTable = /** @class */ (function () {
+var DataTable = (function () {
     function DataTable() {
         this.dataScr = new Array();
         this.Columns = new Array();
