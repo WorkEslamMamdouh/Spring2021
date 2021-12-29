@@ -41,7 +41,6 @@
         <EntityTypeShape EntityType="POS2021Model.Report_Parameters" Width="1.5" PointX="18.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.Settings_Report" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.Stok_ORDER_DELIVERY" Width="1.5" PointX="14.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="POS2021Model.Supplier" Width="1.5" PointX="18.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.The_Gard" Width="1.5" PointX="16.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.HIJRA_CONVERT" Width="1.5" PointX="18.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="POS2021Model.GQ_GetUserBarnchAccess" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
@@ -112,6 +111,7 @@
         <EntityTypeShape EntityType="POS2021Model.IQ_GetTransferDetail" Width="1.5" PointX="38.375" PointY="27.75" />
         <EntityTypeShape EntityType="POS2021Model.Table_two_days" Width="1.5" PointX="0.75" PointY="19.75" />
         <EntityTypeShape EntityType="POS2021Model.IQ_Outlet" Width="1.5" PointX="37.375" PointY="10.75" />
+        <EntityTypeShape EntityType="POS2021Model.Supplier" Width="1.5" PointX="39.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -22,5 +22,8 @@ namespace Inv.DAL.Domain
         public Nullable<bool> IS_Active { get; set; }
         public Nullable<int> BranchCode { get; set; }
         public Nullable<int> CompCode { get; set; }
+        public Nullable<decimal> Openbalance { get; set; }
+        public Nullable<decimal> Debit { get; set; }
+        public Nullable<decimal> Credit { get; set; }
     }
 }

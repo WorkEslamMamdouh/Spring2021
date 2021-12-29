@@ -286,6 +286,7 @@ namespace AccDefVendor {
         $("#txt_IS_Active").attr("disabled", "disabled");
         $("#txt_phone").attr("disabled", "disabled");
         $("#txt_Notes").attr("disabled", "disabled");
+        $("#txt_Openbalance").attr("disabled", "disabled");
        
     }
 
@@ -298,6 +299,7 @@ namespace AccDefVendor {
         $("#txt_IS_Active").removeAttr("disabled");
         $("#txt_phone").removeAttr("disabled");
         $("#txt_Notes").removeAttr("disabled");      
+        $("#txt_Openbalance").removeAttr("disabled");
        
 
 

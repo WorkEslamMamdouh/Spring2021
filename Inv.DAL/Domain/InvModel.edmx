@@ -1620,6 +1620,9 @@ warning 6002: The table/view 'StoresProcess2021.dbo.HIJRA_CONVERT' does not have
           <Property Name="IS_Active" Type="bit" />
           <Property Name="BranchCode" Type="int" />
           <Property Name="CompCode" Type="int" />
+          <Property Name="Openbalance" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="Debit" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="Credit" Type="numeric" Precision="18" Scale="6" />
         </EntityType>
         <EntityType Name="Table_two_days">
           <Key>
@@ -3109,16 +3112,17 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <Property Name="IsCash" Type="bit" />
                 <Property Name="ItemID" Type="int" />
                 <Property Name="ITemFamilyID" Type="int" />
-                <Property Name="Catid" Type="int" />
-                <Property Name="InQty" Type="numeric" Precision="18" Scale="5" />
+                <Property Name="Catid" Type="numeric" Precision="38" Scale="6" />
+                <Property Name="InQty" Type="numeric" Precision="38" Scale="6" />
+                <Property Name="AllQty" Type="numeric" Precision="19" Scale="6" />
                 <Property Name="OutQty" Type="numeric" Precision="18" Scale="5" />
                 <Property Name="InVal" Type="numeric" Precision="37" Scale="10" />
-                <Property Name="OutVal" Type="numeric" Precision="37" Scale="10" />
-                <Property Name="InCost" Type="numeric" Precision="38" Scale="10" />
+                <Property Name="OutVal" Type="numeric" Precision="38" Scale="10" />
+                <Property Name="InCost" Type="numeric" Precision="37" Scale="10" />
                 <Property Name="OutCost" Type="numeric" Precision="37" Scale="10" />
                 <Property Name="Unitprice" Type="numeric" Precision="18" Scale="5" />
-                <Property Name="VatPrc" Type="numeric" Precision="18" Scale="5" />
-                <Property Name="StockUnitCost" Type="numeric" Precision="19" Scale="5" />
+                <Property Name="VatPrc" Type="numeric" Precision="19" Scale="5" />
+                <Property Name="StockUnitCost" Type="numeric" Precision="18" Scale="5" />
                 <Property Name="status" Type="int" />
               </RowType>
             </CollectionType>
@@ -3137,16 +3141,16 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               <RowType>
                 <Property Name="ItemID" Type="int" />
                 <Property Name="ITemFamilyID" Type="int" />
-                <Property Name="Catid" Type="int" />
-                <Property Name="RecCashQty" Type="numeric" Precision="38" Scale="5" />
-                <Property Name="RecCreditQty" Type="numeric" Precision="38" Scale="5" />
-                <Property Name="SlsRetCashQty" Type="numeric" Precision="38" Scale="5" />
-                <Property Name="SlsRetCreditQty" Type="numeric" Precision="38" Scale="5" />
+                <Property Name="Catid" Type="numeric" Precision="38" Scale="6" />
+                <Property Name="RecCashQty" Type="numeric" Precision="38" Scale="6" />
+                <Property Name="RecCreditQty" Type="numeric" Precision="38" Scale="6" />
+                <Property Name="SlsRetCashQty" Type="numeric" Precision="38" Scale="6" />
+                <Property Name="SlsRetCreditQty" Type="numeric" Precision="38" Scale="6" />
                 <Property Name="SoldCashQty" Type="numeric" Precision="38" Scale="5" />
                 <Property Name="SoldCreditQty" Type="numeric" Precision="38" Scale="5" />
                 <Property Name="RecRetCashQty" Type="numeric" Precision="38" Scale="5" />
                 <Property Name="RecRetCreditQty" Type="numeric" Precision="38" Scale="5" />
-                <Property Name="Bal" Type="numeric" Precision="38" Scale="5" />
+                <Property Name="Bal" Type="numeric" Precision="19" Scale="6" />
                 <Property Name="RecCashCost" Type="numeric" Precision="38" Scale="10" />
                 <Property Name="RecCreditCost" Type="numeric" Precision="38" Scale="10" />
                 <Property Name="SlsRetCashCost" Type="numeric" Precision="38" Scale="10" />
@@ -5129,19 +5133,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FK_ORDER_Delivery" Type="Int32" />
         </EntityType>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="ID_Supplier" />
-          </Key>
-          <Property Name="ID_Supplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IS_Active" Type="Boolean" />
-          <Property Name="BranchCode" Type="Int32" />
-          <Property Name="CompCode" Type="Int32" />
-        </EntityType>
         <EntityType Name="The_Gard">
           <Key>
             <PropertyRef Name="id_Num" />
@@ -5493,7 +5484,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <EntitySet Name="Report_Parameters" EntityType="Self.Report_Parameters" />
           <EntitySet Name="Settings_Report" EntityType="Self.Settings_Report" />
           <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="Self.Stok_ORDER_DELIVERY" />
-          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="The_Gard" EntityType="Self.The_Gard" />
           <EntitySet Name="HIJRA_CONVERT" EntityType="Self.HIJRA_CONVERT" />
           <EntitySet Name="GQ_GetUserBarnchAccess" EntityType="Self.GQ_GetUserBarnchAccess" />
@@ -5841,6 +5831,7 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
             <Parameter Name="FromDate" Mode="In" Type="String" />
             <Parameter Name="Todate" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Supplier" EntityType="POS2021Model.Supplier" />
         </EntityContainer>
         <ComplexType Name="Get_Settings_Report_Result">
           <Property Type="Int32" Name="ID_Report" Nullable="false" />
@@ -8046,6 +8037,22 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
           <Property Type="Decimal" Name="TotRetCreditQty" Nullable="true" Precision="38" Scale="5" />
           <Property Type="Decimal" Name="EndBal" Nullable="true" Precision="38" Scale="5" />
         </ComplexType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID_Supplier" />
+          </Key>
+          <Property Name="ID_Supplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="BranchCode" Type="Int32" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="Openbalance" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Debit" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Credit" Type="Decimal" Precision="18" Scale="6" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8633,20 +8640,6 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
                 <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
                 <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
                 <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="POS2021Model.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11385,6 +11378,23 @@ warning 6002: The table/view 'StoresProcess2021.dbo.ReviewSalesMaster' does not 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="POS2021Model.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Openbalance" ColumnName="Openbalance" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -63,7 +63,6 @@ namespace Inv.DAL.Domain
         public virtual DbSet<Report_Parameters> Report_Parameters { get; set; }
         public virtual DbSet<Settings_Report> Settings_Report { get; set; }
         public virtual DbSet<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
-        public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<The_Gard> The_Gard { get; set; }
         public virtual DbSet<HIJRA_CONVERT> HIJRA_CONVERT { get; set; }
         public virtual DbSet<GQ_GetUserBarnchAccess> GQ_GetUserBarnchAccess { get; set; }
@@ -134,6 +133,7 @@ namespace Inv.DAL.Domain
         public virtual DbSet<IQ_GetTransferDetail> IQ_GetTransferDetail { get; set; }
         public virtual DbSet<Table_two_days> Table_two_days { get; set; }
         public virtual DbSet<IQ_Outlet> IQ_Outlet { get; set; }
+        public virtual DbSet<Supplier> Supplier { get; set; }
     
         [DbFunction("InvEntities", "GFun_Companies")]
         public virtual IQueryable<GFun_Companies_Result> GFun_Companies(string userCode)

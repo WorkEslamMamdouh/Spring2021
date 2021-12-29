@@ -168,6 +168,7 @@ var AccDefVendor;
                 Update_claenData = 0;
                 btnback_onclick();
                 Display_All();
+                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
             }
         }
         else {
@@ -179,6 +180,7 @@ var AccDefVendor;
                 Update_claenData = 1;
                 btnback_onclick();
                 Display_All();
+                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
             }
         }
     }
@@ -190,6 +192,7 @@ var AccDefVendor;
         $("#txt_IS_Active").attr("disabled", "disabled");
         $("#txt_phone").attr("disabled", "disabled");
         $("#txt_Notes").attr("disabled", "disabled");
+        $("#txt_Openbalance").attr("disabled", "disabled");
     }
     function removedisabled() {
         //debugger;
@@ -199,6 +202,7 @@ var AccDefVendor;
         $("#txt_IS_Active").removeAttr("disabled");
         $("#txt_phone").removeAttr("disabled");
         $("#txt_Notes").removeAttr("disabled");
+        $("#txt_Openbalance").removeAttr("disabled");
     }
     function CustomerFoundBefore() {
         var res = true;

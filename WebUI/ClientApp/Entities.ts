@@ -10214,6 +10214,9 @@ class Supplier extends SecurityClass {
         this.Notes = "";
         this.IS_Active = false;
         this.IS_Active_Name = "";
+        this.Openbalance = 0;
+        this.Debit = 0; 
+        this.Credit = 0;
     }
     public BranchCode: number;
     public CompCode: number;
@@ -10224,6 +10227,9 @@ class Supplier extends SecurityClass {
     public Notes: string;
     public IS_Active: boolean;
     public IS_Active_Name: string;
+    public Openbalance: number;
+    public Debit: number;
+    public Credit: number;
 }
 
 
