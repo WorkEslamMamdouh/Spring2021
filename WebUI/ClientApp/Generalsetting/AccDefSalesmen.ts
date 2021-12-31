@@ -82,7 +82,8 @@ namespace AccDefSalesmen {
         FillddlG_COST_CENTER();
         IsSalesEnable.checked = true;
         IsPurchaseEnable.checked = true;
-        ISOperationEnable.checked = true; 
+        ISOperationEnable.checked = true;
+        btnShow_onclick();
     } 
     function InitalizeControls() {
         //debugger;
@@ -336,15 +337,15 @@ namespace AccDefSalesmen {
 
             }
         }   
-        if ($("#chk_IsPurchaseEnable").is(':checked') || $("#chk_IsSalesEnable").is(':checked') || $("#chk_ISOperationEnable").is(':checked')) { }
-        else {
-            DisplayMassage("يجب اختيار واحد علي الاقل من المصرح له ", "At least one of the tracks must be selected prior to the show", MessageType.Worning);
+        //if ($("#chk_IsPurchaseEnable").is(':checked') || $("#chk_IsSalesEnable").is(':checked') || $("#chk_ISOperationEnable").is(':checked')) { }
+        //else {
+        //    DisplayMassage("يجب اختيار واحد علي الاقل من المصرح له ", "At least one of the tracks must be selected prior to the show", MessageType.Worning);
             
-            return false;
+        //    return false;
 
-        }      
-        if (txt_NAME.value == "" && txt_NAMEE.value == "") {
-            DisplayMassage("يجب ادخال الاسم بالعربي او بالانجليزي", "The name must be entered in Arabic or English", MessageType.Worning);
+        //}      
+        if (txt_NAME.value == ""  ) {
+            DisplayMassage("يجب ادخال الاسم بالعربي  ", "The name must be entered in Arabic or English", MessageType.Worning);
             Errorinput(txt_NAME);
             return false;
 
@@ -720,7 +721,7 @@ namespace AccDefSalesmen {
             { title: res.App_Mobile, name: "MOBILE", type: "text", width: "100px" },
             //{ title: res.App_Nationality, name: (lang == "ar" ? "Nat_DescA" : "Nat_DescE") , type: "text", width: "100px" },
             { title: res.App_AuthTosellfor, name: "text_IsSalesEnable", type: "text", width: "100px" },
-            { title: res.App_AuthToPurchase, name: "text_IsPurchaseEnable", type: "text", width: "100px" },
+            //{ title: res.App_AuthToPurchase, name: "text_IsPurchaseEnable", type: "text", width: "100px" },
             //{ title: res.App_AuthTheCommission, name: "text_ISOperationEnable", type: "text", width: "100px" },
 
 
@@ -782,14 +783,19 @@ namespace AccDefSalesmen {
             if (chkActive.checked) { Model.Isactive = true; }
             else { Model.Isactive = false; }
 
-            if (chk_IsPurchaseEnable.checked) { Model.IsPurchaseEnable = true; }
-            else { Model.IsPurchaseEnable = false; }
+            //if (chk_IsPurchaseEnable.checked) { Model.IsPurchaseEnable = true; }
+            //else { Model.IsPurchaseEnable = false; }
 
-            if (chk_IsSalesEnable.checked) { Model.IsSalesEnable = true; }
-            else { Model.IsSalesEnable = false; }
+            //if (chk_IsSalesEnable.checked) { Model.IsSalesEnable = true; }
+            //else { Model.IsSalesEnable = false; }
 
-            if (chk_ISOperationEnable.checked) { Model.ISOperationEnable = true; }
-            else { Model.ISOperationEnable = false; }
+            Model.IsPurchaseEnable = true;
+            Model.IsSalesEnable = true;
+
+            Model.ISOperationEnable = true;
+
+            //if (chk_ISOperationEnable.checked) { Model.ISOperationEnable = true; }
+            //else { Model.ISOperationEnable = false; }
 
             Model.CompCode = Number(compcode);
             Model.BraCode = Number(BranchCode);

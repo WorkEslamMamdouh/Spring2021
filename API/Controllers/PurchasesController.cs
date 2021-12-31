@@ -120,17 +120,24 @@ namespace API.Controllers
 
             try
             {
+                
 
-                //loop Insert  I_Pur_TR_ReceiveItems
-                foreach (var item in Purc_Master)
-                {
+                    //loop Insert  I_Pur_TR_ReceiveItems
+                    foreach (var item in Purc_Master)
+                    {
 
-                    var updated = Purchases_MasterServices.Update(item);
-
-
-                }
+                        var updated = Purchases_MasterServices.Update(item);
 
 
+
+                        string update_qury = " update [dbo].[Supplier] set [Openbalance] =  0 , Credit = Credit - ( (" + item.CashPaidAmount + " )) where ID_Supplier = " + item.ID_Supplier+ "";
+                        db.Database.ExecuteSqlCommand(update_qury);
+
+                     
+
+                    }
+
+                
 
                 return Ok(new BaseResponse("ok"));
             }

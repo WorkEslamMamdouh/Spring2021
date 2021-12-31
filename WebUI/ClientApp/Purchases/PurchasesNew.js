@@ -210,11 +210,8 @@ var PurchasesNew;
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
+                    debugger;
                     storeDetails = result.Response;
-                    if (SysSession.CurrentEnvironment.UserType == 1 || SysSession.CurrentEnvironment.UserType == 3) {
-                        var StoreID_1 = SysSession.CurrentEnvironment.StoreID;
-                        storeDetails = storeDetails.filter(function (s) { return s.StoreId == StoreID_1; });
-                    }
                     if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
                         DocumentActions.FillCombowithdefult(storeDetails, ddlStore, "StoreId", "DescL", "Select Store");
                     }
@@ -953,7 +950,7 @@ var PurchasesNew;
         $("#txtItemCount").val(ItemCount);
         $("#txtTotal").val(CountTotal);
         var To_be_Paid = Number(CountTotal - Number($("#txtPaid_Up").val() == null ? 0 : $("#txtPaid_Up").val()));
-        $("#txtTo_be_Paid").val(To_be_Paid);
+        $("#txtTo_be_Paid").val(To_be_Paid - Number($('#txtTotalFC').val()));
     }
     function Insert_Serial() {
         var Ser = 1;
@@ -1206,8 +1203,9 @@ var PurchasesNew;
         PurMasterDetails.Purchases_Master.ID_Supplier = Number(ID_Supp);
         PurMasterDetails.Purchases_Master.Type_Debit = Number(txtTo_be_Paid.value) == 0 ? true : false;
         PurMasterDetails.Purchases_Master.Total_Amount = Number($('#txtTotal').val());
-        PurMasterDetails.Purchases_Master.Paid_Up = Number($('#txtPaid_Up').val());
-        PurMasterDetails.Purchases_Master.To_be_Paid = Number($('#txtTo_be_Paid').val());
+        PurMasterDetails.Purchases_Master.Paid_Up = Number($('#txtPaid_Up').val()) + Number($('#txtTotalFC').val());
+        PurMasterDetails.Purchases_Master.To_be_Paid = Number($('#txtTo_be_Paid').val()) + Number($('#txtTotalFC').val());
+        ;
         PurMasterDetails.Purchases_Master.REMARKS = $('#txtRemarks').val();
         Bal = Number($('#txtPaid_Up').val());
     }

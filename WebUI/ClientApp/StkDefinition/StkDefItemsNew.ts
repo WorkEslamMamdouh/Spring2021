@@ -185,10 +185,18 @@ namespace StkDefItemsNew {
     function btntrans_onclick() {
         $('#btntrans').addClass('display_none');
         $('#divremoveqty').removeClass('display_none');
+        $('#txtperishableQTY').val('');
     }
     function btnOk_onclick() {
         debugger
 
+
+        if (Number($('#txtperishableQTY').val()) > Selected_Data[0].BranchQty) {
+            DisplayMassage_Processes("لا يمكن تجاوز الكميه المتاحه  ( " + Selected_Data[0].BranchQty+" )!", "Must Enter Code Of Item !", MessageType.Worning);
+            Errorinput($('#txtperishableQTY'));
+            $('#txtperishableQTY').val(Selected_Data[0].BranchQty);
+            return
+        }
 
         var stor = DetailsQtyfilter.filter(x => x.StoreId == 1 )
 

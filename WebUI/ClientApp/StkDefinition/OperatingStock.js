@@ -12,7 +12,6 @@ var OperatingStock;
     var ReportGrid = new JsGrid();
     var SysSession = GetSystemSession();
     var Finyear;
-    var BranchCode;
     var detailstock = new Array();
     var Selected_Data = new Array();
     var Branch;
@@ -83,9 +82,11 @@ var OperatingStock;
     var GlobalTransferID = 0;
     var ItemID = 0;
     var compcode;
+    var BranchCode;
     var drpType;
     var Isnew = false;
     var lang = (SysSession.CurrentEnvironment.ScreenLanguage);
+    var ConvertedQnty = 0;
     function InitalizeComponent() {
         if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
             document.getElementById('Screen_name').innerHTML = "مخزون التشغيل";
@@ -94,6 +95,7 @@ var OperatingStock;
             document.getElementById('Screen_name').innerHTML = "Operating Stock";
         }
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
+        BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         InitalizeControls();
         InitalizeEvents();
         drpType.value = "0";
@@ -336,7 +338,7 @@ var OperatingStock;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Transfer", "UpdateIsReceipt"),
-            data: { TransfareID: TransfareID, IsReceived: IsReceived, usercode: usercode },
+            data: { TransfareID: TransfareID, IsReceived: IsReceived, usercode: usercode, CompCode: compcode, BranchCode: BranchCode },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -649,6 +651,7 @@ var OperatingStock;
                                 $('#txtstockQnty' + NumCnt + '').val(NewItem[0].OnhandQty);
                                 $('#txtstockQnty' + NumCnt + '').attr('disabled', 'disabled');
                                 $('#txtItemName' + NumCnt + '').attr('disabled', 'disabled');
+                                $('#dllUom' + NumCnt + '').removeAttr('disabled');
                             }
                             else {
                                 $('#dllUom' + NumCnt + '').append('<option value="null">اختر الوحده</option>');
@@ -712,11 +715,18 @@ var OperatingStock;
             $('#txtConvertedQnty' + cnt + '').val('0');
         });
         $("#txtConvertedQnty" + cnt).on('keyup', function () {
+            var Typeuom = $("#dllUom" + cnt);
+            var dataRate = $('option:selected', Typeuom).attr('data-Rate');
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
-            if (Number($("#txtConvertedQnty" + cnt).val()) > Number($("#txtstockQnty" + cnt).val())) {
+            validationitemOnhandqty($("#txt_ItemID" + cnt).val(), cnt);
+            var txtstockQnty = ConvertedQnty - Number($("#txtstockQnty" + cnt).val());
+            if (txtstockQnty < 0) {
+                txtstockQnty = txtstockQnty * -1;
+            }
+            if (Number($("#txtConvertedQnty" + cnt).val()) > (txtstockQnty / Number(dataRate))) {
                 DisplayMassage("لايمكن ان تكون الكمية المحوله اكبر من اكمية المتاحه", "The number of converters cannot be greater than the available quantity", MessageType.Error);
-                $("#txtConvertedQnty" + cnt).val($("#txtstockQnty" + cnt).val());
+                $("#txtConvertedQnty" + cnt).val(Number(txtstockQnty / Number(dataRate)));
                 Errorinput($("#txtConvertedQnty" + cnt));
             }
         });
@@ -778,6 +788,17 @@ var OperatingStock;
             $('#dllUom' + cnt).val(TransferDetailModelFiltered[cnt].UnitID);
             $('#txtSrcQty' + cnt).val(TransferDetailModelFiltered[cnt].SrcOhnandQty);
             $('#txt_StatusFlag' + cnt).val("u");
+        }
+    }
+    function validationitemOnhandqty(id, idRow) {
+        ConvertedQnty = 0;
+        for (var i = 0; i < CountGrid; i++) {
+            debugger;
+            if ($("#txt_StatusFlag" + i).val() != "d" && $("#txt_StatusFlag" + i).val() != "m") {
+                if ($("#txt_ItemID" + i + "").val() == id && i != idRow) {
+                    ConvertedQnty += ($("#txtConvertedQnty" + i + "").val() * 1000);
+                }
+            }
         }
     }
     function DeleteRow(RecNo) {

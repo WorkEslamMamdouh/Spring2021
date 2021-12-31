@@ -68,12 +68,29 @@ namespace API.Controllers
             
         }
           [HttpGet, AllowAnonymous]
-        public IHttpActionResult UpdateIsReceipt (int TransfareID, int IsReceived , string usercode)
+        public IHttpActionResult UpdateIsReceipt (int TransfareID, int IsReceived , string usercode,int CompCode ,int BranchCode)
         {
-                var Query = "UPDATE [dbo].[I_Stk_TR_Transfer] SET IsReceived = "+ IsReceived + " , ReceivedBy = '"+ usercode + "'  WHERE TransfareID = " + TransfareID+"";
-                 db.Database.ExecuteSqlCommand(Query);
 
-                return Ok(new BaseResponse(100)); 
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {
+                var Query = "UPDATE [dbo].[I_Stk_TR_Transfer] SET IsReceived = " + IsReceived + " , ReceivedBy = '" + usercode + "'  WHERE TransfareID = " + TransfareID + "";
+                db.Database.ExecuteSqlCommand(Query);
+
+                ResponseResult res = Shared.TransactionProcess(Convert.ToInt32(CompCode), Convert.ToInt32(BranchCode),  TransfareID, "RecvTransqty", "Add", db);
+                if (res.ResponseState == true)
+                { 
+                    dbTransaction.Commit();
+                    return Ok(new BaseResponse(100));
+                }
+                else
+                {
+                    dbTransaction.Rollback();
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, res.ResponseMessage));
+                }
+
+            }
+
+            return Ok(new BaseResponse(100)); 
            
         }
         

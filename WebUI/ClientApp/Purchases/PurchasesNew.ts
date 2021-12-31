@@ -260,12 +260,10 @@ namespace PurchasesNew {
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
+                    debugger
                     storeDetails = result.Response as Array<G_STORE>;
 
-                    if (SysSession.CurrentEnvironment.UserType == 1 || SysSession.CurrentEnvironment.UserType == 3) {
-                        let StoreID = SysSession.CurrentEnvironment.StoreID;
-                        storeDetails = storeDetails.filter(s => s.StoreId == StoreID);
-                    }
+                     
 
                     if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
                         DocumentActions.FillCombowithdefult(storeDetails, ddlStore, "StoreId", "DescL", "Select Store");
@@ -1219,7 +1217,7 @@ namespace PurchasesNew {
 
         var To_be_Paid = Number(CountTotal - Number($("#txtPaid_Up").val() == null ? 0 : $("#txtPaid_Up").val()));
 
-        $("#txtTo_be_Paid").val(To_be_Paid)
+        $("#txtTo_be_Paid").val(To_be_Paid -  Number($('#txtTotalFC').val()))
 
 
     }
@@ -1553,8 +1551,8 @@ namespace PurchasesNew {
         PurMasterDetails.Purchases_Master.ID_Supplier = Number(ID_Supp);
         PurMasterDetails.Purchases_Master.Type_Debit = Number(txtTo_be_Paid.value) == 0 ? true : false;
         PurMasterDetails.Purchases_Master.Total_Amount = Number($('#txtTotal').val());
-        PurMasterDetails.Purchases_Master.Paid_Up = Number($('#txtPaid_Up').val());
-        PurMasterDetails.Purchases_Master.To_be_Paid = Number($('#txtTo_be_Paid').val());
+        PurMasterDetails.Purchases_Master.Paid_Up = Number($('#txtPaid_Up').val()) + Number($('#txtTotalFC').val());
+        PurMasterDetails.Purchases_Master.To_be_Paid = Number($('#txtTo_be_Paid').val()) + Number($('#txtTotalFC').val());;
         PurMasterDetails.Purchases_Master.REMARKS = $('#txtRemarks').val();
         Bal = Number($('#txtPaid_Up').val());
 

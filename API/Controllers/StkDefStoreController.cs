@@ -86,8 +86,8 @@ namespace Inv.API.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult sendqty (int itemid , int QTY)
         {
-            var Query = "update i set i.onhandQty = i.onhandQty + " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = i.StoreCode and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '1' and i.LOCATION2 = '2'" +
-                        "update s set s.OnhandQty = s.OnhandQty - " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = i.StoreCode and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '1' and i.LOCATION2 = '2'";
+            var Query = "update i set i.onhandQty = i.onhandQty + " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = 1 and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '1' and i.LOCATION2 = '2'" +
+                        "update s set s.OnhandQty = s.OnhandQty - " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = 1 and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '1' and i.LOCATION2 = '2'";
 
             db.Database.ExecuteSqlCommand(Query);
             return Ok(new BaseResponse(100));
@@ -95,8 +95,8 @@ namespace Inv.API.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult sendqtyfromfull(int itemid , int QTY , string location)
         {
-            var Query = "update i set i.onhandQty = i.onhandQty + " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = i.StoreCode and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '3' and i.LOCATION2 = '"+location+"'" +
-                        "update s set s.OnhandQty = s.OnhandQty - " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = i.StoreCode and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '3' and i.LOCATION2 = '" + location + "'";
+            var Query = "update i set i.onhandQty = i.onhandQty + " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = 1 and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '3' and i.LOCATION2 = '"+location+"'" +
+                        "update s set s.OnhandQty = s.OnhandQty - " + QTY + "  from i_itemstore as s inner join i_itemstore as i on s.ItemID = " + itemid + " and i.ItemID = " + itemid + " and s.StoreCode = 1 and i.bracode = s.bracode and s.CompCode = i.CompCode where s.LOCATION2 = '3' and i.LOCATION2 = '" + location + "'";
 
             db.Database.ExecuteSqlCommand(Query);
             return Ok(new BaseResponse(100));

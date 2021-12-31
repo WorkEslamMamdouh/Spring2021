@@ -22,6 +22,7 @@ namespace Inv.DAL.Domain
         public char StatusFlag { get; set; }
         public string UserCode { get; set; }
         public string Token { get; set; }
+        public decimal CashPaidAmount { get; set; }
     }
     public class SecurityandUpdateFlagClass_FIN_YEAR
     {

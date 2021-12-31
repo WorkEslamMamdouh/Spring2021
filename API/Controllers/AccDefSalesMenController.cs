@@ -128,8 +128,7 @@ namespace Inv.API.Controllers
         [HttpPost, AllowAnonymous]
         public IHttpActionResult Insert([FromBody]I_Sls_D_Salesman AccDefSalesMan)
         {
-            if (ModelState.IsValid && UserControl.CheckUser(AccDefSalesMan.Token, AccDefSalesMan.UserCode))
-            {
+            
                 try
                 {
                     var AccDefSales = AccDefSalesMenService.Insert(AccDefSalesMan);
@@ -139,8 +138,7 @@ namespace Inv.API.Controllers
                 {
                     return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
                 }
-            }
-            return BadRequest(ModelState);
+        
         }
 
         public IHttpActionResult Delete(int ID, string UserCode, string Token)
@@ -166,8 +164,7 @@ namespace Inv.API.Controllers
         [HttpPost, AllowAnonymous]
         public IHttpActionResult Update([FromBody]I_Sls_D_Salesman AccDefSalesMan)
         {
-            if (ModelState.IsValid && UserControl.CheckUser(AccDefSalesMan.Token, AccDefSalesMan.UserCode))
-            {
+             
                 try
                 {
                     var AccDefSales = AccDefSalesMenService.Update(AccDefSalesMan);
@@ -177,8 +174,7 @@ namespace Inv.API.Controllers
                 {
                     return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
                 }
-            }
-            return BadRequest(ModelState);
+          
         }
         [HttpPost, AllowAnonymous]
         public IHttpActionResult UpdateLst(List<I_Sls_D_Salesman> AccDefSalesList)

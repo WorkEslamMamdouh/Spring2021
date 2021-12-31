@@ -12,8 +12,7 @@ namespace OperatingStock {
     var sys: SystemTools = new SystemTools();
     var ReportGrid: JsGrid = new JsGrid();
     var SysSession: SystemSession = GetSystemSession();
-    var Finyear: number;
-    var BranchCode: number;
+    var Finyear: number; 
     var detailstock: Array<IQ_GetItemStore> = new Array<IQ_GetItemStore>();
     var Selected_Data: Array<IQ_GetItemStore> = new Array<IQ_GetItemStore>();
     var Branch: Number;
@@ -85,10 +84,12 @@ namespace OperatingStock {
     var CountGrid: number = 0;
     var GlobalTransferID: number = 0;
     var ItemID: number = 0;
-    var compcode: Number;
+    var compcode: number;
+    var BranchCode: number;
     var drpType: HTMLSelectElement;
     var Isnew = false;
     var lang = (SysSession.CurrentEnvironment.ScreenLanguage);
+    var ConvertedQnty = 0;
 
     export function InitalizeComponent() {
         if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
@@ -99,6 +100,7 @@ namespace OperatingStock {
 
         }
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
+        BranchCode = Number(SysSession.CurrentEnvironment.BranchCode);
         InitalizeControls();
         InitalizeEvents();
 
@@ -386,7 +388,7 @@ namespace OperatingStock {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Transfer", "UpdateIsReceipt"),
-            data: { TransfareID: TransfareID, IsReceived: IsReceived, usercode: usercode},
+            data: { TransfareID: TransfareID, IsReceived: IsReceived, usercode: usercode, CompCode: compcode, BranchCode: BranchCode},
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -742,6 +744,7 @@ namespace OperatingStock {
                                 $('#txtstockQnty' + NumCnt + '').val(NewItem[0].OnhandQty);
                                 $('#txtstockQnty' + NumCnt + '').attr('disabled', 'disabled');
                                 $('#txtItemName' + NumCnt + '').attr('disabled', 'disabled');
+                                $('#dllUom' + NumCnt + '').removeAttr('disabled');
 
 
                             }
@@ -826,14 +829,25 @@ namespace OperatingStock {
         });
 
         $("#txtConvertedQnty" + cnt).on('keyup', function () {
-
+            let Typeuom = $("#dllUom" + cnt);
+            let dataRate = $('option:selected', Typeuom).attr('data-Rate');
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
-            if (Number($("#txtConvertedQnty" + cnt).val()) > Number($("#txtstockQnty" + cnt).val())) {
+            
+
+            validationitemOnhandqty($("#txt_ItemID" + cnt).val() , cnt);
+
+            let txtstockQnty = ConvertedQnty - Number($("#txtstockQnty" + cnt).val())
+            if (txtstockQnty < 0) {
+                txtstockQnty = txtstockQnty * -1
+            }
+             
+            if (Number($("#txtConvertedQnty" + cnt).val()) > (txtstockQnty/ Number(dataRate) )) {
 
                 DisplayMassage("لايمكن ان تكون الكمية المحوله اكبر من اكمية المتاحه", "The number of converters cannot be greater than the available quantity", MessageType.Error);
-                $("#txtConvertedQnty" + cnt).val($("#txtstockQnty" + cnt).val());
+                $("#txtConvertedQnty" + cnt).val(Number(txtstockQnty / Number(dataRate)));
                 Errorinput($("#txtConvertedQnty" + cnt));
+
 
             }
 
@@ -907,6 +921,22 @@ namespace OperatingStock {
             $('#txt_StatusFlag' + cnt).val("u");
         }
 
+    }
+
+    function validationitemOnhandqty(id: number , idRow: number) {
+        ConvertedQnty = 0;
+        for (var i = 0; i < CountGrid; i++) {
+            debugger
+            if ($("#txt_StatusFlag" + i).val() != "d" && $("#txt_StatusFlag" + i).val() != "m") {
+                if ($("#txt_ItemID" + i + "").val() == id  && i != idRow) {
+                    ConvertedQnty += ($("#txtConvertedQnty" + i + "").val() * 1000)
+                    
+                }
+            }
+
+        }
+
+         
     }
     function DeleteRow(RecNo: number) {
         if (!SysSession.CurrentPrivileges.Remove) return;
