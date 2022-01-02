@@ -748,15 +748,19 @@ namespace AccDefSalesmen {
             if (chkActive.checked) { Model.Isactive = true; }
             else { Model.Isactive = false; }
 
-            if (chk_IsPurchaseEnable.checked) { Model.IsPurchaseEnable = true; }
-            else { Model.IsPurchaseEnable = false; }
+            //if (chk_IsPurchaseEnable.checked) { Model.IsPurchaseEnable = true; }
+            //else { Model.IsPurchaseEnable = false; }
 
-            if (chk_IsSalesEnable.checked) { Model.IsSalesEnable = true; }
-            else { Model.IsSalesEnable = false; }
+            //if (chk_IsSalesEnable.checked) { Model.IsSalesEnable = true; }
+            //else { Model.IsSalesEnable = false; }
 
-            if (chk_ISOperationEnable.checked) { Model.ISOperationEnable = true; }
-            else { Model.ISOperationEnable = false; }
+            //if (chk_ISOperationEnable.checked) { Model.ISOperationEnable = true; }
+            //else { Model.ISOperationEnable = false; }
 
+
+            Model.IsPurchaseEnable = true;
+            Model.IsSalesEnable = true;
+            Model.ISOperationEnable = true;
 
             Model.CompCode = Number(compcode);
             Model.BraCode = Number(BranchCode);

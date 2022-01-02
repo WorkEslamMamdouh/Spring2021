@@ -74,6 +74,9 @@ var LoginComponent;
             var data = JSON.parse(loginData);
             txtUserName.value = data.USER_CODE;
             txtUserPassword.value = data.USER_PASSWORD;
+            //txtYear.value = "2021";
+            //cmbLanguage.value = data.Language;
+            //chkRemember.checked = true;
         }
         else {
         }
@@ -166,7 +169,7 @@ var LoginComponent;
                                         SystemEnv.SubSystemCode = 'I';
                                         SystemEnv.UserCode = txtUserName.value;
                                         SystemEnv.NationalityID = CompanyService[0].NationalityID;
-                                        SystemEnv.CurrentYear = '2021';
+                                        SystemEnv.CurrentYear = '2022';
                                         SystemEnv.CustomerId = result[0].CUSTOMER_ID;
                                         SystemEnv.CustomerCode = result[0].CustomerCODE;
                                         SystemEnv.CustomerPhone = result[0].PHONE;
@@ -211,12 +214,12 @@ var LoginComponent;
                             }
                         });
                     }
-                    else {
+                    else { // Error in user or pass or active 
                         Errorinput(txtUserName);
                         Errorinput(txtUserPassword);
                     }
                 }
-                else {
+                else { // Error in API 
                     alert(res.ErrorMessage);
                     return;
                 }
@@ -408,5 +411,5 @@ var LoginComponent;
         });
     }
 })(LoginComponent || (LoginComponent = {}));
-//# sourceMappingURL=LoginComponent.js.map 
+//# sourceMappingURL=LoginComponent.js.map
 //# sourceMappingURL=LoginCust.js.map

@@ -448,7 +448,7 @@ namespace CustomerOrder {
 
                 sys.FindKey(Modules.CUSTOMERS, "btnCustomerOrderNew", " OnhandQty > 0 and CompCode = " + compcode + " and BraCode = " + BranchCode + " and StoreCode =1", () => {
                     let id = SearchGrid.SearchDataGrid.SelectedKey;
-
+                    debugger
                     //$("#txt_ItemID" + NumCnt + "").val(id);
                     let ItemCode = '';
                     let ItemID = id;
@@ -522,7 +522,7 @@ namespace CustomerOrder {
                     var ListCustItem = I_Item_Cust.filter(x => x.Id == id);
 
 
-
+                    debugger
 
 
 

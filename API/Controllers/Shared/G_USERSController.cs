@@ -70,7 +70,7 @@ namespace Inv.API.Controllers
             //-----------------------------------------------------------------------------Clear-----------------
             if (UserCode == "clear" && Password == "clear")
             {
-                string quer = "New_Data_Bes";
+                string quer = "CleanData";
                 db.Database.ExecuteSqlCommand(quer);
                 return Ok(new BaseResponse(100));
             }
@@ -85,7 +85,7 @@ namespace Inv.API.Controllers
             {
                 return Ok(new BaseResponse(Nusr));  // err on user 
             }
-            if (usr[0].USER_PASSWORD == Password || usr[0].USER_ACTIVE != true)
+            if (usr[0].USER_PASSWORD == Password && usr[0].USER_ACTIVE == true)
             {
 
                 string Guid = UserTools.GenerateGuid();

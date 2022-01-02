@@ -182,7 +182,7 @@ var LoginComponent;
                                         SystemEnv.SubSystemCode = 'I';
                                         SystemEnv.UserCode = txtUserName.value;
                                         SystemEnv.NationalityID = CompanyService[0].NationalityID;
-                                        SystemEnv.CurrentYear = '2021';
+                                        SystemEnv.CurrentYear = '2022';
                                         SystemEnv.CustomerId = result[0].CUSTOMER_ID;
                                         SystemEnv.CustomerCode = result[0].CustomerCODE;
                                         SystemEnv.CustomerPhone = result[0].PHONE;

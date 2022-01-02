@@ -214,6 +214,7 @@ var Login_;
                             var masg = CompanyStatus.LoginMsg; 
                             if (status == 0 || status == 1 || status == 2) {
                                 //if (status == 1 || status == 2) {
+                                debugger
                                 MessageBox.Show(CompanyStatus.LoginMsg, "");
                                 
                                     $.ajax({

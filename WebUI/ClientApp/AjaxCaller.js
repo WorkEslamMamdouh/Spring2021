@@ -1,4 +1,4 @@
-var AjaxCaller = (function () {
+var AjaxCaller = /** @class */ (function () {
     function AjaxCaller() {
     }
     Object.defineProperty(AjaxCaller.prototype, "_url", {
@@ -8,7 +8,7 @@ var AjaxCaller = (function () {
             else
                 return this.Url;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     AjaxCaller.prototype.CallAsync = function (OnSuccess) {
