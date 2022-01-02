@@ -147,7 +147,7 @@ var HomeComponent;
         btn_loguotuser.onclick = LogoutUserApi;
         //CheckTime(); 
         $("#LanguageButtonHome").click(function () {
-            if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") { // English Mode  
+            if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
                 RemoveStyleSheet("bootstrap-rtl");
                 RemoveStyleSheet("mainAR");
                 RemoveStyleSheet("Style_Arabic");
@@ -162,7 +162,7 @@ var HomeComponent;
                 $('#LanguageButtonHome').text(" تغير اللغة  ");
                 document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
             }
-            else { // Arabic Mode
+            else {
                 RemoveStyleSheet("StyleEn");
                 RemoveStyleSheet("bootstrap.min");
                 RemoveStyleSheet("main");
@@ -846,7 +846,6 @@ var HomeComponent;
                 });
                 return false;
             });
-            //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
         }
     }
     function Check_Close_Day() {

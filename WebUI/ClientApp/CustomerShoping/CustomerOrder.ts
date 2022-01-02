@@ -526,7 +526,7 @@ namespace CustomerOrder {
 
 
 
-                    if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+                    //if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val()))) return
 
 
                     //$("#txt_ItemID" + NumCnt + "").val(id);

@@ -2172,8 +2172,8 @@ namespace SlsTrSalesManager {
             if (Number(txtQuantityValue) > Number(OnhandQty)) {
 
                 DisplayMassage(" لا يمكن تجاوز الكميه المتاحه  " + OnhandQty + " ", "Please select a customer", MessageType.Worning);
-                $("#txtQuantity" + cnt).val(OnhandQty);
-                Errorinput($("#txtQuantity" + cnt));
+                //$("#txtQuantity" + cnt).val(OnhandQty);
+                //Errorinput($("#txtQuantity" + cnt));
             }
 
             totalRow(cnt);

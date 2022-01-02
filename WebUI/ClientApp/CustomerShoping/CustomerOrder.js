@@ -364,8 +364,7 @@ var CustomerOrder;
                     var id = SearchGrid.SearchDataGrid.SelectedKey;
                     var ListCustItem = I_Item_Cust.filter(function (x) { return x.Id == id; });
                     debugger;
-                    if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val())))
-                        return;
+                    //if (!validationitem(ListCustItem[0].ItemID, Number($("#txt_ItemID" + NumCnt + "").val()))) return
                     //$("#txt_ItemID" + NumCnt + "").val(id);
                     var ItemCode = '';
                     var ItemID = ListCustItem[0].ItemID;
