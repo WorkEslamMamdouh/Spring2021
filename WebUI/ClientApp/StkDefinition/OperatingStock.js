@@ -321,6 +321,7 @@ var OperatingStock;
                     txt.onclick = function (e) {
                         if (txt.checked == true) {
                             changeCheckbox(item.TransfareID, 1);
+                            //txt.disabled = true;
                         }
                         else if (txt.checked == false) {
                             changeCheckbox(item.TransfareID, 0);
@@ -1099,6 +1100,7 @@ var OperatingStock;
                     GlobalTransferID = res.TransfareID;
                     Save();
                     AfterInsertOrUpdateFlag = true;
+                    //GridRowDoubleClick();
                 }
                 else {
                     DisplayMassage("هناك خطــأ ", '(Error)', MessageType.Error);

@@ -913,6 +913,7 @@ var RawStock;
                     GlobalTransferID = res.TransfareID;
                     Save();
                     AfterInsertOrUpdateFlag = true;
+                    //GridRowDoubleClick();
                 }
                 else {
                     DisplayMassage("هناك خطــأ ", '(Error)', MessageType.Error);

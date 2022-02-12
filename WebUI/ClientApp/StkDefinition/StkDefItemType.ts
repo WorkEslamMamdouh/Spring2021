@@ -187,9 +187,9 @@ namespace StkDefItemType {
             '<div class="col-lg-3 pad_"><input disabled id="txtDescA' + cnt + '" type="text" class="form-control right2"></div>' +
             '<div class="col-lg-3 pad_"><input disabled id="txtDescL' + cnt + '" type="text" class="form-control right2"></div>' +
             '<div class="col-lg-1 pad_"><select disabled id="select_Type_Item' + cnt + '" class="form-control"> <option value="Null"> ' + (lang == "ar" ? "اختر الفئة" : " Type_Item ") + '</option></select></div>' +
-            '<div class="col-lg-2 pad_"><input disabled id="txtRefItemCode' + cnt + '" type="number" class="form-control right2"></div>' +
-            '<div class="col-lg-1 pad_"><input disabled id="txtBarCodePrefix' + cnt + '" type="text" class="form-control right2"></div>' +
-            '<div class="col-lg-1 pad_"><input disabled id="txtLastBarCodeSeq' + cnt + '" type="number" class="form-control right2"></div>' +
+            '<div class="col-lg-2 pad_ display_none"><input disabled id="txtRefItemCode' + cnt + '" type="number" class="form-control right2"></div>' +
+            '<div class="col-lg-1 pad_ display_none"><input disabled id="txtBarCodePrefix' + cnt + '" type="text" class="form-control right2"></div>' +
+            '<div class="col-lg-1 pad_ display_none"><input disabled id="txtLastBarCodeSeq' + cnt + '" type="number" class="form-control right2"></div>' +
             '</div>' +
         '</div>' +
             '<input id="txt_StatusFlag' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ID' + cnt + '" name = " " type = "hidden" class="form-control" />';

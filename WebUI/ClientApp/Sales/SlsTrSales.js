@@ -275,7 +275,7 @@ var SlsTrServices;
         return true;
     }
     function ddlType_onchange() {
-        if (ddlType.value == "0") {
+        if (ddlType.value == "0") { // علي الحساب
             btnAccSearch.disabled = true;
             txtCashAccount.disabled = true;
             txtCashAccount.value = "";
@@ -412,11 +412,11 @@ var SlsTrServices;
         $("#btnUpdate").removeClass("display_none");
         $("#cotrolDiv").removeClass("disabledDiv");
         $("#ddlType").attr("disabled", "disabled");
-        if (NewAdd == true) {
+        if (NewAdd == true) { //add
             $("#DivInvoiceDetails").addClass("display_none");
             $("#chkActive").attr("disabled", "disabled");
         }
-        else {
+        else { //Edit
             Grid_RowDoubleClicked();
         }
     }
@@ -525,6 +525,9 @@ var SlsTrServices;
             $("#txtDiscountAmount" + i).removeAttr("disabled");
             $("#btn_minus" + i).removeClass("display_none");
             $("#btn_minus" + i).removeAttr("disabled");
+            //$("#btn_minus" + i).click(function (e) {
+            //    DeleteRow(i);
+            //});
         }
         btnCustomerSrch.disabled = false;
         txtCustomerCode.disabled = false;
@@ -1262,6 +1265,8 @@ var SlsTrServices;
                 TaxCount += Number($("#txtTax" + i).val());
                 TaxCount = Number(TaxCount.toFixed(2).toString());
                 NetCount += Number($("#txtTotAfterTax" + i).val());
+                //NetCount = Number(NetCount.toFixed(2).toString());
+                //NetCount = (Number(NetCount.toFixed(2)) - Number(txtDiscountValue.value));
             }
         }
         txtItemCount.value = CountItems.toString();

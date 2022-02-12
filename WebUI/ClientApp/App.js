@@ -200,9 +200,15 @@ var App;
         var SysSession = GetSystemSession();
         if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
             SysSession.CurrentEnvironment.ScreenLanguage = "en";
+            //SysSession.CurrentEnvironment.ScreenLanguage = "en";
+            //SysSession.CurrentEnvironment.CompanyNameAr = "";
+            //SysSession.CurrentEnvironment.CompanyName = "";
         }
-        else {
+        else { // Arabic Mode other mohaamed ragab
             SysSession.CurrentEnvironment.ScreenLanguage = "ar";
+            //SysSession.CurrentEnvironment.ScreenLanguage = "ar";
+            //SysSession.CurrentEnvironment.CompanyNameAr = "";
+            //SysSession.CurrentEnvironment.CompanyName = "";
         }
         document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
         //Ajax.CallAsync({
@@ -243,7 +249,7 @@ function GetBranchs() {
         }
     });
 }
-var GQ_GetUserBranch = (function () {
+var GQ_GetUserBranch = /** @class */ (function () {
     function GQ_GetUserBranch() {
         this.USER_CODE = "";
         this.COMP_CODE = 0;
@@ -632,6 +638,7 @@ var DocumentActions = {
                 //}
                 //let test = 
                 combo.add(new Option(name_4, code));
+                //
             }
         }
     },
@@ -913,7 +920,7 @@ function HeaderTemplate_ThreeElements(headerTitle, element_1, element_2) {
     tbl.appendChild(cellTr);
     return tbl;
 }
-var Resources = (function () {
+var Resources = /** @class */ (function () {
     function Resources() {
     }
     return Resources;
@@ -940,7 +947,7 @@ function CreateLabelElement(defaultValue, id) {
 function SetSearchControlName(id) {
     $("#SearchControlName").val(id);
 }
-var CodeDesciptionModel = (function () {
+var CodeDesciptionModel = /** @class */ (function () {
     function CodeDesciptionModel() {
     }
     return CodeDesciptionModel;
@@ -1118,22 +1125,22 @@ function AddDate(prd, Sdate, count) {
     var Tdate;
     Tdate = Sdate; //new Date();
     switch (prd) {
-        case 1:
+        case 1: //hours
             Tdate.setHours(Sdate.getHours() + count);
             break;
-        case 2:
+        case 2: //Days
             Tdate.setDate(Sdate.getDate() + (count - 1));
             break;
-        case 3:
+        case 3: //week
             Tdate.setDate(Sdate.getDate() + ((7 * count) - 1));
             break;
-        case 4:
+        case 4: //month
             // Loop from cur month with Qty * Prd times 
             Tdate = Sdate;
             Tdate.setMonth(Tdate.getMonth() + count);
             Tdate.setDate(Tdate.getDate() + -1);
             break;
-        case 5:
+        case 5: //year
             // add 365 or 366 days 
             Tdate = Sdate;
             Tdate.setFullYear(Tdate.getFullYear() + count);
@@ -1373,13 +1380,13 @@ function Get_PriceWithVAT(item_unitprice, VatPRc, flag_PriceWithVAT) {
     //debugger
     var Getunitprice = new IGetunitprice();
     var New_unitprice = 0;
-    if (flag_PriceWithVAT) {
+    if (flag_PriceWithVAT) { //  return unitprice
         New_unitprice = item_unitprice;
         New_unitprice = New_unitprice * 100 / (100 + VatPRc);
         Getunitprice.unitprice = Number(New_unitprice.toFixed(5));
         Getunitprice.unitpricewithvat = Number(item_unitprice.toFixed(5));
     }
-    else {
+    else { //  return unitpricewithvat
         New_unitprice = item_unitprice;
         New_unitprice = New_unitprice * (100 + VatPRc) / 100;
         Getunitprice.unitprice = Number(item_unitprice.toFixed(5));
@@ -1390,16 +1397,16 @@ function Get_PriceWithVAT(item_unitprice, VatPRc, flag_PriceWithVAT) {
 function SetCustomerType(Transcode, Iscredit, SlsType) {
     var Ct = new CustomerType();
     Ct.IsCredit = Iscredit;
-    if (Transcode == 1) {
+    if (Transcode == 1) { //  Standard
         Ct.IsPersonal = false;
     }
-    if (Transcode == 2) {
+    if (Transcode == 2) { //  Simplified
         Ct.IsPersonal = true;
     }
-    if (SlsType == 'W') {
+    if (SlsType == 'W') { //  Wholesale 
         Ct.SalesInvoiceNature = 2;
     }
-    if (SlsType == 'R') {
+    if (SlsType == 'R') { //  Retail
         Ct.SalesInvoiceNature = 1;
     }
     return Ct;

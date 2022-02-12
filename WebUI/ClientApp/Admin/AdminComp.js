@@ -279,6 +279,7 @@ var AdminComp;
             { title: "اسم الفرع", name: "NameA", type: "text", width: "12%" },
             { title: "رقم الموبيل", name: "Tel", type: "text", width: "20%" },
             { title: "الحالة", name: "NameActive", type: "text", width: "20%" },
+            //  { title: "الحالة", name: COMPANY[0].IsActive == true ? "تم" : "لا" , type: "text", width: "20%" },
         ];
         BindGrid();
     }
@@ -383,6 +384,7 @@ var AdminComp;
                     txt_SMS_UserName.value = GAlertControlFilter[0].SMS_UserName.toString();
                     txt_SMS_Password.value = GAlertControlFilter[0].SMS_Password.toString();
                     txt_SMS_SenderName.value = GAlertControlFilter[0].SMS_SenderName.toString();
+                    //txt_MobileNoPreFex.value = GAlertControlFilter[0].MobileNoPreFex.toString();
                 }
             }
         });
@@ -628,6 +630,7 @@ var AdminComp;
         }
         else {
             Grid_RowDoubleClicked();
+            // $("#divcompinformtion").removeClass("display_none");
         }
     }
     /////function  BUTTONS SECONDDIV  ////////////////////////////////////////////////////////////////

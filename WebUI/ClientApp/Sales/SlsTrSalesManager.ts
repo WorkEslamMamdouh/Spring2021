@@ -1997,7 +1997,7 @@ namespace SlsTrSalesManager {
             sys.ShowItems(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, () => {
                 let id = sysInternal_Comm.Itemid;
 
-                if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val()))) return
+                //if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val()))) return
 
                 $("#txt_ItemID" + NumCnt + "").val(id);
                 let ItemCode = '';
@@ -2086,11 +2086,11 @@ namespace SlsTrSalesManager {
                             //alert(NumCnt);
                             $("#txt_ItemID" + NumCnt + "").val(GetItemInfo1[0].ItemID);
 
-                            if (!validationitem(Number($("#txt_ItemID" + NumCnt + "").val()), 0)) {
-                                $("#txt_ItemID" + NumCnt + "").val("");
-                                $("#txtServiceCode" + NumCnt + "").val("");
-                                return
-                            }
+                            //if (!validationitem(Number($("#txt_ItemID" + NumCnt + "").val()), 0)) {
+                            //    $("#txt_ItemID" + NumCnt + "").val("");
+                            //    $("#txtServiceCode" + NumCnt + "").val("");
+                            //    return
+                            //}
 
                             $('#ddlTypeuom' + NumCnt + '').html('');
                             for (var i = 0; i < GetItemInfo1.length; i++) {

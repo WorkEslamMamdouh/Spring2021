@@ -223,35 +223,35 @@ var Inventorymove;
         rp.RepType = OutType; //output report as View
         rp.FromDate = DateFormatRep(txtDateFrom.value);
         rp.ToDate = DateFormatRep(txtDateTo.value);
-        if ($("#drpPaymentType").val() == "null") {
+        if ($("#drpPaymentType").val() == "null") { //-------------جميع الفئات
             rp.CatId = -1;
         }
         else {
             rp.CatId = Number($("#drpPaymentType").val());
         }
-        if ($("#drpitem_family").val() == "null") {
+        if ($("#drpitem_family").val() == "null") { //-------------جميع الانواع
             rp.ItemFamId = -1;
             rp.ItemID = -1;
         }
         else {
             rp.ItemFamId = Number($("#drpitem_family").val());
-            if ($("#txt_ID_APP_Type").val() == "null") {
+            if ($("#txt_ID_APP_Type").val() == "null") { //-------------جميع الاصناف
                 rp.ItemID = -1;
             }
             else {
                 rp.ItemID = Number($("#txt_ID_APP_Type").val());
             }
         }
-        if ($("#txt_indebtedness").val() == ">") {
+        if ($("#txt_indebtedness").val() == ">") { //******رصيد سالب
             rp.BalType = 2;
         }
-        if ($("#txt_indebtedness").val() == "<") {
+        if ($("#txt_indebtedness").val() == "<") { //******رصيد موجود
             rp.BalType = 1;
         }
-        if ($("#txt_indebtedness").val() == "=") {
+        if ($("#txt_indebtedness").val() == "=") { //******صفري
             rp.BalType = 3;
         }
-        if ($("#txt_indebtedness").val() == "All") {
+        if ($("#txt_indebtedness").val() == "All") { //******الجميع
             rp.BalType = 0;
         }
         rp.Status = $("#txt_ID_status").val();

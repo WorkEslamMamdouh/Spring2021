@@ -303,52 +303,52 @@ var Collectedaccstat;
         rp.RepType = OutType; //output report as View
         rp.FromDate = DateFormatRep(txtDateFrom.value);
         rp.ToDate = DateFormatRep(txtDateTo.value);
-        if ($("#txt_ID_APP_Category").val() == "Null") {
+        if ($("#txt_ID_APP_Category").val() == "Null") { //-------------جميع الفئات
             rp.CatId = -1;
         }
         else {
             rp.CatId = Number($("#txt_ID_APP_Category").val());
         }
-        if ($("#txt_ID_APP_Group").val() == "Null") {
+        if ($("#txt_ID_APP_Group").val() == "Null") { //-------------جميع المجموعات
             rp.Groupid = -1;
         }
         else {
             rp.Groupid = Number($("#txt_ID_APP_Group").val());
         }
-        if ($("#txt_ID_Vendor").val() == "null") {
+        if ($("#txt_ID_Vendor").val() == "null") { //-------------جميع العملاء
             rp.VendorId = -1;
         }
         else {
             rp.VendorId = Number($("#txt_ID_Vendor").val());
         }
-        if ($("#txtVendorType").val() == "Null") {
+        if ($("#txtVendorType").val() == "Null") { //-------------جميع المناديب 
             rp.VendType = -1;
         }
-        if ($("#txtVendorType").val() == "1") {
+        if ($("#txtVendorType").val() == "1") { //---------------مورد بضاعه 
             rp.VendType = 0;
         }
-        if ($("#txtVendorType").val() == "2") {
+        if ($("#txtVendorType").val() == "2") { //---------------مورد خدمات
             rp.VendType = 1;
         }
-        if ($("#txt_ID_APP_Type").val() == "Null") {
+        if ($("#txt_ID_APP_Type").val() == "Null") { //-------------جميع الانواع
             rp.Status = 3;
         }
         else {
             rp.Status = 1;
         } //-------------منفذ 
-        if ($("#txt_indebtedness").val() == ">") {
+        if ($("#txt_indebtedness").val() == ">") { //******عليه مديونيه
             rp.BalType = 1;
         }
-        else if ($("#txt_indebtedness").val() == "<") {
+        else if ($("#txt_indebtedness").val() == "<") { //******ليه مديونيه
             rp.BalType = 2;
         }
-        else if ($("#txt_indebtedness").val() == "=") {
+        else if ($("#txt_indebtedness").val() == "=") { //******صفري
             rp.BalType = 3;
         }
-        else {
+        else { //******الجميع
             rp.BalType = 0;
         }
-        if ($("#txt_ID_Vendor").val() == "Null") {
+        if ($("#txt_ID_Vendor").val() == "Null") { //-------------جميع الفئات
             rp.VendorId = -1;
         }
         else {

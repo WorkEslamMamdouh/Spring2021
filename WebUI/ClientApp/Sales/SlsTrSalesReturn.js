@@ -14,11 +14,11 @@ var SlsTrSalesReturn;
     var Screen_name = '';
     var InvoiceType = 0; // 1:Retail invoice , 2: Wholesale invoice            
     var SlsInv = $('#SlsInvType').val();
-    if (SlsInv == "1") {
+    if (SlsInv == "1") { //  1:Retail invoice 
         InvoiceType = 1;
         (lang == "ar" ? Screen_name = 'مرتجع التجزئه' : Screen_name = 'Return Retail invoice');
     }
-    else {
+    else { //2: Wholesale invoice 
         InvoiceType = 2;
         (lang == "ar" ? Screen_name = 'مرتجع الجمله' : Screen_name = 'Return Wholesale invoice');
     }
@@ -214,7 +214,7 @@ var SlsTrSalesReturn;
         btnCustomerSrch.onclick = btnCustomerSrch_onclick;
     }
     function Check_on_user_type() {
-        if (SysSession.CurrentEnvironment.UserType == 1 || SysSession.CurrentEnvironment.UserType == 3) {
+        if (SysSession.CurrentEnvironment.UserType == 1 || SysSession.CurrentEnvironment.UserType == 3) { //Salesman
             var SalesId_1 = SysSession.CurrentEnvironment.SalesManID;
             SalesmanDetails = SalesmanDetails.filter(function (s) { return s.SalesmanId == SalesId_1; });
         }
@@ -694,7 +694,7 @@ var SlsTrSalesReturn;
                 var result = d;
                 if (result.IsSuccess) {
                     CustDetails = result.Response;
-                    if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
+                    if (SysSession.CurrentEnvironment.ScreenLanguage == "en") { //ddlInvoiceCustomer
                         DocumentActions.FillCombowithdefult(CustDetails, ddlCustomer, "CUSTOMER_ID", "NAMEE", "Select customer");
                     }
                     else {
@@ -1204,7 +1204,7 @@ var SlsTrSalesReturn;
         });
         $('#ddlTypeuom' + cnt + '').val(SlsInvoiceItemsDetails[cnt].UomID == null ? 'null' : SlsInvoiceItemsDetails[cnt].UomID);
         debugger;
-        if (Show == true) {
+        if (Show == true) { // display return      
             //bind Data
             $("#txt_StatusFlag" + cnt).val("");
             $("#txtReturnQuantity" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].SoldQty);
@@ -1214,7 +1214,7 @@ var SlsTrSalesReturn;
             $("#txtTotAfterTax" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].NetAfterVat.toFixed(2));
             $("#InvoiceItemID" + cnt).prop("value", SlsInvoiceItemsDetails[cnt].InvoiceItemID);
         }
-        else {
+        else { // load from invoice 
             $("#txt_StatusFlag" + cnt).val("i");
             var InvoiceSoldQty = SlsInvoiceItemsDetails[cnt].SoldQty - SlsInvoiceItemsDetails[cnt].TotRetQty;
             var total = InvoiceSoldQty * SlsInvoiceItemsDetails[cnt].NetUnitPrice;

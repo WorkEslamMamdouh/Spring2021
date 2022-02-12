@@ -286,6 +286,8 @@ var StkDefCategory;
                     Model.DescL = $("#txtDescL" + i).val();
                 }
                 Details.push(Model);
+                //$("#txt_StatusFlag" + i).val("");
+                //Model.CompCode = Number(compcode);
             }
             if (StatusFlag == "u") {
                 var UpdatedDetail = Details.filter(function (x) { return x.CatID == $("#txt_ID" + i).val(); });

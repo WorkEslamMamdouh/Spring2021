@@ -1661,8 +1661,7 @@ var SlsTrSalesManager;
             var Storeid = Number($("#ddlStore").val());
             sys.ShowItems(Number(SysSession.CurrentEnvironment.BranchCode), Storeid, $('#txtServiceName' + cnt).val(), $('#txtServiceCode' + cnt).val(), InvoiceType, function () {
                 var id = sysInternal_Comm.Itemid;
-                if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val())))
-                    return;
+                //if (!validationitem(id, Number($("#txt_ItemID" + NumCnt + "").val()))) return
                 $("#txt_ItemID" + NumCnt + "").val(id);
                 var ItemCode = '';
                 var ItemID = id;
@@ -1733,11 +1732,11 @@ var SlsTrSalesManager;
                         if (GetItemInfo1.length > 0) {
                             //alert(NumCnt);
                             $("#txt_ItemID" + NumCnt + "").val(GetItemInfo1[0].ItemID);
-                            if (!validationitem(Number($("#txt_ItemID" + NumCnt + "").val()), 0)) {
-                                $("#txt_ItemID" + NumCnt + "").val("");
-                                $("#txtServiceCode" + NumCnt + "").val("");
-                                return;
-                            }
+                            //if (!validationitem(Number($("#txt_ItemID" + NumCnt + "").val()), 0)) {
+                            //    $("#txt_ItemID" + NumCnt + "").val("");
+                            //    $("#txtServiceCode" + NumCnt + "").val("");
+                            //    return
+                            //}
                             $('#ddlTypeuom' + NumCnt + '').html('');
                             for (var i = 0; i < GetItemInfo1.length; i++) {
                                 $('#ddlTypeuom' + NumCnt + '').append('<option  data-OnhandQty="' + GetItemInfo1[i].OnhandQty + '" data-UnitPrice="' + GetItemInfo1[i].UnitPrice + '" data-MinPrice="' + GetItemInfo1[i].MinPrice + '" data-Rate="' + GetItemInfo1[i].OnhandQty + '" value="' + GetItemInfo1[i].uomid + '">' + (lang == "ar" ? GetItemInfo1[i].u_DescA : GetItemInfo1[i].u_DescE) + '</option>');

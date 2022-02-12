@@ -283,19 +283,19 @@ var Supplieraccstat;
         rp.RepType = OutType; //output report as View
         rp.FromDate = DateFormatRep(txtDateFrom.value);
         rp.ToDate = DateFormatRep(txtDateTo.value);
-        if ($("#txt_ID_APP_Category").val() == "Null") {
+        if ($("#txt_ID_APP_Category").val() == "Null") { //-------------جميع الفئات
             rp.CatId = -1;
         }
         else {
             rp.CatId = Number($("#txt_ID_APP_Category").val());
         }
-        if ($("#txt_ID_APP_Group").val() == "Null") {
+        if ($("#txt_ID_APP_Group").val() == "Null") { //-------------جميع المجموعات
             rp.Groupid = -1;
         }
         else {
             rp.Groupid = Number($("#txt_ID_APP_Group").val());
         }
-        if ($("#txtVendorType").val() == "Null") {
+        if ($("#txtVendorType").val() == "Null") { //-------------جميع المناديب 
             rp.VendType = -1;
         }
         if ($("#txtVendorType").val() == "1") {
@@ -304,25 +304,25 @@ var Supplieraccstat;
         if ($("#txtVendorType").val() == "2") {
             rp.VendType = 1;
         }
-        if ($("#txt_ID_APP_Type").val() == "Null") {
+        if ($("#txt_ID_APP_Type").val() == "Null") { //-------------جميع الانواع
             rp.Status = 3;
         }
-        if (Number($("#txt_ID_APP_Type").val()) == 1) {
+        if (Number($("#txt_ID_APP_Type").val()) == 1) { //-------------منفذ 
             rp.Status = 1;
         }
         //if (Number($("#txt_ID_APP_Type").val()) == 0) {//-------------غير منفذ
         //    rp.Status = 0;
         //}
-        if ($("#txt_indebtedness").val() == ">") {
+        if ($("#txt_indebtedness").val() == ">") { //******عليه مديونيه
             rp.BalType = 1;
         }
-        if ($("#txt_indebtedness").val() == "<") {
+        if ($("#txt_indebtedness").val() == "<") { //******ليه مديونيه
             rp.BalType = 2;
         }
-        if ($("#txt_indebtedness").val() == "=") {
+        if ($("#txt_indebtedness").val() == "=") { //******صفري
             rp.BalType = 3;
         }
-        if ($("#txt_indebtedness").val() == "All") {
+        if ($("#txt_indebtedness").val() == "All") { //******الجميع
             rp.BalType = 0;
         }
         //txtVendorType
@@ -335,14 +335,14 @@ var Supplieraccstat;
         //if (Number($("#txtVendorType").val()) == 2) {//-------------مورد خدمات
         //    rp.Status = 0;
         //}
-        if ($("#txt_ID_Vendor").val() == "Null") {
+        if ($("#txt_ID_Vendor").val() == "Null") { //-------------جميع الفئات
             rp.VendorId = -1;
         }
         else {
             rp.VendorId = Number($("#txt_ID_Vendor").val());
         }
         //  Rd_detail
-        if (Rddetails.checked == true) {
+        if (Rddetails.checked == true) { //******  تقرير تفصيلي 
             rp.check = 1;
             Ajax.Callsync({
                 url: Url.Action("IProc_Rpt_AccVendorDetail", "GeneralReports"),
@@ -353,7 +353,7 @@ var Supplieraccstat;
                 }
             });
         }
-        else {
+        else { //******  تقرير ملخص   
             rp.check = 2;
             Ajax.Callsync({
                 url: Url.Action("IProc_Rpt_AccVendorSummary", "GeneralReports"),

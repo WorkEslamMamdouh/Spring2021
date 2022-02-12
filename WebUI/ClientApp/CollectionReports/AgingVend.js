@@ -226,40 +226,40 @@ var AgingVend;
         rp.LoginUser = SysSession.CurrentEnvironment.UserCode;
         rp.RepType = OutType; //output report as View
         rp.FromDt = DateFormatRep(txtDateFrom.value);
-        if ($("#txt_ID_APP_Category").val() == "Null") {
+        if ($("#txt_ID_APP_Category").val() == "Null") { //-------------جميع الفئات
             rp.CatId = -1;
         }
         else {
             rp.CatId = Number($("#txt_ID_APP_Category").val());
         }
-        if ($("#txt_ID_APP_Group").val() == "Null") {
+        if ($("#txt_ID_APP_Group").val() == "Null") { //-------------جميع المجموعات
             rp.Groupid = -1;
         }
         else {
             rp.Groupid = Number($("#txt_ID_APP_Group").val());
         }
-        if ($("#txt_ID_Vendor").val() == "null") {
+        if ($("#txt_ID_Vendor").val() == "null") { //-------------جميع العملاء 
             rp.CustomerID = -1;
         }
         else {
             rp.CustomerID = Number($("#txt_ID_Vendor").val());
         }
-        if ($("#txt_ID_APP_Type").val() == 3) {
+        if ($("#txt_ID_APP_Type").val() == 3) { //-------------جميع الانواع
             rp.Status = 3;
         }
-        if (Number($("#txt_ID_APP_Type").val()) == 1) {
+        if (Number($("#txt_ID_APP_Type").val()) == 1) { //-------------منفذ 
             rp.Status = 1;
         }
-        if ($("#txt_indebtedness").val() == 0) {
+        if ($("#txt_indebtedness").val() == 0) { //******الجميع 
             rp.BalType = 0;
         }
-        if ($("#txt_indebtedness").val() == 1) {
+        if ($("#txt_indebtedness").val() == 1) { //******عليه مديونيه
             rp.BalType = 1;
         }
-        if ($("#txt_indebtedness").val() == 2) {
+        if ($("#txt_indebtedness").val() == 2) { //******   ليه مديونيه
             rp.BalType = 2;
         }
-        if ($("#txt_indebtedness").val() == 3) {
+        if ($("#txt_indebtedness").val() == 3) { //******صفري
             rp.BalType = 3;
         }
         if (oneyear.checked == true) {

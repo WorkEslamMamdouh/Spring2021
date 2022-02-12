@@ -118,6 +118,7 @@ var StkDefItemType;
             //$(".minus_btn").addClass("display_none");
             $("#btnedite").removeClass("display_none");
             CountGrid++;
+            //$('#select_Type_Item' + CountGrid).prop("value", catId);
         }
         $("#btnedite").addClass("display_none");
     }
@@ -130,9 +131,9 @@ var StkDefItemType;
             '<div class="col-lg-3 pad_"><input disabled id="txtDescA' + cnt + '" type="text" class="form-control right2"></div>' +
             '<div class="col-lg-3 pad_"><input disabled id="txtDescL' + cnt + '" type="text" class="form-control right2"></div>' +
             '<div class="col-lg-1 pad_"><select disabled id="select_Type_Item' + cnt + '" class="form-control"> <option value="Null"> ' + (lang == "ar" ? "اختر الفئة" : " Type_Item ") + '</option></select></div>' +
-            '<div class="col-lg-2 pad_"><input disabled id="txtRefItemCode' + cnt + '" type="number" class="form-control right2"></div>' +
-            '<div class="col-lg-1 pad_"><input disabled id="txtBarCodePrefix' + cnt + '" type="text" class="form-control right2"></div>' +
-            '<div class="col-lg-1 pad_"><input disabled id="txtLastBarCodeSeq' + cnt + '" type="number" class="form-control right2"></div>' +
+            '<div class="col-lg-2 pad_ display_none"><input disabled id="txtRefItemCode' + cnt + '" type="number" class="form-control right2"></div>' +
+            '<div class="col-lg-1 pad_ display_none"><input disabled id="txtBarCodePrefix' + cnt + '" type="text" class="form-control right2"></div>' +
+            '<div class="col-lg-1 pad_ display_none"><input disabled id="txtLastBarCodeSeq' + cnt + '" type="number" class="form-control right2"></div>' +
             '</div>' +
             '</div>' +
             '<input id="txt_StatusFlag' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ID' + cnt + '" name = " " type = "hidden" class="form-control" />';
@@ -293,6 +294,7 @@ var StkDefItemType;
                     Model.DescL = $("#txtDescL" + i).val();
                 }
                 Detail_Model.push(Model);
+                //Model.CompCode = Number(compcode);
             }
             if (StatusFlag == "u") {
                 var UpdatedDetail = BilldDetail.filter(function (x) { return x.ItemFamilyID == $("#txt_ID" + i).val(); });
